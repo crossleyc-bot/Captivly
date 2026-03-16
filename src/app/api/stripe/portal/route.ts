@@ -1,12 +1,34 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
+import { getStripe } from "@/lib/stripe";
+import { createClient } from "@/lib/supabase/server";
 
-export async function POST(_request: NextRequest) {
-  // TODO: Validate authenticated user
-  // TODO: Get user's stripe_customer_id
-  // TODO: Create Stripe billing portal session
-  // TODO: Return portal URL
+export async function POST() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  console.log("Portal request received");
+  if (!user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
 
-  return NextResponse.json({ error: "Not implemented" }, { status: 501 });
+  const { data: dbUser } = await supabase
+    .from("users")
+    .select("stripe_customer_id")
+    .eq("id", user.id)
+    .single();
+
+  if (!dbUser?.stripe_customer_id) {
+    return NextResponse.json(
+      { error: "No billing account found. Please subscribe to a plan first." },
+      { status: 400 }
+    );
+  }
+
+  const session = await getStripe().billingPortal.sessions.create({
+    customer: dbUser.stripe_customer_id,
+    return_url: `${process.env.NEXT_PUBLIC_APP_URL}/settings`,
+  });
+
+  return NextResponse.json({ url: session.url });
 }

@@ -1,14 +1,56 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getStripe, STRIPE_PRICES } from "@/lib/stripe";
+import { createClient } from "@/lib/supabase/server";
+import type { PlanTier } from "@/types/database";
 
 export async function POST(request: NextRequest) {
-  const body = await request.json();
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  // TODO: Validate authenticated user
-  // TODO: Create or retrieve Stripe customer
-  // TODO: Create Stripe checkout session with the selected plan price
-  // TODO: Return checkout URL
+  if (!user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
 
-  console.log("Create checkout request:", JSON.stringify(body));
+  const { plan } = (await request.json()) as { plan: PlanTier };
 
-  return NextResponse.json({ error: "Not implemented" }, { status: 501 });
+  if (!plan || !STRIPE_PRICES[plan]) {
+    return NextResponse.json({ error: "Invalid plan" }, { status: 400 });
+  }
+
+  // Get or create Stripe customer
+  const { data: dbUser } = await supabase
+    .from("users")
+    .select("stripe_customer_id, email")
+    .eq("id", user.id)
+    .single();
+
+  let customerId = dbUser?.stripe_customer_id;
+
+  if (!customerId) {
+    const customer = await getStripe().customers.create({
+      email: dbUser?.email ?? user.email,
+      metadata: { supabase_user_id: user.id },
+    });
+    customerId = customer.id;
+
+    await supabase
+      .from("users")
+      .update({ stripe_customer_id: customerId })
+      .eq("id", user.id);
+  }
+
+  const session = await getStripe().checkout.sessions.create({
+    customer: customerId,
+    mode: "subscription",
+    line_items: [{ price: STRIPE_PRICES[plan], quantity: 1 }],
+    success_url: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard?checkout=success`,
+    cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/settings`,
+    subscription_data: {
+      metadata: { supabase_user_id: user.id, plan },
+    },
+  });
+
+  return NextResponse.json({ url: session.url });
 }

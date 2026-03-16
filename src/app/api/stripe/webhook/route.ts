@@ -1,21 +1,134 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getStripe } from "@/lib/stripe";
+import type Stripe from "stripe";
+import { createClient } from "@supabase/supabase-js";
+
+// Lazily create service role client — no user session available in webhooks
+function getServiceClient() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
+}
+
+function planFromPriceId(priceId: string): string {
+  const prices: Record<string, string> = {
+    [process.env.STRIPE_PRICE_STARTER!]: "starter",
+    [process.env.STRIPE_PRICE_GROWTH!]: "growth",
+    [process.env.STRIPE_PRICE_PRO!]: "pro",
+  };
+  return prices[priceId] ?? "starter";
+}
 
 export async function POST(request: NextRequest) {
-  const _body = await request.text();
+  const body = await request.text();
   const signature = request.headers.get("stripe-signature");
 
   if (!signature) {
     return NextResponse.json({ error: "Missing signature" }, { status: 400 });
   }
 
-  // TODO: Verify Stripe webhook signature
-  // TODO: Handle subscription events:
-  //   - checkout.session.completed → activate subscription
-  //   - customer.subscription.updated → update plan tier
-  //   - customer.subscription.deleted → deactivate subscription
-  //   - invoice.payment_failed → mark as past_due
+  let event: Stripe.Event;
 
-  console.log("Stripe webhook received");
+  try {
+    event = getStripe().webhooks.constructEvent(
+      body,
+      signature,
+      process.env.STRIPE_WEBHOOK_SECRET!
+    );
+  } catch {
+    return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
+  }
+
+  switch (event.type) {
+    case "checkout.session.completed": {
+      const session = event.data.object as Stripe.Checkout.Session;
+      const userId = session.subscription
+        ? (
+            await getStripe().subscriptions.retrieve(session.subscription as string)
+          ).metadata.supabase_user_id
+        : session.metadata?.supabase_user_id;
+
+      if (userId && session.subscription) {
+        const subscription = await getStripe().subscriptions.retrieve(
+          session.subscription as string
+        );
+        const priceId = subscription.items.data[0]?.price.id;
+        const plan = planFromPriceId(priceId);
+
+        await getServiceClient()
+          .from("users")
+          .update({
+            stripe_subscription_id: subscription.id,
+            plan_tier: plan,
+            subscription_status: "active",
+          })
+          .eq("id", userId);
+      }
+      break;
+    }
+
+    case "customer.subscription.updated": {
+      const subscription = event.data.object as Stripe.Subscription;
+      const userId = subscription.metadata.supabase_user_id;
+      if (!userId) break;
+
+      const priceId = subscription.items.data[0]?.price.id;
+      const plan = planFromPriceId(priceId);
+
+      const statusMap: Record<string, string> = {
+        active: "active",
+        past_due: "past_due",
+        canceled: "canceled",
+        unpaid: "past_due",
+        trialing: "active",
+      };
+
+      await getServiceClient()
+        .from("users")
+        .update({
+          plan_tier: plan,
+          subscription_status: statusMap[subscription.status] ?? "inactive",
+        })
+        .eq("id", userId);
+      break;
+    }
+
+    case "customer.subscription.deleted": {
+      const subscription = event.data.object as Stripe.Subscription;
+      const userId = subscription.metadata.supabase_user_id;
+      if (!userId) break;
+
+      await getServiceClient()
+        .from("users")
+        .update({
+          plan_tier: "starter",
+          subscription_status: "canceled",
+          stripe_subscription_id: null,
+        })
+        .eq("id", userId);
+      break;
+    }
+
+    case "invoice.payment_failed": {
+      const invoice = event.data.object as Stripe.Invoice;
+      const customerId = invoice.customer as string;
+
+      const { data: dbUser } = await getServiceClient()
+        .from("users")
+        .select("id")
+        .eq("stripe_customer_id", customerId)
+        .single();
+
+      if (dbUser) {
+        await getServiceClient()
+          .from("users")
+          .update({ subscription_status: "past_due" })
+          .eq("id", dbUser.id);
+      }
+      break;
+    }
+  }
 
   return NextResponse.json({ received: true });
 }

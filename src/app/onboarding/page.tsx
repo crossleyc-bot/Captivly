@@ -3,7 +3,13 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
-import type { OutreachTone } from "@/types/database";
+import type { OutreachTone, PlanTier } from "@/types/database";
+
+const PLANS: { tier: PlanTier; name: string; price: string; features: string }[] = [
+  { tier: "starter", name: "Starter", price: "$49/mo", features: "100 leads, 1 campaign, 3-step email sequences" },
+  { tier: "growth", name: "Growth", price: "$99/mo", features: "500 leads, 5 campaigns, SMS + email, 5-step sequences" },
+  { tier: "pro", name: "Pro", price: "$199/mo", features: "2,000 leads, unlimited campaigns, AI reports, chat widget" },
+];
 
 const BUSINESS_TYPES = [
   "Gym / Fitness Studio",
@@ -68,6 +74,7 @@ export default function OnboardingPage() {
   const [step, setStep] = useState(0);
   const [data, setData] = useState<OnboardingData>(INITIAL_DATA);
   const [error, setError] = useState<string | null>(null);
+  const [selectedPlan, setSelectedPlan] = useState<PlanTier>("starter");
   const [loading, setLoading] = useState(false);
 
   function update(fields: Partial<OnboardingData>) {
@@ -137,6 +144,22 @@ export default function OnboardingPage() {
       return;
     }
 
+    // Redirect to Stripe checkout if a paid plan was selected
+    const res = await fetch("/api/stripe/create-checkout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ plan: selectedPlan }),
+    });
+
+    if (res.ok) {
+      const { url } = await res.json();
+      if (url) {
+        window.location.href = url;
+        return;
+      }
+    }
+
+    // Fallback: go to dashboard (e.g. if Stripe isn't configured yet)
     router.push("/dashboard");
     router.refresh();
   }
@@ -408,31 +431,19 @@ export default function OnboardingPage() {
           <div className="space-y-4">
             <h2 className="text-xl font-bold">Choose your plan</h2>
             <p className="text-sm text-zinc-500">
-              Start with Starter and upgrade anytime. You can also set up billing
-              later from Settings.
+              Select a plan to get started. You can change it anytime.
             </p>
             <div className="space-y-3">
-              {[
-                {
-                  name: "Starter",
-                  price: "$49/mo",
-                  features: "100 leads, 1 campaign, 3-step email sequences",
-                },
-                {
-                  name: "Growth",
-                  price: "$99/mo",
-                  features: "500 leads, 5 campaigns, SMS + email, 5-step sequences",
-                },
-                {
-                  name: "Pro",
-                  price: "$199/mo",
-                  features:
-                    "2,000 leads, unlimited campaigns, AI reports, chat widget",
-                },
-              ].map((plan) => (
-                <div
-                  key={plan.name}
-                  className="rounded-md border border-zinc-200 px-4 py-3"
+              {PLANS.map((plan) => (
+                <button
+                  key={plan.tier}
+                  type="button"
+                  onClick={() => setSelectedPlan(plan.tier)}
+                  className={`w-full rounded-md border px-4 py-3 text-left ${
+                    selectedPlan === plan.tier
+                      ? "border-zinc-900 ring-1 ring-zinc-900"
+                      : "border-zinc-200 hover:border-zinc-300"
+                  }`}
                 >
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-semibold">{plan.name}</span>
@@ -441,13 +452,9 @@ export default function OnboardingPage() {
                     </span>
                   </div>
                   <p className="mt-1 text-xs text-zinc-500">{plan.features}</p>
-                </div>
+                </button>
               ))}
             </div>
-            <p className="text-center text-xs text-zinc-400">
-              Billing will be set up once Stripe is connected. For now, your
-              account starts on the Starter plan.
-            </p>
           </div>
         )}
 
