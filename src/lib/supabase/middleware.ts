@@ -31,7 +31,9 @@ export async function updateSession(request: NextRequest) {
 
   const isAuthPage =
     request.nextUrl.pathname.startsWith("/login") ||
-    request.nextUrl.pathname.startsWith("/signup");
+    request.nextUrl.pathname.startsWith("/signup") ||
+    request.nextUrl.pathname.startsWith("/reset-password") ||
+    request.nextUrl.pathname.startsWith("/update-password");
 
   const isProtectedRoute =
     request.nextUrl.pathname.startsWith("/dashboard") ||
@@ -48,7 +50,9 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  if (user && isAuthPage) {
+  const isUpdatePassword = request.nextUrl.pathname.startsWith("/update-password");
+
+  if (user && isAuthPage && !isUpdatePassword) {
     const url = request.nextUrl.clone();
     url.pathname = "/dashboard";
     return NextResponse.redirect(url);

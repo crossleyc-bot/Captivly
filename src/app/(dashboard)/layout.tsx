@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { LogoutButton } from "./logout-button";
 
 const navItems = [
   { href: "/dashboard", label: "Dashboard" },
@@ -16,11 +17,11 @@ export default function DashboardLayout({
 }) {
   return (
     <div className="flex min-h-screen">
-      <aside className="w-64 border-r bg-zinc-50 px-4 py-6">
+      <aside className="flex w-64 flex-col border-r bg-zinc-50 px-4 py-6">
         <Link href="/dashboard" className="text-xl font-bold">
           Captivly
         </Link>
-        <nav className="mt-8 flex flex-col gap-1">
+        <nav className="mt-8 flex flex-1 flex-col gap-1">
           {navItems.map((item) => (
             <Link
               key={item.href}
@@ -31,6 +32,7 @@ export default function DashboardLayout({
             </Link>
           ))}
         </nav>
+        <LogoutButton />
       </aside>
       <main className="flex-1 p-8">{children}</main>
     </div>
