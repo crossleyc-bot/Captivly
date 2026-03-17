@@ -192,9 +192,26 @@ export default function OnboardingPage() {
     "mt-1 block w-full rounded-md border border-zinc-300 px-3 py-2 text-sm shadow-sm focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500";
   const labelClass = "block text-sm font-medium text-zinc-700";
 
+  async function handleSignOut() {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    router.push("/login");
+    router.refresh();
+  }
+
   return (
     <div className="flex min-h-screen items-center justify-center">
       <div className="w-full max-w-lg space-y-6 px-4">
+        {/* Sign out link */}
+        <div className="flex justify-end">
+          <button
+            type="button"
+            onClick={handleSignOut}
+            className="text-sm text-zinc-400 hover:text-zinc-700"
+          >
+            Sign out
+          </button>
+        </div>
         {/* Progress */}
         <div className="flex gap-2">
           {STEP_TITLES.map((title, i) => (
