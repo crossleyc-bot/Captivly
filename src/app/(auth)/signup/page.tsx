@@ -42,19 +42,7 @@ export default function SignupPage() {
       return;
     }
 
-    // Create the public users row
-    const { error: insertError } = await supabase.from("users").insert({
-      id: data.user.id,
-      email,
-      full_name: fullName,
-    });
-
-    if (insertError) {
-      setError(insertError.message);
-      setLoading(false);
-      return;
-    }
-
+    // The public.users row is created automatically by a database trigger
     router.push("/onboarding");
     router.refresh();
   }
