@@ -9,6 +9,7 @@ export default function SignupPage() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [confirmEmail, setConfirmEmail] = useState<string | null>(null);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -43,8 +44,36 @@ export default function SignupPage() {
     }
 
     // The public.users row is created automatically by a database trigger
-    router.push("/onboarding");
-    router.refresh();
+    if (data.session) {
+      // Email confirmation disabled — user is fully authenticated
+      router.push("/onboarding");
+      router.refresh();
+    } else {
+      // Email confirmation required — show success message
+      setConfirmEmail(email);
+      setLoading(false);
+    }
+  }
+
+  if (confirmEmail) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="w-full max-w-sm space-y-6 px-4 text-center">
+          <h1 className="text-2xl font-bold">Check your email</h1>
+          <p className="text-sm text-zinc-500">
+            We sent a confirmation link to{" "}
+            <span className="font-medium text-zinc-900">{confirmEmail}</span>.
+            Click the link to activate your account.
+          </p>
+          <p className="text-sm text-zinc-500">
+            Already confirmed?{" "}
+            <Link href="/login" className="font-medium text-zinc-900 hover:underline">
+              Log in
+            </Link>
+          </p>
+        </div>
+      </div>
+    );
   }
 
   return (
