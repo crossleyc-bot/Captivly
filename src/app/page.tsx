@@ -5,7 +5,7 @@ export default function Home() {
     <div className="flex min-h-screen flex-col">
       <header className="flex items-center justify-between px-6 py-4 border-b">
         <span className="text-xl font-bold">Captivly</span>
-        <nav className="flex gap-4">
+        <nav className="flex items-center gap-4">
           <Link
             href="/login"
             className="text-sm font-medium text-zinc-600 hover:text-zinc-900"
