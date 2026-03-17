@@ -122,6 +122,22 @@ export default function OnboardingPage() {
       return;
     }
 
+    // Ensure the public.users row exists (covers cases where the DB trigger didn't fire)
+    const { error: upsertError } = await supabase.from("users").upsert(
+      {
+        id: user.id,
+        email: user.email ?? "",
+        full_name: (user.user_metadata?.full_name as string) ?? null,
+      },
+      { onConflict: "id" }
+    );
+
+    if (upsertError) {
+      setError(upsertError.message);
+      setLoading(false);
+      return;
+    }
+
     const { error: insertError } = await supabase.from("businesses").insert({
       user_id: user.id,
       name: data.name.trim(),
