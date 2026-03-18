@@ -54,7 +54,18 @@ export default async function LeadsPage() {
       </div>
 
       {!leads?.length ? (
-        <p className="text-sm text-zinc-400">No leads yet.</p>
+        <div className="rounded-lg border border-dashed border-zinc-300 px-6 py-10 text-center">
+          <p className="text-sm font-medium text-zinc-600">No leads yet</p>
+          <p className="mt-1 text-sm text-zinc-400">
+            Leads will appear here once your campaigns start running.
+          </p>
+          <Link
+            href="/campaigns"
+            className="mt-4 inline-block rounded-md bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-700"
+          >
+            View campaigns
+          </Link>
+        </div>
       ) : (
         <div className="overflow-x-auto">
           <table className="w-full text-sm">

@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 
 export default async function SequencesPage() {
   const supabase = await createClient();
@@ -33,9 +34,18 @@ export default async function SequencesPage() {
       </div>
 
       {!sequences?.length ? (
-        <p className="text-sm text-zinc-400">
-          No sequences yet. They&apos;re auto-generated when you create a campaign.
-        </p>
+        <div className="rounded-lg border border-dashed border-zinc-300 px-6 py-10 text-center">
+          <p className="text-sm font-medium text-zinc-600">No sequences yet</p>
+          <p className="mt-1 text-sm text-zinc-400">
+            Sequences are auto-generated when you create a campaign.
+          </p>
+          <Link
+            href="/campaigns/new"
+            className="mt-4 inline-block rounded-md bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-700"
+          >
+            Create a campaign
+          </Link>
+        </div>
       ) : (
         <div className="space-y-4">
           {sequences.map((seq) => {

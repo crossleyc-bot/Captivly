@@ -23,6 +23,27 @@ export default async function SettingsPage() {
   const isActive = dbUser?.subscription_status === "active";
   const hasBilling = !!dbUser?.stripe_customer_id;
 
+  // Fetch business + current month usage
+  const { data: business } = await supabase
+    .from("businesses")
+    .select("id")
+    .eq("user_id", user.id)
+    .single();
+
+  const month = new Date().toISOString().slice(0, 7);
+  const { data: usage } = business
+    ? await supabase
+        .from("usage_tracking")
+        .select("leads_count, sms_count, emails_count")
+        .eq("business_id", business.id)
+        .eq("month", month)
+        .single()
+    : { data: null };
+
+  const leadsUsed = usage?.leads_count ?? 0;
+  const smsUsed = usage?.sms_count ?? 0;
+  const emailsUsed = usage?.emails_count ?? 0;
+
   return (
     <div className="max-w-2xl space-y-8">
       <div>
@@ -56,11 +77,37 @@ export default async function SettingsPage() {
               </p>
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-3 text-sm text-zinc-600">
-            <div>Leads/month: <span className="font-medium text-zinc-900">{limits.leads_per_month.toLocaleString()}</span></div>
-            <div>SMS/month: <span className="font-medium text-zinc-900">{limits.sms_per_month.toLocaleString()}</span></div>
-            <div>Campaigns: <span className="font-medium text-zinc-900">{limits.campaigns === Infinity ? "Unlimited" : limits.campaigns}</span></div>
-            <div>Sequence steps: <span className="font-medium text-zinc-900">{limits.sequence_steps}</span></div>
+          <div className="space-y-3">
+            {[
+              { label: "Leads", used: leadsUsed, limit: limits.leads_per_month },
+              { label: "SMS", used: smsUsed, limit: limits.sms_per_month },
+              { label: "Emails", used: emailsUsed, limit: Infinity },
+            ].map(({ label, used, limit }) => {
+              const pct = limit === Infinity || limit === 0 ? 0 : Math.min((used / limit) * 100, 100);
+              const isNear = pct >= 80;
+              return (
+                <div key={label} className="text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-zinc-600">{label}</span>
+                    <span className={isNear ? "font-medium text-red-600" : "text-zinc-500"}>
+                      {used.toLocaleString()} / {limit === Infinity ? "∞" : limit.toLocaleString()}
+                    </span>
+                  </div>
+                  {limit !== Infinity && limit > 0 && (
+                    <div className="mt-1 h-1.5 rounded-full bg-zinc-200">
+                      <div
+                        className={`h-1.5 rounded-full ${isNear ? "bg-red-500" : "bg-zinc-900"}`}
+                        style={{ width: `${pct}%` }}
+                      />
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+            <div className="grid grid-cols-2 gap-3 border-t pt-3 text-sm text-zinc-600">
+              <div>Campaigns: <span className="font-medium text-zinc-900">{limits.campaigns === Infinity ? "Unlimited" : limits.campaigns}</span></div>
+              <div>Sequence steps: <span className="font-medium text-zinc-900">{limits.sequence_steps}</span></div>
+            </div>
           </div>
         </div>
       </section>
