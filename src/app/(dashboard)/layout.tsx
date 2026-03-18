@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { LogoutButton } from "./logout-button";
+import { UsageBanner } from "@/components/usage-banner";
 
 const navItems = [
   { href: "/dashboard", label: "Dashboard" },
@@ -34,7 +35,10 @@ export default function DashboardLayout({
         </nav>
         <LogoutButton />
       </aside>
-      <main className="flex-1 p-8">{children}</main>
+      <main className="flex-1 space-y-6 p-8">
+        <UsageBanner />
+        {children}
+      </main>
     </div>
   );
 }
