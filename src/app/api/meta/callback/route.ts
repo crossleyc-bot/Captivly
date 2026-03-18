@@ -6,6 +6,16 @@ export async function GET(request: NextRequest) {
   const errorParam = request.nextUrl.searchParams.get("error");
   const appUrl = process.env.NEXT_PUBLIC_APP_URL!;
 
+  // Validate CSRF state parameter
+  const state = request.nextUrl.searchParams.get("state");
+  const storedState = request.cookies.get("meta_oauth_state")?.value;
+
+  if (!state || !storedState || state !== storedState) {
+    return NextResponse.redirect(
+      `${appUrl}/onboarding?error=csrf`
+    );
+  }
+
   if (errorParam || !code) {
     return NextResponse.redirect(
       `${appUrl}/onboarding?error=meta_auth_failed`
@@ -88,5 +98,7 @@ export async function GET(request: NextRequest) {
     })
     .eq("user_id", user.id);
 
-  return NextResponse.redirect(`${appUrl}/onboarding?meta=connected`);
+  const response = NextResponse.redirect(`${appUrl}/onboarding?meta=connected`);
+  response.cookies.delete("meta_oauth_state");
+  return response;
 }

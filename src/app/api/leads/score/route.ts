@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { getAnthropicClient, AI_MODEL } from "@/lib/anthropic";
+import { validateInternalAuth } from "@/lib/internal-auth";
 import type Anthropic from "@anthropic-ai/sdk";
 
 // Use service role client — this endpoint is called internally from the webhook
@@ -17,6 +18,9 @@ interface ScoreResponse {
 }
 
 export async function POST(request: NextRequest) {
+  const authError = validateInternalAuth(request);
+  if (authError) return authError;
+
   const { lead_id } = (await request.json()) as { lead_id: string };
 
   if (!lead_id) {

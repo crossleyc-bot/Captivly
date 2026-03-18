@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { timingSafeEqual } from "crypto";
+import { getInternalAuthHeader } from "@/lib/internal-auth";
 
 // Service role client for webhook processing (no user session)
 function getServiceClient() {
@@ -16,7 +18,13 @@ export async function GET(request: NextRequest) {
   const token = searchParams.get("hub.verify_token");
   const challenge = searchParams.get("hub.challenge");
 
-  if (mode === "subscribe" && token === process.env.META_VERIFY_TOKEN) {
+  const verifyToken = process.env.META_VERIFY_TOKEN ?? "";
+  if (
+    mode === "subscribe" &&
+    token &&
+    token.length === verifyToken.length &&
+    timingSafeEqual(Buffer.from(token), Buffer.from(verifyToken))
+  ) {
     return new NextResponse(challenge, { status: 200 });
   }
 
@@ -66,18 +74,36 @@ export async function POST(request: NextRequest) {
 
       if (!business?.meta_access_token) continue;
 
-      // Fetch full lead data from Meta
-      const leadRes = await fetch(
-        `https://graph.facebook.com/v21.0/${leadgen_id}?access_token=${business.meta_access_token}`
-      );
-      const leadData = await leadRes.json();
+      // Deduplicate: skip if lead already exists
+      const { count: existingCount } = await supabase
+        .from("leads")
+        .select("id", { count: "exact", head: true })
+        .eq("meta_lead_id", leadgen_id);
 
-      if (!leadRes.ok) continue;
+      if ((existingCount ?? 0) > 0) continue;
+
+      // Fetch full lead data from Meta
+      let leadData: Record<string, unknown>;
+      try {
+        const leadRes = await fetch(
+          `https://graph.facebook.com/v21.0/${leadgen_id}?access_token=${business.meta_access_token}`
+        );
+        if (!leadRes.ok) continue;
+        leadData = await leadRes.json();
+      } catch {
+        continue; // Skip on network/parse error
+      }
+
+      // Validate field_data before parsing
+      if (!leadData.field_data || !Array.isArray(leadData.field_data)) continue;
 
       // Parse field data from Meta's format
       const fieldData: Record<string, string> = {};
-      for (const field of leadData.field_data ?? []) {
-        fieldData[field.name] = field.values?.[0] ?? "";
+      for (const field of leadData.field_data) {
+        const f = field as { name?: string; values?: string[] };
+        if (f.name && Array.isArray(f.values)) {
+          fieldData[f.name] = f.values[0] ?? "";
+        }
       }
 
       // Find the campaign by form_id
@@ -162,7 +188,10 @@ export async function POST(request: NextRequest) {
       try {
         await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/leads/score`, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            ...getInternalAuthHeader(),
+          },
           body: JSON.stringify({ lead_id: lead.id }),
         });
       } catch {

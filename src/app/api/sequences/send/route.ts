@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { getResendClient } from "@/lib/resend";
 import { getTwilioClient, TWILIO_FROM } from "@/lib/twilio";
+import { validateInternalAuth } from "@/lib/internal-auth";
 
 function getServiceClient() {
   return createClient(
@@ -15,6 +16,9 @@ interface SendRequest {
 }
 
 export async function POST(request: NextRequest) {
+  const authError = validateInternalAuth(request);
+  if (authError) return authError;
+
   const { message_id } = (await request.json()) as SendRequest;
 
   if (!message_id) {
@@ -105,6 +109,10 @@ export async function POST(request: NextRequest) {
         text: step.body,
       });
 
+      if (result.error) {
+        throw new Error(`Email send failed: ${result.error.message}`);
+      }
+
       providerMessageId = result.data?.id ?? null;
 
       // Increment email usage
@@ -120,6 +128,10 @@ export async function POST(request: NextRequest) {
         from: TWILIO_FROM,
         to: lead.phone,
       });
+
+      if (result.errorCode) {
+        throw new Error(`SMS send failed: ${result.errorMessage ?? `error code ${result.errorCode}`}`);
+      }
 
       providerMessageId = result.sid;
 

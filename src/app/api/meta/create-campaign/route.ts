@@ -69,7 +69,50 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const body: CreateCampaignBody = await request.json();
+  const raw = await request.json();
+
+  // Validate input
+  const name = typeof raw.name === "string" ? raw.name.trim() : "";
+  if (!name || name.length > 100) {
+    return NextResponse.json(
+      { error: "Campaign name is required and must be under 100 characters" },
+      { status: 400 }
+    );
+  }
+
+  const dailyBudgetCents = Number(raw.daily_budget_cents);
+  if (
+    !Number.isInteger(dailyBudgetCents) ||
+    dailyBudgetCents < 100 ||
+    dailyBudgetCents > 1_000_000
+  ) {
+    return NextResponse.json(
+      { error: "Daily budget must be between $1.00 and $10,000.00" },
+      { status: 400 }
+    );
+  }
+
+  let targetUrl: string | undefined;
+  if (raw.target_url !== undefined) {
+    try {
+      const parsed = new URL(String(raw.target_url));
+      if (!["http:", "https:"].includes(parsed.protocol)) {
+        throw new Error("Invalid protocol");
+      }
+      targetUrl = parsed.toString();
+    } catch {
+      return NextResponse.json(
+        { error: "target_url must be a valid HTTP(S) URL" },
+        { status: 400 }
+      );
+    }
+  }
+
+  const body: CreateCampaignBody = {
+    name,
+    daily_budget_cents: dailyBudgetCents,
+    target_url: targetUrl,
+  };
   const accessToken = business.meta_access_token;
   const adAccountId = business.meta_ad_account_id;
 
@@ -91,8 +134,9 @@ export async function POST(request: NextRequest) {
 
   const campaignData = await campaignRes.json();
   if (!campaignRes.ok) {
+    console.error("Meta campaign creation failed:", campaignData.error);
     return NextResponse.json(
-      { error: campaignData.error?.message ?? "Failed to create Meta campaign" },
+      { error: "Failed to create campaign. Please try again." },
       { status: 502 }
     );
   }
@@ -118,8 +162,9 @@ export async function POST(request: NextRequest) {
 
   const adSetData = await adSetRes.json();
   if (!adSetRes.ok) {
+    console.error("Meta ad set creation failed:", adSetData.error);
     return NextResponse.json(
-      { error: adSetData.error?.message ?? "Failed to create ad set" },
+      { error: "Failed to create ad set. Please try again." },
       { status: 502 }
     );
   }
@@ -163,7 +208,11 @@ export async function POST(request: NextRequest) {
     .single();
 
   if (insertError) {
-    return NextResponse.json({ error: insertError.message }, { status: 500 });
+    console.error("Campaign insert failed:", insertError.message);
+    return NextResponse.json(
+      { error: "Failed to save campaign. Please try again." },
+      { status: 500 }
+    );
   }
 
   return NextResponse.json({ campaign });

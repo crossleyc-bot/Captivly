@@ -4,6 +4,7 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 vi.stubEnv("NEXT_PUBLIC_SUPABASE_URL", "https://test.supabase.co");
 vi.stubEnv("SUPABASE_SERVICE_ROLE_KEY", "test-service-key");
 vi.stubEnv("NEXT_PUBLIC_APP_URL", "http://localhost:3000");
+vi.stubEnv("INTERNAL_API_SECRET", "test-internal-secret");
 
 const mockRpc = vi.fn().mockResolvedValue({});
 const mockFrom = vi.fn();
@@ -36,11 +37,15 @@ vi.mock("@/lib/twilio", () => ({
 import { POST } from "../route";
 import { NextRequest } from "next/server";
 
-function createRequest(body: Record<string, unknown>) {
+function createRequest(body: Record<string, unknown>, includeAuth = true) {
+  const headers: Record<string, string> = { "Content-Type": "application/json" };
+  if (includeAuth) {
+    headers["Authorization"] = "Bearer test-internal-secret";
+  }
   return new NextRequest("http://localhost/api/sequences/send", {
     method: "POST",
     body: JSON.stringify(body),
-    headers: { "Content-Type": "application/json" },
+    headers,
   });
 }
 
@@ -48,6 +53,24 @@ describe("POST /api/sequences/send", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     mockUpdate.mockReturnValue({ eq: vi.fn().mockResolvedValue({}) });
+  });
+
+  it("returns 401 when no auth header is provided", async () => {
+    const res = await POST(createRequest({ message_id: "msg-1" }, false));
+    expect(res.status).toBe(401);
+  });
+
+  it("returns 401 when auth header has wrong secret", async () => {
+    const req = new NextRequest("http://localhost/api/sequences/send", {
+      method: "POST",
+      body: JSON.stringify({ message_id: "msg-1" }),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer wrong-secret",
+      },
+    });
+    const res = await POST(req);
+    expect(res.status).toBe(401);
   });
 
   it("returns 400 when message_id is missing", async () => {

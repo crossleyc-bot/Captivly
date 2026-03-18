@@ -1,5 +1,7 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { validateInternalAuth } from "@/lib/internal-auth";
+import { getInternalAuthHeader } from "@/lib/internal-auth";
 
 function getServiceClient() {
   return createClient(
@@ -15,7 +17,9 @@ function getServiceClient() {
  * 1. Queue messages for new leads entering active sequences
  * 2. Send queued messages whose scheduled time has arrived
  */
-export async function POST() {
+export async function POST(request: NextRequest) {
+  const authError = validateInternalAuth(request);
+  if (authError) return authError;
   const supabase = getServiceClient();
   const now = new Date();
   let queued = 0;
@@ -27,7 +31,8 @@ export async function POST() {
   const { data: sequences } = await supabase
     .from("sequences")
     .select("id, campaign_id")
-    .eq("is_active", true);
+    .eq("is_active", true)
+    .limit(50);
 
   for (const seq of sequences ?? []) {
     // Get all steps for this sequence
@@ -44,7 +49,8 @@ export async function POST() {
       .from("leads")
       .select("id, created_at")
       .eq("campaign_id", seq.campaign_id)
-      .in("status", ["new", "in_sequence"]);
+      .in("status", ["new", "in_sequence"])
+      .limit(500);
 
     for (const lead of leads ?? []) {
       for (const step of steps) {
@@ -95,7 +101,10 @@ export async function POST() {
         `${process.env.NEXT_PUBLIC_APP_URL}/api/sequences/send`,
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            ...getInternalAuthHeader(),
+          },
           body: JSON.stringify({ message_id: msg.id }),
         }
       );

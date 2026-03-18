@@ -5,6 +5,7 @@ vi.stubEnv("NEXT_PUBLIC_SUPABASE_URL", "https://test.supabase.co");
 vi.stubEnv("SUPABASE_SERVICE_ROLE_KEY", "test-service-key");
 vi.stubEnv("META_VERIFY_TOKEN", "captivly_webhook_secret");
 vi.stubEnv("NEXT_PUBLIC_APP_URL", "http://localhost:3000");
+vi.stubEnv("INTERNAL_API_SECRET", "test-internal-secret");
 
 // Build a flexible Supabase mock
 const mockRpc = vi.fn().mockResolvedValue({});
@@ -73,8 +74,11 @@ describe("GET /api/meta/webhook (verification)", () => {
 });
 
 describe("POST /api/meta/webhook (lead ingestion)", () => {
+  let leadsCallCount: number;
+
   beforeEach(() => {
     vi.clearAllMocks();
+    leadsCallCount = 0;
 
     // Default: mock the From calls in order they're made
     const businessData = {
@@ -132,6 +136,15 @@ describe("POST /api/meta/webhook (lead ingestion)", () => {
         };
       }
       if (table === "leads") {
+        // First call is dedup check, subsequent calls are insert
+        if (!leadsCallCount) {
+          leadsCallCount++;
+          return {
+            select: vi.fn().mockReturnValue({
+              eq: vi.fn().mockResolvedValue({ count: 0 }),
+            }),
+          };
+        }
         return {
           insert: vi.fn().mockReturnValue({
             select: vi.fn().mockReturnValue({
