@@ -65,6 +65,18 @@ export async function POST(request: NextRequest) {
           leadCreated.getTime() + step.delay_days * 24 * 60 * 60 * 1000
         );
 
+        // Pick a random A/B variant if any exist for this step
+        let variantId: string | null = null;
+        const { data: variants } = await supabase
+          .from("sequence_step_variants")
+          .select("id")
+          .eq("sequence_step_id", step.id);
+
+        if (variants && variants.length > 0) {
+          const picked = variants[Math.floor(Math.random() * variants.length)];
+          variantId = picked.id;
+        }
+
         // Queue the message
         await supabase.from("messages_sent").insert({
           lead_id: lead.id,
@@ -75,6 +87,7 @@ export async function POST(request: NextRequest) {
           body: null,
           status: "queued",
           sent_at: scheduledAt.toISOString(),
+          variant_id: variantId,
         });
 
         queued++;

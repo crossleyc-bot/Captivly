@@ -248,6 +248,7 @@ TWILIO_AUTH_TOKEN=
 TWILIO_PHONE_NUMBER=
 # Resend
 RESEND_API_KEY=
+RESEND_WEBHOOK_SECRET=
 # App
 NEXT_PUBLIC_APP_URL=http://localhost:3000
 ```
@@ -269,6 +270,11 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 | `/api/stripe/webhook` | POST | Handle Stripe subscription events |
 | `/api/stripe/create-checkout` | POST | Create Stripe checkout session |
 | `/api/stripe/portal` | POST | Open Stripe customer portal |
+| `/api/webhooks/resend` | POST | Resend email events (delivery, reply, bounce) |
+| `/api/webhooks/twilio` | POST | Twilio inbound SMS (reply detection) |
+| `/api/zapier/leads` | GET | Zapier trigger: poll recent leads |
+| `/api/zapier/conversions` | GET | Zapier trigger: poll recent conversions |
+| `/api/zapier/keys` | GET/POST/DELETE | Manage API keys for integrations |
 ---
 ## App Pages & Routes
 | Route | Page | Access |
@@ -402,11 +408,11 @@ Apply `requirePlan` for feature access checks and `checkUsageLimit` before every
 - [ ] Usage tracking (leads + SMS per month enforced per plan tier)
 - [ ] Upgrade prompt shown when usage limit is reached
 ### Phase 2
-- Google Lead Ads integration
-- Multiple campaigns per business
-- A/B testing for sequence messages
-- Reply detection + sequence pause
-- Zapier integration
+- [x] Google Lead Ads integration
+- [x] Multiple campaigns per business (supported via plan limits)
+- [x] A/B testing for sequence messages
+- [x] Reply detection + sequence pause
+- [x] Zapier integration
 ### Phase 3
 - AI monthly report cards
 - AI chat widget (embeddable)

@@ -99,6 +99,19 @@ export interface SequenceStep {
   created_at: string;
 }
 
+export interface SequenceStepVariant {
+  id: string;
+  sequence_step_id: string;
+  variant_label: string;
+  subject: string | null;
+  body: string;
+  sends_count: number;
+  opens_count: number;
+  clicks_count: number;
+  replies_count: number;
+  created_at: string;
+}
+
 export interface MessageSent {
   id: string;
   lead_id: string;
@@ -112,6 +125,7 @@ export interface MessageSent {
   delivered_at: string | null;
   replied_at: string | null;
   provider_message_id: string | null;
+  variant_id: string | null;
   created_at: string;
 }
 
@@ -123,6 +137,16 @@ export interface UsageTracking {
   sms_count: number;
   emails_count: number;
   updated_at: string;
+}
+
+export interface ApiKey {
+  id: string;
+  user_id: string;
+  key_hash: string;
+  key_prefix: string;
+  name: string;
+  last_used_at: string | null;
+  created_at: string;
 }
 
 export interface Conversion {

@@ -40,6 +40,23 @@ export async function POST(request: NextRequest) {
   const lead = message.lead;
   const step = message.step;
 
+  // If a variant was assigned, use its subject/body instead of the step defaults
+  let effectiveSubject: string | null = step?.subject ?? null;
+  let effectiveBody: string = step?.body ?? "";
+
+  if (message.variant_id) {
+    const { data: variant } = await supabase
+      .from("sequence_step_variants")
+      .select("subject, body")
+      .eq("id", message.variant_id)
+      .single();
+
+    if (variant) {
+      effectiveSubject = variant.subject ?? effectiveSubject;
+      effectiveBody = variant.body;
+    }
+  }
+
   if (!lead || !step) {
     await supabase
       .from("messages_sent")
@@ -95,8 +112,8 @@ export async function POST(request: NextRequest) {
       const result = await resend.emails.send({
         from: `Captivly <noreply@${process.env.NEXT_PUBLIC_APP_URL?.replace("https://", "").replace("http://", "") ?? "captivly.ai"}>`,
         to: lead.email,
-        subject: step.subject ?? "You have a new message",
-        text: step.body,
+        subject: effectiveSubject ?? "You have a new message",
+        text: effectiveBody,
       });
 
       if (result.error) {
@@ -114,7 +131,7 @@ export async function POST(request: NextRequest) {
     } else if (step.channel === "sms" && lead.phone) {
       const twilioClient = getTwilioClient();
       const result = await twilioClient.messages.create({
-        body: step.body,
+        body: effectiveBody,
         from: TWILIO_FROM,
         to: lead.phone,
       });
@@ -152,6 +169,13 @@ export async function POST(request: NextRequest) {
         provider_message_id: providerMessageId,
       })
       .eq("id", message_id);
+
+    // Increment variant send count for A/B tracking
+    if (message.variant_id) {
+      await supabase.rpc("increment_variant_sends", {
+        p_variant_id: message.variant_id,
+      });
+    }
 
     // Update lead status to in_sequence if still new
     if (lead.status === "new") {
