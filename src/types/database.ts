@@ -168,3 +168,33 @@ export interface Conversion {
   notes: string | null;
   converted_at: string;
 }
+
+export type ChatWidgetPosition = "bottom-right" | "bottom-left";
+
+export interface ChatWidgetConfig {
+  id: string;
+  business_id: string;
+  is_enabled: boolean;
+  greeting: string;
+  accent_color: string;
+  position: ChatWidgetPosition;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface ChatMessage {
+  role: "user" | "assistant";
+  content: string;
+  timestamp: string;
+}
+
+export interface ChatConversation {
+  id: string;
+  business_id: string;
+  visitor_name: string | null;
+  visitor_email: string | null;
+  messages: ChatMessage[];
+  lead_id: string | null;
+  created_at: string;
+  updated_at: string;
+}

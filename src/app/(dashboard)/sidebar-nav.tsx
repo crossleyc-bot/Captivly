@@ -12,6 +12,7 @@ const navItems = [
   { href: "/sequences", label: "Sequences" },
   { href: "/analytics", label: "Analytics" },
   { href: "/reports", label: "Reports" },
+  { href: "/chat-widget", label: "Chat Widget" },
   { href: "/settings", label: "Settings" },
 ];
 
