@@ -389,6 +389,145 @@ Apply `requirePlan` for feature access checks and `checkUsageLimit` before every
 - TypeScript strict mode — no `any` types
 - Tailwind only for styling — no inline styles or CSS modules
 ---
+## Design System
+### Colors
+**Base palette — Zinc (grayscale)**
+| Token | Tailwind | Hex | Usage |
+|---|---|---|---|
+| Primary dark | `zinc-900` | `#18181b` | Buttons, active nav, headings |
+| Body text | `zinc-700` | `#3f3f46` | Primary body text |
+| Secondary text | `zinc-500` | `#71717a` | Descriptions, captions |
+| Muted text | `zinc-400` | `#a1a1aa` | Placeholders, disabled |
+| Light bg | `zinc-50` | `#fafafa` | Sidebar, card backgrounds |
+| Border | `zinc-200`–`zinc-300` | | Default borders |
+**Accent & semantic**
+| Token | Tailwind | Hex | Usage |
+|---|---|---|---|
+| Accent | `blue-500` | `#3b82f6` | Verify button, accent color |
+| Success | `green-600` | `#16a34a` | Verified, converted, delivered |
+| Warning | `yellow-600` / `amber-*` | | Paused, near-limit banners |
+| Error | `red-500`–`red-600` | | Failed, unsubscribed, delete |
+| Meta brand | — | `#1877F2` | Meta OAuth button |
+| Google brand | — | `#4285F4` | Google OAuth button |
+**Status badge classes** (defined in `lib/ui-utils.ts`)
+```typescript
+// Lead status → badge
+leadStatusBadge(status):
+  new          → 'bg-blue-100 text-blue-700'
+  in_sequence  → 'bg-purple-100 text-purple-700'
+  replied      → 'bg-green-100 text-green-700'
+  converted    → 'bg-emerald-100 text-emerald-700'
+  cold         → 'bg-zinc-100 text-zinc-600'
+  unsubscribed → 'bg-red-100 text-red-600'
+// Campaign status → badge
+campaignStatusBadge(status):
+  draft     → 'bg-zinc-100 text-zinc-600'
+  active    → 'bg-green-100 text-green-700'
+  paused    → 'bg-yellow-100 text-yellow-700'
+  completed → 'bg-blue-100 text-blue-700'
+// Lead score → text color
+scoreColor(score):
+  >= 8 → 'text-green-600'
+  5–7  → 'text-yellow-600'
+  < 5  → 'text-red-500'
+  null → 'text-zinc-400'
+// Message status → text color
+msgStatusColor(status):
+  queued    → 'text-zinc-500'
+  sent      → 'text-blue-600'
+  delivered → 'text-green-600'
+  failed    → 'text-red-600'
+  replied   → 'text-emerald-600'
+```
+### Typography
+| Scale | Class | Usage |
+|---|---|---|
+| Hero | `text-5xl font-bold` | Landing page h1 |
+| Page title | `text-2xl font-bold` | Dashboard page headings |
+| Section header | `text-lg font-semibold` | Card/section titles |
+| Body | `text-sm` | Default body text, table cells, labels |
+| Caption | `text-xs` | Badges, secondary info, timestamps |
+- **Font family:** Geist Sans (`font-sans`) / Geist Mono (`font-mono` for color codes)
+- **Weights:** `font-bold` (titles), `font-semibold` (section heads), `font-medium` (buttons/labels)
+### Spacing
+| Context | Pattern |
+|---|---|
+| Page content | `p-8 pt-20 lg:pt-8` (accounts for mobile nav) |
+| Section stacking | `space-y-6` or `space-y-8` |
+| Within sections | `space-y-3` or `space-y-4` |
+| Card padding | `p-4` or `px-4 py-3` |
+| Grid gaps | `gap-4` (most common) |
+| Inline flex gaps | `gap-2` or `gap-3` |
+### Components
+No component library (no shadcn/ui). All components are hand-built with Tailwind.
+**Buttons**
+```
+Primary:   bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-700 disabled:opacity-50 rounded-md
+Secondary: border border-zinc-300 px-4 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50 rounded-md
+Danger:    border border-red-200 px-3 py-1.5 text-xs font-medium text-red-600 hover:bg-red-50 rounded-md
+Pill:      rounded-full bg-zinc-900 px-6 py-3 text-sm font-medium text-white hover:bg-zinc-700
+```
+**Inputs**
+```
+mt-1 block w-full rounded-md border border-zinc-300 px-3 py-2 text-sm
+shadow-sm focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500
+```
+**Cards**
+```
+Standard:  rounded-lg border px-4 py-3
+Empty:     rounded-lg border border-dashed border-zinc-300 px-6 py-10 text-center
+Feature:   rounded-lg border border-yellow-200 bg-yellow-50 p-6 text-center
+```
+**Badges (pill)**
+```
+rounded-full px-2 py-0.5 text-xs font-medium {statusColorClasses}
+```
+**Tables**
+```
+Container: overflow-x-auto → <table className="w-full text-sm">
+Header:    border-b text-left text-xs font-medium text-zinc-500 → <th className="pb-2 pr-4">
+Row:       border-b last:border-0 → <td className="py-2 pr-4">
+```
+**Page header pattern**
+```html
+<div>
+  <h1 className="text-2xl font-bold">Page Title</h1>
+  <p className="mt-1 text-sm text-zinc-500">Description text</p>
+</div>
+```
+**Stat cards grid**
+```
+grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5
+```
+### Sidebar
+- Width: `w-64`, background: `bg-zinc-50`, border-right
+- Active link: `text-white` with `backgroundColor: branding.primary_color` (inline style for white-label support)
+- Inactive link: `text-zinc-700 hover:bg-zinc-200 rounded-md px-3 py-2 text-sm font-medium`
+- Mobile: slides in with backdrop `bg-black/20`, header bar `fixed inset-x-0 top-0 z-40`
+- Nav items: Dashboard, Campaigns, Leads, Sequences, Analytics, Reports, Referrals, Chat Widget, White Label, Agency, Settings
+### White-Label Branding
+Branding is provided via `BrandingProvider` context (`src/app/(dashboard)/branding-provider.tsx`).
+```typescript
+interface BrandingConfig {
+  app_name: string;              // default: "Captivly"
+  logo_url: string | null;       // default: null
+  primary_color: string;         // default: "#18181b"
+  accent_color: string;          // default: "#3b82f6"
+  favicon_url: string | null;    // default: null
+  hide_captivly_branding: boolean; // default: false
+}
+```
+- Dashboard layout fetches config from `white_label_config` table and wraps children in `<BrandingProvider>`
+- Sidebar reads branding via `useBranding()` hook for app name, logo, active link color, and "Powered by Captivly" visibility
+- Pro plan only — non-Pro users always see default Captivly branding
+### Responsive Breakpoints
+| Breakpoint | Min-width | Usage |
+|---|---|---|
+| `sm:` | 640px | Grid column changes, tablet adjustments |
+| `lg:` | 1024px | Sidebar static, desktop grids |
+- Sidebar: hidden on mobile (`-translate-x-full`), static on `lg:`
+- Top nav bar: visible only below `lg:` for mobile hamburger menu
+---
 ## Phase Roadmap
 ### Phase 1 (Current — MVP)
 - [ ] Supabase schema + RLS
