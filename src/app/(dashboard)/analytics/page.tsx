@@ -30,7 +30,7 @@ export default async function AnalyticsPage() {
 
   const month = new Date().toISOString().slice(0, 7);
 
-  const [usageResult, leadsResult, messagesResult, conversionsResult] = await Promise.all([
+  const [usageResult, leadsResult, conversionsResult] = await Promise.all([
     supabase
       .from("usage_tracking")
       .select("leads_count, sms_count, emails_count")
@@ -41,10 +41,6 @@ export default async function AnalyticsPage() {
       .from("leads")
       .select("ai_score, status")
       .eq("business_id", business.id),
-    supabase
-      .from("messages_sent")
-      .select("status, channel")
-      .eq("lead_id", business.id), // This joins via leads — simplified query
     supabase
       .from("conversions")
       .select("id", { count: "exact", head: true })
