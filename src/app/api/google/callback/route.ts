@@ -2,6 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { GOOGLE_TOKEN_URL, GOOGLE_ADS_API_BASE_URL } from "@/lib/constants";
 
+function redirectWithCleanup(url: string): NextResponse {
+  const response = NextResponse.redirect(url);
+  response.cookies.delete("google_oauth_state");
+  return response;
+}
+
 export async function GET(request: NextRequest) {
   const code = request.nextUrl.searchParams.get("code");
   const errorParam = request.nextUrl.searchParams.get("error");
@@ -12,11 +18,11 @@ export async function GET(request: NextRequest) {
   const storedState = request.cookies.get("google_oauth_state")?.value;
 
   if (!state || !storedState || state !== storedState) {
-    return NextResponse.redirect(`${appUrl}/onboarding?error=csrf`);
+    return redirectWithCleanup(`${appUrl}/onboarding?error=csrf`);
   }
 
   if (errorParam || !code) {
-    return NextResponse.redirect(
+    return redirectWithCleanup(
       `${appUrl}/onboarding?error=google_auth_failed`
     );
   }
@@ -37,7 +43,7 @@ export async function GET(request: NextRequest) {
   const tokenData = await tokenRes.json();
 
   if (!tokenRes.ok || !tokenData.access_token) {
-    return NextResponse.redirect(
+    return redirectWithCleanup(
       `${appUrl}/onboarding?error=google_token_exchange_failed`
     );
   }
@@ -68,7 +74,7 @@ export async function GET(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.redirect(`${appUrl}/login`);
+    return redirectWithCleanup(`${appUrl}/login`);
   }
 
   await supabase
@@ -80,9 +86,5 @@ export async function GET(request: NextRequest) {
     })
     .eq("user_id", user.id);
 
-  const response = NextResponse.redirect(
-    `${appUrl}/onboarding?google=connected`
-  );
-  response.cookies.delete("google_oauth_state");
-  return response;
+  return redirectWithCleanup(`${appUrl}/onboarding?google=connected`);
 }

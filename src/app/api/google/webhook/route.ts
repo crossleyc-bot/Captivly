@@ -34,7 +34,11 @@ interface GoogleLeadFormData {
 export async function POST(request: NextRequest) {
   const body: GooglePubSubMessage = await request.json();
 
-  // Decode the Pub/Sub message payload
+  // Validate and decode the Pub/Sub message payload
+  if (!body.message?.data) {
+    return NextResponse.json({ error: "Missing message data" }, { status: 400 });
+  }
+
   let leadPayload: GoogleLeadFormData;
   try {
     const decoded = Buffer.from(body.message.data, "base64").toString("utf-8");
