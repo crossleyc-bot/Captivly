@@ -37,6 +37,7 @@ export interface Business {
   google_customer_id: string | null;
   google_access_token: string | null;
   google_refresh_token: string | null;
+  agency_id: string | null;
   onboarding_completed: boolean;
   created_at: string;
 }
@@ -211,6 +212,50 @@ export interface ChatConversation {
   lead_id: string | null;
   created_at: string;
   updated_at: string;
+}
+
+export interface WhiteLabelConfig {
+  id: string;
+  business_id: string;
+  app_name: string;
+  logo_url: string | null;
+  primary_color: string;
+  accent_color: string;
+  favicon_url: string | null;
+  custom_domain: string | null;
+  custom_domain_verified: boolean;
+  hide_captivly_branding: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Agency {
+  id: string;
+  owner_user_id: string;
+  name: string;
+  logo_url: string | null;
+  created_at: string;
+}
+
+export type AgencyRole = "owner" | "admin" | "member";
+
+export interface AgencyMember {
+  id: string;
+  agency_id: string;
+  user_id: string;
+  role: AgencyRole;
+  created_at: string;
+}
+
+export interface CustomDomain {
+  id: string;
+  business_id: string;
+  domain: string;
+  verification_token: string;
+  verified: boolean;
+  verified_at: string | null;
+  ssl_provisioned: boolean;
+  created_at: string;
 }
 
 export interface ReferralLink {

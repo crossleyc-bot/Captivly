@@ -14,6 +14,8 @@ const navItems = [
   { href: "/reports", label: "Reports" },
   { href: "/referrals", label: "Referrals" },
   { href: "/chat-widget", label: "Chat Widget" },
+  { href: "/white-label", label: "White Label" },
+  { href: "/agency", label: "Agency" },
   { href: "/settings", label: "Settings" },
 ];
 

@@ -42,6 +42,8 @@ export async function updateSession(request: NextRequest) {
     request.nextUrl.pathname.startsWith("/sequences") ||
     request.nextUrl.pathname.startsWith("/analytics") ||
     request.nextUrl.pathname.startsWith("/settings") ||
+    request.nextUrl.pathname.startsWith("/white-label") ||
+    request.nextUrl.pathname.startsWith("/agency") ||
     request.nextUrl.pathname.startsWith("/onboarding");
 
   if (!user && isProtectedRoute) {
