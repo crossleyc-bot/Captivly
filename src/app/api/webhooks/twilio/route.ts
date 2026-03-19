@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { createHmac } from "crypto";
 import { getServiceClient } from "@/lib/supabase/service";
 import { handleLeadReply } from "@/lib/reply-handler";
 
@@ -26,9 +27,23 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Not configured" }, { status: 500 });
   }
 
-  // Parse the form-encoded body
+  // Verify Twilio signature
+  const url = `${process.env.NEXT_PUBLIC_APP_URL}/api/webhooks/twilio`;
   const formData = await request.formData();
-  const from = formData.get("From") as string | null;
+  const params: Record<string, string> = {};
+  for (const [key, value] of formData.entries()) {
+    params[key] = String(value);
+  }
+
+  const sortedParams = Object.keys(params).sort().reduce((acc, key) => acc + key + params[key], "");
+  const dataToSign = url + sortedParams;
+  const computed = createHmac("sha1", authToken).update(dataToSign).digest("base64");
+
+  if (computed !== twilioSignature) {
+    return NextResponse.json({ error: "Invalid signature" }, { status: 403 });
+  }
+
+  const from = params["From"] ?? null;
 
   if (!from) {
     return new NextResponse(TWIML_EMPTY, { headers: TWIML_HEADERS });

@@ -1,4 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
+import { createHmac } from "crypto";
 import { stubTestEnv } from "@/__tests__/setup-env";
 
 stubTestEnv();
@@ -21,14 +22,33 @@ vi.mock("@/lib/reply-handler", () => ({
 import { POST } from "@/app/api/webhooks/twilio/route";
 import { NextRequest } from "next/server";
 
+const AUTH_TOKEN = "test-token";
+const WEBHOOK_URL = "http://localhost:3000/api/webhooks/twilio";
+
+/** Compute a valid Twilio HMAC-SHA1 signature for the given params. */
+function computeTwilioSignature(params: Record<string, string>): string {
+  const sortedParams = Object.keys(params)
+    .sort()
+    .reduce((acc, key) => acc + key + params[key], "");
+  const dataToSign = WEBHOOK_URL + sortedParams;
+  return createHmac("sha1", AUTH_TOKEN).update(dataToSign).digest("base64");
+}
+
 function createTwilioRequest(
   params: Record<string, string>,
   headers?: Record<string, string>
 ) {
   const body = new URLSearchParams(params).toString();
+  // Auto-compute valid signature unless headers are explicitly provided without one
+  const sig = headers?.["x-twilio-signature"] === undefined
+    ? undefined
+    : headers["x-twilio-signature"] === "valid-sig"
+      ? computeTwilioSignature(params)
+      : headers["x-twilio-signature"];
   const reqHeaders = new Headers({
     "Content-Type": "application/x-www-form-urlencoded",
     ...headers,
+    ...(sig !== undefined ? { "x-twilio-signature": sig } : {}),
   });
   return new NextRequest("http://localhost/api/webhooks/twilio", {
     method: "POST",
@@ -72,7 +92,7 @@ describe("POST /api/webhooks/twilio", () => {
   it("returns empty TwiML when From is missing", async () => {
     const req = createTwilioRequest(
       { Body: "Hello" },
-      { "x-twilio-signature": "some-sig" }
+      { "x-twilio-signature": "valid-sig" }
     );
 
     const res = await POST(req);

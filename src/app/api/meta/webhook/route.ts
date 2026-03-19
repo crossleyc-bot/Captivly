@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { timingSafeEqual } from "crypto";
+import { createHmac, timingSafeEqual } from "crypto";
 import { getServiceClient } from "@/lib/supabase/service";
 import { getInternalAuthHeader } from "@/lib/internal-auth";
 import { PLAN_LIMITS, META_API_BASE_URL } from "@/lib/constants";
@@ -44,7 +44,25 @@ interface MetaWebhookBody {
 
 // Receive leads from Meta
 export async function POST(request: NextRequest) {
-  const body: MetaWebhookBody = await request.json();
+  // Verify Meta webhook signature
+  let body: MetaWebhookBody;
+  const signature = request.headers.get("x-hub-signature-256");
+  const appSecret = process.env.META_APP_SECRET;
+  if (appSecret && signature) {
+    const rawBody = await request.text();
+    const expectedSig = "sha256=" + createHmac("sha256", appSecret).update(rawBody).digest("hex");
+
+    if (
+      signature.length !== expectedSig.length ||
+      !timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSig))
+    ) {
+      return NextResponse.json({ error: "Invalid signature" }, { status: 403 });
+    }
+    // Re-parse the body since we consumed it
+    body = JSON.parse(rawBody) as MetaWebhookBody;
+  } else {
+    body = await request.json();
+  }
 
   // Must respond 200 quickly to Meta
   if (body.object !== "page") {

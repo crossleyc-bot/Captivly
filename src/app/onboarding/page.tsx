@@ -160,6 +160,14 @@ export default function OnboardingPage() {
       return;
     }
 
+    // Fire-and-forget: auto-generate a starter campaign + sequence
+    fetch("/api/onboarding/auto-campaign", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    }).catch(() => {
+      // Auto-generation failure shouldn't block onboarding
+    });
+
     // Redirect to Stripe checkout if a paid plan was selected
     const res = await fetch("/api/stripe/create-checkout", {
       method: "POST",
