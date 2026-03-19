@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { META_API_BASE_URL } from "@/lib/constants";
 
 export async function GET(request: NextRequest) {
   const code = request.nextUrl.searchParams.get("code");
@@ -23,7 +24,7 @@ export async function GET(request: NextRequest) {
   }
 
   // Exchange code for short-lived token
-  const tokenUrl = new URL("https://graph.facebook.com/v21.0/oauth/access_token");
+  const tokenUrl = new URL(`${META_API_BASE_URL}/oauth/access_token`);
   tokenUrl.searchParams.set("client_id", process.env.META_APP_ID!);
   tokenUrl.searchParams.set("client_secret", process.env.META_APP_SECRET!);
   tokenUrl.searchParams.set("redirect_uri", `${appUrl}/api/meta/callback`);
@@ -39,7 +40,7 @@ export async function GET(request: NextRequest) {
   }
 
   // Exchange for long-lived token
-  const longLivedUrl = new URL("https://graph.facebook.com/v21.0/oauth/access_token");
+  const longLivedUrl = new URL(`${META_API_BASE_URL}/oauth/access_token`);
   longLivedUrl.searchParams.set("grant_type", "fb_exchange_token");
   longLivedUrl.searchParams.set("client_id", process.env.META_APP_ID!);
   longLivedUrl.searchParams.set("client_secret", process.env.META_APP_SECRET!);
@@ -52,14 +53,14 @@ export async function GET(request: NextRequest) {
 
   // Fetch user's ad accounts
   const adAccountsRes = await fetch(
-    `https://graph.facebook.com/v21.0/me/adaccounts?fields=id,name,account_id&access_token=${accessToken}`
+    `${META_API_BASE_URL}/me/adaccounts?fields=id,name,account_id&access_token=${accessToken}`
   );
   const adAccountsData = await adAccountsRes.json();
   const adAccount = adAccountsData.data?.[0];
 
   // Fetch user's pages
   const pagesRes = await fetch(
-    `https://graph.facebook.com/v21.0/me/accounts?fields=id,name,access_token&access_token=${accessToken}`
+    `${META_API_BASE_URL}/me/accounts?fields=id,name,access_token&access_token=${accessToken}`
   );
   const pagesData = await pagesRes.json();
   const page = pagesData.data?.[0];
@@ -77,7 +78,7 @@ export async function GET(request: NextRequest) {
   // Subscribe to leadgen webhooks on the page if we have page access
   if (page?.id && page?.access_token) {
     await fetch(
-      `https://graph.facebook.com/v21.0/${page.id}/subscribed_apps`,
+      `${META_API_BASE_URL}/${page.id}/subscribed_apps`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

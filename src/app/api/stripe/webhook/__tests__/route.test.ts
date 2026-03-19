@@ -1,12 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
+import { stubTestEnv } from "@/__tests__/setup-env";
 
-// Mock environment variables
-vi.stubEnv("NEXT_PUBLIC_SUPABASE_URL", "https://test.supabase.co");
-vi.stubEnv("SUPABASE_SERVICE_ROLE_KEY", "test-service-key");
-vi.stubEnv("STRIPE_WEBHOOK_SECRET", "whsec_test");
-vi.stubEnv("STRIPE_PRICE_STARTER", "price_starter");
-vi.stubEnv("STRIPE_PRICE_GROWTH", "price_growth");
-vi.stubEnv("STRIPE_PRICE_PRO", "price_pro");
+stubTestEnv();
 
 // Mock Supabase
 const mockUpdate = vi.fn().mockReturnValue({ eq: vi.fn().mockResolvedValue({}) });

@@ -1,10 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
+import { stubTestEnv } from "@/__tests__/setup-env";
 
-// Mock environment variables
-vi.stubEnv("NEXT_PUBLIC_SUPABASE_URL", "https://test.supabase.co");
-vi.stubEnv("SUPABASE_SERVICE_ROLE_KEY", "test-service-key");
-vi.stubEnv("NEXT_PUBLIC_APP_URL", "http://localhost:3000");
-vi.stubEnv("INTERNAL_API_SECRET", "test-internal-secret");
+stubTestEnv();
 
 const mockRpc = vi.fn().mockResolvedValue({});
 const mockFrom = vi.fn();

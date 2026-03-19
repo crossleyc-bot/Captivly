@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect, notFound } from "next/navigation";
 import Link from "next/link";
+import { scoreColor, leadStatusBadge, campaignStatusBadge } from "@/lib/ui-utils";
 
 export default async function CampaignDetailPage({
   params,
@@ -46,34 +47,6 @@ export default async function CampaignDetailPage({
     .select("id, name, is_active, sequence_steps(id, step_number, channel, delay_days)")
     .eq("campaign_id", id);
 
-  const statusBadge = (status: string) => {
-    const colors: Record<string, string> = {
-      draft: "bg-zinc-100 text-zinc-600",
-      active: "bg-green-100 text-green-700",
-      paused: "bg-yellow-100 text-yellow-700",
-      completed: "bg-blue-100 text-blue-700",
-    };
-    return colors[status] ?? "bg-zinc-100 text-zinc-600";
-  };
-
-  const scoreColor = (score: number | null) => {
-    if (!score) return "text-zinc-400";
-    if (score >= 8) return "text-green-600";
-    if (score >= 5) return "text-yellow-600";
-    return "text-red-500";
-  };
-
-  const leadStatusBadge = (status: string) => {
-    const colors: Record<string, string> = {
-      new: "bg-blue-100 text-blue-700",
-      in_sequence: "bg-purple-100 text-purple-700",
-      replied: "bg-green-100 text-green-700",
-      converted: "bg-emerald-100 text-emerald-700",
-      cold: "bg-zinc-100 text-zinc-600",
-      unsubscribed: "bg-red-100 text-red-600",
-    };
-    return colors[status] ?? "bg-zinc-100 text-zinc-600";
-  };
 
   return (
     <div className="max-w-4xl space-y-8">
@@ -83,7 +56,7 @@ export default async function CampaignDetailPage({
         </Link>
         <div className="mt-2 flex items-center gap-3">
           <h1 className="text-2xl font-bold">{campaign.name}</h1>
-          <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${statusBadge(campaign.status)}`}>
+          <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${campaignStatusBadge(campaign.status)}`}>
             {campaign.status}
           </span>
         </div>

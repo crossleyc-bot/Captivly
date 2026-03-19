@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { randomUUID } from "crypto";
+import { META_API_VERSION } from "@/lib/constants";
 
 export async function GET() {
   const appId = process.env.META_APP_ID;
@@ -9,7 +10,7 @@ export async function GET() {
   const state = randomUUID();
 
   const authUrl =
-    `https://www.facebook.com/v21.0/dialog/oauth?client_id=${appId}` +
+    `https://www.facebook.com/${META_API_VERSION}/dialog/oauth?client_id=${appId}` +
     `&redirect_uri=${encodeURIComponent(redirectUri)}` +
     `&scope=${scope}` +
     `&response_type=code` +

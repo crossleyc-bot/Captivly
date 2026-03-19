@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { checkUsageLimit } from "@/lib/feature-gate";
-import { PLAN_LIMITS } from "@/lib/constants";
+import { PLAN_LIMITS, META_API_BASE_URL } from "@/lib/constants";
 import type { PlanTier } from "@/types/database";
 
 interface CreateCampaignBody {
@@ -118,7 +118,7 @@ export async function POST(request: NextRequest) {
 
   // 1. Create campaign in Meta
   const campaignRes = await fetch(
-    `https://graph.facebook.com/v21.0/act_${adAccountId}/campaigns`,
+    `${META_API_BASE_URL}/act_${adAccountId}/campaigns`,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -143,7 +143,7 @@ export async function POST(request: NextRequest) {
 
   // 2. Create ad set
   const adSetRes = await fetch(
-    `https://graph.facebook.com/v21.0/act_${adAccountId}/adsets`,
+    `${META_API_BASE_URL}/act_${adAccountId}/adsets`,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -171,7 +171,7 @@ export async function POST(request: NextRequest) {
 
   // 3. Create lead form
   const formRes = await fetch(
-    `https://graph.facebook.com/v21.0/${business.meta_page_id}/leadgen_forms`,
+    `${META_API_BASE_URL}/${business.meta_page_id}/leadgen_forms`,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },

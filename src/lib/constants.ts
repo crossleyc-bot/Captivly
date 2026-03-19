@@ -1,5 +1,8 @@
 import type { PlanTier } from "@/types/database";
 
+export const META_API_VERSION = "v21.0";
+export const META_API_BASE_URL = `https://graph.facebook.com/${META_API_VERSION}`;
+
 export const PLAN_LIMITS: Record<
   PlanTier,
   {

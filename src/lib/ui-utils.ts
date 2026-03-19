@@ -1,0 +1,43 @@
+/** Color class for AI lead scores (1-10). */
+export function scoreColor(score: number | null): string {
+  if (!score) return "text-zinc-400";
+  if (score >= 8) return "text-green-600";
+  if (score >= 5) return "text-yellow-600";
+  return "text-red-500";
+}
+
+/** Badge classes for lead statuses. */
+export function leadStatusBadge(status: string): string {
+  const colors: Record<string, string> = {
+    new: "bg-blue-100 text-blue-700",
+    in_sequence: "bg-purple-100 text-purple-700",
+    replied: "bg-green-100 text-green-700",
+    converted: "bg-emerald-100 text-emerald-700",
+    cold: "bg-zinc-100 text-zinc-600",
+    unsubscribed: "bg-red-100 text-red-600",
+  };
+  return colors[status] ?? "bg-zinc-100 text-zinc-600";
+}
+
+/** Badge classes for campaign statuses. */
+export function campaignStatusBadge(status: string): string {
+  const colors: Record<string, string> = {
+    draft: "bg-zinc-100 text-zinc-600",
+    active: "bg-green-100 text-green-700",
+    paused: "bg-yellow-100 text-yellow-700",
+    completed: "bg-blue-100 text-blue-700",
+  };
+  return colors[status] ?? "bg-zinc-100 text-zinc-600";
+}
+
+/** Color class for message delivery statuses. */
+export function msgStatusColor(status: string): string {
+  const colors: Record<string, string> = {
+    queued: "text-zinc-500",
+    sent: "text-blue-600",
+    delivered: "text-green-600",
+    failed: "text-red-600",
+    replied: "text-emerald-600",
+  };
+  return colors[status] ?? "text-zinc-500";
+}

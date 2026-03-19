@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect, notFound } from "next/navigation";
 import Link from "next/link";
+import { scoreColor, leadStatusBadge, msgStatusColor } from "@/lib/ui-utils";
 
 export default async function LeadDetailPage({
   params,
@@ -40,35 +41,6 @@ export default async function LeadDetailPage({
     .eq("lead_id", id)
     .order("created_at", { ascending: true });
 
-  const scoreColor = (score: number | null) => {
-    if (!score) return "text-zinc-400";
-    if (score >= 8) return "text-green-600";
-    if (score >= 5) return "text-yellow-600";
-    return "text-red-500";
-  };
-
-  const statusBadge = (status: string) => {
-    const colors: Record<string, string> = {
-      new: "bg-blue-100 text-blue-700",
-      in_sequence: "bg-purple-100 text-purple-700",
-      replied: "bg-green-100 text-green-700",
-      converted: "bg-emerald-100 text-emerald-700",
-      cold: "bg-zinc-100 text-zinc-600",
-      unsubscribed: "bg-red-100 text-red-600",
-    };
-    return colors[status] ?? "bg-zinc-100 text-zinc-600";
-  };
-
-  const msgStatusColor = (status: string) => {
-    const colors: Record<string, string> = {
-      queued: "text-zinc-500",
-      sent: "text-blue-600",
-      delivered: "text-green-600",
-      failed: "text-red-600",
-      replied: "text-emerald-600",
-    };
-    return colors[status] ?? "text-zinc-500";
-  };
 
   const campaign = lead.campaign as { name: string } | null;
 
@@ -102,7 +74,7 @@ export default async function LeadDetailPage({
         <div>
           <span className="text-zinc-500">Status</span>
           <p>
-            <span className={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${statusBadge(lead.status)}`}>
+            <span className={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${leadStatusBadge(lead.status)}`}>
               {lead.status.replace("_", " ")}
             </span>
           </p>

@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { timingSafeEqual } from "crypto";
 import { getServiceClient } from "@/lib/supabase/service";
 import { getInternalAuthHeader } from "@/lib/internal-auth";
-import { PLAN_LIMITS } from "@/lib/constants";
+import { PLAN_LIMITS, META_API_BASE_URL } from "@/lib/constants";
 import type { PlanTier } from "@/types/database";
 
 // Webhook verification
@@ -80,7 +80,7 @@ export async function POST(request: NextRequest) {
       let leadData: Record<string, unknown>;
       try {
         const leadRes = await fetch(
-          `https://graph.facebook.com/v21.0/${leadgen_id}?access_token=${business.meta_access_token}`
+          `${META_API_BASE_URL}/${leadgen_id}?access_token=${business.meta_access_token}`
         );
         if (!leadRes.ok) continue;
         leadData = await leadRes.json();

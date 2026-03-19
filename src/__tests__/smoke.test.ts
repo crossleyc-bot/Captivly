@@ -14,21 +14,10 @@
  */
 import { describe, it, expect, vi, beforeEach, beforeAll } from "vitest";
 import { NextRequest } from "next/server";
+import { stubTestEnv } from "./setup-env";
 
-// ---------------------------------------------------------------------------
 // Environment variables (must be before any imports that read them)
-// ---------------------------------------------------------------------------
-vi.stubEnv("NEXT_PUBLIC_SUPABASE_URL", "https://test.supabase.co");
-vi.stubEnv("NEXT_PUBLIC_SUPABASE_ANON_KEY", "test-anon-key");
-vi.stubEnv("SUPABASE_SERVICE_ROLE_KEY", "test-service-key");
-vi.stubEnv("META_VERIFY_TOKEN", "captivly_webhook_secret");
-vi.stubEnv("NEXT_PUBLIC_APP_URL", "http://localhost:3000");
-vi.stubEnv("INTERNAL_API_SECRET", "test-internal-secret");
-vi.stubEnv("ANTHROPIC_API_KEY", "test-anthropic-key");
-vi.stubEnv("STRIPE_SECRET_KEY", "sk_test_fake");
-vi.stubEnv("STRIPE_PRICE_STARTER", "price_starter");
-vi.stubEnv("STRIPE_PRICE_GROWTH", "price_growth");
-vi.stubEnv("STRIPE_PRICE_PRO", "price_pro");
+stubTestEnv();
 
 // ---------------------------------------------------------------------------
 // Shared mock state — simulates the database across route handlers

@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import { campaignStatusBadge } from "@/lib/ui-utils";
 
 export default async function CampaignsPage() {
   const supabase = await createClient();
@@ -24,15 +25,6 @@ export default async function CampaignsPage() {
     .eq("business_id", business.id)
     .order("created_at", { ascending: false });
 
-  const statusBadge = (status: string) => {
-    const colors: Record<string, string> = {
-      draft: "bg-zinc-100 text-zinc-600",
-      active: "bg-green-100 text-green-700",
-      paused: "bg-yellow-100 text-yellow-700",
-      completed: "bg-blue-100 text-blue-700",
-    };
-    return colors[status] ?? "bg-zinc-100 text-zinc-600";
-  };
 
   return (
     <div className="space-y-6">
@@ -63,7 +55,7 @@ export default async function CampaignsPage() {
             >
               <div className="flex items-center justify-between">
                 <h3 className="font-semibold">{c.name}</h3>
-                <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${statusBadge(c.status)}`}>
+                <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${campaignStatusBadge(c.status)}`}>
                   {c.status}
                 </span>
               </div>
