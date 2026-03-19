@@ -149,6 +149,17 @@ export interface ApiKey {
   created_at: string;
 }
 
+export interface ReportCard {
+  id: string;
+  business_id: string;
+  month: string;
+  summary: string;
+  top_insight: string;
+  recommendation: string;
+  metrics: Record<string, unknown>;
+  created_at: string;
+}
+
 export interface Conversion {
   id: string;
   lead_id: string;
