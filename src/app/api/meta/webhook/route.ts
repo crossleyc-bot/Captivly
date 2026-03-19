@@ -1,15 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
 import { timingSafeEqual } from "crypto";
+import { getServiceClient } from "@/lib/supabase/service";
 import { getInternalAuthHeader } from "@/lib/internal-auth";
-
-// Service role client for webhook processing (no user session)
-function getServiceClient() {
-  return createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  );
-}
+import { PLAN_LIMITS } from "@/lib/constants";
+import type { PlanTier } from "@/types/database";
 
 // Webhook verification
 export async function GET(request: NextRequest) {
@@ -129,12 +123,7 @@ export async function POST(request: NextRequest) {
           .eq("id", user.user_id)
           .single();
 
-        const plan = dbUser?.plan_tier ?? "starter";
-        const planLimits: Record<string, number> = {
-          starter: 100,
-          growth: 500,
-          pro: 2000,
-        };
+        const plan = (dbUser?.plan_tier ?? "starter") as PlanTier;
 
         const { data: usage } = await supabase
           .from("usage_tracking")
@@ -143,7 +132,7 @@ export async function POST(request: NextRequest) {
           .eq("month", month)
           .single();
 
-        if ((usage?.leads_count ?? 0) >= (planLimits[plan] ?? 100)) {
+        if ((usage?.leads_count ?? 0) >= PLAN_LIMITS[plan].leads_per_month) {
           // Over limit — skip this lead
           continue;
         }
@@ -183,20 +172,17 @@ export async function POST(request: NextRequest) {
         });
       }
 
-      // Trigger AI lead scoring asynchronously
-      // The scoring endpoint will be called by the app internally
-      try {
-        await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/leads/score`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            ...getInternalAuthHeader(),
-          },
-          body: JSON.stringify({ lead_id: lead.id }),
-        });
-      } catch {
+      // Fire-and-forget: trigger AI lead scoring without blocking webhook response
+      fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/leads/score`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...getInternalAuthHeader(),
+        },
+        body: JSON.stringify({ lead_id: lead.id }),
+      }).catch(() => {
         // Scoring failure shouldn't block lead ingestion
-      }
+      });
     }
   }
 

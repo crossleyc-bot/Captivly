@@ -240,6 +240,10 @@ vi.mock("@/lib/supabase/server", () => ({
   createClient: vi.fn(async () => mockSupabase),
 }));
 
+vi.mock("@/lib/supabase/service", () => ({
+  getServiceClient: vi.fn(() => mockSupabase),
+}));
+
 // ---------------------------------------------------------------------------
 // Anthropic mock
 // ---------------------------------------------------------------------------
@@ -320,7 +324,6 @@ vi.mock("@/lib/stripe", () => ({
 // ---------------------------------------------------------------------------
 // Global fetch mock (for internal API calls from webhook → score)
 // ---------------------------------------------------------------------------
-const originalFetch = globalThis.fetch;
 const mockFetch = vi.fn();
 vi.stubGlobal("fetch", mockFetch);
 

@@ -24,6 +24,10 @@ vi.mock("@supabase/supabase-js", () => ({
   createClient: vi.fn(() => ({ from: mockFrom })),
 }));
 
+vi.mock("@/lib/supabase/service", () => ({
+  getServiceClient: vi.fn(() => ({ from: mockFrom })),
+}));
+
 // Mock Stripe
 const mockConstructEvent = vi.fn();
 const mockSubscriptionsRetrieve = vi.fn();

@@ -1,15 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
 import { getResendClient } from "@/lib/resend";
 import { getTwilioClient, TWILIO_FROM } from "@/lib/twilio";
 import { validateInternalAuth } from "@/lib/internal-auth";
-
-function getServiceClient() {
-  return createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  );
-}
+import { getServiceClient } from "@/lib/supabase/service";
+import { PLAN_LIMITS } from "@/lib/constants";
+import type { PlanTier } from "@/types/database";
 
 interface SendRequest {
   message_id: string;
@@ -70,12 +65,7 @@ export async function POST(request: NextRequest) {
         .eq("id", business.user_id)
         .single();
 
-      const plan = dbUser?.plan_tier ?? "starter";
-      const smsLimits: Record<string, number> = {
-        starter: 0,
-        growth: 500,
-        pro: 2000,
-      };
+      const plan = (dbUser?.plan_tier ?? "starter") as PlanTier;
 
       const { data: usage } = await supabase
         .from("usage_tracking")
@@ -84,7 +74,7 @@ export async function POST(request: NextRequest) {
         .eq("month", month)
         .single();
 
-      if ((usage?.sms_count ?? 0) >= (smsLimits[plan] ?? 0)) {
+      if ((usage?.sms_count ?? 0) >= PLAN_LIMITS[plan].sms_per_month) {
         await supabase
           .from("messages_sent")
           .update({ status: "failed" })

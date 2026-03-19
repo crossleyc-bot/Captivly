@@ -17,6 +17,13 @@ vi.mock("@supabase/supabase-js", () => ({
   })),
 }));
 
+vi.mock("@/lib/supabase/service", () => ({
+  getServiceClient: vi.fn(() => ({
+    from: mockFrom,
+    rpc: mockRpc,
+  })),
+}));
+
 // Mock Resend
 const mockResendSend = vi.fn().mockResolvedValue({ data: { id: "resend-msg-1" } });
 vi.mock("@/lib/resend", () => ({

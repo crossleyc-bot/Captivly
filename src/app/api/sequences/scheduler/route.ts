@@ -1,14 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
-import { validateInternalAuth } from "@/lib/internal-auth";
-import { getInternalAuthHeader } from "@/lib/internal-auth";
+import { validateInternalAuth, getInternalAuthHeader } from "@/lib/internal-auth";
+import { getServiceClient } from "@/lib/supabase/service";
 
-function getServiceClient() {
-  return createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  );
-}
+const MAX_SEQUENCES_PER_RUN = 50;
+const MAX_LEADS_PER_SEQUENCE = 500;
+const MAX_MESSAGES_PER_BATCH = 100;
 
 /**
  * Sequence scheduler — called via cron (e.g. every hour).
@@ -32,7 +28,7 @@ export async function POST(request: NextRequest) {
     .from("sequences")
     .select("id, campaign_id")
     .eq("is_active", true)
-    .limit(50);
+    .limit(MAX_SEQUENCES_PER_RUN);
 
   for (const seq of sequences ?? []) {
     // Get all steps for this sequence
@@ -50,7 +46,7 @@ export async function POST(request: NextRequest) {
       .select("id, created_at")
       .eq("campaign_id", seq.campaign_id)
       .in("status", ["new", "in_sequence"])
-      .limit(500);
+      .limit(MAX_LEADS_PER_SEQUENCE);
 
     for (const lead of leads ?? []) {
       for (const step of steps) {
@@ -93,7 +89,7 @@ export async function POST(request: NextRequest) {
     .select("id")
     .eq("status", "queued")
     .lte("sent_at", now.toISOString())
-    .limit(100); // Process in batches
+    .limit(MAX_MESSAGES_PER_BATCH);
 
   for (const msg of dueMessages ?? []) {
     try {

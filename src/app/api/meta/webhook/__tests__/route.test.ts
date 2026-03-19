@@ -27,6 +27,13 @@ vi.mock("@supabase/supabase-js", () => ({
   })),
 }));
 
+vi.mock("@/lib/supabase/service", () => ({
+  getServiceClient: vi.fn(() => ({
+    from: mockFrom,
+    rpc: mockRpc,
+  })),
+}));
+
 // Mock global fetch for Meta API calls and scoring endpoint
 const mockFetch = vi.fn();
 vi.stubGlobal("fetch", mockFetch);

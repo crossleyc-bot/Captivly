@@ -1,16 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
 import { getAnthropicClient, AI_MODEL } from "@/lib/anthropic";
 import { validateInternalAuth } from "@/lib/internal-auth";
+import { getServiceClient } from "@/lib/supabase/service";
 import type Anthropic from "@anthropic-ai/sdk";
-
-// Use service role client — this endpoint is called internally from the webhook
-function getServiceClient() {
-  return createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  );
-}
 
 interface ScoreResponse {
   score: number;

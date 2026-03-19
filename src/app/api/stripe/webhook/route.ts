@@ -1,15 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getStripe } from "@/lib/stripe";
 import type Stripe from "stripe";
-import { createClient } from "@supabase/supabase-js";
-
-// Lazily create service role client — no user session available in webhooks
-function getServiceClient() {
-  return createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  );
-}
+import { getServiceClient } from "@/lib/supabase/service";
 
 function planFromPriceId(priceId: string): string {
   const prices: Record<string, string> = {
