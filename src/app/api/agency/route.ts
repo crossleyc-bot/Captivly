@@ -100,11 +100,20 @@ export async function POST(request: NextRequest) {
   }
 
   // Add owner as a member too
-  await supabase.from("agency_members").insert({
+  const { error: memberError } = await supabase.from("agency_members").insert({
     agency_id: agency.id,
     user_id: user.id,
     role: "owner",
   });
+
+  if (memberError) {
+    // Roll back agency creation to avoid orphaned state
+    await supabase.from("agencies").delete().eq("id", agency.id);
+    return NextResponse.json(
+      { error: "Failed to initialize agency membership" },
+      { status: 500 }
+    );
+  }
 
   return NextResponse.json({ agency });
 }

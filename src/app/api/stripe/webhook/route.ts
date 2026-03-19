@@ -76,13 +76,51 @@ export async function POST(request: NextRequest) {
         trialing: "active",
       };
 
-      await getServiceClient()
+      // Check if downgrading from Pro — deactivate Phase 4 features
+      const serviceClient = getServiceClient();
+      const { data: currentUser } = await serviceClient
+        .from("users")
+        .select("plan_tier")
+        .eq("id", userId)
+        .single();
+
+      const wasOnPro = currentUser?.plan_tier === "pro";
+      const isNowPro = plan === "pro";
+
+      await serviceClient
         .from("users")
         .update({
           plan_tier: plan,
           subscription_status: statusMap[subscription.status] ?? "inactive",
         })
         .eq("id", userId);
+
+      // If downgrading from Pro, deactivate white-label and custom domains
+      if (wasOnPro && !isNowPro) {
+        const { data: business } = await serviceClient
+          .from("businesses")
+          .select("id")
+          .eq("user_id", userId)
+          .single();
+
+        if (business) {
+          // Reset white-label branding to defaults
+          await serviceClient
+            .from("white_label_config")
+            .update({
+              hide_captivly_branding: false,
+              custom_domain: null,
+              custom_domain_verified: false,
+            })
+            .eq("business_id", business.id);
+
+          // Unverify custom domains (keep records for re-upgrade)
+          await serviceClient
+            .from("custom_domains")
+            .update({ verified: false, ssl_provisioned: false })
+            .eq("business_id", business.id);
+        }
+      }
       break;
     }
 
@@ -91,7 +129,16 @@ export async function POST(request: NextRequest) {
       const userId = subscription.metadata.supabase_user_id;
       if (!userId) break;
 
-      await getServiceClient()
+      const serviceClient = getServiceClient();
+
+      // Check if was on Pro before cancellation
+      const { data: cancelledUser } = await serviceClient
+        .from("users")
+        .select("plan_tier")
+        .eq("id", userId)
+        .single();
+
+      await serviceClient
         .from("users")
         .update({
           plan_tier: "starter",
@@ -99,6 +146,31 @@ export async function POST(request: NextRequest) {
           stripe_subscription_id: null,
         })
         .eq("id", userId);
+
+      // Deactivate Phase 4 features if was on Pro
+      if (cancelledUser?.plan_tier === "pro") {
+        const { data: business } = await serviceClient
+          .from("businesses")
+          .select("id")
+          .eq("user_id", userId)
+          .single();
+
+        if (business) {
+          await serviceClient
+            .from("white_label_config")
+            .update({
+              hide_captivly_branding: false,
+              custom_domain: null,
+              custom_domain_verified: false,
+            })
+            .eq("business_id", business.id);
+
+          await serviceClient
+            .from("custom_domains")
+            .update({ verified: false, ssl_provisioned: false })
+            .eq("business_id", business.id);
+        }
+      }
       break;
     }
 

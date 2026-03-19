@@ -92,18 +92,36 @@ export async function PUT(request: NextRequest) {
     hide_captivly_branding?: boolean;
   };
 
-  // Upsert config
+  // Fetch existing config to merge with
+  const { data: existing } = await supabase
+    .from("white_label_config")
+    .select("*")
+    .eq("business_id", business.id)
+    .single();
+
+  const defaults = {
+    app_name: "Captivly",
+    logo_url: null as string | null,
+    primary_color: "#18181b",
+    accent_color: "#3b82f6",
+    favicon_url: null as string | null,
+    hide_captivly_branding: false,
+  };
+
+  const base = existing ?? defaults;
+
+  // Upsert config — only override fields that were explicitly provided
   const { data: config, error } = await supabase
     .from("white_label_config")
     .upsert(
       {
         business_id: business.id,
-        app_name: body.app_name ?? "Captivly",
-        logo_url: body.logo_url ?? null,
-        primary_color: body.primary_color ?? "#18181b",
-        accent_color: body.accent_color ?? "#3b82f6",
-        favicon_url: body.favicon_url ?? null,
-        hide_captivly_branding: body.hide_captivly_branding ?? false,
+        app_name: body.app_name !== undefined ? body.app_name : base.app_name,
+        logo_url: body.logo_url !== undefined ? body.logo_url : base.logo_url,
+        primary_color: body.primary_color !== undefined ? body.primary_color : base.primary_color,
+        accent_color: body.accent_color !== undefined ? body.accent_color : base.accent_color,
+        favicon_url: body.favicon_url !== undefined ? body.favicon_url : base.favicon_url,
+        hide_captivly_branding: body.hide_captivly_branding !== undefined ? body.hide_captivly_branding : base.hide_captivly_branding,
         updated_at: new Date().toISOString(),
       },
       { onConflict: "business_id" }

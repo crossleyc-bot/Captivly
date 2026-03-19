@@ -42,12 +42,31 @@ export default async function AgencyPage() {
     );
   }
 
-  // Check if user has an agency
-  const { data: agency } = await supabase
+  // Check if user owns an agency
+  let agency: { id: string; owner_user_id: string; name: string; logo_url: string | null; created_at: string } | null = null;
+  let userRole = "owner";
+
+  const { data: ownedAgency } = await supabase
     .from("agencies")
     .select("*")
     .eq("owner_user_id", user.id)
     .single();
+
+  if (ownedAgency) {
+    agency = ownedAgency;
+  } else {
+    // Check if user is a member of an agency
+    const { data: membership } = await supabase
+      .from("agency_members")
+      .select("role, agency:agencies(*)")
+      .eq("user_id", user.id)
+      .single();
+
+    if (membership?.agency) {
+      agency = membership.agency as typeof agency;
+      userRole = membership.role;
+    }
+  }
 
   if (!agency) {
     return (
@@ -62,6 +81,8 @@ export default async function AgencyPage() {
       </div>
     );
   }
+
+  const isOwnerOrAdmin = userRole === "owner" || userRole === "admin";
 
   // Fetch members
   const { data: members } = await supabase
@@ -133,7 +154,7 @@ export default async function AgencyPage() {
             );
           })}
         </div>
-        <InviteMember />
+        {isOwnerOrAdmin && <InviteMember />}
       </section>
 
       {/* Client Businesses */}

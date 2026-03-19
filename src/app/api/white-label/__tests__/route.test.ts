@@ -172,6 +172,10 @@ describe("PUT /api/white-label", () => {
         // businesses table
         return chainSelect({ id: "biz-1" });
       }
+      if (callCount === 3) {
+        // white_label_config: fetch existing config
+        return chainSelect(null);
+      }
       // white_label_config upsert
       return { upsert: mockUpsert };
     });

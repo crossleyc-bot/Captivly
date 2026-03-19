@@ -151,6 +151,19 @@ export async function DELETE() {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  const { data: dbUser } = await supabase
+    .from("users")
+    .select("plan_tier")
+    .eq("id", user.id)
+    .single();
+
+  if (!requirePlan((dbUser?.plan_tier ?? "starter") as PlanTier, "pro")) {
+    return NextResponse.json(
+      { error: "Custom domains require the Pro plan" },
+      { status: 403 }
+    );
+  }
+
   const { data: business } = await supabase
     .from("businesses")
     .select("id")

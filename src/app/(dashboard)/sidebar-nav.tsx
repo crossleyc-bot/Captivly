@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { LogoutButton } from "./logout-button";
+import { useBranding } from "./branding-provider";
 
 const navItems = [
   { href: "/dashboard", label: "Dashboard" },
@@ -22,6 +23,7 @@ const navItems = [
 export function SidebarNav() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const branding = useBranding();
 
   function isActive(href: string) {
     return pathname === href || pathname.startsWith(href + "/");
@@ -31,8 +33,12 @@ export function SidebarNav() {
     <>
       {/* Mobile header bar */}
       <div className="fixed inset-x-0 top-0 z-40 flex items-center justify-between border-b bg-white px-4 py-3 lg:hidden">
-        <Link href="/dashboard" className="text-lg font-bold">
-          Captivly
+        <Link href="/dashboard" className="flex items-center gap-2 text-lg font-bold">
+          {branding.logo_url ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={branding.logo_url} alt="" className="h-6 w-6 rounded object-cover" />
+          ) : null}
+          {branding.app_name}
         </Link>
         <button
           type="button"
@@ -59,13 +65,18 @@ export function SidebarNav() {
       )}
 
       {/* Sidebar */}
+      {/* Sidebar */}
       <aside
         className={`fixed inset-y-0 left-0 z-50 flex w-64 flex-col border-r bg-zinc-50 px-4 py-6 transition-transform lg:static lg:translate-x-0 ${
           open ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <Link href="/dashboard" className="text-xl font-bold">
-          Captivly
+        <Link href="/dashboard" className="flex items-center gap-2 text-xl font-bold">
+          {branding.logo_url ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={branding.logo_url} alt="" className="h-7 w-7 rounded object-cover" />
+          ) : null}
+          {branding.app_name}
         </Link>
         <nav className="mt-8 flex flex-1 flex-col gap-1">
           {navItems.map((item) => (
@@ -75,14 +86,22 @@ export function SidebarNav() {
               onClick={() => setOpen(false)}
               className={`rounded-md px-3 py-2 text-sm font-medium ${
                 isActive(item.href)
-                  ? "bg-zinc-900 text-white"
+                  ? "text-white"
                   : "text-zinc-700 hover:bg-zinc-200"
               }`}
+              style={
+                isActive(item.href)
+                  ? { backgroundColor: branding.primary_color }
+                  : undefined
+              }
             >
               {item.label}
             </Link>
           ))}
         </nav>
+        {!branding.hide_captivly_branding && (
+          <p className="mb-2 text-xs text-zinc-400">Powered by Captivly</p>
+        )}
         <LogoutButton />
       </aside>
     </>
