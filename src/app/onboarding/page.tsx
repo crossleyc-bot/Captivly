@@ -65,7 +65,7 @@ const STEP_TITLES = [
   "Business basics",
   "Target audience",
   "Primary offer",
-  "Connect Meta",
+  "Connect ad accounts",
   "Choose plan",
 ];
 
@@ -439,19 +439,25 @@ export default function OnboardingPage() {
           </div>
         )}
 
-        {/* Step 4: Connect Meta */}
+        {/* Step 4: Connect ad accounts */}
         {step === 3 && (
           <div className="space-y-4">
-            <h2 className="text-xl font-bold">Connect your Meta ad account</h2>
+            <h2 className="text-xl font-bold">Connect your ad accounts</h2>
             <p className="text-sm text-zinc-500">
-              Link your Facebook/Instagram ad account so Captivly can create
-              campaigns and receive leads automatically.
+              Link your ad accounts so Captivly can create campaigns and
+              receive leads automatically. Connect one or both.
             </p>
             <a
               href="/api/meta/auth"
               className="inline-flex w-full items-center justify-center rounded-md bg-[#1877F2] px-4 py-2 text-sm font-medium text-white hover:bg-[#166FE5]"
             >
               Connect with Facebook
+            </a>
+            <a
+              href="/api/google/auth"
+              className="inline-flex w-full items-center justify-center rounded-md bg-[#4285F4] px-4 py-2 text-sm font-medium text-white hover:bg-[#3367D6]"
+            >
+              Connect with Google Ads
             </a>
             <p className="text-center text-xs text-zinc-400">
               You can skip this and connect later from Settings.

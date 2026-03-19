@@ -238,6 +238,10 @@ META_APP_ID=
 META_APP_SECRET=
 META_SYSTEM_USER_TOKEN=
 META_VERIFY_TOKEN=captivly_webhook_secret
+# Google Ads
+GOOGLE_ADS_CLIENT_ID=
+GOOGLE_ADS_CLIENT_SECRET=
+GOOGLE_ADS_DEVELOPER_TOKEN=
 # Twilio
 TWILIO_ACCOUNT_SID=
 TWILIO_AUTH_TOKEN=
@@ -256,6 +260,9 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 | `/api/meta/auth` | GET | OAuth redirect to Meta for ad account access |
 | `/api/meta/callback` | GET | Meta OAuth callback, store access token |
 | `/api/meta/create-campaign` | POST | Create Lead Ad campaign via Meta Marketing API |
+| `/api/google/auth` | GET | OAuth redirect to Google for Ads account access |
+| `/api/google/callback` | GET | Google OAuth callback, store tokens |
+| `/api/google/webhook` | POST | Receive new leads from Google Ads via Pub/Sub |
 | `/api/leads/score` | POST | Score a lead using Claude AI |
 | `/api/sequences/generate` | POST | Generate sequence messages with Claude AI |
 | `/api/sequences/send` | POST | Fire a sequence step (email or SMS) |

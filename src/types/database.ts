@@ -34,6 +34,9 @@ export interface Business {
   meta_ad_account_id: string | null;
   meta_page_id: string | null;
   meta_access_token: string | null;
+  google_customer_id: string | null;
+  google_access_token: string | null;
+  google_refresh_token: string | null;
   onboarding_completed: boolean;
   created_at: string;
 }
@@ -46,6 +49,8 @@ export interface Campaign {
   meta_adset_id: string | null;
   meta_ad_id: string | null;
   meta_form_id: string | null;
+  google_campaign_id: string | null;
+  google_form_id: string | null;
   status: CampaignStatus;
   daily_budget_cents: number | null;
   total_spend_cents: number;
@@ -60,6 +65,7 @@ export interface Lead {
   business_id: string;
   campaign_id: string | null;
   meta_lead_id: string | null;
+  google_lead_id: string | null;
   first_name: string | null;
   last_name: string | null;
   email: string | null;

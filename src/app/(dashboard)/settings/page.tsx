@@ -26,7 +26,7 @@ export default async function SettingsPage() {
   // Fetch business + current month usage
   const { data: business } = await supabase
     .from("businesses")
-    .select("id")
+    .select("id, meta_ad_account_id, google_customer_id")
     .eq("user_id", user.id)
     .single();
 
@@ -108,6 +108,49 @@ export default async function SettingsPage() {
               <div>Campaigns: <span className="font-medium text-zinc-900">{limits.campaigns === Infinity ? "Unlimited" : limits.campaigns}</span></div>
               <div>Sequence steps: <span className="font-medium text-zinc-900">{limits.sequence_steps}</span></div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Connected accounts */}
+      <section className="space-y-3">
+        <h2 className="text-lg font-semibold">Connected Accounts</h2>
+        <div className="space-y-2">
+          <div className="flex items-center justify-between rounded-md border px-4 py-3">
+            <div>
+              <p className="text-sm font-medium">Meta (Facebook/Instagram)</p>
+              <p className="text-xs text-zinc-500">
+                {business?.meta_ad_account_id
+                  ? `Connected — Account ${business.meta_ad_account_id}`
+                  : "Not connected"}
+              </p>
+            </div>
+            {!business?.meta_ad_account_id && (
+              <a
+                href="/api/meta/auth"
+                className="rounded-md bg-[#1877F2] px-3 py-1.5 text-xs font-medium text-white hover:bg-[#166FE5]"
+              >
+                Connect
+              </a>
+            )}
+          </div>
+          <div className="flex items-center justify-between rounded-md border px-4 py-3">
+            <div>
+              <p className="text-sm font-medium">Google Ads</p>
+              <p className="text-xs text-zinc-500">
+                {business?.google_customer_id
+                  ? `Connected — Customer ${business.google_customer_id}`
+                  : "Not connected"}
+              </p>
+            </div>
+            {!business?.google_customer_id && (
+              <a
+                href="/api/google/auth"
+                className="rounded-md bg-[#4285F4] px-3 py-1.5 text-xs font-medium text-white hover:bg-[#3367D6]"
+              >
+                Connect
+              </a>
+            )}
           </div>
         </div>
       </section>

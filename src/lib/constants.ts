@@ -3,6 +3,11 @@ import type { PlanTier } from "@/types/database";
 export const META_API_VERSION = "v21.0";
 export const META_API_BASE_URL = `https://graph.facebook.com/${META_API_VERSION}`;
 
+export const GOOGLE_ADS_API_VERSION = "v17";
+export const GOOGLE_ADS_API_BASE_URL = `https://googleads.googleapis.com/${GOOGLE_ADS_API_VERSION}`;
+export const GOOGLE_OAUTH_BASE_URL = "https://accounts.google.com/o/oauth2/v2/auth";
+export const GOOGLE_TOKEN_URL = "https://oauth2.googleapis.com/token";
+
 export const PLAN_LIMITS: Record<
   PlanTier,
   {
