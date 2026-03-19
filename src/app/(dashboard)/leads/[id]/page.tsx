@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { redirect, notFound } from "next/navigation";
 import Link from "next/link";
 import { scoreColor, leadStatusBadge, msgStatusColor } from "@/lib/ui-utils";
+import type { LeadEnrichment } from "@/types/database";
 
 export default async function LeadDetailPage({
   params,
@@ -101,6 +102,11 @@ export default async function LeadDetailPage({
         )}
       </div>
 
+      {/* Enrichment data */}
+      {lead.enrichment_data && (
+        <EnrichmentCard enrichment={lead.enrichment_data as LeadEnrichment} />
+      )}
+
       {/* Message timeline */}
       <div>
         <h2 className="text-lg font-semibold">Message Timeline</h2>
@@ -158,6 +164,74 @@ export default async function LeadDetailPage({
           </div>
         )}
       </div>
+    </div>
+  );
+}
+
+function EnrichmentCard({ enrichment }: { enrichment: LeadEnrichment }) {
+  const emailTypeColors: Record<string, string> = {
+    personal: "bg-blue-50 text-blue-700",
+    business: "bg-green-50 text-green-700",
+    disposable: "bg-red-50 text-red-700",
+    unknown: "bg-zinc-100 text-zinc-500",
+  };
+
+  return (
+    <div className="space-y-3 rounded-lg border p-4">
+      <h2 className="text-lg font-semibold">Enrichment Data</h2>
+      <div className="grid grid-cols-2 gap-3 text-sm sm:grid-cols-3">
+        <div>
+          <span className="text-zinc-500">Email Type</span>
+          <p>
+            <span
+              className={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${emailTypeColors[enrichment.email_type]}`}
+            >
+              {enrichment.email_type}
+            </span>
+          </p>
+        </div>
+        {enrichment.email_domain && (
+          <div>
+            <span className="text-zinc-500">Domain</span>
+            <p className="font-medium">{enrichment.email_domain}</p>
+          </div>
+        )}
+        <div>
+          <span className="text-zinc-500">Phone Type</span>
+          <p className="font-medium capitalize">{enrichment.phone_type}</p>
+        </div>
+        {enrichment.geo_state && (
+          <div>
+            <span className="text-zinc-500">Estimated State</span>
+            <p className="font-medium">{enrichment.geo_state}</p>
+          </div>
+        )}
+        {enrichment.distance_miles !== null && (
+          <div>
+            <span className="text-zinc-500">Distance</span>
+            <p className="font-medium">~{enrichment.distance_miles} mi</p>
+          </div>
+        )}
+        <div>
+          <span className="text-zinc-500">Name Confidence</span>
+          <p className="font-medium capitalize">{enrichment.name_confidence}</p>
+        </div>
+      </div>
+      {enrichment.engagement_signals.length > 0 && (
+        <div>
+          <span className="text-xs text-zinc-500">Engagement Signals</span>
+          <div className="mt-1 flex flex-wrap gap-1">
+            {enrichment.engagement_signals.map((signal) => (
+              <span
+                key={signal}
+                className="rounded bg-zinc-100 px-2 py-0.5 text-xs text-zinc-600"
+              >
+                {signal.replace(/_/g, " ")}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

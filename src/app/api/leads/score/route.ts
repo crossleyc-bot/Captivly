@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getAnthropicClient, AI_MODEL } from "@/lib/anthropic";
 import { validateInternalAuth } from "@/lib/internal-auth";
 import { getServiceClient } from "@/lib/supabase/service";
+import { enrichLead, formatEnrichmentForScoring } from "@/lib/lead-enrichment";
 import type Anthropic from "@anthropic-ai/sdk";
 
 interface ScoreResponse {
@@ -43,9 +44,44 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Business not found" }, { status: 404 });
   }
 
-  const client = getAnthropicClient();
+  // Enrich lead with derived data
+  const enrichment = enrichLead(
+    {
+      first_name: lead.first_name,
+      last_name: lead.last_name,
+      email: lead.email,
+      phone: lead.phone,
+      custom_answers: lead.custom_answers,
+      source: lead.source,
+    },
+    {
+      location_city: business.location_city,
+      location_state: business.location_state,
+    }
+  );
 
-  const systemPrompt = `You are a lead quality analyst for a local business. Given a lead's info and the business's target profile, score this lead from 1 to 10 (10 = perfect match, 1 = poor match). Consider how well the lead matches the business's target demographics and offering. Return ONLY valid JSON: { "score": number, "reason": string }`;
+  // Save enrichment data
+  await supabase
+    .from("leads")
+    .update({
+      enrichment_data: enrichment,
+      enriched_at: new Date().toISOString(),
+    })
+    .eq("id", lead_id);
+
+  const client = getAnthropicClient();
+  const enrichmentText = formatEnrichmentForScoring(enrichment);
+
+  const systemPrompt = `You are a lead quality analyst for a local business. Given a lead's info, enrichment data, and the business's target profile, score this lead from 1 to 10 (10 = perfect match, 1 = poor match).
+
+Consider these factors in order of importance:
+1. Geographic proximity to the business
+2. Contact quality (email type, phone type, name confidence)
+3. Engagement signals (form completeness, custom answers)
+4. Demographic fit with target audience
+5. Red flags (disposable email, missing contact info)
+
+Return ONLY valid JSON: { "score": number, "reason": string }`;
 
   const userPrompt = `Business type: ${business.type}
 Location: ${business.location_city ?? "unknown"}, ${business.location_state ?? "unknown"}
@@ -58,7 +94,10 @@ Name: ${lead.first_name ?? "unknown"} ${lead.last_name ?? ""}
 Email: ${lead.email ?? "not provided"}
 Phone: ${lead.phone ?? "not provided"}
 Source: ${lead.source}
-Custom answers: ${lead.custom_answers ? JSON.stringify(lead.custom_answers) : "none"}`;
+Custom answers: ${lead.custom_answers ? JSON.stringify(lead.custom_answers) : "none"}
+
+Enrichment data:
+${enrichmentText}`;
 
   const response = await client.messages.create({
     model: AI_MODEL,
@@ -97,5 +136,5 @@ Custom answers: ${lead.custom_answers ? JSON.stringify(lead.custom_answers) : "n
     })
     .eq("id", lead_id);
 
-  return NextResponse.json({ score, reason: scoreData.reason });
+  return NextResponse.json({ score, reason: scoreData.reason, enrichment });
 }

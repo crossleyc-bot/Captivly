@@ -75,8 +75,22 @@ export interface Lead {
   ai_score_reason: string | null;
   status: LeadStatus;
   source: string;
+  enrichment_data: LeadEnrichment | null;
+  enriched_at: string | null;
   created_at: string;
   updated_at: string;
+}
+
+export interface LeadEnrichment {
+  email_domain: string | null;
+  email_type: "personal" | "business" | "disposable" | "unknown";
+  phone_type: "mobile" | "landline" | "voip" | "unknown";
+  geo_city: string | null;
+  geo_state: string | null;
+  geo_zip: string | null;
+  distance_miles: number | null;
+  name_confidence: "high" | "medium" | "low";
+  engagement_signals: string[];
 }
 
 export interface Sequence {
