@@ -212,3 +212,28 @@ export interface ChatConversation {
   created_at: string;
   updated_at: string;
 }
+
+export interface ReferralLink {
+  id: string;
+  business_id: string;
+  lead_id: string | null;
+  code: string;
+  referrer_name: string | null;
+  referrer_email: string | null;
+  clicks: number;
+  conversions: number;
+  is_active: boolean;
+  created_at: string;
+}
+
+export type ReferralStatus = "clicked" | "signed_up" | "converted";
+
+export interface Referral {
+  id: string;
+  business_id: string;
+  referral_link_id: string;
+  referred_lead_id: string | null;
+  status: ReferralStatus;
+  converted_at: string | null;
+  created_at: string;
+}

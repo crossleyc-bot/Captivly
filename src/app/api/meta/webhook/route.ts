@@ -172,6 +172,29 @@ export async function POST(request: NextRequest) {
         });
       }
 
+      // Check for referral code in custom answers
+      const referralCode =
+        fieldData.referral_code ??
+        fieldData.ref ??
+        fieldData.referred_by ??
+        null;
+
+      if (referralCode && typeof referralCode === "string") {
+        fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/referrals/track`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            ...getInternalAuthHeader(),
+          },
+          body: JSON.stringify({
+            lead_id: lead.id,
+            referral_code: referralCode,
+          }),
+        }).catch(() => {
+          // Referral attribution failure shouldn't block lead ingestion
+        });
+      }
+
       // Fire-and-forget: trigger AI lead scoring without blocking webhook response
       fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/leads/score`, {
         method: "POST",
