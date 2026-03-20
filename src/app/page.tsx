@@ -80,6 +80,7 @@ export default async function Home() {
             {[
               {
                 title: "Meta Lead Ads Integration",
+                href: "/features/meta-lead-ads",
                 description: "Connect your Facebook & Instagram ad accounts in one click. New leads flow in automatically via real-time webhooks.",
                 icon: (
                   <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -89,6 +90,7 @@ export default async function Home() {
               },
               {
                 title: "AI Lead Scoring",
+                href: "/features/ai-lead-scoring",
                 description: "Every lead is instantly scored 1-10 by AI based on fit with your ideal customer profile. Focus on the hottest leads first.",
                 icon: (
                   <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -98,6 +100,7 @@ export default async function Home() {
               },
               {
                 title: "Automated Outreach Sequences",
+                href: "/features/automated-outreach",
                 description: "AI writes personalized multi-step email and SMS sequences. Leads get the right message at the right time.",
                 icon: (
                   <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -107,6 +110,7 @@ export default async function Home() {
               },
               {
                 title: "Real-Time Dashboard",
+                href: "/features/dashboard",
                 description: "See every lead, message status, and conversion in one place. Know exactly how your campaigns are performing.",
                 icon: (
                   <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -116,6 +120,7 @@ export default async function Home() {
               },
               {
                 title: "Smart Plan Tiers",
+                href: "/features/pricing",
                 description: "Start small with 100 leads/month, scale to 2,000+. SMS, multiple campaigns, and AI reports unlock as you grow.",
                 icon: (
                   <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -125,6 +130,7 @@ export default async function Home() {
               },
               {
                 title: "White-Label Ready",
+                href: "/features/white-label",
                 description: "On the Pro plan, rebrand Captivly as your own. Custom logo, colors, domain — your clients will never know.",
                 icon: (
                   <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -133,13 +139,13 @@ export default async function Home() {
                 ),
               },
             ].map((feature) => (
-              <div key={feature.title} className="rounded-lg border border-zinc-200 p-6">
+              <Link key={feature.title} href={feature.href} className="rounded-lg border border-zinc-200 p-6 transition-colors hover:border-indigo-300 hover:bg-indigo-50/50">
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600">
                   {feature.icon}
                 </div>
                 <h3 className="mt-4 text-sm font-semibold text-zinc-900">{feature.title}</h3>
                 <p className="mt-2 text-sm text-zinc-600">{feature.description}</p>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
