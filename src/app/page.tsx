@@ -259,6 +259,36 @@ export default async function Home() {
                   </svg>
                 ),
               },
+              {
+                title: "Team Member Accounts",
+                href: "/features/team-accounts",
+                description: "Let front desk, sales, and managers access leads with their own login. Role-based permissions and full audit trail.",
+                icon: (
+                  <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+                  </svg>
+                ),
+              },
+              {
+                title: "Lead Assignment Rules",
+                href: "/features/lead-assignment",
+                description: "Auto-route leads to team members based on campaign, AI score, location, or round-robin. The right person, every time.",
+                icon: (
+                  <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
+                  </svg>
+                ),
+              },
+              {
+                title: "Webhook & API",
+                href: "/features/webhook-api",
+                description: "Push leads to your CRM or POS in real time. REST API and configurable webhooks for custom integrations.",
+                icon: (
+                  <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5" />
+                  </svg>
+                ),
+              },
             ].map((feature) => (
               <Link key={feature.title} href={feature.href} className="rounded-lg border border-zinc-200 p-6 transition-colors hover:border-indigo-300 hover:bg-indigo-50/50">
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600">
