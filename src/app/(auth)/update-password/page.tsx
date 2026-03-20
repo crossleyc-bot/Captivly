@@ -47,7 +47,7 @@ export default function UpdatePasswordPage() {
             <Logo size={28} className="mb-4" />
           </Link>
           <h1 className="text-2xl font-bold">Set new password</h1>
-          <p className="mt-2 text-sm text-zinc-500">
+          <p className="mt-2 text-sm text-slate-500">
             Enter your new password below.
           </p>
         </div>
@@ -58,7 +58,7 @@ export default function UpdatePasswordPage() {
             </div>
           )}
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-zinc-700">
+            <label htmlFor="password" className="block text-sm font-medium text-slate-700">
               New password
             </label>
             <input
@@ -67,11 +67,11 @@ export default function UpdatePasswordPage() {
               type="password"
               required
               minLength={6}
-              className="mt-1 block w-full rounded-md border border-zinc-300 px-3 py-2 text-sm shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+              className="mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 text-sm shadow-sm focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500"
             />
           </div>
           <div>
-            <label htmlFor="confirm-password" className="block text-sm font-medium text-zinc-700">
+            <label htmlFor="confirm-password" className="block text-sm font-medium text-slate-700">
               Confirm password
             </label>
             <input
@@ -80,13 +80,13 @@ export default function UpdatePasswordPage() {
               type="password"
               required
               minLength={6}
-              className="mt-1 block w-full rounded-md border border-zinc-300 px-3 py-2 text-sm shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+              className="mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 text-sm shadow-sm focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500"
             />
           </div>
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
+            className="w-full rounded-md bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-teal-700 disabled:opacity-50"
           >
             {loading ? "Updating..." : "Update password"}
           </button>

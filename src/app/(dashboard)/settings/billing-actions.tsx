@@ -70,13 +70,13 @@ export function BillingActions({
         <button
           onClick={handlePortal}
           disabled={loading === "portal"}
-          className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
+          className="rounded-md bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-teal-700 disabled:opacity-50"
         >
           {loading === "portal" ? "Opening..." : "Manage billing"}
         </button>
       ) : (
         <div className="space-y-2">
-          <p className="text-sm text-zinc-500">
+          <p className="text-sm text-slate-500">
             Subscribe to a plan to unlock all features.
           </p>
           <div className="flex gap-3">
@@ -87,8 +87,8 @@ export function BillingActions({
                 disabled={loading !== null || tier === currentPlan}
                 className={`rounded-md border px-4 py-2 text-sm font-medium ${
                   tier === currentPlan
-                    ? "border-zinc-300 text-zinc-400"
-                    : "border-zinc-900 bg-indigo-600 text-white hover:bg-indigo-700"
+                    ? "border-slate-300 text-slate-400"
+                    : "border-slate-900 bg-teal-600 text-white hover:bg-teal-700"
                 } disabled:opacity-50`}
               >
                 {loading === tier ? "..." : `${name} ${price}`}

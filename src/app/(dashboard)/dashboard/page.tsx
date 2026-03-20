@@ -58,7 +58,7 @@ export default async function DashboardPage() {
   const recentLeads = recentLeadsResult.data ?? [];
 
   const stats = [
-    { label: "Total Leads", value: totalLeads, accent: "bg-indigo-500" },
+    { label: "Total Leads", value: totalLeads, accent: "bg-teal-500" },
     { label: "Active Campaigns", value: activeCampaigns, accent: "bg-blue-500" },
     { label: "Conversions", value: totalConversions, accent: "bg-emerald-500" },
     { label: "Emails This Month", value: usage?.emails_count ?? 0, accent: "bg-violet-500" },
@@ -70,7 +70,7 @@ export default async function DashboardPage() {
     <div className="space-y-8">
       <div>
         <h1 className="text-2xl font-bold">Dashboard</h1>
-        <p className="mt-1 text-sm text-zinc-500">
+        <p className="mt-1 text-sm text-slate-500">
           Overview of your leads, campaigns, and outreach performance.
         </p>
       </div>
@@ -83,7 +83,7 @@ export default async function DashboardPage() {
             className="overflow-hidden rounded-lg border px-4 py-3"
           >
             <div className={`-mx-4 -mt-3 mb-3 h-1 ${stat.accent}`} />
-            <p className="text-xs font-medium text-zinc-500">{stat.label}</p>
+            <p className="text-xs font-medium text-slate-500">{stat.label}</p>
             <p className="mt-1 text-2xl font-bold">{stat.value.toLocaleString()}</p>
           </div>
         ))}
@@ -93,19 +93,19 @@ export default async function DashboardPage() {
       <div>
         <div className="flex items-center justify-between">
           <h2 className="text-lg font-semibold">Recent Leads</h2>
-          <Link href="/leads" className="text-sm text-zinc-500 hover:text-zinc-900">
+          <Link href="/leads" className="text-sm text-slate-500 hover:text-slate-900">
             View all
           </Link>
         </div>
         {recentLeads.length === 0 ? (
-          <div className="mt-4 rounded-lg border border-dashed border-zinc-300 px-6 py-10 text-center">
-            <p className="text-sm font-medium text-zinc-600">No leads yet</p>
-            <p className="mt-1 text-sm text-zinc-400">
+          <div className="mt-4 rounded-lg border border-dashed border-slate-300 px-6 py-10 text-center">
+            <p className="text-sm font-medium text-slate-600">No leads yet</p>
+            <p className="mt-1 text-sm text-slate-400">
               Leads will appear here once your campaigns start running.
             </p>
             <Link
               href="/campaigns/new"
-              className="mt-4 inline-block rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+              className="mt-4 inline-block rounded-md bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-teal-700"
             >
               Create your first campaign
             </Link>
@@ -114,7 +114,7 @@ export default async function DashboardPage() {
           <div className="mt-3 overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b text-left text-xs font-medium text-zinc-500">
+                <tr className="border-b text-left text-xs font-medium text-slate-500">
                   <th className="pb-2 pr-4">Name</th>
                   <th className="pb-2 pr-4">Email</th>
                   <th className="pb-2 pr-4">Score</th>
@@ -128,12 +128,12 @@ export default async function DashboardPage() {
                     <td className="py-2 pr-4">
                       <Link
                         href={`/leads/${lead.id}`}
-                        className="font-medium text-indigo-600 hover:underline"
+                        className="font-medium text-teal-600 hover:underline"
                       >
                         {lead.first_name ?? "Unknown"} {lead.last_name ?? ""}
                       </Link>
                     </td>
-                    <td className="py-2 pr-4 text-zinc-600">
+                    <td className="py-2 pr-4 text-slate-600">
                       {lead.email ?? "—"}
                     </td>
                     <td className={`py-2 pr-4 font-semibold ${scoreColor(lead.ai_score)}`}>
@@ -146,7 +146,7 @@ export default async function DashboardPage() {
                         {lead.status.replace("_", " ")}
                       </span>
                     </td>
-                    <td className="py-2 text-zinc-500">
+                    <td className="py-2 text-slate-500">
                       {new Date(lead.created_at).toLocaleDateString()}
                     </td>
                   </tr>

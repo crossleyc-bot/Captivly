@@ -11,13 +11,13 @@ export default function EmailDeliverabilityPage() {
         <nav className="flex items-center gap-4">
           <Link
             href="/login"
-            className="text-sm font-medium text-zinc-600 hover:text-zinc-900"
+            className="text-sm font-medium text-slate-600 hover:text-slate-900"
           >
             Log in
           </Link>
           <Link
             href="/signup"
-            className="rounded-full bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+            className="rounded-full bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-teal-700"
           >
             Get Started
           </Link>
@@ -26,15 +26,15 @@ export default function EmailDeliverabilityPage() {
 
       <main className="flex-1">
         {/* Hero */}
-        <section className="bg-gradient-to-b from-indigo-50 via-white to-white px-6 py-20 text-center">
+        <section className="bg-gradient-to-b from-teal-50 via-white to-white px-6 py-20 text-center">
           <div className="mx-auto max-w-3xl">
-            <span className="mb-4 inline-block rounded-full bg-indigo-100 px-4 py-1.5 text-xs font-semibold text-indigo-700">
+            <span className="mb-4 inline-block rounded-full bg-amber-100 px-4 py-1.5 text-xs font-semibold text-amber-700">
               Trust & Compliance
             </span>
-            <h1 className="text-4xl font-bold tracking-tight text-zinc-900 sm:text-5xl">
+            <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
               Email Deliverability Monitoring
             </h1>
-            <p className="mt-6 text-lg text-zinc-600">
+            <p className="mt-6 text-lg text-slate-600">
               Track bounce rates, spam complaints, domain reputation, and
               inbox placement in real time. If your emails aren&apos;t landing
               in the inbox, nothing else matters.
@@ -42,13 +42,13 @@ export default function EmailDeliverabilityPage() {
             <div className="mt-10 flex justify-center gap-4">
               <Link
                 href="/signup"
-                className="rounded-full bg-indigo-600 px-6 py-3 text-sm font-medium text-white shadow-md shadow-indigo-200 hover:bg-indigo-700"
+                className="rounded-full bg-teal-600 px-6 py-3 text-sm font-medium text-white shadow-md shadow-amber-200 hover:bg-teal-700"
               >
                 Start Free Trial
               </Link>
               <Link
                 href="/#features"
-                className="rounded-full border border-zinc-300 px-6 py-3 text-sm font-medium text-zinc-700 hover:bg-zinc-50"
+                className="rounded-full border border-slate-300 px-6 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50"
               >
                 All Features
               </Link>
@@ -59,10 +59,10 @@ export default function EmailDeliverabilityPage() {
         {/* The problem */}
         <section className="border-t bg-white px-6 py-20">
           <div className="mx-auto max-w-4xl">
-            <h2 className="text-center text-2xl font-bold text-zinc-900">
+            <h2 className="text-center text-2xl font-bold text-slate-900">
               If it hits spam, it doesn&apos;t exist
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-center text-sm text-zinc-600">
+            <p className="mx-auto mt-4 max-w-2xl text-center text-sm text-slate-600">
               You can have the perfect subject line, the perfect offer, and
               the perfect sequence — but if your email lands in spam, the lead
               never sees it. Deliverability is the foundation.
@@ -70,21 +70,21 @@ export default function EmailDeliverabilityPage() {
             <div className="mt-12 grid gap-6 sm:grid-cols-3">
               <div className="rounded-lg border p-6 text-center">
                 <div className="text-3xl font-bold text-red-500">20%</div>
-                <p className="mt-2 text-sm text-zinc-600">
+                <p className="mt-2 text-sm text-slate-600">
                   of legitimate marketing emails never reach the inbox.
                   One in five of your outreach messages may be invisible.
                 </p>
               </div>
               <div className="rounded-lg border p-6 text-center">
-                <div className="text-3xl font-bold text-indigo-600">0.1%</div>
-                <p className="mt-2 text-sm text-zinc-600">
+                <div className="text-3xl font-bold text-teal-600">0.1%</div>
+                <p className="mt-2 text-sm text-slate-600">
                   spam complaint rate threshold. Go above this and email
                   providers start throttling or blocking your domain.
                 </p>
               </div>
               <div className="rounded-lg border p-6 text-center">
                 <div className="text-3xl font-bold text-green-600">98%+</div>
-                <p className="mt-2 text-sm text-zinc-600">
+                <p className="mt-2 text-sm text-slate-600">
                   deliverability rate is the target. Captivly monitors
                   continuously and alerts you before problems escalate.
                 </p>
@@ -94,12 +94,12 @@ export default function EmailDeliverabilityPage() {
         </section>
 
         {/* Health dashboard */}
-        <section className="border-t bg-zinc-50 px-6 py-20">
+        <section className="border-t bg-slate-50 px-6 py-20">
           <div className="mx-auto max-w-4xl">
-            <h2 className="text-center text-2xl font-bold text-zinc-900">
+            <h2 className="text-center text-2xl font-bold text-slate-900">
               Deliverability health dashboard
             </h2>
-            <p className="mx-auto mt-4 max-w-lg text-center text-sm text-zinc-600">
+            <p className="mx-auto mt-4 max-w-lg text-center text-sm text-slate-600">
               One view shows you everything about your email health. Green
               means good. Red means take action now.
             </p>
@@ -131,7 +131,7 @@ export default function EmailDeliverabilityPage() {
                 },
               ].map((metric) => (
                 <div key={metric.label} className="rounded-lg border bg-white p-4 text-center">
-                  <p className="text-xs font-medium text-zinc-500">
+                  <p className="text-xs font-medium text-slate-500">
                     {metric.label}
                   </p>
                   <p
@@ -145,14 +145,14 @@ export default function EmailDeliverabilityPage() {
                   >
                     {metric.value}
                   </p>
-                  <p className="mt-1 text-xs text-zinc-400">{metric.target}</p>
+                  <p className="mt-1 text-xs text-slate-400">{metric.target}</p>
                 </div>
               ))}
             </div>
 
             {/* Domain health */}
             <div className="mt-8 rounded-lg border bg-white p-6">
-              <h3 className="text-sm font-semibold text-zinc-900">
+              <h3 className="text-sm font-semibold text-slate-900">
                 Domain health checks
               </h3>
               <div className="mt-4 space-y-3">
@@ -167,7 +167,7 @@ export default function EmailDeliverabilityPage() {
                     key={item.check}
                     className="flex items-center justify-between"
                   >
-                    <span className="text-sm text-zinc-600">{item.check}</span>
+                    <span className="text-sm text-slate-600">{item.check}</span>
                     <span
                       className={`rounded-full px-2 py-0.5 text-xs font-medium ${
                         item.status === "pass"
@@ -189,15 +189,15 @@ export default function EmailDeliverabilityPage() {
         {/* What we monitor */}
         <section className="border-t bg-white px-6 py-20">
           <div className="mx-auto max-w-4xl">
-            <h2 className="text-2xl font-bold text-zinc-900">
+            <h2 className="text-2xl font-bold text-slate-900">
               What we monitor
             </h2>
             <div className="mt-8 space-y-6">
               <div className="rounded-lg border p-6">
-                <h3 className="text-sm font-semibold text-zinc-900">
+                <h3 className="text-sm font-semibold text-slate-900">
                   Bounce tracking & categorization
                 </h3>
-                <p className="mt-2 text-sm text-zinc-600">
+                <p className="mt-2 text-sm text-slate-600">
                   Every bounce is categorized as hard (invalid address) or
                   soft (mailbox full, temporary issue). Hard bounces are
                   automatically suppressed from future sends. Soft bounces
@@ -205,10 +205,10 @@ export default function EmailDeliverabilityPage() {
                 </p>
               </div>
               <div className="rounded-lg border p-6">
-                <h3 className="text-sm font-semibold text-zinc-900">
+                <h3 className="text-sm font-semibold text-slate-900">
                   Spam complaint monitoring
                 </h3>
-                <p className="mt-2 text-sm text-zinc-600">
+                <p className="mt-2 text-sm text-slate-600">
                   When a recipient marks your email as spam, Captivly
                   receives the feedback loop report and immediately
                   suppresses that address. Your complaint rate is tracked
@@ -217,10 +217,10 @@ export default function EmailDeliverabilityPage() {
                 </p>
               </div>
               <div className="rounded-lg border p-6">
-                <h3 className="text-sm font-semibold text-zinc-900">
+                <h3 className="text-sm font-semibold text-slate-900">
                   Domain reputation scoring
                 </h3>
-                <p className="mt-2 text-sm text-zinc-600">
+                <p className="mt-2 text-sm text-slate-600">
                   Captivly monitors your sending domain&apos;s reputation
                   across major email providers (Gmail, Outlook, Yahoo).
                   If your reputation starts dropping, you get an alert
@@ -228,10 +228,10 @@ export default function EmailDeliverabilityPage() {
                 </p>
               </div>
               <div className="rounded-lg border p-6">
-                <h3 className="text-sm font-semibold text-zinc-900">
+                <h3 className="text-sm font-semibold text-slate-900">
                   Authentication status
                 </h3>
-                <p className="mt-2 text-sm text-zinc-600">
+                <p className="mt-2 text-sm text-slate-600">
                   SPF, DKIM, and DMARC are checked continuously. If any
                   record expires, changes, or becomes invalid, you get an
                   immediate alert. Captivly also provides step-by-step
@@ -239,10 +239,10 @@ export default function EmailDeliverabilityPage() {
                 </p>
               </div>
               <div className="rounded-lg border p-6">
-                <h3 className="text-sm font-semibold text-zinc-900">
+                <h3 className="text-sm font-semibold text-slate-900">
                   Blocklist monitoring
                 </h3>
-                <p className="mt-2 text-sm text-zinc-600">
+                <p className="mt-2 text-sm text-slate-600">
                   Your sending IP and domain are checked against 50+ email
                   blocklists daily. If you appear on any list, Captivly
                   alerts you immediately and provides delisting
@@ -254,12 +254,12 @@ export default function EmailDeliverabilityPage() {
         </section>
 
         {/* Alerts */}
-        <section className="border-t bg-zinc-50 px-6 py-20">
+        <section className="border-t bg-slate-50 px-6 py-20">
           <div className="mx-auto max-w-3xl">
-            <h2 className="text-center text-2xl font-bold text-zinc-900">
+            <h2 className="text-center text-2xl font-bold text-slate-900">
               Proactive alerts
             </h2>
-            <p className="mx-auto mt-4 max-w-lg text-center text-sm text-zinc-600">
+            <p className="mx-auto mt-4 max-w-lg text-center text-sm text-slate-600">
               Don&apos;t wait until your emails stop arriving. Captivly
               alerts you at the first sign of trouble.
             </p>
@@ -272,10 +272,10 @@ export default function EmailDeliverabilityPage() {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-zinc-900">
+                    <p className="text-sm font-medium text-slate-900">
                       Bounce rate rising
                     </p>
-                    <p className="mt-1 text-sm text-zinc-600">
+                    <p className="mt-1 text-sm text-slate-600">
                       &quot;Your bounce rate increased from 1.2% to 2.8%
                       over the last 48 hours. 14 hard bounces detected.
                       These addresses have been suppressed. Review your
@@ -292,10 +292,10 @@ export default function EmailDeliverabilityPage() {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-zinc-900">
+                    <p className="text-sm font-medium text-slate-900">
                       Spam complaint threshold approaching
                     </p>
-                    <p className="mt-1 text-sm text-zinc-600">
+                    <p className="mt-1 text-sm text-slate-600">
                       &quot;Your spam complaint rate is at 0.08%, approaching
                       the 0.1% safe threshold. Consider reviewing your
                       subject lines and ensuring leads have clear opt-in
@@ -312,10 +312,10 @@ export default function EmailDeliverabilityPage() {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-zinc-900">
+                    <p className="text-sm font-medium text-slate-900">
                       DKIM record issue detected
                     </p>
-                    <p className="mt-1 text-sm text-zinc-600">
+                    <p className="mt-1 text-sm text-slate-600">
                       &quot;Your DKIM DNS record has changed and no longer
                       matches the signing key. This will cause authentication
                       failures. Update your DNS record or contact your domain
@@ -331,17 +331,17 @@ export default function EmailDeliverabilityPage() {
         {/* CTA */}
         <section className="border-t bg-white px-6 py-20 text-center">
           <div className="mx-auto max-w-2xl">
-            <h2 className="text-2xl font-bold text-zinc-900">
+            <h2 className="text-2xl font-bold text-slate-900">
               Make sure your emails get read
             </h2>
-            <p className="mt-4 text-zinc-600">
+            <p className="mt-4 text-slate-600">
               Monitor deliverability, catch problems early, and keep your
               sender reputation clean — so every outreach email lands in
               the inbox, not the spam folder.
             </p>
             <Link
               href="/signup"
-              className="mt-8 inline-block rounded-full bg-indigo-600 px-6 py-3 text-sm font-medium text-white shadow-md shadow-indigo-200 hover:bg-indigo-700"
+              className="mt-8 inline-block rounded-full bg-teal-600 px-6 py-3 text-sm font-medium text-white shadow-md shadow-amber-200 hover:bg-teal-700"
             >
               Get Started Free
             </Link>
@@ -349,7 +349,7 @@ export default function EmailDeliverabilityPage() {
         </section>
       </main>
 
-      <footer className="border-t px-6 py-8 text-center text-sm text-zinc-500">
+      <footer className="border-t px-6 py-8 text-center text-sm text-slate-500">
         &copy; {new Date().getFullYear()} Captivly. All rights reserved.
       </footer>
     </div>

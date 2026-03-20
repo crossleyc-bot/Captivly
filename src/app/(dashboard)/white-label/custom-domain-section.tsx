@@ -80,7 +80,7 @@ export function CustomDomainSection({
   return (
     <div className="space-y-4 rounded-lg border p-4">
       <h2 className="text-lg font-semibold">Custom Domain</h2>
-      <p className="text-sm text-zinc-500">
+      <p className="text-sm text-slate-500">
         Use your own domain for the dashboard. Your customers will see your
         brand instead of Captivly.
       </p>
@@ -102,16 +102,16 @@ export function CustomDomainSection({
         <button
           type="submit"
           disabled={saving || !domain.trim()}
-          className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800 disabled:opacity-50"
+          className="rounded-md bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800 disabled:opacity-50"
         >
           {saving ? "Saving..." : "Register Domain"}
         </button>
       </form>
 
       {initialDomain && !initialDomain.verified && (
-        <div className="space-y-3 rounded-md bg-zinc-50 p-3">
+        <div className="space-y-3 rounded-md bg-slate-50 p-3">
           <p className="text-sm font-medium">DNS Verification Required</p>
-          <p className="text-xs text-zinc-500">
+          <p className="text-xs text-slate-500">
             Add a TXT record to your domain with the following value:
           </p>
           <code className="block break-all rounded bg-white px-3 py-2 text-xs border">

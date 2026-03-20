@@ -48,7 +48,7 @@ export default async function LeadDetailPage({
   return (
     <div className="max-w-3xl space-y-8">
       <div>
-        <Link href="/leads" className="text-sm text-zinc-500 hover:text-zinc-900">
+        <Link href="/leads" className="text-sm text-slate-500 hover:text-slate-900">
           &larr; Back to leads
         </Link>
         <h1 className="mt-2 text-2xl font-bold">
@@ -59,21 +59,21 @@ export default async function LeadDetailPage({
       {/* Lead info */}
       <div className="grid grid-cols-2 gap-4 rounded-lg border p-4 text-sm">
         <div>
-          <span className="text-zinc-500">Email</span>
+          <span className="text-slate-500">Email</span>
           <p className="font-medium">{lead.email ?? "—"}</p>
         </div>
         <div>
-          <span className="text-zinc-500">Phone</span>
+          <span className="text-slate-500">Phone</span>
           <p className="font-medium">{lead.phone ?? "—"}</p>
         </div>
         <div>
-          <span className="text-zinc-500">AI Score</span>
+          <span className="text-slate-500">AI Score</span>
           <p className={`text-lg font-bold ${scoreColor(lead.ai_score)}`}>
             {lead.ai_score ?? "—"}{lead.ai_score ? "/10" : ""}
           </p>
         </div>
         <div>
-          <span className="text-zinc-500">Status</span>
+          <span className="text-slate-500">Status</span>
           <p>
             <span className={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${leadStatusBadge(lead.status)}`}>
               {lead.status.replace("_", " ")}
@@ -81,23 +81,23 @@ export default async function LeadDetailPage({
           </p>
         </div>
         <div>
-          <span className="text-zinc-500">Campaign</span>
+          <span className="text-slate-500">Campaign</span>
           <p className="font-medium">{campaign?.name ?? "—"}</p>
         </div>
         <div>
-          <span className="text-zinc-500">Source</span>
+          <span className="text-slate-500">Source</span>
           <p className="font-medium capitalize">{lead.source}</p>
         </div>
         <div className="col-span-2">
-          <span className="text-zinc-500">Captured</span>
+          <span className="text-slate-500">Captured</span>
           <p className="font-medium">
             {new Date(lead.created_at).toLocaleString()}
           </p>
         </div>
         {lead.ai_score_reason && (
           <div className="col-span-2">
-            <span className="text-zinc-500">Score Reason</span>
-            <p className="mt-1 text-zinc-700">{lead.ai_score_reason}</p>
+            <span className="text-slate-500">Score Reason</span>
+            <p className="mt-1 text-slate-700">{lead.ai_score_reason}</p>
           </div>
         )}
       </div>
@@ -111,7 +111,7 @@ export default async function LeadDetailPage({
       <div>
         <h2 className="text-lg font-semibold">Message Timeline</h2>
         {!messages?.length ? (
-          <p className="mt-3 text-sm text-zinc-400">No messages sent yet.</p>
+          <p className="mt-3 text-sm text-slate-400">No messages sent yet.</p>
         ) : (
           <div className="mt-3 space-y-3">
             {messages.map((msg) => {
@@ -124,11 +124,11 @@ export default async function LeadDetailPage({
                 <div key={msg.id} className="rounded-lg border p-4">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <span className="rounded bg-zinc-100 px-2 py-0.5 text-xs font-medium uppercase">
+                      <span className="rounded bg-slate-100 px-2 py-0.5 text-xs font-medium uppercase">
                         {step?.channel ?? msg.channel ?? "—"}
                       </span>
                       {step && (
-                        <span className="text-xs text-zinc-500">
+                        <span className="text-xs text-slate-500">
                           Step {step.step_number}
                         </span>
                       )}
@@ -143,11 +143,11 @@ export default async function LeadDetailPage({
                     </p>
                   )}
                   {msg.body && (
-                    <p className="mt-1 text-sm text-zinc-600 whitespace-pre-wrap">
+                    <p className="mt-1 text-sm text-slate-600 whitespace-pre-wrap">
                       {msg.body}
                     </p>
                   )}
-                  <div className="mt-2 flex gap-4 text-xs text-zinc-400">
+                  <div className="mt-2 flex gap-4 text-xs text-slate-400">
                     {msg.sent_at && (
                       <span>Sent: {new Date(msg.sent_at).toLocaleString()}</span>
                     )}
@@ -173,7 +173,7 @@ function EnrichmentCard({ enrichment }: { enrichment: LeadEnrichment }) {
     personal: "bg-blue-50 text-blue-700",
     business: "bg-green-50 text-green-700",
     disposable: "bg-red-50 text-red-700",
-    unknown: "bg-zinc-100 text-zinc-500",
+    unknown: "bg-slate-100 text-slate-500",
   };
 
   return (
@@ -181,7 +181,7 @@ function EnrichmentCard({ enrichment }: { enrichment: LeadEnrichment }) {
       <h2 className="text-lg font-semibold">Enrichment Data</h2>
       <div className="grid grid-cols-2 gap-3 text-sm sm:grid-cols-3">
         <div>
-          <span className="text-zinc-500">Email Type</span>
+          <span className="text-slate-500">Email Type</span>
           <p>
             <span
               className={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${emailTypeColors[enrichment.email_type]}`}
@@ -192,39 +192,39 @@ function EnrichmentCard({ enrichment }: { enrichment: LeadEnrichment }) {
         </div>
         {enrichment.email_domain && (
           <div>
-            <span className="text-zinc-500">Domain</span>
+            <span className="text-slate-500">Domain</span>
             <p className="font-medium">{enrichment.email_domain}</p>
           </div>
         )}
         <div>
-          <span className="text-zinc-500">Phone Type</span>
+          <span className="text-slate-500">Phone Type</span>
           <p className="font-medium capitalize">{enrichment.phone_type}</p>
         </div>
         {enrichment.geo_state && (
           <div>
-            <span className="text-zinc-500">Estimated State</span>
+            <span className="text-slate-500">Estimated State</span>
             <p className="font-medium">{enrichment.geo_state}</p>
           </div>
         )}
         {enrichment.distance_miles !== null && (
           <div>
-            <span className="text-zinc-500">Distance</span>
+            <span className="text-slate-500">Distance</span>
             <p className="font-medium">~{enrichment.distance_miles} mi</p>
           </div>
         )}
         <div>
-          <span className="text-zinc-500">Name Confidence</span>
+          <span className="text-slate-500">Name Confidence</span>
           <p className="font-medium capitalize">{enrichment.name_confidence}</p>
         </div>
       </div>
       {enrichment.engagement_signals.length > 0 && (
         <div>
-          <span className="text-xs text-zinc-500">Engagement Signals</span>
+          <span className="text-xs text-slate-500">Engagement Signals</span>
           <div className="mt-1 flex flex-wrap gap-1">
             {enrichment.engagement_signals.map((signal) => (
               <span
                 key={signal}
-                className="rounded bg-zinc-100 px-2 py-0.5 text-xs text-zinc-600"
+                className="rounded bg-slate-100 px-2 py-0.5 text-xs text-slate-600"
               >
                 {signal.replace(/_/g, " ")}
               </span>

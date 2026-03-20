@@ -11,13 +11,13 @@ export default function ReEngagementPage() {
         <nav className="flex items-center gap-4">
           <Link
             href="/login"
-            className="text-sm font-medium text-zinc-600 hover:text-zinc-900"
+            className="text-sm font-medium text-slate-600 hover:text-slate-900"
           >
             Log in
           </Link>
           <Link
             href="/signup"
-            className="rounded-full bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+            className="rounded-full bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-teal-700"
           >
             Get Started
           </Link>
@@ -26,15 +26,15 @@ export default function ReEngagementPage() {
 
       <main className="flex-1">
         {/* Hero */}
-        <section className="bg-gradient-to-b from-indigo-50 via-white to-white px-6 py-20 text-center">
+        <section className="bg-gradient-to-b from-teal-50 via-white to-white px-6 py-20 text-center">
           <div className="mx-auto max-w-3xl">
-            <span className="mb-4 inline-block rounded-full bg-indigo-100 px-4 py-1.5 text-xs font-semibold text-indigo-700">
+            <span className="mb-4 inline-block rounded-full bg-amber-100 px-4 py-1.5 text-xs font-semibold text-amber-700">
               Lead Engagement
             </span>
-            <h1 className="text-4xl font-bold tracking-tight text-zinc-900 sm:text-5xl">
+            <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
               Lead Re-Engagement Campaigns
             </h1>
-            <p className="mt-6 text-lg text-zinc-600">
+            <p className="mt-6 text-lg text-slate-600">
               Automatically re-target cold leads after 30, 60, or 90 days with
               a fresh offer. Don&apos;t let old leads go to waste — many just
               need the right message at the right time.
@@ -42,13 +42,13 @@ export default function ReEngagementPage() {
             <div className="mt-10 flex justify-center gap-4">
               <Link
                 href="/signup"
-                className="rounded-full bg-indigo-600 px-6 py-3 text-sm font-medium text-white shadow-md shadow-indigo-200 hover:bg-indigo-700"
+                className="rounded-full bg-teal-600 px-6 py-3 text-sm font-medium text-white shadow-md shadow-amber-200 hover:bg-teal-700"
               >
                 Start Free Trial
               </Link>
               <Link
                 href="/#features"
-                className="rounded-full border border-zinc-300 px-6 py-3 text-sm font-medium text-zinc-700 hover:bg-zinc-50"
+                className="rounded-full border border-slate-300 px-6 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50"
               >
                 All Features
               </Link>
@@ -59,31 +59,31 @@ export default function ReEngagementPage() {
         {/* The problem */}
         <section className="border-t bg-white px-6 py-20">
           <div className="mx-auto max-w-4xl">
-            <h2 className="text-center text-2xl font-bold text-zinc-900">
+            <h2 className="text-center text-2xl font-bold text-slate-900">
               The problem with &quot;cold&quot; leads
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-center text-sm text-zinc-600">
+            <p className="mx-auto mt-4 max-w-2xl text-center text-sm text-slate-600">
               Most businesses write off leads that don&apos;t convert in the
               first two weeks. But research shows that timing is everything.
             </p>
             <div className="mt-12 grid gap-6 sm:grid-cols-3">
               <div className="rounded-lg border p-6 text-center">
-                <div className="text-3xl font-bold text-indigo-600">60%</div>
-                <p className="mt-2 text-sm text-zinc-600">
+                <div className="text-3xl font-bold text-teal-600">60%</div>
+                <p className="mt-2 text-sm text-slate-600">
                   of leads that go cold were simply not ready to buy when they
                   first enquired
                 </p>
               </div>
               <div className="rounded-lg border p-6 text-center">
-                <div className="text-3xl font-bold text-indigo-600">30–90</div>
-                <p className="mt-2 text-sm text-zinc-600">
+                <div className="text-3xl font-bold text-teal-600">30–90</div>
+                <p className="mt-2 text-sm text-slate-600">
                   days is the typical consideration window for local service
                   purchases
                 </p>
               </div>
               <div className="rounded-lg border p-6 text-center">
-                <div className="text-3xl font-bold text-indigo-600">5x</div>
-                <p className="mt-2 text-sm text-zinc-600">
+                <div className="text-3xl font-bold text-teal-600">5x</div>
+                <p className="mt-2 text-sm text-slate-600">
                   cheaper to re-engage an existing lead than to acquire a
                   brand-new one
                 </p>
@@ -93,17 +93,17 @@ export default function ReEngagementPage() {
         </section>
 
         {/* How it works */}
-        <section className="border-t bg-zinc-50 px-6 py-20">
+        <section className="border-t bg-slate-50 px-6 py-20">
           <div className="mx-auto max-w-4xl">
-            <h2 className="text-2xl font-bold text-zinc-900">
+            <h2 className="text-2xl font-bold text-slate-900">
               How re-engagement works
             </h2>
             <div className="mt-8 space-y-6">
               <div className="rounded-lg border bg-white p-6">
-                <h3 className="text-sm font-semibold text-zinc-900">
+                <h3 className="text-sm font-semibold text-slate-900">
                   Automatic cold lead detection
                 </h3>
-                <p className="mt-2 text-sm text-zinc-600">
+                <p className="mt-2 text-sm text-slate-600">
                   Captivly monitors every lead&apos;s status. When a lead
                   completes their initial sequence without converting and is
                   marked as &quot;cold,&quot; they become eligible for
@@ -111,20 +111,20 @@ export default function ReEngagementPage() {
                 </p>
               </div>
               <div className="rounded-lg border bg-white p-6">
-                <h3 className="text-sm font-semibold text-zinc-900">
+                <h3 className="text-sm font-semibold text-slate-900">
                   Configurable timing windows
                 </h3>
-                <p className="mt-2 text-sm text-zinc-600">
+                <p className="mt-2 text-sm text-slate-600">
                   Set when re-engagement should trigger: 30 days after going
                   cold, 60 days, 90 days, or a custom interval. You can run
                   multiple waves — each with a different offer or angle.
                 </p>
               </div>
               <div className="rounded-lg border bg-white p-6">
-                <h3 className="text-sm font-semibold text-zinc-900">
+                <h3 className="text-sm font-semibold text-slate-900">
                   AI-generated fresh messaging
                 </h3>
-                <p className="mt-2 text-sm text-zinc-600">
+                <p className="mt-2 text-sm text-slate-600">
                   Claude AI crafts new outreach messages that are different
                   from the original sequence. It references your latest offers,
                   seasonal promotions, or new services — so the lead sees
@@ -132,10 +132,10 @@ export default function ReEngagementPage() {
                 </p>
               </div>
               <div className="rounded-lg border bg-white p-6">
-                <h3 className="text-sm font-semibold text-zinc-900">
+                <h3 className="text-sm font-semibold text-slate-900">
                   Respect opt-outs
                 </h3>
-                <p className="mt-2 text-sm text-zinc-600">
+                <p className="mt-2 text-sm text-slate-600">
                   Leads who unsubscribed are never re-contacted. Captivly
                   checks the lead&apos;s status before every re-engagement
                   send, ensuring compliance with email and SMS regulations.
@@ -148,10 +148,10 @@ export default function ReEngagementPage() {
         {/* Example timeline */}
         <section className="border-t bg-white px-6 py-20">
           <div className="mx-auto max-w-4xl">
-            <h2 className="text-center text-2xl font-bold text-zinc-900">
+            <h2 className="text-center text-2xl font-bold text-slate-900">
               Example re-engagement timeline
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-center text-sm text-zinc-600">
+            <p className="mx-auto mt-4 max-w-2xl text-center text-sm text-slate-600">
               A gym that originally offered a free 7-day trial.
             </p>
             <div className="mt-12 space-y-4">
@@ -192,17 +192,17 @@ export default function ReEngagementPage() {
                   <div
                     className={`flex h-8 shrink-0 items-center justify-center rounded-full px-3 text-xs font-bold ${
                       step.status === "completed"
-                        ? "bg-zinc-100 text-zinc-500"
-                        : "bg-indigo-100 text-indigo-600"
+                        ? "bg-slate-100 text-slate-500"
+                        : "bg-teal-100 text-teal-600"
                     }`}
                   >
                     {step.day}
                   </div>
                   <div className="flex-1">
-                    <span className="text-sm font-semibold text-zinc-900">
+                    <span className="text-sm font-semibold text-slate-900">
                       {step.label}
                     </span>
-                    <p className="mt-1 text-sm text-zinc-600">
+                    <p className="mt-1 text-sm text-slate-600">
                       {step.description}
                     </p>
                   </div>
@@ -213,18 +213,18 @@ export default function ReEngagementPage() {
         </section>
 
         {/* CTA */}
-        <section className="border-t bg-zinc-50 px-6 py-20 text-center">
+        <section className="border-t bg-slate-50 px-6 py-20 text-center">
           <div className="mx-auto max-w-2xl">
-            <h2 className="text-2xl font-bold text-zinc-900">
+            <h2 className="text-2xl font-bold text-slate-900">
               Stop leaving money on the table
             </h2>
-            <p className="mt-4 text-zinc-600">
+            <p className="mt-4 text-slate-600">
               Re-engage cold leads automatically and turn past interest into
               future revenue.
             </p>
             <Link
               href="/signup"
-              className="mt-8 inline-block rounded-full bg-indigo-600 px-6 py-3 text-sm font-medium text-white shadow-md shadow-indigo-200 hover:bg-indigo-700"
+              className="mt-8 inline-block rounded-full bg-teal-600 px-6 py-3 text-sm font-medium text-white shadow-md shadow-amber-200 hover:bg-teal-700"
             >
               Get Started Free
             </Link>
@@ -232,7 +232,7 @@ export default function ReEngagementPage() {
         </section>
       </main>
 
-      <footer className="border-t px-6 py-8 text-center text-sm text-zinc-500">
+      <footer className="border-t px-6 py-8 text-center text-sm text-slate-500">
         &copy; {new Date().getFullYear()} Captivly. All rights reserved.
       </footer>
     </div>

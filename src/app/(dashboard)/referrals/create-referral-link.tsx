@@ -48,7 +48,7 @@ export function CreateReferralLink() {
       <h2 className="text-lg font-semibold">Create Referral Link</h2>
       <form onSubmit={handleCreate} className="mt-3 flex flex-wrap items-end gap-3">
         <div>
-          <label htmlFor="ref-name" className="block text-xs text-zinc-500">
+          <label htmlFor="ref-name" className="block text-xs text-slate-500">
             Referrer Name
           </label>
           <input
@@ -61,7 +61,7 @@ export function CreateReferralLink() {
           />
         </div>
         <div>
-          <label htmlFor="ref-email" className="block text-xs text-zinc-500">
+          <label htmlFor="ref-email" className="block text-xs text-slate-500">
             Referrer Email
           </label>
           <input
@@ -76,7 +76,7 @@ export function CreateReferralLink() {
         <button
           type="submit"
           disabled={loading}
-          className="rounded-md bg-indigo-600 px-4 py-1.5 text-sm font-medium text-white hover:bg-zinc-800 disabled:opacity-50"
+          className="rounded-md bg-teal-600 px-4 py-1.5 text-sm font-medium text-white hover:bg-slate-800 disabled:opacity-50"
         >
           {loading ? "Creating..." : "Create Link"}
         </button>

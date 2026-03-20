@@ -11,13 +11,13 @@ export default function DashboardFeaturePage() {
         <nav className="flex items-center gap-4">
           <Link
             href="/login"
-            className="text-sm font-medium text-zinc-600 hover:text-zinc-900"
+            className="text-sm font-medium text-slate-600 hover:text-slate-900"
           >
             Log in
           </Link>
           <Link
             href="/signup"
-            className="rounded-full bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+            className="rounded-full bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-teal-700"
           >
             Get Started
           </Link>
@@ -26,15 +26,15 @@ export default function DashboardFeaturePage() {
 
       <main className="flex-1">
         {/* Hero */}
-        <section className="bg-gradient-to-b from-indigo-50 via-white to-white px-6 py-20 text-center">
+        <section className="bg-gradient-to-b from-teal-50 via-white to-white px-6 py-20 text-center">
           <div className="mx-auto max-w-3xl">
-            <span className="mb-4 inline-block rounded-full bg-indigo-100 px-4 py-1.5 text-xs font-semibold text-indigo-700">
+            <span className="mb-4 inline-block rounded-full bg-amber-100 px-4 py-1.5 text-xs font-semibold text-amber-700">
               Analytics
             </span>
-            <h1 className="text-4xl font-bold tracking-tight text-zinc-900 sm:text-5xl">
+            <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
               Real-Time Dashboard
             </h1>
-            <p className="mt-6 text-lg text-zinc-600">
+            <p className="mt-6 text-lg text-slate-600">
               See every lead, message status, and conversion in one place.
               Know exactly how your campaigns are performing without digging
               through spreadsheets.
@@ -42,13 +42,13 @@ export default function DashboardFeaturePage() {
             <div className="mt-10 flex justify-center gap-4">
               <Link
                 href="/signup"
-                className="rounded-full bg-indigo-600 px-6 py-3 text-sm font-medium text-white shadow-md shadow-indigo-200 hover:bg-indigo-700"
+                className="rounded-full bg-teal-600 px-6 py-3 text-sm font-medium text-white shadow-md shadow-amber-200 hover:bg-teal-700"
               >
                 Start Free Trial
               </Link>
               <Link
                 href="/#features"
-                className="rounded-full border border-zinc-300 px-6 py-3 text-sm font-medium text-zinc-700 hover:bg-zinc-50"
+                className="rounded-full border border-slate-300 px-6 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50"
               >
                 All Features
               </Link>
@@ -59,10 +59,10 @@ export default function DashboardFeaturePage() {
         {/* Metrics overview */}
         <section className="border-t bg-white px-6 py-20">
           <div className="mx-auto max-w-4xl">
-            <h2 className="text-center text-2xl font-bold text-zinc-900">
+            <h2 className="text-center text-2xl font-bold text-slate-900">
               Everything at a glance
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-center text-sm text-zinc-600">
+            <p className="mx-auto mt-4 max-w-2xl text-center text-sm text-slate-600">
               Your dashboard surfaces the metrics that matter most for local
               lead generation.
             </p>
@@ -93,10 +93,10 @@ export default function DashboardFeaturePage() {
                   key={item.metric}
                   className="rounded-lg border p-4 text-center"
                 >
-                  <h3 className="text-sm font-semibold text-zinc-900">
+                  <h3 className="text-sm font-semibold text-slate-900">
                     {item.metric}
                   </h3>
-                  <p className="mt-2 text-xs text-zinc-600">
+                  <p className="mt-2 text-xs text-slate-600">
                     {item.description}
                   </p>
                 </div>
@@ -106,47 +106,47 @@ export default function DashboardFeaturePage() {
         </section>
 
         {/* Dashboard features */}
-        <section className="border-t bg-zinc-50 px-6 py-20">
+        <section className="border-t bg-slate-50 px-6 py-20">
           <div className="mx-auto max-w-4xl">
-            <h2 className="text-2xl font-bold text-zinc-900">
+            <h2 className="text-2xl font-bold text-slate-900">
               Dashboard highlights
             </h2>
             <div className="mt-8 space-y-6">
               <div className="rounded-lg border bg-white p-6">
-                <h3 className="text-sm font-semibold text-zinc-900">
+                <h3 className="text-sm font-semibold text-slate-900">
                   Lead list with filtering
                 </h3>
-                <p className="mt-2 text-sm text-zinc-600">
+                <p className="mt-2 text-sm text-slate-600">
                   Browse all your leads in a searchable, sortable table. Filter
                   by campaign, status, AI score, or date range. Click any lead
                   to see their full detail and message timeline.
                 </p>
               </div>
               <div className="rounded-lg border bg-white p-6">
-                <h3 className="text-sm font-semibold text-zinc-900">
+                <h3 className="text-sm font-semibold text-slate-900">
                   Campaign performance
                 </h3>
-                <p className="mt-2 text-sm text-zinc-600">
+                <p className="mt-2 text-sm text-slate-600">
                   Each campaign shows leads captured, messages sent, reply
                   rates, and conversion counts. Compare campaigns to see what
                   offers and audiences perform best.
                 </p>
               </div>
               <div className="rounded-lg border bg-white p-6">
-                <h3 className="text-sm font-semibold text-zinc-900">
+                <h3 className="text-sm font-semibold text-slate-900">
                   Message timeline
                 </h3>
-                <p className="mt-2 text-sm text-zinc-600">
+                <p className="mt-2 text-sm text-slate-600">
                   View the complete outreach history for every lead. See which
                   messages were sent, delivered, or replied to — with exact
                   timestamps for each event.
                 </p>
               </div>
               <div className="rounded-lg border bg-white p-6">
-                <h3 className="text-sm font-semibold text-zinc-900">
+                <h3 className="text-sm font-semibold text-slate-900">
                   Usage tracking
                 </h3>
-                <p className="mt-2 text-sm text-zinc-600">
+                <p className="mt-2 text-sm text-slate-600">
                   Monitor your monthly lead and SMS usage against your plan
                   limits. A progress bar shows how close you are to hitting your
                   cap, with upgrade prompts when needed.
@@ -159,15 +159,15 @@ export default function DashboardFeaturePage() {
         {/* CTA */}
         <section className="border-t bg-white px-6 py-20 text-center">
           <div className="mx-auto max-w-2xl">
-            <h2 className="text-2xl font-bold text-zinc-900">
+            <h2 className="text-2xl font-bold text-slate-900">
               See your leads in action
             </h2>
-            <p className="mt-4 text-zinc-600">
+            <p className="mt-4 text-slate-600">
               Sign up and get a fully functional dashboard from day one.
             </p>
             <Link
               href="/signup"
-              className="mt-8 inline-block rounded-full bg-indigo-600 px-6 py-3 text-sm font-medium text-white shadow-md shadow-indigo-200 hover:bg-indigo-700"
+              className="mt-8 inline-block rounded-full bg-teal-600 px-6 py-3 text-sm font-medium text-white shadow-md shadow-amber-200 hover:bg-teal-700"
             >
               Get Started Free
             </Link>
@@ -175,7 +175,7 @@ export default function DashboardFeaturePage() {
         </section>
       </main>
 
-      <footer className="border-t px-6 py-8 text-center text-sm text-zinc-500">
+      <footer className="border-t px-6 py-8 text-center text-sm text-slate-500">
         &copy; {new Date().getFullYear()} Captivly. All rights reserved.
       </footer>
     </div>

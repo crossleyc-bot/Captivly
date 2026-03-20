@@ -48,7 +48,7 @@ export default async function SettingsPage() {
     <div className="max-w-2xl space-y-8">
       <div>
         <h1 className="text-2xl font-bold">Settings</h1>
-        <p className="mt-2 text-zinc-500">
+        <p className="mt-2 text-slate-500">
           Manage your account and billing.
         </p>
       </div>
@@ -57,8 +57,8 @@ export default async function SettingsPage() {
       <section className="space-y-3">
         <h2 className="text-lg font-semibold">Account</h2>
         <div className="rounded-md border px-4 py-3">
-          <p className="text-sm text-zinc-600">
-            <span className="font-medium text-zinc-900">{dbUser?.full_name}</span>
+          <p className="text-sm text-slate-600">
+            <span className="font-medium text-slate-900">{dbUser?.full_name}</span>
             {" — "}
             {dbUser?.email}
           </p>
@@ -72,7 +72,7 @@ export default async function SettingsPage() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-semibold capitalize">{plan} plan</p>
-              <p className="text-xs text-zinc-500">
+              <p className="text-xs text-slate-500">
                 {isActive ? "Active" : dbUser?.subscription_status ?? "No active subscription"}
               </p>
             </div>
@@ -88,15 +88,15 @@ export default async function SettingsPage() {
               return (
                 <div key={label} className="text-sm">
                   <div className="flex justify-between">
-                    <span className="text-zinc-600">{label}</span>
-                    <span className={isNear ? "font-medium text-red-600" : "text-zinc-500"}>
+                    <span className="text-slate-600">{label}</span>
+                    <span className={isNear ? "font-medium text-red-600" : "text-slate-500"}>
                       {used.toLocaleString()} / {limit === Infinity ? "∞" : limit.toLocaleString()}
                     </span>
                   </div>
                   {limit !== Infinity && limit > 0 && (
-                    <div className="mt-1 h-1.5 rounded-full bg-zinc-200">
+                    <div className="mt-1 h-1.5 rounded-full bg-slate-200">
                       <div
-                        className={`h-1.5 rounded-full ${isNear ? "bg-red-500" : "bg-indigo-600"}`}
+                        className={`h-1.5 rounded-full ${isNear ? "bg-red-500" : "bg-teal-600"}`}
                         style={{ width: `${pct}%` }}
                       />
                     </div>
@@ -104,9 +104,9 @@ export default async function SettingsPage() {
                 </div>
               );
             })}
-            <div className="grid grid-cols-2 gap-3 border-t pt-3 text-sm text-zinc-600">
-              <div>Campaigns: <span className="font-medium text-zinc-900">{limits.campaigns === Infinity ? "Unlimited" : limits.campaigns}</span></div>
-              <div>Sequence steps: <span className="font-medium text-zinc-900">{limits.sequence_steps}</span></div>
+            <div className="grid grid-cols-2 gap-3 border-t pt-3 text-sm text-slate-600">
+              <div>Campaigns: <span className="font-medium text-slate-900">{limits.campaigns === Infinity ? "Unlimited" : limits.campaigns}</span></div>
+              <div>Sequence steps: <span className="font-medium text-slate-900">{limits.sequence_steps}</span></div>
             </div>
           </div>
         </div>
@@ -119,7 +119,7 @@ export default async function SettingsPage() {
           <div className="flex items-center justify-between rounded-md border px-4 py-3">
             <div>
               <p className="text-sm font-medium">Meta (Facebook/Instagram)</p>
-              <p className="text-xs text-zinc-500">
+              <p className="text-xs text-slate-500">
                 {business?.meta_ad_account_id
                   ? `Connected — Account ${business.meta_ad_account_id}`
                   : "Not connected"}
@@ -137,7 +137,7 @@ export default async function SettingsPage() {
           <div className="flex items-center justify-between rounded-md border px-4 py-3">
             <div>
               <p className="text-sm font-medium">Google Ads</p>
-              <p className="text-xs text-zinc-500">
+              <p className="text-xs text-slate-500">
                 {business?.google_customer_id
                   ? `Connected — Customer ${business.google_customer_id}`
                   : "Not connected"}

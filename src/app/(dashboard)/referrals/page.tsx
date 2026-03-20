@@ -43,7 +43,7 @@ export default async function ReferralsPage() {
     <div className="space-y-8">
       <div>
         <h1 className="text-2xl font-bold">Referral Tracking</h1>
-        <p className="mt-1 text-sm text-zinc-500">
+        <p className="mt-1 text-sm text-slate-500">
           Create referral links for your customers and track who they bring in.
         </p>
       </div>
@@ -51,19 +51,19 @@ export default async function ReferralsPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
         <div className="rounded-lg border p-4">
-          <p className="text-sm text-zinc-500">Active Links</p>
+          <p className="text-sm text-slate-500">Active Links</p>
           <p className="mt-1 text-2xl font-bold">{activeLinks}</p>
         </div>
         <div className="rounded-lg border p-4">
-          <p className="text-sm text-zinc-500">Total Clicks</p>
+          <p className="text-sm text-slate-500">Total Clicks</p>
           <p className="mt-1 text-2xl font-bold">{totalClicks}</p>
         </div>
         <div className="rounded-lg border p-4">
-          <p className="text-sm text-zinc-500">Conversions</p>
+          <p className="text-sm text-slate-500">Conversions</p>
           <p className="mt-1 text-2xl font-bold">{totalConversions}</p>
         </div>
         <div className="rounded-lg border p-4">
-          <p className="text-sm text-zinc-500">Conversion Rate</p>
+          <p className="text-sm text-slate-500">Conversion Rate</p>
           <p className="mt-1 text-2xl font-bold">
             {totalClicks > 0
               ? `${Math.round((totalConversions / totalClicks) * 100)}%`
@@ -79,14 +79,14 @@ export default async function ReferralsPage() {
       <div>
         <h2 className="text-lg font-semibold">Referral Links</h2>
         {!links?.length ? (
-          <p className="mt-3 text-sm text-zinc-400">
+          <p className="mt-3 text-sm text-slate-400">
             No referral links yet. Create one above.
           </p>
         ) : (
           <div className="mt-3 overflow-x-auto">
             <table className="w-full text-left text-sm">
               <thead>
-                <tr className="border-b text-zinc-500">
+                <tr className="border-b text-slate-500">
                   <th className="pb-2 pr-4 font-medium">Referrer</th>
                   <th className="pb-2 pr-4 font-medium">Code</th>
                   <th className="pb-2 pr-4 font-medium">Clicks</th>
@@ -110,7 +110,7 @@ export default async function ReferralsPage() {
       <div>
         <h2 className="text-lg font-semibold">Recent Referrals</h2>
         {!referrals?.length ? (
-          <p className="mt-3 text-sm text-zinc-400">No referrals yet.</p>
+          <p className="mt-3 text-sm text-slate-400">No referrals yet.</p>
         ) : (
           <div className="mt-3 space-y-2">
             {referrals.map((ref) => {
@@ -129,7 +129,7 @@ export default async function ReferralsPage() {
                     <p className="font-medium">
                       {lead?.first_name ?? "Unknown"} {lead?.last_name ?? ""}
                     </p>
-                    <p className="text-xs text-zinc-500">
+                    <p className="text-xs text-slate-500">
                       Referred by {link?.referrer_name ?? link?.code ?? "—"}
                     </p>
                   </div>
@@ -143,7 +143,7 @@ export default async function ReferralsPage() {
                     >
                       {ref.status}
                     </span>
-                    <span className="text-xs text-zinc-400">
+                    <span className="text-xs text-slate-400">
                       {new Date(ref.created_at).toLocaleDateString()}
                     </span>
                   </div>

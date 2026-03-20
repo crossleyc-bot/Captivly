@@ -42,7 +42,7 @@ export function LogoIcon({ size = 32, className }: { size?: number; className?: 
 export function Logo({ size = 28, className }: { size?: number; className?: string }) {
   return (
     <span className={`inline-flex items-center gap-2 ${className ?? ""}`}>
-      <LogoIcon size={size} className="text-indigo-600" />
+      <LogoIcon size={size} className="text-teal-600" />
       <span className="text-xl font-bold tracking-tight">Captivly</span>
     </span>
   );

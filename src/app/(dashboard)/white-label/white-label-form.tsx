@@ -61,7 +61,7 @@ export function WhiteLabelForm({ initialConfig }: WhiteLabelFormProps) {
     <form onSubmit={handleSave} className="space-y-6">
       {/* Preview */}
       <div className="rounded-lg border p-4">
-        <p className="mb-2 text-xs font-medium text-zinc-500 uppercase">Preview</p>
+        <p className="mb-2 text-xs font-medium text-slate-500 uppercase">Preview</p>
         <div className="flex items-center gap-3 rounded-md p-3" style={{ backgroundColor: primaryColor }}>
           {logoUrl ? (
             // eslint-disable-next-line @next/next/no-img-element
@@ -106,7 +106,7 @@ export function WhiteLabelForm({ initialConfig }: WhiteLabelFormProps) {
           className="mt-1 w-full rounded-md border px-3 py-2 text-sm"
           placeholder="https://example.com/logo.png"
         />
-        <p className="mt-1 text-xs text-zinc-400">Recommended: 200x200px PNG or SVG</p>
+        <p className="mt-1 text-xs text-slate-400">Recommended: 200x200px PNG or SVG</p>
       </div>
 
       {/* Colors */}
@@ -174,7 +174,7 @@ export function WhiteLabelForm({ initialConfig }: WhiteLabelFormProps) {
           type="checkbox"
           checked={hideBranding}
           onChange={(e) => setHideBranding(e.target.checked)}
-          className="h-4 w-4 rounded border-zinc-300"
+          className="h-4 w-4 rounded border-slate-300"
         />
         <span className="text-sm">Hide &quot;Powered by Captivly&quot; branding</span>
       </label>
@@ -185,7 +185,7 @@ export function WhiteLabelForm({ initialConfig }: WhiteLabelFormProps) {
       <button
         type="submit"
         disabled={saving}
-        className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800 disabled:opacity-50"
+        className="rounded-md bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800 disabled:opacity-50"
       >
         {saving ? "Saving..." : "Save Branding"}
       </button>

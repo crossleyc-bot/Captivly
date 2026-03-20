@@ -391,19 +391,23 @@ Apply `requirePlan` for feature access checks and `checkUsageLimit` before every
 ---
 ## Design System
 ### Colors
-**Base palette — Zinc (grayscale)**
+**Base palette — Slate (grayscale)**
 | Token | Tailwind | Hex | Usage |
 |---|---|---|---|
-| Primary dark | `zinc-900` | `#18181b` | Buttons, active nav, headings |
-| Body text | `zinc-700` | `#3f3f46` | Primary body text |
-| Secondary text | `zinc-500` | `#71717a` | Descriptions, captions |
-| Muted text | `zinc-400` | `#a1a1aa` | Placeholders, disabled |
-| Light bg | `zinc-50` | `#fafafa` | Sidebar, card backgrounds |
-| Border | `zinc-200`–`zinc-300` | | Default borders |
+| Primary dark | `slate-900` | `#0f172a` | Headings, active nav |
+| Body text | `slate-600` | `#475569` | Primary body text |
+| Secondary text | `slate-500` | `#64748b` | Descriptions, captions |
+| Muted text | `slate-400` | `#94a3b8` | Placeholders, disabled |
+| Light bg | `slate-50` | `#f8fafc` | Sidebar, card backgrounds |
+| Border | `slate-200`–`slate-300` | | Default borders |
 **Accent & semantic**
 | Token | Tailwind | Hex | Usage |
 |---|---|---|---|
-| Accent | `blue-500` | `#3b82f6` | Verify button, accent color |
+| Primary | `teal-600` | `#0d9488` | Buttons, links, active states |
+| Primary hover | `teal-700` | `#0f766e` | Button hover states |
+| Primary light | `teal-50` | `#f0fdfa` | Hero gradients, highlighted cards |
+| Highlight | `amber-500` | `#f59e0b` | Badges, upgrade CTAs, accents |
+| Highlight light | `amber-100` | `#fef3c7` | Badge backgrounds, hero pills |
 | Success | `green-600` | `#16a34a` | Verified, converted, delivered |
 | Warning | `yellow-600` / `amber-*` | | Paused, near-limit banners |
 | Error | `red-500`–`red-600` | | Failed, unsubscribed, delete |
@@ -417,11 +421,11 @@ leadStatusBadge(status):
   in_sequence  → 'bg-purple-100 text-purple-700'
   replied      → 'bg-green-100 text-green-700'
   converted    → 'bg-emerald-100 text-emerald-700'
-  cold         → 'bg-zinc-100 text-zinc-600'
+  cold         → 'bg-slate-100 text-slate-600'
   unsubscribed → 'bg-red-100 text-red-600'
 // Campaign status → badge
 campaignStatusBadge(status):
-  draft     → 'bg-zinc-100 text-zinc-600'
+  draft     → 'bg-slate-100 text-slate-600'
   active    → 'bg-green-100 text-green-700'
   paused    → 'bg-yellow-100 text-yellow-700'
   completed → 'bg-blue-100 text-blue-700'
@@ -430,10 +434,10 @@ scoreColor(score):
   >= 8 → 'text-green-600'
   5–7  → 'text-yellow-600'
   < 5  → 'text-red-500'
-  null → 'text-zinc-400'
+  null → 'text-slate-400'
 // Message status → text color
 msgStatusColor(status):
-  queued    → 'text-zinc-500'
+  queued    → 'text-slate-500'
   sent      → 'text-blue-600'
   delivered → 'text-green-600'
   failed    → 'text-red-600'
@@ -462,20 +466,20 @@ msgStatusColor(status):
 No component library (no shadcn/ui). All components are hand-built with Tailwind.
 **Buttons**
 ```
-Primary:   bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-700 disabled:opacity-50 rounded-md
-Secondary: border border-zinc-300 px-4 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50 rounded-md
+Primary:   bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-700 disabled:opacity-50 rounded-md
+Secondary: border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 rounded-md
 Danger:    border border-red-200 px-3 py-1.5 text-xs font-medium text-red-600 hover:bg-red-50 rounded-md
-Pill:      rounded-full bg-zinc-900 px-6 py-3 text-sm font-medium text-white hover:bg-zinc-700
+Pill:      rounded-full bg-slate-900 px-6 py-3 text-sm font-medium text-white hover:bg-slate-700
 ```
 **Inputs**
 ```
-mt-1 block w-full rounded-md border border-zinc-300 px-3 py-2 text-sm
-shadow-sm focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500
+mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 text-sm
+shadow-sm focus:border-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-500
 ```
 **Cards**
 ```
 Standard:  rounded-lg border px-4 py-3
-Empty:     rounded-lg border border-dashed border-zinc-300 px-6 py-10 text-center
+Empty:     rounded-lg border border-dashed border-slate-300 px-6 py-10 text-center
 Feature:   rounded-lg border border-yellow-200 bg-yellow-50 p-6 text-center
 ```
 **Badges (pill)**
@@ -485,14 +489,14 @@ rounded-full px-2 py-0.5 text-xs font-medium {statusColorClasses}
 **Tables**
 ```
 Container: overflow-x-auto → <table className="w-full text-sm">
-Header:    border-b text-left text-xs font-medium text-zinc-500 → <th className="pb-2 pr-4">
+Header:    border-b text-left text-xs font-medium text-slate-500 → <th className="pb-2 pr-4">
 Row:       border-b last:border-0 → <td className="py-2 pr-4">
 ```
 **Page header pattern**
 ```html
 <div>
   <h1 className="text-2xl font-bold">Page Title</h1>
-  <p className="mt-1 text-sm text-zinc-500">Description text</p>
+  <p className="mt-1 text-sm text-slate-500">Description text</p>
 </div>
 ```
 **Stat cards grid**
@@ -500,9 +504,9 @@ Row:       border-b last:border-0 → <td className="py-2 pr-4">
 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5
 ```
 ### Sidebar
-- Width: `w-64`, background: `bg-zinc-50`, border-right
+- Width: `w-64`, background: `bg-slate-50`, border-right
 - Active link: `text-white` with `backgroundColor: branding.primary_color` (inline style for white-label support)
-- Inactive link: `text-zinc-700 hover:bg-zinc-200 rounded-md px-3 py-2 text-sm font-medium`
+- Inactive link: `text-slate-700 hover:bg-slate-200 rounded-md px-3 py-2 text-sm font-medium`
 - Mobile: slides in with backdrop `bg-black/20`, header bar `fixed inset-x-0 top-0 z-40`
 - Nav items: Dashboard, Campaigns, Leads, Sequences, Analytics, Reports, Referrals, Chat Widget, White Label, Agency, Settings
 ### White-Label Branding

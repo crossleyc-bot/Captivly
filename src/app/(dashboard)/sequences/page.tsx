@@ -28,20 +28,20 @@ export default async function SequencesPage() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold">Sequences</h1>
-        <p className="mt-1 text-sm text-zinc-500">
+        <p className="mt-1 text-sm text-slate-500">
           View your AI-generated outreach sequences.
         </p>
       </div>
 
       {!sequences?.length ? (
-        <div className="rounded-lg border border-dashed border-zinc-300 px-6 py-10 text-center">
-          <p className="text-sm font-medium text-zinc-600">No sequences yet</p>
-          <p className="mt-1 text-sm text-zinc-400">
+        <div className="rounded-lg border border-dashed border-slate-300 px-6 py-10 text-center">
+          <p className="text-sm font-medium text-slate-600">No sequences yet</p>
+          <p className="mt-1 text-sm text-slate-400">
             Sequences are auto-generated when you create a campaign.
           </p>
           <Link
             href="/campaigns/new"
-            className="mt-4 inline-block rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+            className="mt-4 inline-block rounded-md bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-teal-700"
           >
             Create a campaign
           </Link>
@@ -63,12 +63,12 @@ export default async function SequencesPage() {
                   <div>
                     <h3 className="font-semibold">{seq.name}</h3>
                     {campaign && (
-                      <p className="text-xs text-zinc-500">Campaign: {campaign.name}</p>
+                      <p className="text-xs text-slate-500">Campaign: {campaign.name}</p>
                     )}
                   </div>
                   <span
                     className={`text-xs font-medium ${
-                      seq.is_active ? "text-green-600" : "text-zinc-400"
+                      seq.is_active ? "text-green-600" : "text-slate-400"
                     }`}
                   >
                     {seq.is_active ? "Active" : "Inactive"}
@@ -82,17 +82,17 @@ export default async function SequencesPage() {
                       .map((step) => (
                         <div
                           key={step.id}
-                          className="flex items-center gap-3 rounded bg-zinc-50 px-3 py-2 text-sm"
+                          className="flex items-center gap-3 rounded bg-slate-50 px-3 py-2 text-sm"
                         >
-                          <span className="rounded bg-zinc-200 px-1.5 py-0.5 text-xs font-medium">
+                          <span className="rounded bg-slate-200 px-1.5 py-0.5 text-xs font-medium">
                             {step.step_number}
                           </span>
-                          <span className="rounded bg-zinc-200 px-1.5 py-0.5 text-xs uppercase">
+                          <span className="rounded bg-slate-200 px-1.5 py-0.5 text-xs uppercase">
                             {step.channel}
                           </span>
-                          <span className="text-zinc-500">Day {step.delay_days}</span>
+                          <span className="text-slate-500">Day {step.delay_days}</span>
                           {step.subject && (
-                            <span className="truncate text-zinc-700">{step.subject}</span>
+                            <span className="truncate text-slate-700">{step.subject}</span>
                           )}
                         </div>
                       ))}

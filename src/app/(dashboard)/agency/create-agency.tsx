@@ -38,7 +38,7 @@ export function CreateAgency() {
   return (
     <div className="rounded-lg border p-6">
       <h2 className="text-lg font-semibold">Create Your Agency</h2>
-      <p className="mt-1 text-sm text-zinc-500">
+      <p className="mt-1 text-sm text-slate-500">
         Set up an agency to invite team members and manage client businesses.
       </p>
       <form onSubmit={handleCreate} className="mt-4 flex items-end gap-3">
@@ -58,7 +58,7 @@ export function CreateAgency() {
         <button
           type="submit"
           disabled={loading || !name.trim()}
-          className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800 disabled:opacity-50"
+          className="rounded-md bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800 disabled:opacity-50"
         >
           {loading ? "Creating..." : "Create Agency"}
         </button>

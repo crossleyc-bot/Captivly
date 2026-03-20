@@ -31,27 +31,27 @@ export default async function CampaignsPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold">Campaigns</h1>
-          <p className="mt-1 text-sm text-zinc-500">
+          <p className="mt-1 text-sm text-slate-500">
             Manage your Meta Lead Ad campaigns.
           </p>
         </div>
         <Link
           href="/campaigns/new"
-          className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+          className="rounded-md bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-teal-700"
         >
           New Campaign
         </Link>
       </div>
 
       {!campaigns?.length ? (
-        <p className="text-sm text-zinc-400">No campaigns yet.</p>
+        <p className="text-sm text-slate-400">No campaigns yet.</p>
       ) : (
         <div className="space-y-3">
           {campaigns.map((c) => (
             <Link
               key={c.id}
               href={`/campaigns/${c.id}`}
-              className="block rounded-lg border p-4 hover:border-zinc-400"
+              className="block rounded-lg border p-4 hover:border-slate-400"
             >
               <div className="flex items-center justify-between">
                 <h3 className="font-semibold">{c.name}</h3>
@@ -59,7 +59,7 @@ export default async function CampaignsPage() {
                   {c.status}
                 </span>
               </div>
-              <div className="mt-2 flex gap-6 text-sm text-zinc-500">
+              <div className="mt-2 flex gap-6 text-sm text-slate-500">
                 <span>{c.leads_count} leads</span>
                 <span>{c.conversions_count} conversions</span>
                 {c.daily_budget_cents && (

@@ -51,7 +51,7 @@ export default async function CampaignDetailPage({
   return (
     <div className="max-w-4xl space-y-8">
       <div>
-        <Link href="/campaigns" className="text-sm text-zinc-500 hover:text-zinc-900">
+        <Link href="/campaigns" className="text-sm text-slate-500 hover:text-slate-900">
           &larr; Back to campaigns
         </Link>
         <div className="mt-2 flex items-center gap-3">
@@ -65,15 +65,15 @@ export default async function CampaignDetailPage({
       {/* Stats */}
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
         <div className="rounded-lg border px-4 py-3">
-          <p className="text-xs font-medium text-zinc-500">Leads</p>
+          <p className="text-xs font-medium text-slate-500">Leads</p>
           <p className="mt-1 text-2xl font-bold">{campaign.leads_count}</p>
         </div>
         <div className="rounded-lg border px-4 py-3">
-          <p className="text-xs font-medium text-zinc-500">Conversions</p>
+          <p className="text-xs font-medium text-slate-500">Conversions</p>
           <p className="mt-1 text-2xl font-bold">{campaign.conversions_count}</p>
         </div>
         <div className="rounded-lg border px-4 py-3">
-          <p className="text-xs font-medium text-zinc-500">Daily Budget</p>
+          <p className="text-xs font-medium text-slate-500">Daily Budget</p>
           <p className="mt-1 text-2xl font-bold">
             {campaign.daily_budget_cents
               ? `$${(campaign.daily_budget_cents / 100).toFixed(2)}`
@@ -81,7 +81,7 @@ export default async function CampaignDetailPage({
           </p>
         </div>
         <div className="rounded-lg border px-4 py-3">
-          <p className="text-xs font-medium text-zinc-500">Total Spend</p>
+          <p className="text-xs font-medium text-slate-500">Total Spend</p>
           <p className="mt-1 text-2xl font-bold">
             ${(campaign.total_spend_cents / 100).toFixed(2)}
           </p>
@@ -104,7 +104,7 @@ export default async function CampaignDetailPage({
                 <div key={seq.id} className="rounded-lg border p-3">
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-medium">{seq.name}</span>
-                    <span className={`text-xs ${seq.is_active ? "text-green-600" : "text-zinc-400"}`}>
+                    <span className={`text-xs ${seq.is_active ? "text-green-600" : "text-slate-400"}`}>
                       {seq.is_active ? "Active" : "Inactive"}
                     </span>
                   </div>
@@ -114,7 +114,7 @@ export default async function CampaignDetailPage({
                       .map((step) => (
                         <span
                           key={step.id}
-                          className="rounded bg-zinc-100 px-2 py-0.5 text-xs"
+                          className="rounded bg-slate-100 px-2 py-0.5 text-xs"
                         >
                           Day {step.delay_days}: {step.channel}
                         </span>
@@ -131,12 +131,12 @@ export default async function CampaignDetailPage({
       <div>
         <h2 className="text-lg font-semibold">Leads</h2>
         {!leads?.length ? (
-          <p className="mt-3 text-sm text-zinc-400">No leads in this campaign yet.</p>
+          <p className="mt-3 text-sm text-slate-400">No leads in this campaign yet.</p>
         ) : (
           <div className="mt-3 overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b text-left text-xs font-medium text-zinc-500">
+                <tr className="border-b text-left text-xs font-medium text-slate-500">
                   <th className="pb-2 pr-4">Name</th>
                   <th className="pb-2 pr-4">Email</th>
                   <th className="pb-2 pr-4">Score</th>
@@ -150,12 +150,12 @@ export default async function CampaignDetailPage({
                     <td className="py-2 pr-4">
                       <Link
                         href={`/leads/${lead.id}`}
-                        className="font-medium text-indigo-600 hover:underline"
+                        className="font-medium text-teal-600 hover:underline"
                       >
                         {lead.first_name ?? "Unknown"} {lead.last_name ?? ""}
                       </Link>
                     </td>
-                    <td className="py-2 pr-4 text-zinc-600">{lead.email ?? "—"}</td>
+                    <td className="py-2 pr-4 text-slate-600">{lead.email ?? "—"}</td>
                     <td className={`py-2 pr-4 font-semibold ${scoreColor(lead.ai_score)}`}>
                       {lead.ai_score ?? "—"}
                     </td>
@@ -164,7 +164,7 @@ export default async function CampaignDetailPage({
                         {lead.status.replace("_", " ")}
                       </span>
                     </td>
-                    <td className="py-2 text-zinc-500">
+                    <td className="py-2 text-slate-500">
                       {new Date(lead.created_at).toLocaleDateString()}
                     </td>
                   </tr>

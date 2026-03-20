@@ -33,7 +33,7 @@ export default async function AgencyPage() {
           </p>
           <Link
             href="/settings"
-            className="mt-3 inline-block rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800"
+            className="mt-3 inline-block rounded-md bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800"
           >
             Upgrade Plan
           </Link>
@@ -73,7 +73,7 @@ export default async function AgencyPage() {
       <div className="max-w-2xl space-y-6">
         <div>
           <h1 className="text-2xl font-bold">Agency Mode</h1>
-          <p className="mt-1 text-sm text-zinc-500">
+          <p className="mt-1 text-sm text-slate-500">
             Create an agency to manage multiple client businesses from one dashboard.
           </p>
         </div>
@@ -102,7 +102,7 @@ export default async function AgencyPage() {
     <div className="space-y-8">
       <div>
         <h1 className="text-2xl font-bold">{agency.name}</h1>
-        <p className="mt-1 text-sm text-zinc-500">
+        <p className="mt-1 text-sm text-slate-500">
           Manage your team and client accounts.
         </p>
       </div>
@@ -110,11 +110,11 @@ export default async function AgencyPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
         <div className="rounded-lg border p-4">
-          <p className="text-sm text-zinc-500">Team Members</p>
+          <p className="text-sm text-slate-500">Team Members</p>
           <p className="mt-1 text-2xl font-bold">{members?.length ?? 0}</p>
         </div>
         <div className="rounded-lg border p-4">
-          <p className="text-sm text-zinc-500">Client Accounts</p>
+          <p className="text-sm text-slate-500">Client Accounts</p>
           <p className="mt-1 text-2xl font-bold">{clients?.length ?? 0}</p>
         </div>
       </div>
@@ -137,15 +137,15 @@ export default async function AgencyPage() {
                   <p className="font-medium">
                     {memberUser?.full_name ?? memberUser?.email ?? "Unknown"}
                   </p>
-                  <p className="text-xs text-zinc-400">{memberUser?.email}</p>
+                  <p className="text-xs text-slate-400">{memberUser?.email}</p>
                 </div>
                 <span
                   className={`rounded-full px-2 py-0.5 text-xs font-medium ${
                     member.role === "owner"
-                      ? "bg-indigo-600 text-white"
+                      ? "bg-teal-600 text-white"
                       : member.role === "admin"
                         ? "bg-blue-50 text-blue-700"
-                        : "bg-zinc-100 text-zinc-600"
+                        : "bg-slate-100 text-slate-600"
                   }`}
                 >
                   {member.role}
@@ -161,7 +161,7 @@ export default async function AgencyPage() {
       <section className="space-y-3">
         <h2 className="text-lg font-semibold">Client Accounts</h2>
         {!clients?.length ? (
-          <p className="text-sm text-zinc-400">
+          <p className="text-sm text-slate-400">
             No client accounts yet. Client businesses will appear here once added to your agency.
           </p>
         ) : (
@@ -173,11 +173,11 @@ export default async function AgencyPage() {
                 >
                   <div>
                     <p className="font-medium">{client.name}</p>
-                    <p className="text-xs text-zinc-400">
+                    <p className="text-xs text-slate-400">
                       {client.type} — {client.location_city}, {client.location_state}
                     </p>
                   </div>
-                  <span className="text-xs text-zinc-400">
+                  <span className="text-xs text-slate-400">
                     {new Date(client.created_at).toLocaleDateString()}
                   </span>
                 </div>

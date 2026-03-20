@@ -11,13 +11,13 @@ export default function GoogleReviewsPage() {
         <nav className="flex items-center gap-4">
           <Link
             href="/login"
-            className="text-sm font-medium text-zinc-600 hover:text-zinc-900"
+            className="text-sm font-medium text-slate-600 hover:text-slate-900"
           >
             Log in
           </Link>
           <Link
             href="/signup"
-            className="rounded-full bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+            className="rounded-full bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-teal-700"
           >
             Get Started
           </Link>
@@ -26,15 +26,15 @@ export default function GoogleReviewsPage() {
 
       <main className="flex-1">
         {/* Hero */}
-        <section className="bg-gradient-to-b from-indigo-50 via-white to-white px-6 py-20 text-center">
+        <section className="bg-gradient-to-b from-teal-50 via-white to-white px-6 py-20 text-center">
           <div className="mx-auto max-w-3xl">
-            <span className="mb-4 inline-block rounded-full bg-indigo-100 px-4 py-1.5 text-xs font-semibold text-indigo-700">
+            <span className="mb-4 inline-block rounded-full bg-amber-100 px-4 py-1.5 text-xs font-semibold text-amber-700">
               Conversion & Revenue
             </span>
-            <h1 className="text-4xl font-bold tracking-tight text-zinc-900 sm:text-5xl">
+            <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
               Google Reviews Automation
             </h1>
-            <p className="mt-6 text-lg text-zinc-600">
+            <p className="mt-6 text-lg text-slate-600">
               After a lead converts, automatically trigger a review request
               sequence. Build social proof on Google while the experience is
               still fresh — without lifting a finger.
@@ -42,13 +42,13 @@ export default function GoogleReviewsPage() {
             <div className="mt-10 flex justify-center gap-4">
               <Link
                 href="/signup"
-                className="rounded-full bg-indigo-600 px-6 py-3 text-sm font-medium text-white shadow-md shadow-indigo-200 hover:bg-indigo-700"
+                className="rounded-full bg-teal-600 px-6 py-3 text-sm font-medium text-white shadow-md shadow-amber-200 hover:bg-teal-700"
               >
                 Start Free Trial
               </Link>
               <Link
                 href="/#features"
-                className="rounded-full border border-zinc-300 px-6 py-3 text-sm font-medium text-zinc-700 hover:bg-zinc-50"
+                className="rounded-full border border-slate-300 px-6 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50"
               >
                 All Features
               </Link>
@@ -59,29 +59,29 @@ export default function GoogleReviewsPage() {
         {/* Why reviews matter */}
         <section className="border-t bg-white px-6 py-20">
           <div className="mx-auto max-w-4xl">
-            <h2 className="text-center text-2xl font-bold text-zinc-900">
+            <h2 className="text-center text-2xl font-bold text-slate-900">
               Why Google Reviews matter for local businesses
             </h2>
             <div className="mt-12 grid gap-6 sm:grid-cols-3">
               <div className="rounded-lg border p-6 text-center">
-                <div className="text-3xl font-bold text-indigo-600">93%</div>
-                <p className="mt-2 text-sm text-zinc-600">
+                <div className="text-3xl font-bold text-teal-600">93%</div>
+                <p className="mt-2 text-sm text-slate-600">
                   of consumers read online reviews before choosing a local
                   business
                 </p>
               </div>
               <div className="rounded-lg border p-6 text-center">
-                <div className="text-3xl font-bold text-indigo-600">4.0+</div>
-                <p className="mt-2 text-sm text-zinc-600">
+                <div className="text-3xl font-bold text-teal-600">4.0+</div>
+                <p className="mt-2 text-sm text-slate-600">
                   star rating is the minimum most consumers consider when
                   choosing a business
                 </p>
               </div>
               <div className="rounded-lg border p-6 text-center">
-                <div className="text-3xl font-bold text-indigo-600">
+                <div className="text-3xl font-bold text-teal-600">
                   Top 3
                 </div>
-                <p className="mt-2 text-sm text-zinc-600">
+                <p className="mt-2 text-sm text-slate-600">
                   Google Reviews are a top ranking factor for local search
                   and Google Maps visibility
                 </p>
@@ -91,9 +91,9 @@ export default function GoogleReviewsPage() {
         </section>
 
         {/* How it works */}
-        <section className="border-t bg-zinc-50 px-6 py-20">
+        <section className="border-t bg-slate-50 px-6 py-20">
           <div className="mx-auto max-w-4xl">
-            <h2 className="text-center text-2xl font-bold text-zinc-900">
+            <h2 className="text-center text-2xl font-bold text-slate-900">
               How it works
             </h2>
             <div className="mt-12 grid gap-8 sm:grid-cols-4">
@@ -124,13 +124,13 @@ export default function GoogleReviewsPage() {
                 },
               ].map((item) => (
                 <div key={item.step} className="text-center">
-                  <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-indigo-100 text-lg font-bold text-indigo-600">
+                  <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-teal-100 text-lg font-bold text-teal-600">
                     {item.step}
                   </div>
-                  <h3 className="mt-4 text-sm font-semibold text-zinc-900">
+                  <h3 className="mt-4 text-sm font-semibold text-slate-900">
                     {item.title}
                   </h3>
-                  <p className="mt-2 text-sm text-zinc-600">
+                  <p className="mt-2 text-sm text-slate-600">
                     {item.description}
                   </p>
                 </div>
@@ -142,10 +142,10 @@ export default function GoogleReviewsPage() {
         {/* Example messages */}
         <section className="border-t bg-white px-6 py-20">
           <div className="mx-auto max-w-3xl">
-            <h2 className="text-center text-2xl font-bold text-zinc-900">
+            <h2 className="text-center text-2xl font-bold text-slate-900">
               AI-crafted review requests
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-center text-sm text-zinc-600">
+            <p className="mx-auto mt-4 max-w-2xl text-center text-sm text-slate-600">
               Messages are personalized based on the lead&apos;s name, the
               service they used, and your business&apos;s preferred tone.
             </p>
@@ -155,19 +155,19 @@ export default function GoogleReviewsPage() {
                   <span className="rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-700">
                     Email
                   </span>
-                  <span className="text-xs text-zinc-400">Day 3</span>
+                  <span className="text-xs text-slate-400">Day 3</span>
                 </div>
-                <p className="mt-3 text-sm font-medium text-zinc-900">
+                <p className="mt-3 text-sm font-medium text-slate-900">
                   Subject: How was your first visit, Sarah?
                 </p>
-                <p className="mt-2 text-sm text-zinc-600">
+                <p className="mt-2 text-sm text-slate-600">
                   Hey Sarah! Thanks for coming in for your free trial at
                   FitLife Gym. We hope you had a great workout! If you
                   enjoyed the experience, we&apos;d love a quick Google
                   review — it helps other locals find us. Just tap below,
                   it takes 30 seconds.
                 </p>
-                <p className="mt-2 text-sm font-medium text-indigo-600">
+                <p className="mt-2 text-sm font-medium text-teal-600">
                   [Leave a Review on Google]
                 </p>
               </div>
@@ -176,9 +176,9 @@ export default function GoogleReviewsPage() {
                   <span className="rounded-full bg-purple-100 px-2 py-0.5 text-xs font-medium text-purple-700">
                     SMS
                   </span>
-                  <span className="text-xs text-zinc-400">Day 7</span>
+                  <span className="text-xs text-slate-400">Day 7</span>
                 </div>
-                <p className="mt-3 text-sm text-zinc-600">
+                <p className="mt-3 text-sm text-slate-600">
                   Hey Sarah, it&apos;s FitLife Gym! Quick favor — if you
                   enjoyed your visit, a Google review would mean the world
                   to us. Just tap: [link]. Thanks!
@@ -189,17 +189,17 @@ export default function GoogleReviewsPage() {
         </section>
 
         {/* Features */}
-        <section className="border-t bg-zinc-50 px-6 py-20">
+        <section className="border-t bg-slate-50 px-6 py-20">
           <div className="mx-auto max-w-4xl">
-            <h2 className="text-2xl font-bold text-zinc-900">
+            <h2 className="text-2xl font-bold text-slate-900">
               Review automation features
             </h2>
             <div className="mt-8 space-y-6">
               <div className="rounded-lg border bg-white p-6">
-                <h3 className="text-sm font-semibold text-zinc-900">
+                <h3 className="text-sm font-semibold text-slate-900">
                   Direct Google review link
                 </h3>
-                <p className="mt-2 text-sm text-zinc-600">
+                <p className="mt-2 text-sm text-slate-600">
                   Enter your Google Business Profile URL once in settings.
                   Captivly generates a direct review link that opens the
                   Google review form — no searching required for the
@@ -207,10 +207,10 @@ export default function GoogleReviewsPage() {
                 </p>
               </div>
               <div className="rounded-lg border bg-white p-6">
-                <h3 className="text-sm font-semibold text-zinc-900">
+                <h3 className="text-sm font-semibold text-slate-900">
                   Configurable timing
                 </h3>
-                <p className="mt-2 text-sm text-zinc-600">
+                <p className="mt-2 text-sm text-slate-600">
                   Set when the first review request goes out (e.g., 3 days
                   after conversion) and when the follow-up reminder is sent
                   (e.g., 7 days). Timing is key — too soon feels pushy, too
@@ -218,10 +218,10 @@ export default function GoogleReviewsPage() {
                 </p>
               </div>
               <div className="rounded-lg border bg-white p-6">
-                <h3 className="text-sm font-semibold text-zinc-900">
+                <h3 className="text-sm font-semibold text-slate-900">
                   Sentiment-aware AI
                 </h3>
-                <p className="mt-2 text-sm text-zinc-600">
+                <p className="mt-2 text-sm text-slate-600">
                   If a lead replied negatively during the outreach sequence
                   or showed dissatisfaction, Captivly skips the review
                   request. Only happy customers get asked — protecting your
@@ -229,10 +229,10 @@ export default function GoogleReviewsPage() {
                 </p>
               </div>
               <div className="rounded-lg border bg-white p-6">
-                <h3 className="text-sm font-semibold text-zinc-900">
+                <h3 className="text-sm font-semibold text-slate-900">
                   Review tracking
                 </h3>
-                <p className="mt-2 text-sm text-zinc-600">
+                <p className="mt-2 text-sm text-slate-600">
                   See which leads received review requests, who clicked the
                   link, and track your overall review request conversion
                   rate. Optimize timing and messaging over time.
@@ -245,16 +245,16 @@ export default function GoogleReviewsPage() {
         {/* CTA */}
         <section className="border-t bg-white px-6 py-20 text-center">
           <div className="mx-auto max-w-2xl">
-            <h2 className="text-2xl font-bold text-zinc-900">
+            <h2 className="text-2xl font-bold text-slate-900">
               Turn customers into advocates
             </h2>
-            <p className="mt-4 text-zinc-600">
+            <p className="mt-4 text-slate-600">
               Every conversion is an opportunity for a 5-star review. Let
               Captivly ask for you, automatically.
             </p>
             <Link
               href="/signup"
-              className="mt-8 inline-block rounded-full bg-indigo-600 px-6 py-3 text-sm font-medium text-white shadow-md shadow-indigo-200 hover:bg-indigo-700"
+              className="mt-8 inline-block rounded-full bg-teal-600 px-6 py-3 text-sm font-medium text-white shadow-md shadow-amber-200 hover:bg-teal-700"
             >
               Get Started Free
             </Link>
@@ -262,7 +262,7 @@ export default function GoogleReviewsPage() {
         </section>
       </main>
 
-      <footer className="border-t px-6 py-8 text-center text-sm text-zinc-500">
+      <footer className="border-t px-6 py-8 text-center text-sm text-slate-500">
         &copy; {new Date().getFullYear()} Captivly. All rights reserved.
       </footer>
     </div>

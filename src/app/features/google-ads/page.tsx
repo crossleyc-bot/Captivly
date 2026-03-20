@@ -11,13 +11,13 @@ export default function GoogleAdsPage() {
         <nav className="flex items-center gap-4">
           <Link
             href="/login"
-            className="text-sm font-medium text-zinc-600 hover:text-zinc-900"
+            className="text-sm font-medium text-slate-600 hover:text-slate-900"
           >
             Log in
           </Link>
           <Link
             href="/signup"
-            className="rounded-full bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+            className="rounded-full bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-teal-700"
           >
             Get Started
           </Link>
@@ -26,15 +26,15 @@ export default function GoogleAdsPage() {
 
       <main className="flex-1">
         {/* Hero */}
-        <section className="bg-gradient-to-b from-indigo-50 via-white to-white px-6 py-20 text-center">
+        <section className="bg-gradient-to-b from-teal-50 via-white to-white px-6 py-20 text-center">
           <div className="mx-auto max-w-3xl">
-            <span className="mb-4 inline-block rounded-full bg-indigo-100 px-4 py-1.5 text-xs font-semibold text-indigo-700">
+            <span className="mb-4 inline-block rounded-full bg-amber-100 px-4 py-1.5 text-xs font-semibold text-amber-700">
               Channels & Reach
             </span>
-            <h1 className="text-4xl font-bold tracking-tight text-zinc-900 sm:text-5xl">
+            <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
               Google Ads Lead Form Integration
             </h1>
-            <p className="mt-6 text-lg text-zinc-600">
+            <p className="mt-6 text-lg text-slate-600">
               Capture leads from Google Search and YouTube ads with lead form
               extensions. Leads flow into Captivly in real time — scored,
               sequenced, and followed up automatically.
@@ -42,13 +42,13 @@ export default function GoogleAdsPage() {
             <div className="mt-10 flex justify-center gap-4">
               <Link
                 href="/signup"
-                className="rounded-full bg-indigo-600 px-6 py-3 text-sm font-medium text-white shadow-md shadow-indigo-200 hover:bg-indigo-700"
+                className="rounded-full bg-teal-600 px-6 py-3 text-sm font-medium text-white shadow-md shadow-amber-200 hover:bg-teal-700"
               >
                 Start Free Trial
               </Link>
               <Link
                 href="/#features"
-                className="rounded-full border border-zinc-300 px-6 py-3 text-sm font-medium text-zinc-700 hover:bg-zinc-50"
+                className="rounded-full border border-slate-300 px-6 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50"
               >
                 All Features
               </Link>
@@ -59,32 +59,32 @@ export default function GoogleAdsPage() {
         {/* Why Google Ads */}
         <section className="border-t bg-white px-6 py-20">
           <div className="mx-auto max-w-4xl">
-            <h2 className="text-center text-2xl font-bold text-zinc-900">
+            <h2 className="text-center text-2xl font-bold text-slate-900">
               Meet customers where they&apos;re already searching
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-center text-sm text-zinc-600">
+            <p className="mx-auto mt-4 max-w-2xl text-center text-sm text-slate-600">
               Meta ads reach people scrolling. Google ads reach people actively
               searching for your service right now. Both matter — and Captivly
               handles both.
             </p>
             <div className="mt-12 grid gap-6 sm:grid-cols-3">
               <div className="rounded-lg border p-6 text-center">
-                <div className="text-3xl font-bold text-indigo-600">8.5B</div>
-                <p className="mt-2 text-sm text-zinc-600">
+                <div className="text-3xl font-bold text-teal-600">8.5B</div>
+                <p className="mt-2 text-sm text-slate-600">
                   Google searches per day — your customers are searching for
                   businesses like yours right now
                 </p>
               </div>
               <div className="rounded-lg border p-6 text-center">
-                <div className="text-3xl font-bold text-indigo-600">2–5x</div>
-                <p className="mt-2 text-sm text-zinc-600">
+                <div className="text-3xl font-bold text-teal-600">2–5x</div>
+                <p className="mt-2 text-sm text-slate-600">
                   higher intent than social media leads — they searched for
                   &quot;gym near me&quot;, not just scrolled past an ad
                 </p>
               </div>
               <div className="rounded-lg border p-6 text-center">
                 <div className="text-3xl font-bold text-green-600">30%</div>
-                <p className="mt-2 text-sm text-zinc-600">
+                <p className="mt-2 text-sm text-slate-600">
                   more leads when using lead form extensions vs sending
                   traffic to a landing page
                 </p>
@@ -94,9 +94,9 @@ export default function GoogleAdsPage() {
         </section>
 
         {/* How it works */}
-        <section className="border-t bg-zinc-50 px-6 py-20">
+        <section className="border-t bg-slate-50 px-6 py-20">
           <div className="mx-auto max-w-4xl">
-            <h2 className="text-center text-2xl font-bold text-zinc-900">
+            <h2 className="text-center text-2xl font-bold text-slate-900">
               How it works
             </h2>
             <div className="mt-12 grid gap-8 sm:grid-cols-4">
@@ -127,13 +127,13 @@ export default function GoogleAdsPage() {
                 },
               ].map((item) => (
                 <div key={item.step} className="text-center">
-                  <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-indigo-100 text-lg font-bold text-indigo-600">
+                  <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-teal-100 text-lg font-bold text-teal-600">
                     {item.step}
                   </div>
-                  <h3 className="mt-4 text-sm font-semibold text-zinc-900">
+                  <h3 className="mt-4 text-sm font-semibold text-slate-900">
                     {item.title}
                   </h3>
-                  <p className="mt-2 text-sm text-zinc-600">
+                  <p className="mt-2 text-sm text-slate-600">
                     {item.description}
                   </p>
                 </div>
@@ -145,10 +145,10 @@ export default function GoogleAdsPage() {
         {/* Google + Meta side by side */}
         <section className="border-t bg-white px-6 py-20">
           <div className="mx-auto max-w-4xl">
-            <h2 className="text-center text-2xl font-bold text-zinc-900">
+            <h2 className="text-center text-2xl font-bold text-slate-900">
               One dashboard, two ad platforms
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-center text-sm text-zinc-600">
+            <p className="mx-auto mt-4 max-w-2xl text-center text-sm text-slate-600">
               Run Meta and Google ads simultaneously. All leads land in the
               same pipeline — scored, sequenced, and tracked side by side.
             </p>
@@ -163,7 +163,7 @@ export default function GoogleAdsPage() {
                       <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53Z" />
                     </svg>
                   </div>
-                  <h3 className="text-sm font-semibold text-zinc-900">
+                  <h3 className="text-sm font-semibold text-slate-900">
                     Google Ads
                   </h3>
                 </div>
@@ -176,7 +176,7 @@ export default function GoogleAdsPage() {
                   ].map((item) => (
                     <li
                       key={item}
-                      className="flex items-center gap-2 text-sm text-zinc-600"
+                      className="flex items-center gap-2 text-sm text-slate-600"
                     >
                       <svg
                         className="h-4 w-4 shrink-0 text-green-600"
@@ -203,7 +203,7 @@ export default function GoogleAdsPage() {
                       <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073Z" />
                     </svg>
                   </div>
-                  <h3 className="text-sm font-semibold text-zinc-900">
+                  <h3 className="text-sm font-semibold text-slate-900">
                     Meta Lead Ads
                   </h3>
                 </div>
@@ -216,7 +216,7 @@ export default function GoogleAdsPage() {
                   ].map((item) => (
                     <li
                       key={item}
-                      className="flex items-center gap-2 text-sm text-zinc-600"
+                      className="flex items-center gap-2 text-sm text-slate-600"
                     >
                       <svg
                         className="h-4 w-4 shrink-0 text-green-600"
@@ -241,27 +241,27 @@ export default function GoogleAdsPage() {
         </section>
 
         {/* Features */}
-        <section className="border-t bg-zinc-50 px-6 py-20">
+        <section className="border-t bg-slate-50 px-6 py-20">
           <div className="mx-auto max-w-4xl">
-            <h2 className="text-2xl font-bold text-zinc-900">
+            <h2 className="text-2xl font-bold text-slate-900">
               Google Ads features
             </h2>
             <div className="mt-8 space-y-6">
               <div className="rounded-lg border bg-white p-6">
-                <h3 className="text-sm font-semibold text-zinc-900">
+                <h3 className="text-sm font-semibold text-slate-900">
                   Real-time lead delivery
                 </h3>
-                <p className="mt-2 text-sm text-zinc-600">
+                <p className="mt-2 text-sm text-slate-600">
                   Google sends leads to Captivly via Pub/Sub webhook the
                   moment a form is submitted. No polling, no delays. Your AI
                   follow-up starts within seconds.
                 </p>
               </div>
               <div className="rounded-lg border bg-white p-6">
-                <h3 className="text-sm font-semibold text-zinc-900">
+                <h3 className="text-sm font-semibold text-slate-900">
                   Cross-platform lead scoring
                 </h3>
-                <p className="mt-2 text-sm text-zinc-600">
+                <p className="mt-2 text-sm text-slate-600">
                   AI scoring works the same for Google and Meta leads. The
                   source is factored in — a lead who searched &quot;personal
                   trainer near me&quot; scores differently than one who
@@ -269,20 +269,20 @@ export default function GoogleAdsPage() {
                 </p>
               </div>
               <div className="rounded-lg border bg-white p-6">
-                <h3 className="text-sm font-semibold text-zinc-900">
+                <h3 className="text-sm font-semibold text-slate-900">
                   Unified campaign analytics
                 </h3>
-                <p className="mt-2 text-sm text-zinc-600">
+                <p className="mt-2 text-sm text-slate-600">
                   Compare Google vs Meta performance in one view. See which
                   platform delivers better leads, higher conversion rates,
                   and lower cost per acquisition for your specific business.
                 </p>
               </div>
               <div className="rounded-lg border bg-white p-6">
-                <h3 className="text-sm font-semibold text-zinc-900">
+                <h3 className="text-sm font-semibold text-slate-900">
                   Source-aware sequences
                 </h3>
-                <p className="mt-2 text-sm text-zinc-600">
+                <p className="mt-2 text-sm text-slate-600">
                   AI tailors outreach based on the lead source. A Google
                   Search lead who typed &quot;best gym in Austin&quot; gets a
                   different opening message than a Meta lead who saw a
@@ -296,16 +296,16 @@ export default function GoogleAdsPage() {
         {/* CTA */}
         <section className="border-t bg-white px-6 py-20 text-center">
           <div className="mx-auto max-w-2xl">
-            <h2 className="text-2xl font-bold text-zinc-900">
+            <h2 className="text-2xl font-bold text-slate-900">
               Capture leads from every search
             </h2>
-            <p className="mt-4 text-zinc-600">
+            <p className="mt-4 text-slate-600">
               Your customers are Googling your service right now. Connect
               Google Ads and start turning searches into customers.
             </p>
             <Link
               href="/signup"
-              className="mt-8 inline-block rounded-full bg-indigo-600 px-6 py-3 text-sm font-medium text-white shadow-md shadow-indigo-200 hover:bg-indigo-700"
+              className="mt-8 inline-block rounded-full bg-teal-600 px-6 py-3 text-sm font-medium text-white shadow-md shadow-amber-200 hover:bg-teal-700"
             >
               Get Started Free
             </Link>
@@ -313,7 +313,7 @@ export default function GoogleAdsPage() {
         </section>
       </main>
 
-      <footer className="border-t px-6 py-8 text-center text-sm text-zinc-500">
+      <footer className="border-t px-6 py-8 text-center text-sm text-slate-500">
         &copy; {new Date().getFullYear()} Captivly. All rights reserved.
       </footer>
     </div>

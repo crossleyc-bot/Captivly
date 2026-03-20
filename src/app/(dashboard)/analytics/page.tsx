@@ -74,14 +74,14 @@ export default async function AnalyticsPage() {
     return (
       <div>
         <div className="flex justify-between text-xs">
-          <span className="text-zinc-500">{label}</span>
-          <span className={isNearLimit ? "font-medium text-red-600" : "text-zinc-600"}>
+          <span className="text-slate-500">{label}</span>
+          <span className={isNearLimit ? "font-medium text-red-600" : "text-slate-600"}>
             {current.toLocaleString()} / {limit === Infinity ? "∞" : limit.toLocaleString()}
           </span>
         </div>
-        <div className="mt-1 h-2 rounded-full bg-zinc-100">
+        <div className="mt-1 h-2 rounded-full bg-slate-100">
           <div
-            className={`h-2 rounded-full ${isNearLimit ? "bg-red-500" : "bg-indigo-600"}`}
+            className={`h-2 rounded-full ${isNearLimit ? "bg-red-500" : "bg-teal-600"}`}
             style={{ width: `${pct}%` }}
           />
         </div>
@@ -93,7 +93,7 @@ export default async function AnalyticsPage() {
     <div className="max-w-3xl space-y-8">
       <div>
         <h1 className="text-2xl font-bold">Analytics</h1>
-        <p className="mt-1 text-sm text-zinc-500">
+        <p className="mt-1 text-sm text-slate-500">
           Performance overview for {new Date().toLocaleString("default", { month: "long", year: "numeric" })}.
         </p>
       </div>
@@ -113,19 +113,19 @@ export default async function AnalyticsPage() {
         <h2 className="text-lg font-semibold">Key Metrics</h2>
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
           <div className="rounded-lg border px-4 py-3">
-            <p className="text-xs font-medium text-zinc-500">Total Leads</p>
+            <p className="text-xs font-medium text-slate-500">Total Leads</p>
             <p className="mt-1 text-2xl font-bold">{leads.length}</p>
           </div>
           <div className="rounded-lg border px-4 py-3">
-            <p className="text-xs font-medium text-zinc-500">Avg AI Score</p>
+            <p className="text-xs font-medium text-slate-500">Avg AI Score</p>
             <p className="mt-1 text-2xl font-bold">{avgScore}</p>
           </div>
           <div className="rounded-lg border px-4 py-3">
-            <p className="text-xs font-medium text-zinc-500">Conversions</p>
+            <p className="text-xs font-medium text-slate-500">Conversions</p>
             <p className="mt-1 text-2xl font-bold">{totalConversions}</p>
           </div>
           <div className="rounded-lg border px-4 py-3">
-            <p className="text-xs font-medium text-zinc-500">Conv. Rate</p>
+            <p className="text-xs font-medium text-slate-500">Conv. Rate</p>
             <p className="mt-1 text-2xl font-bold">{conversionRate}%</p>
           </div>
         </div>
@@ -136,14 +136,14 @@ export default async function AnalyticsPage() {
         <h2 className="text-lg font-semibold">Lead Status Breakdown</h2>
         <div className="rounded-lg border p-4">
           {Object.keys(statusCounts).length === 0 ? (
-            <p className="text-sm text-zinc-400">No leads yet.</p>
+            <p className="text-sm text-slate-400">No leads yet.</p>
           ) : (
             <div className="space-y-2">
               {Object.entries(statusCounts)
                 .sort(([, a], [, b]) => b - a)
                 .map(([status, count]) => (
                   <div key={status} className="flex items-center justify-between text-sm">
-                    <span className="capitalize text-zinc-700">{status.replace("_", " ")}</span>
+                    <span className="capitalize text-slate-700">{status.replace("_", " ")}</span>
                     <span className="font-medium">{count}</span>
                   </div>
                 ))}

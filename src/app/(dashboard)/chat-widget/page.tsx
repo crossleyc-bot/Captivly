@@ -25,14 +25,14 @@ export default async function ChatWidgetPage() {
     return (
       <div className="max-w-xl space-y-4">
         <h1 className="text-2xl font-bold">AI Chat Widget</h1>
-        <div className="rounded-lg border border-zinc-200 bg-zinc-50 p-6 text-center">
-          <p className="text-sm text-zinc-500">
+        <div className="rounded-lg border border-slate-200 bg-slate-50 p-6 text-center">
+          <p className="text-sm text-slate-500">
             The AI chat widget is available on the{" "}
-            <span className="font-semibold text-zinc-900">Pro plan</span>.
+            <span className="font-semibold text-slate-900">Pro plan</span>.
           </p>
           <Link
             href="/settings"
-            className="mt-3 inline-block rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800"
+            className="mt-3 inline-block rounded-md bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800"
           >
             Upgrade to Pro
           </Link>
@@ -75,7 +75,7 @@ export default async function ChatWidgetPage() {
     <div className="max-w-2xl space-y-8">
       <div>
         <h1 className="text-2xl font-bold">AI Chat Widget</h1>
-        <p className="mt-1 text-sm text-zinc-500">
+        <p className="mt-1 text-sm text-slate-500">
           Add an AI-powered chat to your website. Visitors can ask questions and
           get instant answers about your business.
         </p>

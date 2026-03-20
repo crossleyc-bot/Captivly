@@ -62,13 +62,13 @@ export default function PricingPage() {
         <nav className="flex items-center gap-4">
           <Link
             href="/login"
-            className="text-sm font-medium text-zinc-600 hover:text-zinc-900"
+            className="text-sm font-medium text-slate-600 hover:text-slate-900"
           >
             Log in
           </Link>
           <Link
             href="/signup"
-            className="rounded-full bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+            className="rounded-full bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-teal-700"
           >
             Get Started
           </Link>
@@ -77,15 +77,15 @@ export default function PricingPage() {
 
       <main className="flex-1">
         {/* Hero */}
-        <section className="bg-gradient-to-b from-indigo-50 via-white to-white px-6 py-20 text-center">
+        <section className="bg-gradient-to-b from-teal-50 via-white to-white px-6 py-20 text-center">
           <div className="mx-auto max-w-3xl">
-            <span className="mb-4 inline-block rounded-full bg-indigo-100 px-4 py-1.5 text-xs font-semibold text-indigo-700">
+            <span className="mb-4 inline-block rounded-full bg-amber-100 px-4 py-1.5 text-xs font-semibold text-amber-700">
               Pricing
             </span>
-            <h1 className="text-4xl font-bold tracking-tight text-zinc-900 sm:text-5xl">
+            <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
               Smart Plan Tiers
             </h1>
-            <p className="mt-6 text-lg text-zinc-600">
+            <p className="mt-6 text-lg text-slate-600">
               Start small with 100 leads per month, scale to 2,000+. SMS,
               multiple campaigns, and AI reports unlock as you grow. No
               long-term contracts.
@@ -101,33 +101,33 @@ export default function PricingPage() {
                 key={plan.name}
                 className={`rounded-lg border p-6 ${
                   plan.highlighted
-                    ? "border-indigo-300 ring-2 ring-indigo-100"
-                    : "border-zinc-200"
+                    ? "border-teal-300 ring-2 ring-teal-100"
+                    : "border-slate-200"
                 }`}
               >
                 {plan.highlighted && (
-                  <span className="mb-4 inline-block rounded-full bg-indigo-100 px-3 py-1 text-xs font-semibold text-indigo-700">
+                  <span className="mb-4 inline-block rounded-full bg-teal-100 px-3 py-1 text-xs font-semibold text-teal-700">
                     Most Popular
                   </span>
                 )}
-                <h3 className="text-lg font-semibold text-zinc-900">
+                <h3 className="text-lg font-semibold text-slate-900">
                   {plan.name}
                 </h3>
                 <div className="mt-2">
-                  <span className="text-3xl font-bold text-zinc-900">
+                  <span className="text-3xl font-bold text-slate-900">
                     {plan.price}
                   </span>
-                  <span className="text-sm text-zinc-500">/month</span>
+                  <span className="text-sm text-slate-500">/month</span>
                 </div>
-                <p className="mt-3 text-sm text-zinc-600">
+                <p className="mt-3 text-sm text-slate-600">
                   {plan.description}
                 </p>
                 <Link
                   href="/signup"
                   className={`mt-6 block rounded-full px-4 py-2.5 text-center text-sm font-medium ${
                     plan.highlighted
-                      ? "bg-indigo-600 text-white hover:bg-indigo-700"
-                      : "border border-zinc-300 text-zinc-700 hover:bg-zinc-50"
+                      ? "bg-teal-600 text-white hover:bg-teal-700"
+                      : "border border-slate-300 text-slate-700 hover:bg-slate-50"
                   }`}
                 >
                   {plan.cta}
@@ -136,7 +136,7 @@ export default function PricingPage() {
                   {plan.features.map((feature) => (
                     <li
                       key={feature}
-                      className="flex items-start gap-2 text-sm text-zinc-700"
+                      className="flex items-start gap-2 text-sm text-slate-700"
                     >
                       <svg
                         className="mt-0.5 h-4 w-4 shrink-0 text-green-600"
@@ -157,7 +157,7 @@ export default function PricingPage() {
                   {plan.limitations.map((limitation) => (
                     <li
                       key={limitation}
-                      className="flex items-start gap-2 text-sm text-zinc-400"
+                      className="flex items-start gap-2 text-sm text-slate-400"
                     >
                       <svg
                         className="mt-0.5 h-4 w-4 shrink-0"
@@ -182,15 +182,15 @@ export default function PricingPage() {
         </section>
 
         {/* Feature comparison */}
-        <section className="border-t bg-zinc-50 px-6 py-20">
+        <section className="border-t bg-slate-50 px-6 py-20">
           <div className="mx-auto max-w-4xl">
-            <h2 className="text-center text-2xl font-bold text-zinc-900">
+            <h2 className="text-center text-2xl font-bold text-slate-900">
               Full feature comparison
             </h2>
             <div className="mt-8 overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b text-left text-xs font-medium text-zinc-500">
+                  <tr className="border-b text-left text-xs font-medium text-slate-500">
                     <th className="pb-2 pr-4">Feature</th>
                     <th className="pb-2 pr-4">Starter $49</th>
                     <th className="pb-2 pr-4">Growth $99</th>
@@ -212,21 +212,21 @@ export default function PricingPage() {
                     ["White-labeling", "—", "—", "Yes"],
                   ].map(([feature, starter, growth, pro]) => (
                     <tr key={feature} className="border-b last:border-0">
-                      <td className="py-3 pr-4 font-medium text-zinc-900">
+                      <td className="py-3 pr-4 font-medium text-slate-900">
                         {feature}
                       </td>
                       <td
-                        className={`py-3 pr-4 ${starter === "—" ? "text-zinc-400" : "text-zinc-600"}`}
+                        className={`py-3 pr-4 ${starter === "—" ? "text-slate-400" : "text-slate-600"}`}
                       >
                         {starter}
                       </td>
                       <td
-                        className={`py-3 pr-4 ${growth === "—" ? "text-zinc-400" : "text-zinc-600"}`}
+                        className={`py-3 pr-4 ${growth === "—" ? "text-slate-400" : "text-slate-600"}`}
                       >
                         {growth}
                       </td>
                       <td
-                        className={`py-3 ${pro === "—" ? "text-zinc-400" : "text-zinc-600"}`}
+                        className={`py-3 ${pro === "—" ? "text-slate-400" : "text-slate-600"}`}
                       >
                         {pro}
                       </td>
@@ -241,7 +241,7 @@ export default function PricingPage() {
         {/* FAQ */}
         <section className="border-t bg-white px-6 py-20">
           <div className="mx-auto max-w-3xl">
-            <h2 className="text-center text-2xl font-bold text-zinc-900">
+            <h2 className="text-center text-2xl font-bold text-slate-900">
               Common questions
             </h2>
             <div className="mt-8 space-y-6">
@@ -264,10 +264,10 @@ export default function PricingPage() {
                 },
               ].map((faq) => (
                 <div key={faq.q} className="rounded-lg border p-6">
-                  <h3 className="text-sm font-semibold text-zinc-900">
+                  <h3 className="text-sm font-semibold text-slate-900">
                     {faq.q}
                   </h3>
-                  <p className="mt-2 text-sm text-zinc-600">{faq.a}</p>
+                  <p className="mt-2 text-sm text-slate-600">{faq.a}</p>
                 </div>
               ))}
             </div>
@@ -275,18 +275,18 @@ export default function PricingPage() {
         </section>
 
         {/* CTA */}
-        <section className="border-t bg-zinc-50 px-6 py-20 text-center">
+        <section className="border-t bg-slate-50 px-6 py-20 text-center">
           <div className="mx-auto max-w-2xl">
-            <h2 className="text-2xl font-bold text-zinc-900">
+            <h2 className="text-2xl font-bold text-slate-900">
               Start generating leads today
             </h2>
-            <p className="mt-4 text-zinc-600">
+            <p className="mt-4 text-slate-600">
               Pick the plan that fits your business. Upgrade anytime as you
               grow.
             </p>
             <Link
               href="/signup"
-              className="mt-8 inline-block rounded-full bg-indigo-600 px-6 py-3 text-sm font-medium text-white shadow-md shadow-indigo-200 hover:bg-indigo-700"
+              className="mt-8 inline-block rounded-full bg-teal-600 px-6 py-3 text-sm font-medium text-white shadow-md shadow-amber-200 hover:bg-teal-700"
             >
               Get Started Free
             </Link>
@@ -294,7 +294,7 @@ export default function PricingPage() {
         </section>
       </main>
 
-      <footer className="border-t px-6 py-8 text-center text-sm text-zinc-500">
+      <footer className="border-t px-6 py-8 text-center text-sm text-slate-500">
         &copy; {new Date().getFullYear()} Captivly. All rights reserved.
       </footer>
     </div>

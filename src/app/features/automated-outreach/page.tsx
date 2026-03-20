@@ -11,13 +11,13 @@ export default function AutomatedOutreachPage() {
         <nav className="flex items-center gap-4">
           <Link
             href="/login"
-            className="text-sm font-medium text-zinc-600 hover:text-zinc-900"
+            className="text-sm font-medium text-slate-600 hover:text-slate-900"
           >
             Log in
           </Link>
           <Link
             href="/signup"
-            className="rounded-full bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+            className="rounded-full bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-teal-700"
           >
             Get Started
           </Link>
@@ -26,15 +26,15 @@ export default function AutomatedOutreachPage() {
 
       <main className="flex-1">
         {/* Hero */}
-        <section className="bg-gradient-to-b from-indigo-50 via-white to-white px-6 py-20 text-center">
+        <section className="bg-gradient-to-b from-teal-50 via-white to-white px-6 py-20 text-center">
           <div className="mx-auto max-w-3xl">
-            <span className="mb-4 inline-block rounded-full bg-indigo-100 px-4 py-1.5 text-xs font-semibold text-indigo-700">
+            <span className="mb-4 inline-block rounded-full bg-amber-100 px-4 py-1.5 text-xs font-semibold text-amber-700">
               Automation
             </span>
-            <h1 className="text-4xl font-bold tracking-tight text-zinc-900 sm:text-5xl">
+            <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
               Automated Outreach Sequences
             </h1>
-            <p className="mt-6 text-lg text-zinc-600">
+            <p className="mt-6 text-lg text-slate-600">
               AI writes personalized multi-step email and SMS sequences for
               every lead. The right message, to the right person, at the right
               time — completely hands-free.
@@ -42,13 +42,13 @@ export default function AutomatedOutreachPage() {
             <div className="mt-10 flex justify-center gap-4">
               <Link
                 href="/signup"
-                className="rounded-full bg-indigo-600 px-6 py-3 text-sm font-medium text-white shadow-md shadow-indigo-200 hover:bg-indigo-700"
+                className="rounded-full bg-teal-600 px-6 py-3 text-sm font-medium text-white shadow-md shadow-amber-200 hover:bg-teal-700"
               >
                 Start Free Trial
               </Link>
               <Link
                 href="/#features"
-                className="rounded-full border border-zinc-300 px-6 py-3 text-sm font-medium text-zinc-700 hover:bg-zinc-50"
+                className="rounded-full border border-slate-300 px-6 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50"
               >
                 All Features
               </Link>
@@ -59,10 +59,10 @@ export default function AutomatedOutreachPage() {
         {/* Example sequence */}
         <section className="border-t bg-white px-6 py-20">
           <div className="mx-auto max-w-4xl">
-            <h2 className="text-center text-2xl font-bold text-zinc-900">
+            <h2 className="text-center text-2xl font-bold text-slate-900">
               A typical 5-step sequence
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-center text-sm text-zinc-600">
+            <p className="mx-auto mt-4 max-w-2xl text-center text-sm text-slate-600">
               Here&apos;s how a gym promoting a free 7-day trial might engage a
               new lead over 14 days.
             </p>
@@ -108,12 +108,12 @@ export default function AutomatedOutreachPage() {
                   key={step.step}
                   className="flex items-start gap-4 rounded-lg border p-4"
                 >
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-sm font-bold text-indigo-600">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-teal-100 text-sm font-bold text-teal-600">
                     {step.step}
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center gap-2">
-                      <span className="text-sm font-semibold text-zinc-900">
+                      <span className="text-sm font-semibold text-slate-900">
                         {step.day}
                       </span>
                       <span
@@ -126,7 +126,7 @@ export default function AutomatedOutreachPage() {
                         {step.channel}
                       </span>
                     </div>
-                    <p className="mt-1 text-sm text-zinc-600">
+                    <p className="mt-1 text-sm text-slate-600">
                       {step.description}
                     </p>
                   </div>
@@ -137,47 +137,47 @@ export default function AutomatedOutreachPage() {
         </section>
 
         {/* Features */}
-        <section className="border-t bg-zinc-50 px-6 py-20">
+        <section className="border-t bg-slate-50 px-6 py-20">
           <div className="mx-auto max-w-4xl">
-            <h2 className="text-2xl font-bold text-zinc-900">
+            <h2 className="text-2xl font-bold text-slate-900">
               Sequence capabilities
             </h2>
             <div className="mt-8 grid gap-6 sm:grid-cols-2">
               <div className="rounded-lg border bg-white p-6">
-                <h3 className="text-sm font-semibold text-zinc-900">
+                <h3 className="text-sm font-semibold text-slate-900">
                   AI-generated content
                 </h3>
-                <p className="mt-2 text-sm text-zinc-600">
+                <p className="mt-2 text-sm text-slate-600">
                   Claude AI writes every email and SMS based on your business
                   type, offer, and preferred tone. Each message is unique and
                   personalized to the lead.
                 </p>
               </div>
               <div className="rounded-lg border bg-white p-6">
-                <h3 className="text-sm font-semibold text-zinc-900">
+                <h3 className="text-sm font-semibold text-slate-900">
                   Email + SMS combined
                 </h3>
-                <p className="mt-2 text-sm text-zinc-600">
+                <p className="mt-2 text-sm text-slate-600">
                   Alternate between email and SMS for maximum engagement.
                   Starter plans get 3-step email-only sequences; Growth and Pro
                   unlock 5-step email + SMS.
                 </p>
               </div>
               <div className="rounded-lg border bg-white p-6">
-                <h3 className="text-sm font-semibold text-zinc-900">
+                <h3 className="text-sm font-semibold text-slate-900">
                   Automatic scheduling
                 </h3>
-                <p className="mt-2 text-sm text-zinc-600">
+                <p className="mt-2 text-sm text-slate-600">
                   Messages are queued and sent automatically at the right
                   intervals. A scheduler checks every hour and fires messages
                   that are due.
                 </p>
               </div>
               <div className="rounded-lg border bg-white p-6">
-                <h3 className="text-sm font-semibold text-zinc-900">
+                <h3 className="text-sm font-semibold text-slate-900">
                   Reply detection
                 </h3>
-                <p className="mt-2 text-sm text-zinc-600">
+                <p className="mt-2 text-sm text-slate-600">
                   When a lead replies to an email or SMS, the sequence
                   automatically pauses so you can take over the conversation
                   personally.
@@ -190,13 +190,13 @@ export default function AutomatedOutreachPage() {
         {/* Plan comparison */}
         <section className="border-t bg-white px-6 py-20">
           <div className="mx-auto max-w-3xl">
-            <h2 className="text-center text-2xl font-bold text-zinc-900">
+            <h2 className="text-center text-2xl font-bold text-slate-900">
               Sequence features by plan
             </h2>
             <div className="mt-8 overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b text-left text-xs font-medium text-zinc-500">
+                  <tr className="border-b text-left text-xs font-medium text-slate-500">
                     <th className="pb-2 pr-4">Feature</th>
                     <th className="pb-2 pr-4">Starter</th>
                     <th className="pb-2 pr-4">Growth</th>
@@ -205,15 +205,15 @@ export default function AutomatedOutreachPage() {
                 </thead>
                 <tbody>
                   <tr className="border-b">
-                    <td className="py-3 pr-4 font-medium text-zinc-900">
+                    <td className="py-3 pr-4 font-medium text-slate-900">
                       Sequence steps
                     </td>
-                    <td className="py-3 pr-4 text-zinc-600">3</td>
-                    <td className="py-3 pr-4 text-zinc-600">5</td>
-                    <td className="py-3 text-zinc-600">5</td>
+                    <td className="py-3 pr-4 text-slate-600">3</td>
+                    <td className="py-3 pr-4 text-slate-600">5</td>
+                    <td className="py-3 text-slate-600">5</td>
                   </tr>
                   <tr className="border-b">
-                    <td className="py-3 pr-4 font-medium text-zinc-900">
+                    <td className="py-3 pr-4 font-medium text-slate-900">
                       Email outreach
                     </td>
                     <td className="py-3 pr-4 text-green-600">Included</td>
@@ -221,15 +221,15 @@ export default function AutomatedOutreachPage() {
                     <td className="py-3 text-green-600">Included</td>
                   </tr>
                   <tr className="border-b">
-                    <td className="py-3 pr-4 font-medium text-zinc-900">
+                    <td className="py-3 pr-4 font-medium text-slate-900">
                       SMS outreach
                     </td>
-                    <td className="py-3 pr-4 text-zinc-400">—</td>
+                    <td className="py-3 pr-4 text-slate-400">—</td>
                     <td className="py-3 pr-4 text-green-600">500/mo</td>
                     <td className="py-3 text-green-600">2,000/mo</td>
                   </tr>
                   <tr>
-                    <td className="py-3 pr-4 font-medium text-zinc-900">
+                    <td className="py-3 pr-4 font-medium text-slate-900">
                       Reply detection
                     </td>
                     <td className="py-3 pr-4 text-green-600">Included</td>
@@ -243,18 +243,18 @@ export default function AutomatedOutreachPage() {
         </section>
 
         {/* CTA */}
-        <section className="border-t bg-zinc-50 px-6 py-20 text-center">
+        <section className="border-t bg-slate-50 px-6 py-20 text-center">
           <div className="mx-auto max-w-2xl">
-            <h2 className="text-2xl font-bold text-zinc-900">
+            <h2 className="text-2xl font-bold text-slate-900">
               Put your outreach on autopilot
             </h2>
-            <p className="mt-4 text-zinc-600">
+            <p className="mt-4 text-slate-600">
               Stop manually following up with leads. Let AI handle the
               outreach while you run your business.
             </p>
             <Link
               href="/signup"
-              className="mt-8 inline-block rounded-full bg-indigo-600 px-6 py-3 text-sm font-medium text-white shadow-md shadow-indigo-200 hover:bg-indigo-700"
+              className="mt-8 inline-block rounded-full bg-teal-600 px-6 py-3 text-sm font-medium text-white shadow-md shadow-amber-200 hover:bg-teal-700"
             >
               Get Started Free
             </Link>
@@ -262,7 +262,7 @@ export default function AutomatedOutreachPage() {
         </section>
       </main>
 
-      <footer className="border-t px-6 py-8 text-center text-sm text-zinc-500">
+      <footer className="border-t px-6 py-8 text-center text-sm text-slate-500">
         &copy; {new Date().getFullYear()} Captivly. All rights reserved.
       </footer>
     </div>

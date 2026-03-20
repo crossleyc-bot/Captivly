@@ -43,7 +43,7 @@ export function InviteMember() {
   return (
     <form onSubmit={handleInvite} className="flex flex-wrap items-end gap-3">
       <div>
-        <label htmlFor="member-email" className="block text-xs text-zinc-500">
+        <label htmlFor="member-email" className="block text-xs text-slate-500">
           Email Address
         </label>
         <input
@@ -56,7 +56,7 @@ export function InviteMember() {
         />
       </div>
       <div>
-        <label htmlFor="member-role" className="block text-xs text-zinc-500">
+        <label htmlFor="member-role" className="block text-xs text-slate-500">
           Role
         </label>
         <select
@@ -72,7 +72,7 @@ export function InviteMember() {
       <button
         type="submit"
         disabled={loading || !email.trim()}
-        className="rounded-md bg-indigo-600 px-4 py-1.5 text-sm font-medium text-white hover:bg-zinc-800 disabled:opacity-50"
+        className="rounded-md bg-teal-600 px-4 py-1.5 text-sm font-medium text-white hover:bg-slate-800 disabled:opacity-50"
       >
         {loading ? "Adding..." : "Add Member"}
       </button>

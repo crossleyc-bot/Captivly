@@ -197,8 +197,8 @@ export default function OnboardingPage() {
   }
 
   const inputClass =
-    "mt-1 block w-full rounded-md border border-zinc-300 px-3 py-2 text-sm shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500";
-  const labelClass = "block text-sm font-medium text-zinc-700";
+    "mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 text-sm shadow-sm focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500";
+  const labelClass = "block text-sm font-medium text-slate-700";
 
   async function handleSignOut() {
     const supabase = createClient();
@@ -215,7 +215,7 @@ export default function OnboardingPage() {
           <button
             type="button"
             onClick={handleSignOut}
-            className="text-sm text-zinc-400 hover:text-zinc-700"
+            className="text-sm text-slate-400 hover:text-slate-700"
           >
             Sign out
           </button>
@@ -226,12 +226,12 @@ export default function OnboardingPage() {
             <div key={title} className="flex-1">
               <div
                 className={`h-1.5 rounded-full ${
-                  i <= step ? "bg-indigo-600" : "bg-zinc-200"
+                  i <= step ? "bg-teal-600" : "bg-slate-200"
                 }`}
               />
               <p
                 className={`mt-1 text-xs ${
-                  i === step ? "font-medium text-zinc-900" : "text-zinc-400"
+                  i === step ? "font-medium text-slate-900" : "text-slate-400"
                 }`}
               >
                 {title}
@@ -391,8 +391,8 @@ export default function OnboardingPage() {
                     onClick={() => toggleInterest(interest)}
                     className={`rounded-full border px-3 py-1 text-sm ${
                       data.target_interests.includes(interest)
-                        ? "border-zinc-900 bg-indigo-600 text-white"
-                        : "border-zinc-300 text-zinc-600 hover:border-zinc-400"
+                        ? "border-slate-900 bg-teal-600 text-white"
+                        : "border-slate-300 text-slate-600 hover:border-slate-400"
                     }`}
                   >
                     {interest}
@@ -407,7 +407,7 @@ export default function OnboardingPage() {
         {step === 2 && (
           <div className="space-y-4">
             <h2 className="text-xl font-bold">What&apos;s your lead magnet?</h2>
-            <p className="text-sm text-zinc-500">
+            <p className="text-sm text-slate-500">
               This is the offer that will attract leads from your ads.
             </p>
             <div>
@@ -434,8 +434,8 @@ export default function OnboardingPage() {
                       onClick={() => update({ outreach_tone: tone })}
                       className={`rounded-md border px-4 py-2 text-sm capitalize ${
                         data.outreach_tone === tone
-                          ? "border-zinc-900 bg-indigo-600 text-white"
-                          : "border-zinc-300 text-zinc-600 hover:border-zinc-400"
+                          ? "border-slate-900 bg-teal-600 text-white"
+                          : "border-slate-300 text-slate-600 hover:border-slate-400"
                       }`}
                     >
                       {tone}
@@ -451,7 +451,7 @@ export default function OnboardingPage() {
         {step === 3 && (
           <div className="space-y-4">
             <h2 className="text-xl font-bold">Connect your ad accounts</h2>
-            <p className="text-sm text-zinc-500">
+            <p className="text-sm text-slate-500">
               Link your ad accounts so Captivly can create campaigns and
               receive leads automatically. Connect one or both.
             </p>
@@ -467,7 +467,7 @@ export default function OnboardingPage() {
             >
               Connect with Google Ads
             </a>
-            <p className="text-center text-xs text-zinc-400">
+            <p className="text-center text-xs text-slate-400">
               You can skip this and connect later from Settings.
             </p>
           </div>
@@ -477,7 +477,7 @@ export default function OnboardingPage() {
         {step === 4 && (
           <div className="space-y-4">
             <h2 className="text-xl font-bold">Choose your plan</h2>
-            <p className="text-sm text-zinc-500">
+            <p className="text-sm text-slate-500">
               Select a plan to get started. You can change it anytime.
             </p>
             <div className="space-y-3">
@@ -488,17 +488,17 @@ export default function OnboardingPage() {
                   onClick={() => setSelectedPlan(plan.tier)}
                   className={`w-full rounded-md border px-4 py-3 text-left ${
                     selectedPlan === plan.tier
-                      ? "border-zinc-900 ring-1 ring-zinc-900"
-                      : "border-zinc-200 hover:border-zinc-300"
+                      ? "border-slate-900 ring-1 ring-slate-900"
+                      : "border-slate-200 hover:border-slate-300"
                   }`}
                 >
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-semibold">{plan.name}</span>
-                    <span className="text-sm font-medium text-zinc-600">
+                    <span className="text-sm font-medium text-slate-600">
                       {plan.price}
                     </span>
                   </div>
-                  <p className="mt-1 text-xs text-zinc-500">{plan.features}</p>
+                  <p className="mt-1 text-xs text-slate-500">{plan.features}</p>
                 </button>
               ))}
             </div>
@@ -510,7 +510,7 @@ export default function OnboardingPage() {
           <button
             type="button"
             onClick={() => setStep((s) => s - 1)}
-            className={`rounded-md px-4 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 ${
+            className={`rounded-md px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 ${
               step === 0 ? "invisible" : ""
             }`}
           >
@@ -520,7 +520,7 @@ export default function OnboardingPage() {
             type="button"
             onClick={handleNext}
             disabled={!canAdvance() || loading}
-            className="rounded-md bg-indigo-600 px-6 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
+            className="rounded-md bg-teal-600 px-6 py-2 text-sm font-medium text-white hover:bg-teal-700 disabled:opacity-50"
           >
             {loading
               ? "Saving..."

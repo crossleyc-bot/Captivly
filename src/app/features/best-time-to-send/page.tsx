@@ -11,13 +11,13 @@ export default function BestTimeToSendPage() {
         <nav className="flex items-center gap-4">
           <Link
             href="/login"
-            className="text-sm font-medium text-zinc-600 hover:text-zinc-900"
+            className="text-sm font-medium text-slate-600 hover:text-slate-900"
           >
             Log in
           </Link>
           <Link
             href="/signup"
-            className="rounded-full bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+            className="rounded-full bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-teal-700"
           >
             Get Started
           </Link>
@@ -26,15 +26,15 @@ export default function BestTimeToSendPage() {
 
       <main className="flex-1">
         {/* Hero */}
-        <section className="bg-gradient-to-b from-indigo-50 via-white to-white px-6 py-20 text-center">
+        <section className="bg-gradient-to-b from-teal-50 via-white to-white px-6 py-20 text-center">
           <div className="mx-auto max-w-3xl">
-            <span className="mb-4 inline-block rounded-full bg-indigo-100 px-4 py-1.5 text-xs font-semibold text-indigo-700">
+            <span className="mb-4 inline-block rounded-full bg-amber-100 px-4 py-1.5 text-xs font-semibold text-amber-700">
               Intelligence & Reporting
             </span>
-            <h1 className="text-4xl font-bold tracking-tight text-zinc-900 sm:text-5xl">
+            <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
               Best Time to Send Analysis
             </h1>
-            <p className="mt-6 text-lg text-zinc-600">
+            <p className="mt-6 text-lg text-slate-600">
               AI analyzes your open rates, reply rates, and conversion patterns
               to find the optimal send time for every audience segment. Stop
               sending at &quot;best practice&quot; times — send at your
@@ -43,13 +43,13 @@ export default function BestTimeToSendPage() {
             <div className="mt-10 flex justify-center gap-4">
               <Link
                 href="/signup"
-                className="rounded-full bg-indigo-600 px-6 py-3 text-sm font-medium text-white shadow-md shadow-indigo-200 hover:bg-indigo-700"
+                className="rounded-full bg-teal-600 px-6 py-3 text-sm font-medium text-white shadow-md shadow-amber-200 hover:bg-teal-700"
               >
                 Start Free Trial
               </Link>
               <Link
                 href="/#features"
-                className="rounded-full border border-zinc-300 px-6 py-3 text-sm font-medium text-zinc-700 hover:bg-zinc-50"
+                className="rounded-full border border-slate-300 px-6 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50"
               >
                 All Features
               </Link>
@@ -60,32 +60,32 @@ export default function BestTimeToSendPage() {
         {/* Why timing matters */}
         <section className="border-t bg-white px-6 py-20">
           <div className="mx-auto max-w-4xl">
-            <h2 className="text-center text-2xl font-bold text-zinc-900">
+            <h2 className="text-center text-2xl font-bold text-slate-900">
               Timing is everything
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-center text-sm text-zinc-600">
+            <p className="mx-auto mt-4 max-w-2xl text-center text-sm text-slate-600">
               The same message sent at 9am vs 7pm can have completely different
               results. Your audience has unique patterns — generic &quot;best
               practices&quot; don&apos;t capture that.
             </p>
             <div className="mt-12 grid gap-6 sm:grid-cols-3">
               <div className="rounded-lg border p-6 text-center">
-                <div className="text-3xl font-bold text-indigo-600">40%</div>
-                <p className="mt-2 text-sm text-zinc-600">
+                <div className="text-3xl font-bold text-teal-600">40%</div>
+                <p className="mt-2 text-sm text-slate-600">
                   higher open rates when messages land during your
                   audience&apos;s peak engagement window
                 </p>
               </div>
               <div className="rounded-lg border p-6 text-center">
-                <div className="text-3xl font-bold text-indigo-600">2.1x</div>
-                <p className="mt-2 text-sm text-zinc-600">
+                <div className="text-3xl font-bold text-teal-600">2.1x</div>
+                <p className="mt-2 text-sm text-slate-600">
                   more replies when SMS arrives at the right time vs
                   a random send window
                 </p>
               </div>
               <div className="rounded-lg border p-6 text-center">
                 <div className="text-3xl font-bold text-green-600">$0</div>
-                <p className="mt-2 text-sm text-zinc-600">
+                <p className="mt-2 text-sm text-slate-600">
                   extra cost — send time optimization is pure leverage on
                   messages you&apos;re already sending
                 </p>
@@ -95,12 +95,12 @@ export default function BestTimeToSendPage() {
         </section>
 
         {/* Heatmap visualization */}
-        <section className="border-t bg-zinc-50 px-6 py-20">
+        <section className="border-t bg-slate-50 px-6 py-20">
           <div className="mx-auto max-w-3xl">
-            <h2 className="text-center text-2xl font-bold text-zinc-900">
+            <h2 className="text-center text-2xl font-bold text-slate-900">
               Your audience&apos;s engagement heatmap
             </h2>
-            <p className="mx-auto mt-4 max-w-lg text-center text-sm text-zinc-600">
+            <p className="mx-auto mt-4 max-w-lg text-center text-sm text-slate-600">
               Captivly builds a visual heatmap of when your leads are most
               likely to open, click, and reply. Here&apos;s what it looks like
               for a typical gym.
@@ -108,7 +108,7 @@ export default function BestTimeToSendPage() {
             <div className="mt-12 overflow-x-auto">
               <table className="w-full text-xs">
                 <thead>
-                  <tr className="text-zinc-500">
+                  <tr className="text-slate-500">
                     <th className="pb-2 pr-2 text-left font-medium">Time</th>
                     <th className="pb-2 px-1 font-medium">Mon</th>
                     <th className="pb-2 px-1 font-medium">Tue</th>
@@ -123,15 +123,15 @@ export default function BestTimeToSendPage() {
                   {[
                     { time: "6–8am", cells: ["bg-green-100", "bg-green-200", "bg-green-100", "bg-green-200", "bg-green-100", "bg-green-300", "bg-green-300"] },
                     { time: "8–10am", cells: ["bg-green-200", "bg-green-300", "bg-green-200", "bg-green-300", "bg-green-200", "bg-green-400", "bg-green-400"] },
-                    { time: "10–12pm", cells: ["bg-zinc-100", "bg-zinc-100", "bg-zinc-100", "bg-zinc-100", "bg-zinc-100", "bg-green-200", "bg-green-200"] },
-                    { time: "12–2pm", cells: ["bg-green-200", "bg-green-200", "bg-green-300", "bg-green-200", "bg-green-200", "bg-zinc-100", "bg-zinc-100"] },
-                    { time: "2–4pm", cells: ["bg-zinc-100", "bg-zinc-100", "bg-zinc-100", "bg-zinc-100", "bg-zinc-100", "bg-zinc-100", "bg-zinc-100"] },
-                    { time: "4–6pm", cells: ["bg-green-200", "bg-green-300", "bg-green-200", "bg-green-300", "bg-green-400", "bg-zinc-100", "bg-zinc-100"] },
-                    { time: "6–8pm", cells: ["bg-green-300", "bg-green-400", "bg-green-300", "bg-green-400", "bg-green-300", "bg-zinc-100", "bg-zinc-100"] },
-                    { time: "8–10pm", cells: ["bg-green-200", "bg-green-200", "bg-green-200", "bg-green-200", "bg-green-100", "bg-zinc-100", "bg-zinc-100"] },
+                    { time: "10–12pm", cells: ["bg-slate-100", "bg-slate-100", "bg-slate-100", "bg-slate-100", "bg-slate-100", "bg-green-200", "bg-green-200"] },
+                    { time: "12–2pm", cells: ["bg-green-200", "bg-green-200", "bg-green-300", "bg-green-200", "bg-green-200", "bg-slate-100", "bg-slate-100"] },
+                    { time: "2–4pm", cells: ["bg-slate-100", "bg-slate-100", "bg-slate-100", "bg-slate-100", "bg-slate-100", "bg-slate-100", "bg-slate-100"] },
+                    { time: "4–6pm", cells: ["bg-green-200", "bg-green-300", "bg-green-200", "bg-green-300", "bg-green-400", "bg-slate-100", "bg-slate-100"] },
+                    { time: "6–8pm", cells: ["bg-green-300", "bg-green-400", "bg-green-300", "bg-green-400", "bg-green-300", "bg-slate-100", "bg-slate-100"] },
+                    { time: "8–10pm", cells: ["bg-green-200", "bg-green-200", "bg-green-200", "bg-green-200", "bg-green-100", "bg-slate-100", "bg-slate-100"] },
                   ].map((row) => (
                     <tr key={row.time}>
-                      <td className="py-1 pr-2 font-medium text-zinc-600">
+                      <td className="py-1 pr-2 font-medium text-slate-600">
                         {row.time}
                       </td>
                       {row.cells.map((cell, i) => (
@@ -147,20 +147,20 @@ export default function BestTimeToSendPage() {
               </table>
               <div className="mt-4 flex items-center justify-center gap-4">
                 <div className="flex items-center gap-1.5">
-                  <div className="h-3 w-3 rounded bg-zinc-100" />
-                  <span className="text-xs text-zinc-500">Low</span>
+                  <div className="h-3 w-3 rounded bg-slate-100" />
+                  <span className="text-xs text-slate-500">Low</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <div className="h-3 w-3 rounded bg-green-200" />
-                  <span className="text-xs text-zinc-500">Medium</span>
+                  <span className="text-xs text-slate-500">Medium</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <div className="h-3 w-3 rounded bg-green-400" />
-                  <span className="text-xs text-zinc-500">High</span>
+                  <span className="text-xs text-slate-500">High</span>
                 </div>
               </div>
             </div>
-            <p className="mt-6 text-center text-xs text-zinc-400">
+            <p className="mt-6 text-center text-xs text-slate-400">
               Example: This gym&apos;s leads are most responsive on
               weekday evenings (6–8pm) and weekend mornings (8–10am).
             </p>
@@ -170,7 +170,7 @@ export default function BestTimeToSendPage() {
         {/* How it works */}
         <section className="border-t bg-white px-6 py-20">
           <div className="mx-auto max-w-4xl">
-            <h2 className="text-center text-2xl font-bold text-zinc-900">
+            <h2 className="text-center text-2xl font-bold text-slate-900">
               How it works
             </h2>
             <div className="mt-12 grid gap-8 sm:grid-cols-4">
@@ -201,13 +201,13 @@ export default function BestTimeToSendPage() {
                 },
               ].map((item) => (
                 <div key={item.step} className="text-center">
-                  <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-indigo-100 text-lg font-bold text-indigo-600">
+                  <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-teal-100 text-lg font-bold text-teal-600">
                     {item.step}
                   </div>
-                  <h3 className="mt-4 text-sm font-semibold text-zinc-900">
+                  <h3 className="mt-4 text-sm font-semibold text-slate-900">
                     {item.title}
                   </h3>
-                  <p className="mt-2 text-sm text-zinc-600">
+                  <p className="mt-2 text-sm text-slate-600">
                     {item.description}
                   </p>
                 </div>
@@ -217,47 +217,47 @@ export default function BestTimeToSendPage() {
         </section>
 
         {/* Features */}
-        <section className="border-t bg-zinc-50 px-6 py-20">
+        <section className="border-t bg-slate-50 px-6 py-20">
           <div className="mx-auto max-w-4xl">
-            <h2 className="text-2xl font-bold text-zinc-900">
+            <h2 className="text-2xl font-bold text-slate-900">
               Send time features
             </h2>
             <div className="mt-8 space-y-6">
               <div className="rounded-lg border bg-white p-6">
-                <h3 className="text-sm font-semibold text-zinc-900">
+                <h3 className="text-sm font-semibold text-slate-900">
                   Per-channel analysis
                 </h3>
-                <p className="mt-2 text-sm text-zinc-600">
+                <p className="mt-2 text-sm text-slate-600">
                   Optimal send times differ by channel. Your audience might
                   open emails at 8am but reply to SMS at 6pm. Captivly
                   analyzes each channel independently.
                 </p>
               </div>
               <div className="rounded-lg border bg-white p-6">
-                <h3 className="text-sm font-semibold text-zinc-900">
+                <h3 className="text-sm font-semibold text-slate-900">
                   Source-segment analysis
                 </h3>
-                <p className="mt-2 text-sm text-zinc-600">
+                <p className="mt-2 text-sm text-slate-600">
                   Meta leads and Google leads may have different peak
                   engagement times. Captivly segments the analysis by lead
                   source so each group gets messages at their ideal time.
                 </p>
               </div>
               <div className="rounded-lg border bg-white p-6">
-                <h3 className="text-sm font-semibold text-zinc-900">
+                <h3 className="text-sm font-semibold text-slate-900">
                   Timezone awareness
                 </h3>
-                <p className="mt-2 text-sm text-zinc-600">
+                <p className="mt-2 text-sm text-slate-600">
                   If you serve customers across multiple timezones, Captivly
                   detects the lead&apos;s timezone from their area code or
                   location data and adjusts send times accordingly.
                 </p>
               </div>
               <div className="rounded-lg border bg-white p-6">
-                <h3 className="text-sm font-semibold text-zinc-900">
+                <h3 className="text-sm font-semibold text-slate-900">
                   Continuous learning
                 </h3>
-                <p className="mt-2 text-sm text-zinc-600">
+                <p className="mt-2 text-sm text-slate-600">
                   Send time recommendations improve over time as more data
                   comes in. Seasonal patterns, day-of-week shifts, and
                   audience changes are all factored in automatically.
@@ -270,16 +270,16 @@ export default function BestTimeToSendPage() {
         {/* CTA */}
         <section className="border-t bg-white px-6 py-20 text-center">
           <div className="mx-auto max-w-2xl">
-            <h2 className="text-2xl font-bold text-zinc-900">
+            <h2 className="text-2xl font-bold text-slate-900">
               Send smarter, not more
             </h2>
-            <p className="mt-4 text-zinc-600">
+            <p className="mt-4 text-slate-600">
               The same messages, sent at the right time, convert dramatically
               better. Let AI find your audience&apos;s sweet spot.
             </p>
             <Link
               href="/signup"
-              className="mt-8 inline-block rounded-full bg-indigo-600 px-6 py-3 text-sm font-medium text-white shadow-md shadow-indigo-200 hover:bg-indigo-700"
+              className="mt-8 inline-block rounded-full bg-teal-600 px-6 py-3 text-sm font-medium text-white shadow-md shadow-amber-200 hover:bg-teal-700"
             >
               Get Started Free
             </Link>
@@ -287,7 +287,7 @@ export default function BestTimeToSendPage() {
         </section>
       </main>
 
-      <footer className="border-t px-6 py-8 text-center text-sm text-zinc-500">
+      <footer className="border-t px-6 py-8 text-center text-sm text-slate-500">
         &copy; {new Date().getFullYear()} Captivly. All rights reserved.
       </footer>
     </div>
