@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServiceClient } from "@/lib/supabase/service";
 import { getInternalAuthHeader } from "@/lib/internal-auth";
-import { PLAN_LIMITS, GOOGLE_ADS_API_BASE_URL } from "@/lib/constants";
+import { PLAN_LIMITS } from "@/lib/constants";
 import type { PlanTier } from "@/types/database";
 
 interface GooglePubSubMessage {

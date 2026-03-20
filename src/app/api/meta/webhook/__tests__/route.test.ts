@@ -5,15 +5,6 @@ stubTestEnv();
 
 // Build a flexible Supabase mock
 const mockRpc = vi.fn().mockResolvedValue({});
-const mockInsert = vi.fn();
-const mockSelectSingle = vi.fn();
-
-function makeChain(resolvedValue: { data: unknown }) {
-  const single = vi.fn().mockResolvedValue(resolvedValue);
-  const eq = vi.fn().mockReturnValue({ single, eq: vi.fn().mockReturnValue({ single }) });
-  return { select: vi.fn().mockReturnValue({ eq }), single, eq };
-}
-
 const mockFrom = vi.fn();
 
 vi.mock("@supabase/supabase-js", () => ({

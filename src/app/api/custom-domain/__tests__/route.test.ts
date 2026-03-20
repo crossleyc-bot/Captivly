@@ -267,9 +267,7 @@ describe("DELETE /api/custom-domain", () => {
       eq: vi.fn().mockResolvedValue({ error: null }),
     });
 
-    let callCount = 0;
     mockFrom.mockImplementation((table: string) => {
-      callCount++;
       if (table === "businesses") {
         return chainSelect({ id: "biz-1" });
       }

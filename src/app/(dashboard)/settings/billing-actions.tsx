@@ -37,7 +37,7 @@ export function BillingActions({
       return;
     }
 
-    window.location.href = data.url;
+    window.location.assign(data.url);
   }
 
   async function handlePortal() {
@@ -53,7 +53,7 @@ export function BillingActions({
       return;
     }
 
-    window.location.href = data.url;
+    window.location.assign(data.url);
   }
 
   return (

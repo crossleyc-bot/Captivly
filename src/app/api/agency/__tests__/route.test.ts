@@ -65,9 +65,7 @@ describe("GET /api/agency", () => {
 
     // First call: agencies query returns null
     // Second call: agency_members query returns null
-    let callCount = 0;
     mockFrom.mockImplementation(() => {
-      callCount++;
       return chainSelect(null);
     });
 

@@ -2,6 +2,8 @@ import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { scoreColor, leadStatusBadge } from "@/lib/ui-utils";
+import { PLAN_LIMITS } from "@/lib/constants";
+import type { PlanTier } from "@/types/database";
 
 export default async function DashboardPage() {
   const supabase = await createClient();
@@ -11,13 +13,15 @@ export default async function DashboardPage() {
 
   if (!user) redirect("/login");
 
-  const { data: business } = await supabase
-    .from("businesses")
-    .select("id")
-    .eq("user_id", user.id)
-    .single();
+  const [{ data: business }, { data: userRow }] = await Promise.all([
+    supabase.from("businesses").select("id").eq("user_id", user.id).single(),
+    supabase.from("users").select("plan_tier").eq("id", user.id).single(),
+  ]);
 
   if (!business) redirect("/onboarding");
+
+  const plan = (userRow?.plan_tier ?? "starter") as PlanTier;
+  const limits = PLAN_LIMITS[plan];
 
   const month = new Date().toISOString().slice(0, 7);
 
@@ -57,6 +61,15 @@ export default async function DashboardPage() {
   const usage = usageResult.data;
   const recentLeads = recentLeadsResult.data ?? [];
 
+  const leadsUsed = usage?.leads_count ?? 0;
+  const smsUsed = usage?.sms_count ?? 0;
+  const leadsPercent = limits.leads_per_month > 0 ? Math.round((leadsUsed / limits.leads_per_month) * 100) : 0;
+  const smsPercent = limits.sms_per_month > 0 ? Math.round((smsUsed / limits.sms_per_month) * 100) : 0;
+  const nearLeadLimit = leadsPercent >= 80;
+  const atLeadLimit = leadsUsed >= limits.leads_per_month;
+  const nearSmsLimit = limits.sms_per_month > 0 && smsPercent >= 80;
+  const atSmsLimit = limits.sms_per_month > 0 && smsUsed >= limits.sms_per_month;
+
   const stats = [
     { label: "Total Leads", value: totalLeads, accent: "bg-teal-500" },
     { label: "Active Campaigns", value: activeCampaigns, accent: "bg-blue-500" },
@@ -75,6 +88,46 @@ export default async function DashboardPage() {
         </p>
       </div>
 
+      {/* Usage limit banners */}
+      {(atLeadLimit || atSmsLimit) && (
+        <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3">
+          <p className="text-sm font-medium text-red-800">
+            {atLeadLimit && atSmsLimit
+              ? "You've reached your lead and SMS limits for this month."
+              : atLeadLimit
+                ? "You've reached your lead limit for this month."
+                : "You've reached your SMS limit for this month."}
+          </p>
+          <p className="mt-1 text-sm text-red-600">
+            New {atLeadLimit ? "leads" : "SMS messages"} will be blocked until next month.{" "}
+            {plan !== "pro" && (
+              <Link href="/settings" className="font-medium underline">
+                Upgrade your plan
+              </Link>
+            )}
+          </p>
+        </div>
+      )}
+      {!atLeadLimit && !atSmsLimit && (nearLeadLimit || nearSmsLimit) && (
+        <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3">
+          <p className="text-sm font-medium text-amber-800">
+            {nearLeadLimit && nearSmsLimit
+              ? "You're approaching your lead and SMS limits."
+              : nearLeadLimit
+                ? `You've used ${leadsPercent}% of your monthly lead limit.`
+                : `You've used ${smsPercent}% of your monthly SMS limit.`}
+          </p>
+          {plan !== "pro" && (
+            <p className="mt-1 text-sm text-amber-600">
+              <Link href="/settings" className="font-medium underline">
+                Upgrade your plan
+              </Link>
+              {" "}for higher limits.
+            </p>
+          )}
+        </div>
+      )}
+
       {/* Stats cards */}
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
         {stats.map((stat) => (
@@ -87,6 +140,46 @@ export default async function DashboardPage() {
             <p className="mt-1 text-2xl font-bold">{stat.value.toLocaleString()}</p>
           </div>
         ))}
+      </div>
+
+      {/* Usage this month */}
+      <div>
+        <h2 className="text-lg font-semibold">Usage This Month</h2>
+        <p className="mt-1 text-sm text-slate-500">
+          {plan.charAt(0).toUpperCase() + plan.slice(1)} plan
+        </p>
+        <div className="mt-3 grid gap-4 sm:grid-cols-2">
+          <div className="rounded-lg border px-4 py-3">
+            <div className="flex items-center justify-between text-sm">
+              <span className="text-slate-600">Leads</span>
+              <span className="font-medium">
+                {leadsUsed.toLocaleString()} / {limits.leads_per_month.toLocaleString()}
+              </span>
+            </div>
+            <div className="mt-2 h-2 rounded-full bg-slate-100">
+              <div
+                className={`h-2 rounded-full ${atLeadLimit ? "bg-red-500" : nearLeadLimit ? "bg-amber-500" : "bg-teal-500"}`}
+                style={{ width: `${Math.min(leadsPercent, 100)}%` }}
+              />
+            </div>
+          </div>
+          <div className="rounded-lg border px-4 py-3">
+            <div className="flex items-center justify-between text-sm">
+              <span className="text-slate-600">SMS</span>
+              <span className="font-medium">
+                {limits.sms_per_month === 0
+                  ? "Not included"
+                  : `${smsUsed.toLocaleString()} / ${limits.sms_per_month.toLocaleString()}`}
+              </span>
+            </div>
+            <div className="mt-2 h-2 rounded-full bg-slate-100">
+              <div
+                className={`h-2 rounded-full ${atSmsLimit ? "bg-red-500" : nearSmsLimit ? "bg-amber-500" : "bg-teal-500"}`}
+                style={{ width: `${Math.min(smsPercent, 100)}%` }}
+              />
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Recent leads */}

@@ -111,10 +111,7 @@ function createMockSupabaseClient() {
 
   function buildQuery(table: string) {
     const filters: Record<string, unknown> = {};
-    let selectFields = "*";
     let limitNum = 1000;
-    let isCount = false;
-    let isHead = false;
 
     // Make the chain "thenable" — when awaited without .single(),
     // resolves to { data: items, count: items.length }
@@ -124,10 +121,8 @@ function createMockSupabaseClient() {
     }
 
     const chain: Record<string, unknown> = {
-      select: (fields: string, opts?: { count?: string; head?: boolean }) => {
-        selectFields = fields;
-        if (opts?.count === "exact") isCount = true;
-        if (opts?.head) isHead = true;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      select: (_fields: string, _opts?: { count?: string; head?: boolean }) => {
         return chain;
       },
       eq: (field: string, value: unknown) => {

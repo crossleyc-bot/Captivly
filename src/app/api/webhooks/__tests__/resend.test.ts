@@ -132,7 +132,6 @@ describe("POST /api/webhooks/resend", () => {
     const msgEq1 = vi.fn().mockReturnValue({ eq: msgEq2 });
     const msgSelect = vi.fn().mockReturnValue({ eq: msgEq1 });
 
-    let callCount = 0;
     mockFrom.mockImplementation((table: string) => {
       if (table === "leads") {
         return { select: leadSelect };

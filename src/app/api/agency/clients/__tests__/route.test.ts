@@ -236,7 +236,7 @@ describe("POST /api/agency/clients", () => {
     });
 
     let callCount = 0;
-    mockFrom.mockImplementation((table: string) => {
+    mockFrom.mockImplementation(() => {
       callCount++;
       if (callCount === 1) {
         // agencies: owner

@@ -5,8 +5,6 @@ stubTestEnv();
 
 // --- Supabase mock ---
 const mockGetUser = vi.fn();
-const mockSelect = vi.fn();
-const mockUpdate = vi.fn();
 const mockFrom = vi.fn();
 
 vi.mock("@/lib/supabase/server", () => ({

@@ -178,7 +178,7 @@ export default function OnboardingPage() {
     if (res.ok) {
       const { url } = await res.json();
       if (url) {
-        window.location.href = url;
+        window.location.assign(url);
         return;
       }
     }

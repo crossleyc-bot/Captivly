@@ -39,7 +39,6 @@ describe("GET /api/zapier/keys", () => {
   it("returns 401 when not authenticated", async () => {
     mockAuthGetUser.mockResolvedValue({ data: { user: null } });
 
-    const req = new NextRequest("http://localhost/api/zapier/keys");
     const res = await GET();
 
     expect(res.status).toBe(401);
@@ -59,7 +58,6 @@ describe("GET /api/zapier/keys", () => {
     const selectFn = vi.fn().mockReturnValue({ eq: eqFn });
     mockFrom.mockReturnValue({ select: selectFn });
 
-    const req = new NextRequest("http://localhost/api/zapier/keys");
     const res = await GET();
 
     expect(res.status).toBe(200);
