@@ -42,9 +42,6 @@ export default async function Home() {
       </header>
 
       <main className="flex flex-1 flex-col items-center justify-center bg-gradient-to-b from-teal-50 via-white to-white px-6 pb-20 text-center">
-        <span className="mb-4 inline-block rounded-full bg-amber-100 px-4 py-1.5 text-xs font-semibold text-amber-700">
-          AI-Powered Lead Generation
-        </span>
         <h1 className="max-w-2xl text-5xl font-bold tracking-tight text-slate-900">
           Automated lead generation for local businesses
         </h1>

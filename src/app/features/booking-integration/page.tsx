@@ -28,9 +28,6 @@ export default function BookingIntegrationPage() {
         {/* Hero */}
         <section className="bg-gradient-to-b from-teal-50 via-white to-white px-6 py-20 text-center">
           <div className="mx-auto max-w-3xl">
-            <span className="mb-4 inline-block rounded-full bg-amber-100 px-4 py-1.5 text-xs font-semibold text-amber-700">
-              Conversion & Revenue
-            </span>
             <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
               Appointment & Booking Integration
             </h1>
