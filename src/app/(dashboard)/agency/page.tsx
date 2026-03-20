@@ -63,7 +63,7 @@ export default async function AgencyPage() {
       .single();
 
     if (membership?.agency) {
-      agency = membership.agency as typeof agency;
+      agency = membership.agency as unknown as typeof agency;
       userRole = membership.role;
     }
   }
