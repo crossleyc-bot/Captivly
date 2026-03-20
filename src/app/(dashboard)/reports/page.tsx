@@ -31,7 +31,7 @@ export default async function ReportsPage() {
           </p>
           <Link
             href="/settings"
-            className="mt-3 inline-block rounded-md bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800"
+            className="mt-3 inline-block rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800"
           >
             Upgrade to Pro
           </Link>

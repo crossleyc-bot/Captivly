@@ -197,7 +197,7 @@ export default function OnboardingPage() {
   }
 
   const inputClass =
-    "mt-1 block w-full rounded-md border border-zinc-300 px-3 py-2 text-sm shadow-sm focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500";
+    "mt-1 block w-full rounded-md border border-zinc-300 px-3 py-2 text-sm shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500";
   const labelClass = "block text-sm font-medium text-zinc-700";
 
   async function handleSignOut() {
@@ -226,7 +226,7 @@ export default function OnboardingPage() {
             <div key={title} className="flex-1">
               <div
                 className={`h-1.5 rounded-full ${
-                  i <= step ? "bg-zinc-900" : "bg-zinc-200"
+                  i <= step ? "bg-indigo-600" : "bg-zinc-200"
                 }`}
               />
               <p
@@ -391,7 +391,7 @@ export default function OnboardingPage() {
                     onClick={() => toggleInterest(interest)}
                     className={`rounded-full border px-3 py-1 text-sm ${
                       data.target_interests.includes(interest)
-                        ? "border-zinc-900 bg-zinc-900 text-white"
+                        ? "border-zinc-900 bg-indigo-600 text-white"
                         : "border-zinc-300 text-zinc-600 hover:border-zinc-400"
                     }`}
                   >
@@ -434,7 +434,7 @@ export default function OnboardingPage() {
                       onClick={() => update({ outreach_tone: tone })}
                       className={`rounded-md border px-4 py-2 text-sm capitalize ${
                         data.outreach_tone === tone
-                          ? "border-zinc-900 bg-zinc-900 text-white"
+                          ? "border-zinc-900 bg-indigo-600 text-white"
                           : "border-zinc-300 text-zinc-600 hover:border-zinc-400"
                       }`}
                     >
@@ -520,7 +520,7 @@ export default function OnboardingPage() {
             type="button"
             onClick={handleNext}
             disabled={!canAdvance() || loading}
-            className="rounded-md bg-zinc-900 px-6 py-2 text-sm font-medium text-white hover:bg-zinc-700 disabled:opacity-50"
+            className="rounded-md bg-indigo-600 px-6 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
           >
             {loading
               ? "Saving..."

@@ -70,7 +70,7 @@ export function BillingActions({
         <button
           onClick={handlePortal}
           disabled={loading === "portal"}
-          className="rounded-md bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-700 disabled:opacity-50"
+          className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
         >
           {loading === "portal" ? "Opening..." : "Manage billing"}
         </button>
@@ -88,7 +88,7 @@ export function BillingActions({
                 className={`rounded-md border px-4 py-2 text-sm font-medium ${
                   tier === currentPlan
                     ? "border-zinc-300 text-zinc-400"
-                    : "border-zinc-900 bg-zinc-900 text-white hover:bg-zinc-700"
+                    : "border-zinc-900 bg-indigo-600 text-white hover:bg-indigo-700"
                 } disabled:opacity-50`}
               >
                 {loading === tier ? "..." : `${name} ${price}`}

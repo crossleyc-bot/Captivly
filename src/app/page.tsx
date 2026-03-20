@@ -18,7 +18,7 @@ export default async function Home() {
           {user ? (
             <Link
               href="/dashboard"
-              className="rounded-full bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-700"
+              className="rounded-full bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
             >
               Dashboard
             </Link>
@@ -32,7 +32,7 @@ export default async function Home() {
               </Link>
               <Link
                 href="/signup"
-                className="rounded-full bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-700"
+                className="rounded-full bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
               >
                 Get Started
               </Link>
@@ -41,7 +41,10 @@ export default async function Home() {
         </nav>
       </header>
 
-      <main className="flex flex-1 flex-col items-center justify-center px-6 text-center">
+      <main className="flex flex-1 flex-col items-center justify-center bg-gradient-to-b from-indigo-50 via-white to-white px-6 text-center">
+        <span className="mb-4 inline-block rounded-full bg-indigo-100 px-4 py-1.5 text-xs font-semibold text-indigo-700">
+          AI-Powered Lead Generation
+        </span>
         <h1 className="max-w-2xl text-5xl font-bold tracking-tight text-zinc-900">
           Automated lead generation for local businesses
         </h1>
@@ -52,7 +55,7 @@ export default async function Home() {
         <div className="mt-10 flex gap-4">
           <Link
             href="/signup"
-            className="rounded-full bg-zinc-900 px-6 py-3 text-sm font-medium text-white hover:bg-zinc-700"
+            className="rounded-full bg-indigo-600 px-6 py-3 text-sm font-medium text-white shadow-md shadow-indigo-200 hover:bg-indigo-700"
           >
             Start Free Trial
           </Link>

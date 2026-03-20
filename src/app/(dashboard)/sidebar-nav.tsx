@@ -68,18 +68,17 @@ export function SidebarNav() {
       )}
 
       {/* Sidebar */}
-      {/* Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 flex w-64 flex-col border-r bg-zinc-50 px-4 py-6 transition-transform lg:static lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-50 flex w-64 flex-col bg-slate-900 px-4 py-6 transition-transform lg:static lg:translate-x-0 ${
           open ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <Link href="/dashboard" className="flex items-center gap-2 text-xl font-bold">
+        <Link href="/dashboard" className="flex items-center gap-2 text-xl font-bold text-white">
           {branding.logo_url ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img src={branding.logo_url} alt="" className="h-7 w-7 rounded object-cover" />
           ) : (
-            <LogoIcon size={26} />
+            <LogoIcon size={26} className="text-indigo-400" />
           )}
           {branding.app_name}
         </Link>
@@ -89,23 +88,18 @@ export function SidebarNav() {
               key={item.href}
               href={item.href}
               onClick={() => setOpen(false)}
-              className={`rounded-md px-3 py-2 text-sm font-medium ${
+              className={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${
                 isActive(item.href)
-                  ? "text-white"
-                  : "text-zinc-700 hover:bg-zinc-200"
+                  ? "bg-indigo-600 text-white"
+                  : "text-slate-300 hover:bg-slate-800 hover:text-white"
               }`}
-              style={
-                isActive(item.href)
-                  ? { backgroundColor: branding.primary_color }
-                  : undefined
-              }
             >
               {item.label}
             </Link>
           ))}
         </nav>
         {!branding.hide_captivly_branding && (
-          <p className="mb-2 text-xs text-zinc-400">Powered by Captivly</p>
+          <p className="mb-2 text-xs text-slate-500">Powered by Captivly</p>
         )}
         <LogoutButton />
       </aside>

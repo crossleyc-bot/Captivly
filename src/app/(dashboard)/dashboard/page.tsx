@@ -58,11 +58,11 @@ export default async function DashboardPage() {
   const recentLeads = recentLeadsResult.data ?? [];
 
   const stats = [
-    { label: "Total Leads", value: totalLeads },
-    { label: "Active Campaigns", value: activeCampaigns },
-    { label: "Conversions", value: totalConversions },
-    { label: "Emails This Month", value: usage?.emails_count ?? 0 },
-    { label: "SMS This Month", value: usage?.sms_count ?? 0 },
+    { label: "Total Leads", value: totalLeads, accent: "bg-indigo-500" },
+    { label: "Active Campaigns", value: activeCampaigns, accent: "bg-blue-500" },
+    { label: "Conversions", value: totalConversions, accent: "bg-emerald-500" },
+    { label: "Emails This Month", value: usage?.emails_count ?? 0, accent: "bg-violet-500" },
+    { label: "SMS This Month", value: usage?.sms_count ?? 0, accent: "bg-amber-500" },
   ];
 
 
@@ -80,8 +80,9 @@ export default async function DashboardPage() {
         {stats.map((stat) => (
           <div
             key={stat.label}
-            className="rounded-lg border px-4 py-3"
+            className="overflow-hidden rounded-lg border px-4 py-3"
           >
+            <div className={`-mx-4 -mt-3 mb-3 h-1 ${stat.accent}`} />
             <p className="text-xs font-medium text-zinc-500">{stat.label}</p>
             <p className="mt-1 text-2xl font-bold">{stat.value.toLocaleString()}</p>
           </div>
@@ -104,7 +105,7 @@ export default async function DashboardPage() {
             </p>
             <Link
               href="/campaigns/new"
-              className="mt-4 inline-block rounded-md bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-700"
+              className="mt-4 inline-block rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
             >
               Create your first campaign
             </Link>
@@ -127,7 +128,7 @@ export default async function DashboardPage() {
                     <td className="py-2 pr-4">
                       <Link
                         href={`/leads/${lead.id}`}
-                        className="font-medium text-zinc-900 hover:underline"
+                        className="font-medium text-indigo-600 hover:underline"
                       >
                         {lead.first_name ?? "Unknown"} {lead.last_name ?? ""}
                       </Link>
