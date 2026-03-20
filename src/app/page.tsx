@@ -76,7 +76,13 @@ export default async function Home() {
           <p className="mx-auto mt-4 max-w-2xl text-center text-zinc-600">
             Captivly connects to your ad accounts, scores every lead with AI, and sends personalized outreach automatically.
           </p>
-          <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+
+          {/* Core Platform */}
+          <div className="mt-14">
+            <h3 className="mb-6 text-xs font-semibold uppercase tracking-wider text-zinc-400">
+              Core Platform
+            </h3>
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {[
               {
                 title: "Meta Lead Ads Integration",
@@ -168,6 +174,25 @@ export default async function Home() {
                   </svg>
                 ),
               },
+            ].map((feature) => (
+              <Link key={feature.title} href={feature.href} className="rounded-lg border border-zinc-200 p-6 transition-colors hover:border-indigo-300 hover:bg-indigo-50/50">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600">
+                  {feature.icon}
+                </div>
+                <h3 className="mt-4 text-sm font-semibold text-zinc-900">{feature.title}</h3>
+                <p className="mt-2 text-sm text-zinc-600">{feature.description}</p>
+              </Link>
+            ))}
+            </div>
+          </div>
+
+          {/* Conversion & Revenue */}
+          <div className="mt-12">
+            <h3 className="mb-6 text-xs font-semibold uppercase tracking-wider text-zinc-400">
+              Conversion & Revenue
+            </h3>
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {[
               {
                 title: "Booking Integration",
                 href: "/features/booking-integration",
@@ -198,6 +223,25 @@ export default async function Home() {
                   </svg>
                 ),
               },
+            ].map((feature) => (
+              <Link key={feature.title} href={feature.href} className="rounded-lg border border-zinc-200 p-6 transition-colors hover:border-indigo-300 hover:bg-indigo-50/50">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600">
+                  {feature.icon}
+                </div>
+                <h3 className="mt-4 text-sm font-semibold text-zinc-900">{feature.title}</h3>
+                <p className="mt-2 text-sm text-zinc-600">{feature.description}</p>
+              </Link>
+            ))}
+            </div>
+          </div>
+
+          {/* Channels & Reach */}
+          <div className="mt-12">
+            <h3 className="mb-6 text-xs font-semibold uppercase tracking-wider text-zinc-400">
+              Channels & Reach
+            </h3>
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {[
               {
                 title: "Google Ads Lead Forms",
                 href: "/features/google-ads",
@@ -228,6 +272,25 @@ export default async function Home() {
                   </svg>
                 ),
               },
+            ].map((feature) => (
+              <Link key={feature.title} href={feature.href} className="rounded-lg border border-zinc-200 p-6 transition-colors hover:border-indigo-300 hover:bg-indigo-50/50">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600">
+                  {feature.icon}
+                </div>
+                <h3 className="mt-4 text-sm font-semibold text-zinc-900">{feature.title}</h3>
+                <p className="mt-2 text-sm text-zinc-600">{feature.description}</p>
+              </Link>
+            ))}
+            </div>
+          </div>
+
+          {/* Intelligence & Reporting */}
+          <div className="mt-12">
+            <h3 className="mb-6 text-xs font-semibold uppercase tracking-wider text-zinc-400">
+              Intelligence & Reporting
+            </h3>
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {[
               {
                 title: "Lead Source Comparison",
                 href: "/features/lead-source-comparison",
@@ -259,6 +322,25 @@ export default async function Home() {
                   </svg>
                 ),
               },
+            ].map((feature) => (
+              <Link key={feature.title} href={feature.href} className="rounded-lg border border-zinc-200 p-6 transition-colors hover:border-indigo-300 hover:bg-indigo-50/50">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600">
+                  {feature.icon}
+                </div>
+                <h3 className="mt-4 text-sm font-semibold text-zinc-900">{feature.title}</h3>
+                <p className="mt-2 text-sm text-zinc-600">{feature.description}</p>
+              </Link>
+            ))}
+            </div>
+          </div>
+
+          {/* Operational */}
+          <div className="mt-12">
+            <h3 className="mb-6 text-xs font-semibold uppercase tracking-wider text-zinc-400">
+              Operational
+            </h3>
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {[
               {
                 title: "Team Member Accounts",
                 href: "/features/team-accounts",
@@ -289,6 +371,25 @@ export default async function Home() {
                   </svg>
                 ),
               },
+            ].map((feature) => (
+              <Link key={feature.title} href={feature.href} className="rounded-lg border border-zinc-200 p-6 transition-colors hover:border-indigo-300 hover:bg-indigo-50/50">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600">
+                  {feature.icon}
+                </div>
+                <h3 className="mt-4 text-sm font-semibold text-zinc-900">{feature.title}</h3>
+                <p className="mt-2 text-sm text-zinc-600">{feature.description}</p>
+              </Link>
+            ))}
+            </div>
+          </div>
+
+          {/* Trust & Compliance */}
+          <div className="mt-12">
+            <h3 className="mb-6 text-xs font-semibold uppercase tracking-wider text-zinc-400">
+              Trust & Compliance
+            </h3>
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {[
               {
                 title: "TCPA & GDPR Compliance",
                 href: "/features/compliance",
@@ -328,7 +429,9 @@ export default async function Home() {
                 <p className="mt-2 text-sm text-zinc-600">{feature.description}</p>
               </Link>
             ))}
+            </div>
           </div>
+
         </div>
       </section>
 
