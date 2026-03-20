@@ -41,7 +41,7 @@ export default async function Home() {
         </nav>
       </header>
 
-      <main className="flex flex-1 flex-col items-center justify-center bg-gradient-to-b from-teal-50 via-white to-white px-6 pb-20 text-center">
+      <main className="flex flex-1 flex-col items-center justify-center bg-gradient-to-b from-teal-50 via-white to-white px-6 py-20 text-center">
         <h1 className="max-w-2xl text-5xl font-bold tracking-tight text-slate-900">
           Automated lead generation for local businesses
         </h1>
