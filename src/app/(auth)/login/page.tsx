@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { Logo } from "@/components/logo";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -38,7 +39,10 @@ export default function LoginPage() {
   return (
     <div className="flex min-h-screen items-center justify-center">
       <div className="w-full max-w-sm space-y-6 px-4">
-        <div className="text-center">
+        <div className="flex flex-col items-center text-center">
+          <Link href="/">
+            <Logo size={28} className="mb-4" />
+          </Link>
           <h1 className="text-2xl font-bold">Log in to Captivly</h1>
           <p className="mt-2 text-sm text-zinc-500">
             Welcome back. Enter your credentials to continue.

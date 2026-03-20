@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { LogoutButton } from "./logout-button";
 import { useBranding } from "./branding-provider";
+import { LogoIcon } from "@/components/logo";
 
 const navItems = [
   { href: "/dashboard", label: "Dashboard" },
@@ -37,7 +38,9 @@ export function SidebarNav() {
           {branding.logo_url ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img src={branding.logo_url} alt="" className="h-6 w-6 rounded object-cover" />
-          ) : null}
+          ) : (
+            <LogoIcon size={22} />
+          )}
           {branding.app_name}
         </Link>
         <button
@@ -75,7 +78,9 @@ export function SidebarNav() {
           {branding.logo_url ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img src={branding.logo_url} alt="" className="h-7 w-7 rounded object-cover" />
-          ) : null}
+          ) : (
+            <LogoIcon size={26} />
+          )}
           {branding.app_name}
         </Link>
         <nav className="mt-8 flex flex-1 flex-col gap-1">

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { Logo } from "@/components/logo";
 
 export default function ResetPasswordPage() {
   const [error, setError] = useState<string | null>(null);
@@ -35,7 +36,10 @@ export default function ResetPasswordPage() {
   return (
     <div className="flex min-h-screen items-center justify-center">
       <div className="w-full max-w-sm space-y-6 px-4">
-        <div className="text-center">
+        <div className="flex flex-col items-center text-center">
+          <Link href="/">
+            <Logo size={28} className="mb-4" />
+          </Link>
           <h1 className="text-2xl font-bold">Reset your password</h1>
           <p className="mt-2 text-sm text-zinc-500">
             Enter your email and we&apos;ll send you a reset link.

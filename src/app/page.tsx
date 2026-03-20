@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
+import { Logo } from "@/components/logo";
 
 export default async function Home() {
   const supabase = await createClient();
@@ -10,7 +11,9 @@ export default async function Home() {
   return (
     <div className="flex min-h-screen flex-col">
       <header className="flex items-center justify-between px-6 py-4 border-b">
-        <span className="text-xl font-bold">Captivly</span>
+        <Link href="/">
+          <Logo size={24} />
+        </Link>
         <nav className="flex items-center gap-4">
           {user ? (
             <Link

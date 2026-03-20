@@ -1,0 +1,10 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Signal source dot -->
+  <circle cx="6" cy="26" r="3.5" fill="#18181b"/>
+  <!-- Arc 1 - closest -->
+  <path d="M14 26a8 8 0 0 0-8-8" stroke="#18181b" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <!-- Arc 2 - middle -->
+  <path d="M21 26a15 15 0 0 0-15-15" stroke="#18181b" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.55"/>
+  <!-- Arc 3 - outer -->
+  <path d="M28 26a22 22 0 0 0-22-22" stroke="#18181b" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.25"/>
+</svg>
