@@ -228,6 +228,37 @@ export default async function Home() {
                   </svg>
                 ),
               },
+              {
+                title: "Lead Source Comparison",
+                href: "/features/lead-source-comparison",
+                description: "Side-by-side performance of Meta vs Google vs organic leads. See which channels deliver the best quality at the lowest cost.",
+                icon: (
+                  <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
+                  </svg>
+                ),
+              },
+              {
+                title: "Best Time to Send",
+                href: "/features/best-time-to-send",
+                description: "AI analyzes reply and open rates to find the optimal send time for every audience. Heatmaps, per-channel timing, and auto-optimization.",
+                icon: (
+                  <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                  </svg>
+                ),
+              },
+              {
+                title: "Competitor Ad Monitoring",
+                href: "/features/competitor-monitoring",
+                description: "See what competing local businesses are running on Meta. Ad creative, offers, run times — powered by the Ad Library API.",
+                icon: (
+                  <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                  </svg>
+                ),
+              },
             ].map((feature) => (
               <Link key={feature.title} href={feature.href} className="rounded-lg border border-zinc-200 p-6 transition-colors hover:border-indigo-300 hover:bg-indigo-50/50">
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600">
