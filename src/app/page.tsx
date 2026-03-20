@@ -41,7 +41,7 @@ export default async function Home() {
         </nav>
       </header>
 
-      <main className="flex flex-1 flex-col items-center justify-center bg-gradient-to-b from-indigo-50 via-white to-white px-6 text-center">
+      <main className="flex flex-1 flex-col items-center justify-center bg-gradient-to-b from-indigo-50 via-white to-white px-6 pb-20 text-center">
         <span className="mb-4 inline-block rounded-full bg-indigo-100 px-4 py-1.5 text-xs font-semibold text-indigo-700">
           AI-Powered Lead Generation
         </span>
