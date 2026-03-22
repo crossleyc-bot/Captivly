@@ -1,5 +1,5 @@
 /**
- * End-to-end smoke tests for the full Captivly lead lifecycle.
+ * End-to-end smoke tests for the full Captivly.ai lead lifecycle.
  *
  * These tests simulate the complete data flow through the system:
  *   1. Meta webhook ingests a lead

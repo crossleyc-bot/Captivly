@@ -1,4 +1,4 @@
-/** Captivly signal-pulse logo icon as an inline SVG. */
+/** Captivly.ai signal-pulse logo icon as an inline SVG. */
 export function LogoIcon({ size = 32, className }: { size?: number; className?: string }) {
   return (
     <svg
@@ -38,12 +38,12 @@ export function LogoIcon({ size = 32, className }: { size?: number; className?: 
   );
 }
 
-/** Full Captivly wordmark: icon + text. */
+/** Full Captivly.ai wordmark: icon + text. */
 export function Logo({ size = 28, className }: { size?: number; className?: string }) {
   return (
     <span className={`inline-flex items-center gap-2 ${className ?? ""}`}>
       <LogoIcon size={size} className="text-teal-600" />
-      <span className="text-xl font-bold tracking-tight">Captivly</span>
+      <span className="text-xl font-bold tracking-tight">Captivly.ai</span>
     </span>
   );
 }

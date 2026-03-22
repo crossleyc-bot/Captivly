@@ -95,7 +95,7 @@ export default function BookingIntegrationPage() {
               Connect your scheduler
             </h2>
             <p className="mt-4 text-sm text-slate-600">
-              Captivly integrates with the tools you already use — or provides
+              Captivly.ai integrates with the tools you already use — or provides
               a built-in option if you don&apos;t have one.
             </p>
             <div className="mt-8 grid gap-6 sm:grid-cols-3">
@@ -104,7 +104,7 @@ export default function BookingIntegrationPage() {
                   Calendly
                 </h3>
                 <p className="mt-2 text-sm text-slate-600">
-                  Connect your Calendly account and Captivly automatically
+                  Connect your Calendly account and Captivly.ai automatically
                   inserts your booking link into outreach emails and SMS.
                   When a lead books, the conversion is tracked automatically.
                 </p>
@@ -124,7 +124,7 @@ export default function BookingIntegrationPage() {
                   Built-in Scheduler
                 </h3>
                 <p className="mt-2 text-sm text-slate-600">
-                  Don&apos;t use a third-party tool? Captivly includes a
+                  Don&apos;t use a third-party tool? Captivly.ai includes a
                   simple booking page where leads can pick a date and time
                   from your availability. No extra subscriptions needed.
                 </p>
@@ -205,7 +205,7 @@ export default function BookingIntegrationPage() {
                   Automatic conversion tracking
                 </h3>
                 <p className="mt-2 text-sm text-slate-600">
-                  When a lead books through your link, Captivly receives a
+                  When a lead books through your link, Captivly.ai receives a
                   webhook and automatically marks them as converted. No manual
                   status updates needed.
                 </p>
@@ -255,7 +255,7 @@ export default function BookingIntegrationPage() {
       </main>
 
       <footer className="border-t px-6 py-8 text-center text-sm text-slate-500">
-        &copy; {new Date().getFullYear()} Captivly. All rights reserved.
+        &copy; {new Date().getFullYear()} Captivly.ai. All rights reserved.
       </footer>
     </div>
   );

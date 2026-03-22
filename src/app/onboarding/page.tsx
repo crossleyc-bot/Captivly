@@ -452,7 +452,7 @@ export default function OnboardingPage() {
           <div className="space-y-4">
             <h2 className="text-xl font-bold">Connect your ad accounts</h2>
             <p className="text-sm text-slate-500">
-              Link your ad accounts so Captivly can create campaigns and
+              Link your ad accounts so Captivly.ai can create campaigns and
               receive leads automatically. Connect one or both.
             </p>
             <a

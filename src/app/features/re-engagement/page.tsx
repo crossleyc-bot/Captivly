@@ -101,7 +101,7 @@ export default function ReEngagementPage() {
                   Automatic cold lead detection
                 </h3>
                 <p className="mt-2 text-sm text-slate-600">
-                  Captivly monitors every lead&apos;s status. When a lead
+                  Captivly.ai monitors every lead&apos;s status. When a lead
                   completes their initial sequence without converting and is
                   marked as &quot;cold,&quot; they become eligible for
                   re-engagement.
@@ -133,7 +133,7 @@ export default function ReEngagementPage() {
                   Respect opt-outs
                 </h3>
                 <p className="mt-2 text-sm text-slate-600">
-                  Leads who unsubscribed are never re-contacted. Captivly
+                  Leads who unsubscribed are never re-contacted. Captivly.ai
                   checks the lead&apos;s status before every re-engagement
                   send, ensuring compliance with email and SMS regulations.
                 </p>
@@ -230,7 +230,7 @@ export default function ReEngagementPage() {
       </main>
 
       <footer className="border-t px-6 py-8 text-center text-sm text-slate-500">
-        &copy; {new Date().getFullYear()} Captivly. All rights reserved.
+        &copy; {new Date().getFullYear()} Captivly.ai. All rights reserved.
       </footer>
     </div>
   );

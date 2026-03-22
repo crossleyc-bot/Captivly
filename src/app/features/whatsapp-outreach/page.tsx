@@ -217,7 +217,7 @@ export default function WhatsAppOutreachPage() {
                 </h3>
                 <p className="mt-2 text-sm text-slate-600">
                   WhatsApp Business API requires pre-approved message
-                  templates for outbound messages. Captivly generates and
+                  templates for outbound messages. Captivly.ai generates and
                   submits templates for approval automatically — you just
                   review and confirm.
                 </p>
@@ -248,7 +248,7 @@ export default function WhatsAppOutreachPage() {
                 </h3>
                 <p className="mt-2 text-sm text-slate-600">
                   Once a lead replies, you get a 24-hour free-form messaging
-                  window. Captivly maximizes this window for natural
+                  window. Captivly.ai maximizes this window for natural
                   back-and-forth conversation without template restrictions.
                 </p>
               </div>
@@ -315,7 +315,7 @@ export default function WhatsAppOutreachPage() {
             </h2>
             <p className="mt-4 text-slate-600">
               98% open rates. 45% response rates. WhatsApp outreach is the
-              highest-engagement channel available — and Captivly makes it
+              highest-engagement channel available — and Captivly.ai makes it
               automatic.
             </p>
             <Link
@@ -329,7 +329,7 @@ export default function WhatsAppOutreachPage() {
       </main>
 
       <footer className="border-t px-6 py-8 text-center text-sm text-slate-500">
-        &copy; {new Date().getFullYear()} Captivly. All rights reserved.
+        &copy; {new Date().getFullYear()} Captivly.ai. All rights reserved.
       </footer>
     </div>
   );

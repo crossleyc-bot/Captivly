@@ -61,7 +61,7 @@ export default function DataExportPage() {
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-center text-sm text-slate-600">
               Some platforms make it impossible to leave by trapping your
-              data. Captivly believes the opposite — you should stay because
+              data. Captivly.ai believes the opposite — you should stay because
               the product is good, not because your data is locked in.
             </p>
             <div className="mt-12 grid gap-6 sm:grid-cols-3">
@@ -133,7 +133,7 @@ export default function DataExportPage() {
                   </div>
                 </div>
                 <p className="mt-2 text-sm text-slate-600">
-                  Every message sent through Captivly: channel (email/SMS),
+                  Every message sent through Captivly.ai: channel (email/SMS),
                   recipient, subject, body, status (queued, sent, delivered,
                   failed, replied), timestamps, and the sequence step it
                   belongs to.
@@ -277,7 +277,7 @@ export default function DataExportPage() {
                 <p className="mt-2 text-sm text-slate-600">
                   Pull raw data into your own analytics tools for custom
                   reports, pivot tables, or dashboards that go beyond what
-                  Captivly&apos;s built-in analytics show.
+                  Captivly.ai&apos;s built-in analytics show.
                 </p>
               </div>
               <div className="rounded-lg border bg-white p-6">
@@ -358,7 +358,7 @@ export default function DataExportPage() {
       </main>
 
       <footer className="border-t px-6 py-8 text-center text-sm text-slate-500">
-        &copy; {new Date().getFullYear()} Captivly. All rights reserved.
+        &copy; {new Date().getFullYear()} Captivly.ai. All rights reserved.
       </footer>
     </div>
   );

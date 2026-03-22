@@ -91,7 +91,7 @@ export default function LiveChatPage() {
                   3
                 </div>
                 <h3 className="mt-4 text-sm font-semibold text-slate-900">
-                  Leads flow into Captivly
+                  Leads flow into Captivly.ai
                 </h3>
                 <p className="mt-2 text-sm text-slate-600">
                   When the visitor shares their name, email, or phone, a new
@@ -160,7 +160,7 @@ export default function LiveChatPage() {
                 </h3>
                 <p className="mt-2 text-sm text-slate-600">
                   The widget uses your brand colors and name. On the Pro plan
-                  with white-labeling, there&apos;s zero trace of Captivly —
+                  with white-labeling, there&apos;s zero trace of Captivly.ai —
                   it looks and feels like your own tool.
                 </p>
               </div>
@@ -242,7 +242,7 @@ export default function LiveChatPage() {
       </main>
 
       <footer className="border-t px-6 py-8 text-center text-sm text-slate-500">
-        &copy; {new Date().getFullYear()} Captivly. All rights reserved.
+        &copy; {new Date().getFullYear()} Captivly.ai. All rights reserved.
       </footer>
     </div>
   );

@@ -32,7 +32,7 @@ export default function InstagramDmPage() {
               Instagram DM Automation
             </h1>
             <p className="mt-6 text-lg text-slate-600">
-              When someone clicks your Instagram ad and sends a DM, Captivly
+              When someone clicks your Instagram ad and sends a DM, Captivly.ai
               responds instantly with AI-generated replies. Turn every DM into
               a conversation, every conversation into a customer.
             </p>
@@ -84,7 +84,7 @@ export default function InstagramDmPage() {
                   &lt;10s
                 </div>
                 <p className="mt-2 text-sm text-slate-600">
-                  Captivly&apos;s AI response time. Leads get an instant,
+                  Captivly.ai&apos;s AI response time. Leads get an instant,
                   personalized reply while they&apos;re still engaged.
                 </p>
               </div>
@@ -110,7 +110,7 @@ export default function InstagramDmPage() {
                   step: "2",
                   title: "AI responds",
                   description:
-                    "Captivly receives the DM via the Instagram Messaging API and sends an AI-crafted reply within seconds.",
+                    "Captivly.ai receives the DM via the Instagram Messaging API and sends an AI-crafted reply within seconds.",
                 },
                 {
                   step: "3",
@@ -273,7 +273,7 @@ export default function InstagramDmPage() {
       </main>
 
       <footer className="border-t px-6 py-8 text-center text-sm text-slate-500">
-        &copy; {new Date().getFullYear()} Captivly. All rights reserved.
+        &copy; {new Date().getFullYear()} Captivly.ai. All rights reserved.
       </footer>
     </div>
   );

@@ -99,7 +99,7 @@ export function SidebarNav() {
           ))}
         </nav>
         {!branding.hide_captivly_branding && (
-          <p className="mb-2 text-xs text-slate-500">Powered by Captivly</p>
+          <p className="mb-2 text-xs text-slate-500">Powered by Captivly.ai</p>
         )}
         <LogoutButton />
       </aside>

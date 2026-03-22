@@ -110,7 +110,7 @@ export async function POST(request: NextRequest) {
     if (step.channel === "email" && lead.email) {
       const resend = getResendClient();
       const result = await resend.emails.send({
-        from: `Captivly <noreply@${process.env.NEXT_PUBLIC_APP_URL?.replace("https://", "").replace("http://", "") ?? "captivly.ai"}>`,
+        from: `Captivly.ai <noreply@${process.env.NEXT_PUBLIC_APP_URL?.replace("https://", "").replace("http://", "") ?? "captivly.ai"}>`,
         to: lead.email,
         subject: effectiveSubject ?? "You have a new message",
         text: effectiveBody,

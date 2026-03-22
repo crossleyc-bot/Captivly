@@ -84,7 +84,7 @@ export default function SignupPage() {
           <Link href="/">
             <Logo size={28} className="mb-4" />
           </Link>
-          <h1 className="text-2xl font-bold">Create your Captivly account</h1>
+          <h1 className="text-2xl font-bold">Create your Captivly.ai account</h1>
           <p className="mt-2 text-sm text-slate-500">
             Get started with automated lead generation.
           </p>

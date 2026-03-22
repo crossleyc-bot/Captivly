@@ -232,7 +232,7 @@ export default function LeadSourceComparisonPage() {
               AI-powered insights
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-center text-sm text-slate-600">
-              Captivly doesn&apos;t just show you the data — it tells you
+              Captivly.ai doesn&apos;t just show you the data — it tells you
               what to do about it.
             </p>
             <div className="mt-12 space-y-4">
@@ -321,7 +321,7 @@ export default function LeadSourceComparisonPage() {
       </main>
 
       <footer className="border-t px-6 py-8 text-center text-sm text-slate-500">
-        &copy; {new Date().getFullYear()} Captivly. All rights reserved.
+        &copy; {new Date().getFullYear()} Captivly.ai. All rights reserved.
       </footer>
     </div>
   );

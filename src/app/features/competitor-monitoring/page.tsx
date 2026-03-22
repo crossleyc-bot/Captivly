@@ -69,7 +69,7 @@ export default function CompetitorMonitoringPage() {
                 <div className="text-3xl font-bold text-teal-600">100%</div>
                 <p className="mt-2 text-sm text-slate-600">
                   of active Meta ads are publicly visible through the Ad
-                  Library — Captivly just makes them easy to find and analyze
+                  Library — Captivly.ai just makes them easy to find and analyze
                 </p>
               </div>
               <div className="rounded-lg border p-6 text-center">
@@ -97,7 +97,7 @@ export default function CompetitorMonitoringPage() {
               What you see for each competitor
             </h2>
             <p className="mt-4 text-sm text-slate-600">
-              Add competitors by Facebook Page name or URL. Captivly pulls
+              Add competitors by Facebook Page name or URL. Captivly.ai pulls
               their active ads and surfaces the details that matter.
             </p>
             <div className="mt-8 space-y-6">
@@ -280,7 +280,7 @@ export default function CompetitorMonitoringPage() {
               AI-powered competitive analysis
             </h2>
             <p className="mx-auto mt-4 max-w-lg text-center text-sm text-slate-600">
-              Captivly doesn&apos;t just show competitor ads — AI analyzes
+              Captivly.ai doesn&apos;t just show competitor ads — AI analyzes
               them and gives you actionable recommendations.
             </p>
             <div className="mt-12 space-y-4">
@@ -367,7 +367,7 @@ export default function CompetitorMonitoringPage() {
                   step: "2",
                   title: "Review daily",
                   description:
-                    "Captivly checks the Ad Library API daily and surfaces new or changed ads in your competitor dashboard.",
+                    "Captivly.ai checks the Ad Library API daily and surfaces new or changed ads in your competitor dashboard.",
                 },
                 {
                   step: "3",
@@ -414,7 +414,7 @@ export default function CompetitorMonitoringPage() {
                   Ad longevity tracking
                 </h3>
                 <p className="mt-2 text-sm text-slate-600">
-                  Ads that run for weeks are likely profitable. Captivly
+                  Ads that run for weeks are likely profitable. Captivly.ai
                   tracks how long each competitor ad has been active —
                   long-running ads are worth studying closely.
                 </p>
@@ -425,7 +425,7 @@ export default function CompetitorMonitoringPage() {
                 </h3>
                 <p className="mt-2 text-sm text-slate-600">
                   When multiple competitors shift their offers or creative
-                  style around the same time, Captivly flags the trend.
+                  style around the same time, Captivly.ai flags the trend.
                   Stay aware of seasonal patterns and market shifts.
                 </p>
               </div>
@@ -465,7 +465,7 @@ export default function CompetitorMonitoringPage() {
       </main>
 
       <footer className="border-t px-6 py-8 text-center text-sm text-slate-500">
-        &copy; {new Date().getFullYear()} Captivly. All rights reserved.
+        &copy; {new Date().getFullYear()} Captivly.ai. All rights reserved.
       </footer>
     </div>
   );

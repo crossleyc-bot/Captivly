@@ -33,7 +33,7 @@ export default function GoogleAdsPage() {
             </h1>
             <p className="mt-6 text-lg text-slate-600">
               Capture leads from Google Search and YouTube ads with lead form
-              extensions. Leads flow into Captivly in real time — scored,
+              extensions. Leads flow into Captivly.ai in real time — scored,
               sequenced, and followed up automatically.
             </p>
             <div className="mt-10 flex justify-center gap-4">
@@ -61,7 +61,7 @@ export default function GoogleAdsPage() {
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-center text-sm text-slate-600">
               Meta ads reach people scrolling. Google ads reach people actively
-              searching for your service right now. Both matter — and Captivly
+              searching for your service right now. Both matter — and Captivly.ai
               handles both.
             </p>
             <div className="mt-12 grid gap-6 sm:grid-cols-3">
@@ -102,7 +102,7 @@ export default function GoogleAdsPage() {
                   step: "1",
                   title: "Connect Google Ads",
                   description:
-                    "OAuth into your Google Ads account from Captivly settings. One click, no API keys to copy.",
+                    "OAuth into your Google Ads account from Captivly.ai settings. One click, no API keys to copy.",
                 },
                 {
                   step: "2",
@@ -114,7 +114,7 @@ export default function GoogleAdsPage() {
                   step: "3",
                   title: "Instant ingestion",
                   description:
-                    "Captivly receives the lead via webhook within seconds. AI scores it and generates a personalized sequence.",
+                    "Captivly.ai receives the lead via webhook within seconds. AI scores it and generates a personalized sequence.",
                 },
                 {
                   step: "4",
@@ -249,7 +249,7 @@ export default function GoogleAdsPage() {
                   Real-time lead delivery
                 </h3>
                 <p className="mt-2 text-sm text-slate-600">
-                  Google sends leads to Captivly via Pub/Sub webhook the
+                  Google sends leads to Captivly.ai via Pub/Sub webhook the
                   moment a form is submitted. No polling, no delays. Your AI
                   follow-up starts within seconds.
                 </p>
@@ -311,7 +311,7 @@ export default function GoogleAdsPage() {
       </main>
 
       <footer className="border-t px-6 py-8 text-center text-sm text-slate-500">
-        &copy; {new Date().getFullYear()} Captivly. All rights reserved.
+        &copy; {new Date().getFullYear()} Captivly.ai. All rights reserved.
       </footer>
     </div>
   );

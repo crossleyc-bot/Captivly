@@ -160,7 +160,7 @@ export default function TwoWaySmsPage() {
                 </h3>
                 <p className="mt-2 text-sm text-slate-600">
                   Type your response right in the lead detail view. Your reply
-                  is sent from your Captivly phone number, so the conversation
+                  is sent from your Captivly.ai phone number, so the conversation
                   stays in one thread on the lead&apos;s phone.
                 </p>
               </div>
@@ -191,7 +191,7 @@ export default function TwoWaySmsPage() {
                 <p className="mt-2 text-sm text-slate-600">
                   All SMS messages come from a consistent phone number via
                   Twilio. Leads can save it and text you anytime — it&apos;s
-                  a direct line to your business through Captivly.
+                  a direct line to your business through Captivly.ai.
                 </p>
               </div>
             </div>
@@ -228,7 +228,7 @@ export default function TwoWaySmsPage() {
               </div>
               <div className="rounded-lg border border-teal-200 bg-teal-50/50 p-6">
                 <h3 className="text-sm font-semibold text-slate-900">
-                  Two-way (Captivly)
+                  Two-way (Captivly.ai)
                 </h3>
                 <ul className="mt-4 space-y-2">
                   {[
@@ -287,7 +287,7 @@ export default function TwoWaySmsPage() {
       </main>
 
       <footer className="border-t px-6 py-8 text-center text-sm text-slate-500">
-        &copy; {new Date().getFullYear()} Captivly. All rights reserved.
+        &copy; {new Date().getFullYear()} Captivly.ai. All rights reserved.
       </footer>
     </div>
   );

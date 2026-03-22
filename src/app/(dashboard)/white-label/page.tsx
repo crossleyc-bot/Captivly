@@ -73,7 +73,7 @@ export default async function WhiteLabelPage() {
       <WhiteLabelForm
         initialConfig={
           config ?? {
-            app_name: "Captivly",
+            app_name: "Captivly.ai",
             logo_url: "",
             primary_color: "#18181b",
             accent_color: "#3b82f6",

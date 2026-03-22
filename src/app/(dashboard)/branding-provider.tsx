@@ -12,7 +12,7 @@ export interface BrandingConfig {
 }
 
 const defaultBranding: BrandingConfig = {
-  app_name: "Captivly",
+  app_name: "Captivly.ai",
   logo_url: null,
   primary_color: "#4f46e5",
   accent_color: "#6366f1",

@@ -43,7 +43,7 @@ export default function LoginPage() {
           <Link href="/">
             <Logo size={28} className="mb-4" />
           </Link>
-          <h1 className="text-2xl font-bold">Log in to Captivly</h1>
+          <h1 className="text-2xl font-bold">Log in to Captivly.ai</h1>
           <p className="mt-2 text-sm text-slate-500">
             Welcome back. Enter your credentials to continue.
           </p>

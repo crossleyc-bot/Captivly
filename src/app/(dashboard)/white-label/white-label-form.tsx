@@ -176,7 +176,7 @@ export function WhiteLabelForm({ initialConfig }: WhiteLabelFormProps) {
           onChange={(e) => setHideBranding(e.target.checked)}
           className="h-4 w-4 rounded border-slate-300"
         />
-        <span className="text-sm">Hide &quot;Powered by Captivly&quot; branding</span>
+        <span className="text-sm">Hide &quot;Powered by Captivly.ai&quot; branding</span>
       </label>
 
       {error && <p className="text-sm text-red-600">{error}</p>}

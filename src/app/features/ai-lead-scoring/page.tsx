@@ -111,7 +111,7 @@ export default function AILeadScoringPage() {
                   Instant, automatic scoring
                 </h3>
                 <p className="mt-2 text-sm text-slate-600">
-                  The moment a lead arrives via your Meta webhook, Captivly
+                  The moment a lead arrives via your Meta webhook, Captivly.ai
                   sends the lead data to Claude AI along with your business
                   profile. A score and explanation are returned in seconds.
                 </p>
@@ -173,7 +173,7 @@ export default function AILeadScoringPage() {
       </main>
 
       <footer className="border-t px-6 py-8 text-center text-sm text-slate-500">
-        &copy; {new Date().getFullYear()} Captivly. All rights reserved.
+        &copy; {new Date().getFullYear()} Captivly.ai. All rights reserved.
       </footer>
     </div>
   );

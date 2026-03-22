@@ -158,7 +158,7 @@ export function ChatWidget({
 
       {/* Branding */}
       <div className="pb-2 text-center text-xs text-slate-300">
-        Powered by Captivly
+        Powered by Captivly.ai
       </div>
     </div>
   );

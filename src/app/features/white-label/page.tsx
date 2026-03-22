@@ -32,9 +32,9 @@ export default function WhiteLabelPage() {
               White-Label Ready
             </h1>
             <p className="mt-6 text-lg text-slate-600">
-              On the Pro plan, rebrand Captivly as your own platform. Custom
+              On the Pro plan, rebrand Captivly.ai as your own platform. Custom
               logo, colors, and domain — your clients will never know
-              it&apos;s Captivly under the hood.
+              it&apos;s Captivly.ai under the hood.
             </p>
             <div className="mt-10 flex justify-center gap-4">
               <Link
@@ -68,12 +68,12 @@ export default function WhiteLabelPage() {
                 {
                   title: "App Name",
                   description:
-                    "Replace \"Captivly\" with your own brand name throughout the entire dashboard.",
+                    "Replace \"Captivly.ai\" with your own brand name throughout the entire dashboard.",
                 },
                 {
                   title: "Logo",
                   description:
-                    "Upload your own logo. It appears in the sidebar, login page, and anywhere Captivly's logo normally shows.",
+                    "Upload your own logo. It appears in the sidebar, login page, and anywhere Captivly.ai's logo normally shows.",
                 },
                 {
                   title: "Primary Color",
@@ -88,12 +88,12 @@ export default function WhiteLabelPage() {
                 {
                   title: "Favicon",
                   description:
-                    "Upload a custom favicon so the browser tab shows your brand, not Captivly's.",
+                    "Upload a custom favicon so the browser tab shows your brand, not Captivly.ai's.",
                 },
                 {
-                  title: "Hide Captivly Branding",
+                  title: "Hide Captivly.ai Branding",
                   description:
-                    "Remove the \"Powered by Captivly\" text from the sidebar footer for a fully clean white-label experience.",
+                    "Remove the \"Powered by Captivly.ai\" text from the sidebar footer for a fully clean white-label experience.",
                 },
               ].map((item) => (
                 <div
@@ -145,7 +145,7 @@ export default function WhiteLabelPage() {
                 </h3>
                 <p className="mt-2 text-sm text-slate-600">
                   Offer AI-powered lead generation as part of your product
-                  suite. White-label Captivly and bundle it with your existing
+                  suite. White-label Captivly.ai and bundle it with your existing
                   services.
                 </p>
               </div>
@@ -221,7 +221,7 @@ export default function WhiteLabelPage() {
       </main>
 
       <footer className="border-t px-6 py-8 text-center text-sm text-slate-500">
-        &copy; {new Date().getFullYear()} Captivly. All rights reserved.
+        &copy; {new Date().getFullYear()} Captivly.ai. All rights reserved.
       </footer>
     </div>
   );

@@ -98,7 +98,7 @@ export default function BestTimeToSendPage() {
               Your audience&apos;s engagement heatmap
             </h2>
             <p className="mx-auto mt-4 max-w-lg text-center text-sm text-slate-600">
-              Captivly builds a visual heatmap of when your leads are most
+              Captivly.ai builds a visual heatmap of when your leads are most
               likely to open, click, and reply. Here&apos;s what it looks like
               for a typical gym.
             </p>
@@ -176,7 +176,7 @@ export default function BestTimeToSendPage() {
                   step: "1",
                   title: "Collect data",
                   description:
-                    "Captivly tracks open times, click times, and reply times for every message sent across all your sequences.",
+                    "Captivly.ai tracks open times, click times, and reply times for every message sent across all your sequences.",
                 },
                 {
                   step: "2",
@@ -194,7 +194,7 @@ export default function BestTimeToSendPage() {
                   step: "4",
                   title: "Auto-optimize",
                   description:
-                    "Enable auto-optimization and Captivly adjusts send times for future sequences automatically.",
+                    "Enable auto-optimization and Captivly.ai adjusts send times for future sequences automatically.",
                 },
               ].map((item) => (
                 <div key={item.step} className="text-center">
@@ -226,7 +226,7 @@ export default function BestTimeToSendPage() {
                 </h3>
                 <p className="mt-2 text-sm text-slate-600">
                   Optimal send times differ by channel. Your audience might
-                  open emails at 8am but reply to SMS at 6pm. Captivly
+                  open emails at 8am but reply to SMS at 6pm. Captivly.ai
                   analyzes each channel independently.
                 </p>
               </div>
@@ -236,7 +236,7 @@ export default function BestTimeToSendPage() {
                 </h3>
                 <p className="mt-2 text-sm text-slate-600">
                   Meta leads and Google leads may have different peak
-                  engagement times. Captivly segments the analysis by lead
+                  engagement times. Captivly.ai segments the analysis by lead
                   source so each group gets messages at their ideal time.
                 </p>
               </div>
@@ -245,7 +245,7 @@ export default function BestTimeToSendPage() {
                   Timezone awareness
                 </h3>
                 <p className="mt-2 text-sm text-slate-600">
-                  If you serve customers across multiple timezones, Captivly
+                  If you serve customers across multiple timezones, Captivly.ai
                   detects the lead&apos;s timezone from their area code or
                   location data and adjusts send times accordingly.
                 </p>
@@ -285,7 +285,7 @@ export default function BestTimeToSendPage() {
       </main>
 
       <footer className="border-t px-6 py-8 text-center text-sm text-slate-500">
-        &copy; {new Date().getFullYear()} Captivly. All rights reserved.
+        &copy; {new Date().getFullYear()} Captivly.ai. All rights reserved.
       </footer>
     </div>
   );

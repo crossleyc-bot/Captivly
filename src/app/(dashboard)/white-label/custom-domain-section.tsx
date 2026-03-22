@@ -82,7 +82,7 @@ export function CustomDomainSection({
       <h2 className="text-lg font-semibold">Custom Domain</h2>
       <p className="text-sm text-slate-500">
         Use your own domain for the dashboard. Your customers will see your
-        brand instead of Captivly.
+        brand instead of Captivly.ai.
       </p>
 
       <form onSubmit={handleSave} className="flex items-end gap-3">

@@ -71,7 +71,7 @@ export default async function Home() {
             Everything you need to convert leads on autopilot
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-center text-slate-600">
-            Captivly connects to your ad accounts, scores every lead with AI, and sends personalized outreach automatically.
+            Captivly.ai connects to your ad accounts, scores every lead with AI, and sends personalized outreach automatically.
           </p>
 
           <div className="mt-14">
@@ -130,7 +130,7 @@ export default async function Home() {
               {
                 title: "White-Label Ready",
                 href: "/features/white-label",
-                description: "On the Pro plan, rebrand Captivly as your own. Custom logo, colors, domain — your clients will never know.",
+                description: "On the Pro plan, rebrand Captivly.ai as your own. Custom logo, colors, domain — your clients will never know.",
                 icon: (
                   <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9.53 16.122a3 3 0 0 0-5.78 1.128 2.25 2.25 0 0 1-2.4 2.245 4.5 4.5 0 0 0 8.4-2.245c0-.399-.078-.78-.22-1.128Zm0 0a15.998 15.998 0 0 0 3.388-1.62m-5.043-.025a15.994 15.994 0 0 1 1.622-3.395m3.42 3.42a15.995 15.995 0 0 0 4.764-4.648l3.876-5.814a1.151 1.151 0 0 0-1.597-1.597L14.146 6.32a15.996 15.996 0 0 0-4.649 4.763m3.42 3.42a6.776 6.776 0 0 0-3.42-3.42" />
@@ -220,7 +220,7 @@ export default async function Home() {
               {
                 title: "Google Ads Lead Forms",
                 href: "/features/google-ads",
-                description: "Capture high-intent leads from Google Search and YouTube ads. Leads flow into Captivly in real time, scored and sequenced automatically.",
+                description: "Capture high-intent leads from Google Search and YouTube ads. Leads flow into Captivly.ai in real time, scored and sequenced automatically.",
                 icon: (
                   <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
@@ -384,7 +384,7 @@ export default async function Home() {
       </section>
 
       <footer className="border-t px-6 py-8 text-center text-sm text-slate-500">
-        &copy; {new Date().getFullYear()} Captivly. All rights reserved.
+        &copy; {new Date().getFullYear()} Captivly.ai. All rights reserved.
       </footer>
     </div>
   );

@@ -105,7 +105,7 @@ export default function GoogleReviewsPage() {
                   step: "2",
                   title: "Wait period",
                   description:
-                    "Captivly waits a configurable number of days (default: 3) for the experience to happen.",
+                    "Captivly.ai waits a configurable number of days (default: 3) for the experience to happen.",
                 },
                 {
                   step: "3",
@@ -198,7 +198,7 @@ export default function GoogleReviewsPage() {
                 </h3>
                 <p className="mt-2 text-sm text-slate-600">
                   Enter your Google Business Profile URL once in settings.
-                  Captivly generates a direct review link that opens the
+                  Captivly.ai generates a direct review link that opens the
                   Google review form — no searching required for the
                   customer.
                 </p>
@@ -220,7 +220,7 @@ export default function GoogleReviewsPage() {
                 </h3>
                 <p className="mt-2 text-sm text-slate-600">
                   If a lead replied negatively during the outreach sequence
-                  or showed dissatisfaction, Captivly skips the review
+                  or showed dissatisfaction, Captivly.ai skips the review
                   request. Only happy customers get asked — protecting your
                   rating.
                 </p>
@@ -247,7 +247,7 @@ export default function GoogleReviewsPage() {
             </h2>
             <p className="mt-4 text-slate-600">
               Every conversion is an opportunity for a 5-star review. Let
-              Captivly ask for you, automatically.
+              Captivly.ai ask for you, automatically.
             </p>
             <Link
               href="/signup"
@@ -260,7 +260,7 @@ export default function GoogleReviewsPage() {
       </main>
 
       <footer className="border-t px-6 py-8 text-center text-sm text-slate-500">
-        &copy; {new Date().getFullYear()} Captivly. All rights reserved.
+        &copy; {new Date().getFullYear()} Captivly.ai. All rights reserved.
       </footer>
     </div>
   );

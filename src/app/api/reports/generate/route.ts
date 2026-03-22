@@ -203,7 +203,7 @@ Write a 3-paragraph report card with:
     });
 
     await resend.emails.send({
-      from: `Captivly <noreply@${process.env.NEXT_PUBLIC_APP_URL?.replace("https://", "").replace("http://", "") ?? "captivly.ai"}>`,
+      from: `Captivly.ai <noreply@${process.env.NEXT_PUBLIC_APP_URL?.replace("https://", "").replace("http://", "") ?? "captivly.ai"}>`,
       to: proUser.email,
       subject: `Your ${monthLabel} Report Card — ${business.name}`,
       text: `Hi ${proUser.full_name ?? "there"},
@@ -229,7 +229,7 @@ KEY NUMBERS
 View the full report in your dashboard:
 ${process.env.NEXT_PUBLIC_APP_URL}/reports
 
-— The Captivly Team`,
+— The Captivly.ai Team`,
     });
 
     generated++;

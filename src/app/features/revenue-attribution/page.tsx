@@ -165,7 +165,7 @@ export default function RevenueAttributionPage() {
                   Cost per acquisition (CPA)
                 </h3>
                 <p className="mt-2 text-sm text-slate-600">
-                  With ad spend and revenue data in one place, Captivly
+                  With ad spend and revenue data in one place, Captivly.ai
                   calculates your true cost per paying customer. Know exactly
                   how much it costs to acquire each customer.
                 </p>
@@ -250,13 +250,13 @@ export default function RevenueAttributionPage() {
                   step: "2",
                   title: "Booking webhook",
                   description:
-                    "If you use the booking integration, Captivly can pull the service value automatically when an appointment is confirmed.",
+                    "If you use the booking integration, Captivly.ai can pull the service value automatically when an appointment is confirmed.",
                 },
                 {
                   step: "3",
                   title: "Zapier / API",
                   description:
-                    "Connect your POS or CRM via Zapier to push revenue data into Captivly automatically as sales close.",
+                    "Connect your POS or CRM via Zapier to push revenue data into Captivly.ai automatically as sales close.",
                 },
               ].map((item) => (
                 <div key={item.step} className="text-center">
@@ -296,7 +296,7 @@ export default function RevenueAttributionPage() {
       </main>
 
       <footer className="border-t px-6 py-8 text-center text-sm text-slate-500">
-        &copy; {new Date().getFullYear()} Captivly. All rights reserved.
+        &copy; {new Date().getFullYear()} Captivly.ai. All rights reserved.
       </footer>
     </div>
   );

@@ -34,7 +34,7 @@ export default function CompliancePage() {
             <p className="mt-6 text-lg text-slate-600">
               Opt-in tracking, consent management, and auto-unsubscribe built
               into every message. Stay compliant without thinking about it —
-              Captivly handles the legal details so you can focus on leads.
+              Captivly.ai handles the legal details so you can focus on leads.
             </p>
             <div className="mt-10 flex justify-center gap-4">
               <Link
@@ -82,7 +82,7 @@ export default function CompliancePage() {
               <div className="rounded-lg border border-green-200 bg-green-50/50 p-6 text-center">
                 <div className="text-3xl font-bold text-green-600">100%</div>
                 <p className="mt-2 text-sm text-slate-600">
-                  of outbound messages through Captivly are compliance-checked
+                  of outbound messages through Captivly.ai are compliance-checked
                   before sending. Automatic, not optional.
                 </p>
               </div>
@@ -98,7 +98,7 @@ export default function CompliancePage() {
             </h2>
             <p className="mt-4 text-sm text-slate-600">
               The Telephone Consumer Protection Act regulates SMS and phone
-              outreach. Captivly ensures you stay on the right side of it.
+              outreach. Captivly.ai ensures you stay on the right side of it.
             </p>
             <div className="mt-8 space-y-6">
               <div className="rounded-lg border bg-white p-6">
@@ -108,7 +108,7 @@ export default function CompliancePage() {
                 <p className="mt-2 text-sm text-slate-600">
                   When a lead submits a Meta or Google lead form, their
                   consent is captured and timestamped automatically.
-                  Captivly stores the exact form they filled out, when they
+                  Captivly.ai stores the exact form they filled out, when they
                   submitted it, and what they consented to — creating a
                   defensible audit trail.
                 </p>
@@ -120,7 +120,7 @@ export default function CompliancePage() {
                 <p className="mt-2 text-sm text-slate-600">
                   If a lead replies &quot;STOP&quot;, &quot;UNSUBSCRIBE&quot;,
                   &quot;CANCEL&quot;, or any recognized opt-out keyword to an
-                  SMS, Captivly immediately stops all outreach, marks them as
+                  SMS, Captivly.ai immediately stops all outreach, marks them as
                   unsubscribed, and sends a confirmation message. No human
                   action needed.
                 </p>
@@ -131,7 +131,7 @@ export default function CompliancePage() {
                 </h3>
                 <p className="mt-2 text-sm text-slate-600">
                   TCPA prohibits marketing calls/texts before 8am and after
-                  9pm in the recipient&apos;s local timezone. Captivly
+                  9pm in the recipient&apos;s local timezone. Captivly.ai
                   detects the lead&apos;s timezone and holds messages until
                   the next allowed window — automatically.
                 </p>
@@ -141,7 +141,7 @@ export default function CompliancePage() {
                   DNC list checking
                 </h3>
                 <p className="mt-2 text-sm text-slate-600">
-                  Before sending any SMS, Captivly checks the number against
+                  Before sending any SMS, Captivly.ai checks the number against
                   your internal Do Not Contact list. Numbers that have opted
                   out are blocked permanently unless they explicitly re-opt-in.
                 </p>
@@ -158,7 +158,7 @@ export default function CompliancePage() {
             </h2>
             <p className="mt-4 text-sm text-slate-600">
               If you serve customers in the EU or UK, GDPR applies.
-              Captivly provides the tools you need to stay compliant.
+              Captivly.ai provides the tools you need to stay compliant.
             </p>
             <div className="mt-8 space-y-6">
               <div className="rounded-lg border p-6">
@@ -178,7 +178,7 @@ export default function CompliancePage() {
                 </h3>
                 <p className="mt-2 text-sm text-slate-600">
                   When a lead requests their data be deleted, one click
-                  removes all personal data from Captivly — lead record,
+                  removes all personal data from Captivly.ai — lead record,
                   messages, scores, and custom answers. An anonymized
                   record is kept for analytics only.
                 </p>
@@ -188,7 +188,7 @@ export default function CompliancePage() {
                   Right to access
                 </h3>
                 <p className="mt-2 text-sm text-slate-600">
-                  Export all data Captivly holds about a specific lead in
+                  Export all data Captivly.ai holds about a specific lead in
                   a machine-readable format (JSON or CSV). Fulfill data
                   subject access requests (DSARs) in minutes, not days.
                 </p>
@@ -200,7 +200,7 @@ export default function CompliancePage() {
                 <p className="mt-2 text-sm text-slate-600">
                   Configure how long lead data is retained. Auto-delete
                   or anonymize leads after 6, 12, or 24 months of
-                  inactivity. Set it once, Captivly enforces it.
+                  inactivity. Set it once, Captivly.ai enforces it.
                 </p>
               </div>
             </div>
@@ -294,7 +294,7 @@ export default function CompliancePage() {
                 </h3>
                 <p className="mt-2 text-sm text-slate-600">
                   CAN-SPAM requires a valid physical address in marketing
-                  emails. Captivly pulls your business address from your
+                  emails. Captivly.ai pulls your business address from your
                   profile and includes it in every email footer.
                 </p>
               </div>
@@ -331,7 +331,7 @@ export default function CompliancePage() {
               Compliant by default
             </h2>
             <p className="mt-4 text-slate-600">
-              TCPA, GDPR, CAN-SPAM — Captivly handles the legal requirements
+              TCPA, GDPR, CAN-SPAM — Captivly.ai handles the legal requirements
               automatically. Send with confidence, not anxiety.
             </p>
             <Link
@@ -345,7 +345,7 @@ export default function CompliancePage() {
       </main>
 
       <footer className="border-t px-6 py-8 text-center text-sm text-slate-500">
-        &copy; {new Date().getFullYear()} Captivly. All rights reserved.
+        &copy; {new Date().getFullYear()} Captivly.ai. All rights reserved.
       </footer>
     </div>
   );

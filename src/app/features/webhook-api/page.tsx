@@ -34,7 +34,7 @@ export default function WebhookApiPage() {
             <p className="mt-6 text-lg text-slate-600">
               Push leads to your own CRM, POS, or custom system in real time.
               A simple REST API and configurable webhooks for power users who
-              need Captivly data flowing into their existing stack.
+              need Captivly.ai data flowing into their existing stack.
             </p>
             <div className="mt-10 flex justify-center gap-4">
               <Link
@@ -72,7 +72,7 @@ export default function WebhookApiPage() {
                   </h3>
                 </div>
                 <p className="mt-3 text-sm text-slate-600">
-                  Captivly sends data to your endpoint whenever an event
+                  Captivly.ai sends data to your endpoint whenever an event
                   occurs. Real-time, no polling. Configure which events
                   trigger a webhook and where the payload goes.
                 </p>
@@ -108,7 +108,7 @@ export default function WebhookApiPage() {
                   </h3>
                 </div>
                 <p className="mt-3 text-sm text-slate-600">
-                  Query Captivly data on demand. List leads, get lead
+                  Query Captivly.ai data on demand. List leads, get lead
                   details, update statuses, log conversions, and more.
                   Authenticated with API keys, rate-limited, fully
                   documented.
@@ -141,7 +141,7 @@ export default function WebhookApiPage() {
               Example webhook payload
             </h2>
             <p className="mx-auto mt-4 max-w-lg text-center text-sm text-slate-600">
-              When a new lead arrives, Captivly sends a POST request to your
+              When a new lead arrives, Captivly.ai sends a POST request to your
               configured URL with the full lead data.
             </p>
             <div className="mt-12 overflow-x-auto rounded-lg border bg-slate-900 p-6">
@@ -185,7 +185,7 @@ export default function WebhookApiPage() {
                 </h3>
                 <p className="mt-2 text-sm text-slate-600">
                   Push every new lead to Salesforce, HubSpot, or your custom
-                  CRM. Keep your existing workflow while Captivly handles the
+                  CRM. Keep your existing workflow while Captivly.ai handles the
                   automated outreach. Lead statuses sync both directions.
                 </p>
               </div>
@@ -195,7 +195,7 @@ export default function WebhookApiPage() {
                 </h3>
                 <p className="mt-2 text-sm text-slate-600">
                   When a lead converts and makes a purchase, push the
-                  transaction from your POS back to Captivly for revenue
+                  transaction from your POS back to Captivly.ai for revenue
                   attribution. See the full journey from ad click to dollar
                   earned.
                 </p>
@@ -205,7 +205,7 @@ export default function WebhookApiPage() {
                   Custom dashboards
                 </h3>
                 <p className="mt-2 text-sm text-slate-600">
-                  Pull Captivly data into your own analytics tools —
+                  Pull Captivly.ai data into your own analytics tools —
                   Google Sheets, Looker, Tableau, or a custom dashboard.
                   Build the exact reports your business needs.
                 </p>
@@ -257,7 +257,7 @@ export default function WebhookApiPage() {
                 </h3>
                 <p className="mt-2 text-sm text-slate-600">
                   Every webhook request includes an HMAC signature so you can
-                  verify it came from Captivly. Prevent spoofed requests from
+                  verify it came from Captivly.ai. Prevent spoofed requests from
                   corrupting your data.
                 </p>
               </div>
@@ -326,11 +326,11 @@ export default function WebhookApiPage() {
         <section className="border-t bg-slate-50 px-6 py-20 text-center">
           <div className="mx-auto max-w-2xl">
             <h2 className="text-2xl font-bold text-slate-900">
-              Connect Captivly to anything
+              Connect Captivly.ai to anything
             </h2>
             <p className="mt-4 text-slate-600">
               Your CRM, your POS, your custom tools. Webhooks and API give
-              you full control over how Captivly data flows through your
+              you full control over how Captivly.ai data flows through your
               business.
             </p>
             <Link
@@ -344,7 +344,7 @@ export default function WebhookApiPage() {
       </main>
 
       <footer className="border-t px-6 py-8 text-center text-sm text-slate-500">
-        &copy; {new Date().getFullYear()} Captivly. All rights reserved.
+        &copy; {new Date().getFullYear()} Captivly.ai. All rights reserved.
       </footer>
     </div>
   );

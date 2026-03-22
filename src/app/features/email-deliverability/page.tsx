@@ -82,7 +82,7 @@ export default function EmailDeliverabilityPage() {
               <div className="rounded-lg border p-6 text-center">
                 <div className="text-3xl font-bold text-green-600">98%+</div>
                 <p className="mt-2 text-sm text-slate-600">
-                  deliverability rate is the target. Captivly monitors
+                  deliverability rate is the target. Captivly.ai monitors
                   continuously and alerts you before problems escalate.
                 </p>
               </div>
@@ -206,7 +206,7 @@ export default function EmailDeliverabilityPage() {
                   Spam complaint monitoring
                 </h3>
                 <p className="mt-2 text-sm text-slate-600">
-                  When a recipient marks your email as spam, Captivly
+                  When a recipient marks your email as spam, Captivly.ai
                   receives the feedback loop report and immediately
                   suppresses that address. Your complaint rate is tracked
                   in real time with alerts if it approaches the 0.1%
@@ -218,7 +218,7 @@ export default function EmailDeliverabilityPage() {
                   Domain reputation scoring
                 </h3>
                 <p className="mt-2 text-sm text-slate-600">
-                  Captivly monitors your sending domain&apos;s reputation
+                  Captivly.ai monitors your sending domain&apos;s reputation
                   across major email providers (Gmail, Outlook, Yahoo).
                   If your reputation starts dropping, you get an alert
                   with specific recommendations to fix it.
@@ -231,7 +231,7 @@ export default function EmailDeliverabilityPage() {
                 <p className="mt-2 text-sm text-slate-600">
                   SPF, DKIM, and DMARC are checked continuously. If any
                   record expires, changes, or becomes invalid, you get an
-                  immediate alert. Captivly also provides step-by-step
+                  immediate alert. Captivly.ai also provides step-by-step
                   setup guides for each authentication method.
                 </p>
               </div>
@@ -241,7 +241,7 @@ export default function EmailDeliverabilityPage() {
                 </h3>
                 <p className="mt-2 text-sm text-slate-600">
                   Your sending IP and domain are checked against 50+ email
-                  blocklists daily. If you appear on any list, Captivly
+                  blocklists daily. If you appear on any list, Captivly.ai
                   alerts you immediately and provides delisting
                   instructions.
                 </p>
@@ -257,7 +257,7 @@ export default function EmailDeliverabilityPage() {
               Proactive alerts
             </h2>
             <p className="mx-auto mt-4 max-w-lg text-center text-sm text-slate-600">
-              Don&apos;t wait until your emails stop arriving. Captivly
+              Don&apos;t wait until your emails stop arriving. Captivly.ai
               alerts you at the first sign of trouble.
             </p>
             <div className="mt-12 space-y-4">
@@ -347,7 +347,7 @@ export default function EmailDeliverabilityPage() {
       </main>
 
       <footer className="border-t px-6 py-8 text-center text-sm text-slate-500">
-        &copy; {new Date().getFullYear()} Captivly. All rights reserved.
+        &copy; {new Date().getFullYear()} Captivly.ai. All rights reserved.
       </footer>
     </div>
   );

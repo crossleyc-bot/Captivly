@@ -33,7 +33,7 @@ export default function MetaLeadAdsPage() {
             </h1>
             <p className="mt-6 text-lg text-slate-600">
               Connect your Facebook and Instagram ad accounts in one click. New
-              leads flow into Captivly automatically via real-time webhooks — no
+              leads flow into Captivly.ai automatically via real-time webhooks — no
               CSV exports, no manual entry, no delays.
             </p>
             <div className="mt-10 flex justify-center gap-4">
@@ -68,7 +68,7 @@ export default function MetaLeadAdsPage() {
                   Connect your Meta account
                 </h3>
                 <p className="mt-2 text-sm text-slate-600">
-                  Authorize Captivly with one-click OAuth. We connect to your
+                  Authorize Captivly.ai with one-click OAuth. We connect to your
                   Facebook Business Manager and ad accounts securely.
                 </p>
               </div>
@@ -80,7 +80,7 @@ export default function MetaLeadAdsPage() {
                   Leads flow in automatically
                 </h3>
                 <p className="mt-2 text-sm text-slate-600">
-                  When someone fills out your Lead Ad form, Captivly receives
+                  When someone fills out your Lead Ad form, Captivly.ai receives
                   the data in real time via Meta&apos;s webhook API — within
                   seconds.
                 </p>
@@ -115,7 +115,7 @@ export default function MetaLeadAdsPage() {
                 <p className="mt-2 text-sm text-slate-600">
                   No developer tokens or manual configuration. Just click
                   &quot;Connect Meta&quot; during onboarding and authorize
-                  access. Captivly handles the rest.
+                  access. Captivly.ai handles the rest.
                 </p>
               </div>
               <div className="rounded-lg border bg-white p-6">
@@ -130,11 +130,11 @@ export default function MetaLeadAdsPage() {
               </div>
               <div className="rounded-lg border bg-white p-6">
                 <h3 className="text-sm font-semibold text-slate-900">
-                  Campaign creation from Captivly
+                  Campaign creation from Captivly.ai
                 </h3>
                 <p className="mt-2 text-sm text-slate-600">
                   Create and manage your Meta Lead Ad campaigns directly from
-                  the Captivly dashboard. Set budgets, target audiences, and
+                  the Captivly.ai dashboard. Set budgets, target audiences, and
                   launch ads without ever leaving the platform.
                 </p>
               </div>
@@ -143,7 +143,7 @@ export default function MetaLeadAdsPage() {
                   Custom form field mapping
                 </h3>
                 <p className="mt-2 text-sm text-slate-600">
-                  Captivly automatically captures standard fields (name, email,
+                  Captivly.ai automatically captures standard fields (name, email,
                   phone) plus any custom questions from your lead forms. All
                   data feeds into AI scoring for better lead quality assessment.
                 </p>
@@ -173,7 +173,7 @@ export default function MetaLeadAdsPage() {
       </main>
 
       <footer className="border-t px-6 py-8 text-center text-sm text-slate-500">
-        &copy; {new Date().getFullYear()} Captivly. All rights reserved.
+        &copy; {new Date().getFullYear()} Captivly.ai. All rights reserved.
       </footer>
     </div>
   );

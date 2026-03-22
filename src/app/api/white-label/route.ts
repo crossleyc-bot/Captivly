@@ -100,7 +100,7 @@ export async function PUT(request: NextRequest) {
     .single();
 
   const defaults = {
-    app_name: "Captivly",
+    app_name: "Captivly.ai",
     logo_url: null as string | null,
     primary_color: "#18181b",
     accent_color: "#3b82f6",
