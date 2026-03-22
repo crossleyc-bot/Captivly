@@ -19,6 +19,7 @@ const navItems = [
   { href: "/white-label", label: "White Label" },
   { href: "/agency", label: "Agency" },
   { href: "/settings", label: "Settings" },
+  { href: "/help-guide", label: "Help Guide" },
 ];
 
 export function SidebarNav() {
