@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { Logo } from "@/components/logo";
 
@@ -8,6 +8,7 @@ const navLinks = [
   { href: "#how-it-works", label: "How It Works" },
   { href: "#features", label: "Features" },
   { href: "#pricing", label: "Pricing" },
+  { href: "#faq", label: "FAQ" },
 ];
 
 interface MarketingHeaderProps {
@@ -17,6 +18,26 @@ interface MarketingHeaderProps {
 
 export function MarketingHeader({ user, showNav = true }: MarketingHeaderProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+
+    function handleClick(e: MouseEvent) {
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(e.target as Node) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(e.target as Node)
+      ) {
+        setMobileOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [mobileOpen]);
 
   return (
     <header className="relative flex items-center justify-between border-b px-6 py-4">
@@ -41,6 +62,7 @@ export function MarketingHeader({ user, showNav = true }: MarketingHeaderProps) 
 
           {/* Mobile hamburger */}
           <button
+            ref={buttonRef}
             type="button"
             onClick={() => setMobileOpen(!mobileOpen)}
             className="rounded-md p-2 text-slate-600 hover:bg-slate-100 sm:hidden"
@@ -87,7 +109,7 @@ export function MarketingHeader({ user, showNav = true }: MarketingHeaderProps) 
 
       {/* Mobile dropdown */}
       {mobileOpen && (
-        <div className="absolute left-0 right-0 top-full z-50 border-b bg-white px-6 py-4 shadow-lg sm:hidden">
+        <div ref={menuRef} className="absolute left-0 right-0 top-full z-50 border-b bg-white px-6 py-4 shadow-lg sm:hidden">
           <nav className="flex flex-col gap-3">
             {showNav &&
               navLinks.map((link) => (
@@ -109,20 +131,12 @@ export function MarketingHeader({ user, showNav = true }: MarketingHeaderProps) 
                   Dashboard
                 </Link>
               ) : (
-                <div className="flex flex-col gap-2">
-                  <Link
-                    href="/login"
-                    className="block rounded-md border border-slate-300 px-4 py-2 text-center text-sm font-medium text-slate-700 hover:bg-slate-50"
-                  >
-                    Log in
-                  </Link>
-                  <Link
-                    href="/signup"
-                    className="block rounded-md bg-teal-600 px-4 py-2 text-center text-sm font-medium text-white hover:bg-teal-700"
-                  >
-                    Get Started
-                  </Link>
-                </div>
+                <Link
+                  href="/login"
+                  className="block rounded-md border border-slate-300 px-4 py-2 text-center text-sm font-medium text-slate-700 hover:bg-slate-50"
+                >
+                  Log in
+                </Link>
               )}
             </div>
           </nav>

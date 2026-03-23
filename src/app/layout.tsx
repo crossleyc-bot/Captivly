@@ -4,9 +4,12 @@ import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Captivly.ai — Automated Lead Generation for Local Businesses",
+  title: {
+    default: "Captivly.ai",
+    template: "%s | Captivly.ai",
+  },
   description:
-    "Connect your Meta Lead Ads, score leads with AI, and fire personalized outreach sequences automatically.",
+    "Automated lead generation for local businesses.",
   icons: {
     icon: "/favicon.svg",
   },

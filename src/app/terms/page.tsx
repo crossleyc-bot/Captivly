@@ -3,7 +3,15 @@ import { MarketingHeader } from "@/components/marketing-header";
 import { MarketingFooter } from "@/components/marketing-footer";
 
 export const metadata = {
-  title: "Terms of Service - Captivly",
+  title: "Terms of Service",
+  description:
+    "Read the Terms of Service for Captivly.ai. Covers subscription plans, usage limits, acceptable use, AI-generated content, and more.",
+  openGraph: {
+    title: "Terms of Service - Captivly.ai",
+    description:
+      "Read the Terms of Service for Captivly.ai covering plans, usage limits, and acceptable use.",
+    url: "https://captivly.ai/terms",
+  },
 };
 
 export default function TermsOfService() {

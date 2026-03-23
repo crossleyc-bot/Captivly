@@ -3,7 +3,15 @@ import { MarketingHeader } from "@/components/marketing-header";
 import { MarketingFooter } from "@/components/marketing-footer";
 
 export const metadata = {
-  title: "Privacy Policy - Captivly",
+  title: "Privacy Policy",
+  description:
+    "Learn how Captivly.ai collects, uses, and protects your data. Covers account info, lead data, third-party integrations, and your privacy rights.",
+  openGraph: {
+    title: "Privacy Policy - Captivly.ai",
+    description:
+      "Learn how Captivly.ai collects, uses, and protects your data.",
+    url: "https://captivly.ai/privacy",
+  },
 };
 
 export default function PrivacyPolicy() {

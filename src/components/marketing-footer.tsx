@@ -68,8 +68,11 @@ export function MarketingFooter() {
             </ul>
           </div>
         </div>
-        <div className="mt-10 border-t pt-6 text-center text-sm text-slate-400">
-          &copy; {new Date().getFullYear()} Captivly.ai. All rights reserved.
+        <div className="mt-10 flex items-center justify-between border-t pt-6 text-sm text-slate-400">
+          <span>&copy; {new Date().getFullYear()} Captivly.ai. All rights reserved.</span>
+          <a href="#" className="text-sm text-slate-400 hover:text-slate-600">
+            Back to top &uarr;
+          </a>
         </div>
       </div>
     </footer>
