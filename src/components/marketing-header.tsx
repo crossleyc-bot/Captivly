@@ -85,7 +85,7 @@ export function MarketingHeader({ user, showNav = true }: MarketingHeaderProps) 
         {user ? (
           <Link
             href="/dashboard"
-            className="rounded-full bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+            className="rounded-full bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
           >
             Dashboard
           </Link>
@@ -99,7 +99,7 @@ export function MarketingHeader({ user, showNav = true }: MarketingHeaderProps) 
             </Link>
             <Link
               href="/signup"
-              className="rounded-full bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+              className="rounded-full bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
             >
               Get Started
             </Link>
@@ -126,7 +126,7 @@ export function MarketingHeader({ user, showNav = true }: MarketingHeaderProps) 
               {user ? (
                 <Link
                   href="/dashboard"
-                  className="block rounded-md bg-indigo-600 px-4 py-2 text-center text-sm font-medium text-white hover:bg-indigo-700"
+                  className="block rounded-md bg-blue-600 px-4 py-2 text-center text-sm font-medium text-white hover:bg-blue-700"
                 >
                   Dashboard
                 </Link>

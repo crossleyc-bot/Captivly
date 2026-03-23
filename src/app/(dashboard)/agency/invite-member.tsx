@@ -72,7 +72,7 @@ export function InviteMember() {
       <button
         type="submit"
         disabled={loading || !email.trim()}
-        className="rounded-md bg-indigo-600 px-4 py-1.5 text-sm font-medium text-white hover:bg-slate-800 disabled:opacity-50"
+        className="rounded-md bg-blue-600 px-4 py-1.5 text-sm font-medium text-white hover:bg-slate-800 disabled:opacity-50"
       >
         {loading ? "Adding..." : "Add Member"}
       </button>

@@ -86,11 +86,11 @@ export default async function DashboardPage() {
   const atSmsLimit = limits.sms_per_month > 0 && smsUsed >= limits.sms_per_month;
 
   const stats = [
-    { label: "Total Leads", value: totalLeads.toLocaleString(), accent: "bg-indigo-500" },
+    { label: "Total Leads", value: totalLeads.toLocaleString(), accent: "bg-blue-500" },
     { label: "Active Campaigns", value: activeCampaigns.toLocaleString(), accent: "bg-blue-500" },
     { label: "Conversions", value: totalConversions.toLocaleString(), accent: "bg-emerald-500" },
     { label: "Open Deals", value: openDeals.length.toLocaleString(), accent: "bg-violet-500" },
-    { label: "Pipeline Value", value: formatCents(pipelineValue), accent: "bg-amber-500" },
+    { label: "Pipeline Value", value: formatCents(pipelineValue), accent: "bg-orange-500" },
   ];
 
 
@@ -173,7 +173,7 @@ export default async function DashboardPage() {
             </div>
             <div className="mt-2 h-2 rounded-full bg-slate-100">
               <div
-                className={`h-2 rounded-full ${atLeadLimit ? "bg-red-500" : nearLeadLimit ? "bg-amber-500" : "bg-indigo-500"}`}
+                className={`h-2 rounded-full ${atLeadLimit ? "bg-red-500" : nearLeadLimit ? "bg-amber-500" : "bg-blue-500"}`}
                 style={{ width: `${Math.min(leadsPercent, 100)}%` }}
               />
             </div>
@@ -189,7 +189,7 @@ export default async function DashboardPage() {
             </div>
             <div className="mt-2 h-2 rounded-full bg-slate-100">
               <div
-                className={`h-2 rounded-full ${atSmsLimit ? "bg-red-500" : nearSmsLimit ? "bg-amber-500" : "bg-indigo-500"}`}
+                className={`h-2 rounded-full ${atSmsLimit ? "bg-red-500" : nearSmsLimit ? "bg-amber-500" : "bg-blue-500"}`}
                 style={{ width: `${Math.min(smsPercent, 100)}%` }}
               />
             </div>
@@ -213,7 +213,7 @@ export default async function DashboardPage() {
             </p>
             <Link
               href="/campaigns/new"
-              className="mt-4 inline-block rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+              className="mt-4 inline-block rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
             >
               Create your first campaign
             </Link>
@@ -236,7 +236,7 @@ export default async function DashboardPage() {
                     <td className="py-2 pr-4">
                       <Link
                         href={`/leads/${lead.id}`}
-                        className="font-medium text-indigo-600 hover:underline"
+                        className="font-medium text-blue-600 hover:underline"
                       >
                         {lead.first_name ?? "Unknown"} {lead.last_name ?? ""}
                       </Link>

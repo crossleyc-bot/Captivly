@@ -21,7 +21,7 @@ function getPasswordStrength(password: string): {
     { label: "Weak", color: "bg-red-500" },
     { label: "Weak", color: "bg-red-500" },
     { label: "Fair", color: "bg-yellow-500" },
-    { label: "Good", color: "bg-indigo-500" },
+    { label: "Good", color: "bg-blue-500" },
     { label: "Strong", color: "bg-green-500" },
   ] as const;
   return {
@@ -118,7 +118,7 @@ export default function SignupPage() {
               type="button"
               onClick={handleResendEmail}
               disabled={resending}
-              className="text-sm font-medium text-indigo-600 hover:text-indigo-700 disabled:opacity-50"
+              className="text-sm font-medium text-blue-600 hover:text-blue-700 disabled:opacity-50"
             >
               {resending ? "Sending..." : "Resend confirmation email"}
             </button>
@@ -130,7 +130,7 @@ export default function SignupPage() {
           </div>
           <p className="text-sm text-slate-500">
             Already confirmed?{" "}
-            <Link href="/login" className="font-medium text-indigo-600 hover:underline">
+            <Link href="/login" className="font-medium text-blue-600 hover:underline">
               Log in
             </Link>
           </p>
@@ -167,7 +167,7 @@ export default function SignupPage() {
               type="text"
               autoComplete="name"
               required
-              className="mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 text-sm shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+              className="mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
             />
           </div>
           <div>
@@ -180,7 +180,7 @@ export default function SignupPage() {
               type="email"
               autoComplete="email"
               required
-              className="mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 text-sm shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+              className="mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
             />
           </div>
           <div>
@@ -196,7 +196,7 @@ export default function SignupPage() {
               minLength={6}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 text-sm shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+              className="mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
             />
             {password && (
               <div className="mt-2">
@@ -217,14 +217,14 @@ export default function SignupPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
+            className="w-full rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-50"
           >
             {loading ? "Creating account..." : "Create account"}
           </button>
         </form>
         <p className="text-center text-sm text-slate-500">
           Already have an account?{" "}
-          <Link href="/login" className="font-medium text-indigo-600 hover:underline">
+          <Link href="/login" className="font-medium text-blue-600 hover:underline">
             Log in
           </Link>
         </p>

@@ -208,7 +208,7 @@ export function PipelineBoard({
               key={stage.id}
               className={`min-w-[280px] flex-shrink-0 rounded-lg border transition-colors duration-150 ${
                 isDropTarget
-                  ? "border-indigo-400 bg-indigo-50/50 ring-2 ring-indigo-200"
+                  ? "border-blue-400 bg-blue-50/50 ring-2 ring-blue-200"
                   : "bg-slate-50"
               }`}
               onDragOver={(e) => handleDragOver(e, stage.id)}
@@ -242,7 +242,7 @@ export function PipelineBoard({
                   </p>
                 )}
                 {isDropTarget && stageDeals.length === 0 && (
-                  <div className="rounded-md border-2 border-dashed border-indigo-300 px-2 py-4 text-center text-xs text-indigo-500">
+                  <div className="rounded-md border-2 border-dashed border-blue-300 px-2 py-4 text-center text-xs text-blue-500">
                     Drop here
                   </div>
                 )}
@@ -258,7 +258,7 @@ export function PipelineBoard({
                   >
                     <Link
                       href={`/deals/${deal.id}`}
-                      className="text-sm font-medium text-slate-900 hover:text-indigo-600"
+                      className="text-sm font-medium text-slate-900 hover:text-blue-600"
                     >
                       {deal.title}
                     </Link>
@@ -269,7 +269,7 @@ export function PipelineBoard({
                     )}
                     {deal.lead && (
                       <p className="mt-1 text-xs text-slate-500">
-                        <Link href={`/leads/${deal.lead.id}`} className="hover:text-indigo-600">
+                        <Link href={`/leads/${deal.lead.id}`} className="hover:text-blue-600">
                           {deal.lead.first_name ?? "Unknown"} {deal.lead.last_name ?? ""}
                         </Link>
                         {deal.lead.ai_score !== null && (

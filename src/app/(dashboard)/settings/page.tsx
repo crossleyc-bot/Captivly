@@ -96,7 +96,7 @@ export default async function SettingsPage() {
                   {limit !== Infinity && limit > 0 && (
                     <div className="mt-1 h-1.5 rounded-full bg-slate-200">
                       <div
-                        className={`h-1.5 rounded-full ${isNear ? "bg-red-500" : "bg-indigo-600"}`}
+                        className={`h-1.5 rounded-full ${isNear ? "bg-red-500" : "bg-blue-600"}`}
                         style={{ width: `${pct}%` }}
                       />
                     </div>

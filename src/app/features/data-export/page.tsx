@@ -34,14 +34,14 @@ export default function DataExportPage() {
           </p>
           <div className="mt-12 grid gap-6 sm:grid-cols-3">
             <div className="rounded-lg border p-6 text-center">
-              <div className="text-3xl font-bold text-indigo-600">$0</div>
+              <div className="text-3xl font-bold text-blue-600">$0</div>
               <p className="mt-2 text-sm text-slate-600">
                 export fees, ever. Your data is free to download on any
                 plan, anytime, with no limits.
               </p>
             </div>
             <div className="rounded-lg border p-6 text-center">
-              <div className="text-3xl font-bold text-indigo-600">2</div>
+              <div className="text-3xl font-bold text-blue-600">2</div>
               <p className="mt-2 text-sm text-slate-600">
                 formats available — CSV for spreadsheets and simple tools,
                 JSON for developers and custom integrations.
@@ -197,7 +197,7 @@ export default function DataExportPage() {
               },
             ].map((item) => (
               <div key={item.step} className="text-center">
-                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-indigo-100 text-lg font-bold text-indigo-600">
+                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 text-lg font-bold text-blue-600">
                   {item.step}
                 </div>
                 <h3 className="mt-4 text-sm font-semibold text-slate-900">

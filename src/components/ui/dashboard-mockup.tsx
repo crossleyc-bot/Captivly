@@ -4,7 +4,7 @@ export function DashboardMockup() {
   return (
     <div className="relative">
       {/* Glow effect behind the mockup */}
-      <div className="absolute -inset-4 rounded-2xl bg-gradient-to-br from-indigo-200/40 via-transparent to-amber-200/30 blur-2xl" />
+      <div className="absolute -inset-4 rounded-2xl bg-gradient-to-br from-blue-200/40 via-transparent to-orange-200/30 blur-2xl" />
 
       {/* Browser chrome */}
       <div className="relative overflow-hidden rounded-xl border border-slate-200 bg-white shadow-2xl shadow-slate-200/60">
@@ -25,7 +25,7 @@ export function DashboardMockup() {
           {/* Mini sidebar */}
           <div className="hidden w-36 border-r border-slate-100 bg-slate-50/50 p-3 sm:block">
             <div className="mb-4 flex items-center gap-1.5">
-              <div className="h-4 w-4 rounded bg-indigo-600" />
+              <div className="h-4 w-4 rounded bg-blue-600" />
               <span className="text-[10px] font-bold text-slate-700">Captivly</span>
             </div>
             <div className="space-y-1">
@@ -51,7 +51,7 @@ export function DashboardMockup() {
             {/* Stats row */}
             <div className="grid grid-cols-4 gap-2">
               {[
-                { label: "New Leads", value: "47", trend: "+12%", color: "text-indigo-600" },
+                { label: "New Leads", value: "47", trend: "+12%", color: "text-blue-600" },
                 { label: "In Sequence", value: "128", trend: "+8%", color: "text-purple-600" },
                 { label: "Replied", value: "34", trend: "+23%", color: "text-green-600" },
                 { label: "Converted", value: "19", trend: "+15%", color: "text-emerald-600" },

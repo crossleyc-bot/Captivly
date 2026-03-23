@@ -34,14 +34,14 @@ export default function GoogleAdsPage() {
           </p>
           <div className="mt-12 grid gap-6 sm:grid-cols-3">
             <div className="rounded-lg border p-6 text-center">
-              <div className="text-3xl font-bold text-indigo-600">8.5B</div>
+              <div className="text-3xl font-bold text-blue-600">8.5B</div>
               <p className="mt-2 text-sm text-slate-600">
                 Google searches per day — your customers are searching for
                 businesses like yours right now
               </p>
             </div>
             <div className="rounded-lg border p-6 text-center">
-              <div className="text-3xl font-bold text-indigo-600">2–5x</div>
+              <div className="text-3xl font-bold text-blue-600">2–5x</div>
               <p className="mt-2 text-sm text-slate-600">
                 higher intent than social media leads — they searched for
                 &quot;gym near me&quot;, not just scrolled past an ad
@@ -92,7 +92,7 @@ export default function GoogleAdsPage() {
               },
             ].map((item) => (
               <div key={item.step} className="text-center">
-                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-indigo-100 text-lg font-bold text-indigo-600">
+                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 text-lg font-bold text-blue-600">
                   {item.step}
                 </div>
                 <h3 className="mt-4 text-sm font-semibold text-slate-900">

@@ -81,12 +81,12 @@ export default function PricingPage() {
               key={plan.name}
               className={`rounded-lg border p-6 ${
                 plan.highlighted
-                  ? "border-indigo-300 ring-2 ring-indigo-100"
+                  ? "border-blue-300 ring-2 ring-blue-100"
                   : "border-slate-200"
               }`}
             >
               {plan.highlighted && (
-                <span className="mb-4 inline-block rounded-full bg-indigo-100 px-3 py-1 text-xs font-semibold text-indigo-700">
+                <span className="mb-4 inline-block rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-700">
                   Most Popular
                 </span>
               )}
@@ -106,7 +106,7 @@ export default function PricingPage() {
                 href="/signup"
                 className={`mt-6 block rounded-full px-4 py-2.5 text-center text-sm font-medium ${
                   plan.highlighted
-                    ? "bg-indigo-600 text-white hover:bg-indigo-700"
+                    ? "bg-blue-600 text-white hover:bg-blue-700"
                     : "border border-slate-300 text-slate-700 hover:bg-slate-50"
                 }`}
               >

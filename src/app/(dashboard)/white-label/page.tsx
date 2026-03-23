@@ -33,7 +33,7 @@ export default async function WhiteLabelPage() {
           </p>
           <Link
             href="/settings"
-            className="mt-3 inline-block rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800"
+            className="mt-3 inline-block rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800"
           >
             Upgrade Plan
           </Link>

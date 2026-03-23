@@ -41,7 +41,7 @@ export default function LeadAssignmentPage() {
               </p>
             </div>
             <div className="rounded-lg border p-6 text-center">
-              <div className="text-3xl font-bold text-indigo-600">
+              <div className="text-3xl font-bold text-blue-600">
                 Instant
               </div>
               <p className="mt-2 text-sm text-slate-600">

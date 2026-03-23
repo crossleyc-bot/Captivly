@@ -29,7 +29,7 @@ export default function MetaLeadAdsPage() {
           </h2>
           <div className="mt-12 grid gap-8 sm:grid-cols-3">
             <div className="text-center">
-              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-indigo-100 text-lg font-bold text-indigo-600">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 text-lg font-bold text-blue-600">
                 1
               </div>
               <h3 className="mt-4 text-sm font-semibold text-slate-900">
@@ -41,7 +41,7 @@ export default function MetaLeadAdsPage() {
               </p>
             </div>
             <div className="text-center">
-              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-indigo-100 text-lg font-bold text-indigo-600">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 text-lg font-bold text-blue-600">
                 2
               </div>
               <h3 className="mt-4 text-sm font-semibold text-slate-900">
@@ -54,7 +54,7 @@ export default function MetaLeadAdsPage() {
               </p>
             </div>
             <div className="text-center">
-              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-indigo-100 text-lg font-bold text-indigo-600">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 text-lg font-bold text-blue-600">
                 3
               </div>
               <h3 className="mt-4 text-sm font-semibold text-slate-900">

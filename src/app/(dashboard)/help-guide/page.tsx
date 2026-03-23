@@ -169,7 +169,7 @@ export default async function HelpGuidePage() {
             <li key={section.id}>
               <a
                 href={`#${section.id}`}
-                className="text-sm text-indigo-600 hover:text-indigo-700 hover:underline"
+                className="text-sm text-blue-600 hover:text-blue-700 hover:underline"
               >
                 {section.title}
               </a>
@@ -212,7 +212,7 @@ export default async function HelpGuidePage() {
       <div className="rounded-lg border border-dashed border-slate-300 px-6 py-8 text-center">
         <p className="text-sm text-slate-500">
           Still have questions? Reach out to our support team at{" "}
-          <a href="mailto:support@captivly.ai" className="text-indigo-600 hover:text-indigo-700 hover:underline">
+          <a href="mailto:support@captivly.ai" className="text-blue-600 hover:text-blue-700 hover:underline">
             support@captivly.ai
           </a>
         </p>

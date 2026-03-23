@@ -80,7 +80,7 @@ export function SidebarNav() {
             // eslint-disable-next-line @next/next/no-img-element
             <img src={branding.logo_url} alt="" className="h-7 w-7 rounded object-cover" />
           ) : (
-            <LogoIcon size={26} className="text-indigo-400" />
+            <LogoIcon size={26} className="text-blue-400" />
           )}
           {branding.app_name}
         </Link>
@@ -92,7 +92,7 @@ export function SidebarNav() {
               onClick={() => setOpen(false)}
               className={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${
                 isActive(item.href)
-                  ? "bg-indigo-600 text-white"
+                  ? "bg-blue-600 text-white"
                   : "text-slate-300 hover:bg-slate-800 hover:text-white"
               }`}
             >

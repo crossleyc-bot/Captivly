@@ -34,14 +34,14 @@ export default function CompetitorMonitoringPage() {
           </p>
           <div className="mt-12 grid gap-6 sm:grid-cols-3">
             <div className="rounded-lg border p-6 text-center">
-              <div className="text-3xl font-bold text-indigo-600">100%</div>
+              <div className="text-3xl font-bold text-blue-600">100%</div>
               <p className="mt-2 text-sm text-slate-600">
                 of active Meta ads are publicly visible through the Ad
                 Library — Captivly.ai just makes them easy to find and analyze
               </p>
             </div>
             <div className="rounded-lg border p-6 text-center">
-              <div className="text-3xl font-bold text-indigo-600">Daily</div>
+              <div className="text-3xl font-bold text-blue-600">Daily</div>
               <p className="mt-2 text-sm text-slate-600">
                 updates so you see new competitor ads within 24 hours of
                 launch — stay ahead, not behind
@@ -254,8 +254,8 @@ export default function CompetitorMonitoringPage() {
           <div className="mt-12 space-y-4">
             <div className="rounded-lg border bg-white p-5">
               <div className="flex items-start gap-3">
-                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-indigo-100">
-                  <svg className="h-4 w-4 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-100">
+                  <svg className="h-4 w-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
                   </svg>
                 </div>
@@ -275,8 +275,8 @@ export default function CompetitorMonitoringPage() {
             </div>
             <div className="rounded-lg border bg-white p-5">
               <div className="flex items-start gap-3">
-                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-indigo-100">
-                  <svg className="h-4 w-4 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-100">
+                  <svg className="h-4 w-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
                   </svg>
                 </div>
@@ -295,8 +295,8 @@ export default function CompetitorMonitoringPage() {
             </div>
             <div className="rounded-lg border bg-white p-5">
               <div className="flex items-start gap-3">
-                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-indigo-100">
-                  <svg className="h-4 w-4 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-100">
+                  <svg className="h-4 w-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
                   </svg>
                 </div>
@@ -345,7 +345,7 @@ export default function CompetitorMonitoringPage() {
               },
             ].map((item) => (
               <div key={item.step} className="text-center">
-                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-indigo-100 text-lg font-bold text-indigo-600">
+                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 text-lg font-bold text-blue-600">
                   {item.step}
                 </div>
                 <h3 className="mt-4 text-sm font-semibold text-slate-900">

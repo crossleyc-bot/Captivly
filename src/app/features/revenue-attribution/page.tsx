@@ -53,8 +53,8 @@ export default function RevenueAttributionPage() {
                 ))}
               </ul>
             </div>
-            <div className="rounded-lg border border-indigo-200 bg-indigo-50/50 p-6">
-              <h3 className="text-sm font-semibold text-indigo-700">
+            <div className="rounded-lg border border-blue-200 bg-blue-50/50 p-6">
+              <h3 className="text-sm font-semibold text-blue-700">
                 With revenue attribution
               </h3>
               <ul className="mt-4 space-y-3">
@@ -228,7 +228,7 @@ export default function RevenueAttributionPage() {
               },
             ].map((item) => (
               <div key={item.step} className="text-center">
-                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-indigo-100 text-lg font-bold text-indigo-600">
+                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 text-lg font-bold text-blue-600">
                   {item.step}
                 </div>
                 <h3 className="mt-4 text-sm font-semibold text-slate-900">

@@ -403,11 +403,11 @@ Apply `requirePlan` for feature access checks and `checkUsageLimit` before every
 **Accent & semantic**
 | Token | Tailwind | Hex | Usage |
 |---|---|---|---|
-| Primary | `indigo-600` | `#0d9488` | Buttons, links, active states |
-| Primary hover | `indigo-700` | `#0f766e` | Button hover states |
-| Primary light | `indigo-50` | `#f0fdfa` | Hero gradients, highlighted cards |
-| Highlight | `amber-500` | `#f59e0b` | Badges, upgrade CTAs, accents |
-| Highlight light | `amber-100` | `#fef3c7` | Badge backgrounds, hero pills |
+| Primary | `blue-600` | `#2563eb` | Buttons, links, active states |
+| Primary hover | `blue-700` | `#1d4ed8` | Button hover states |
+| Primary light | `blue-50` | `#eff6ff` | Hero gradients, highlighted cards |
+| Highlight | `orange-500` | `#f97316` | Badges, upgrade CTAs, accents |
+| Highlight light | `orange-100` | `#ffedd5` | Badge backgrounds, hero pills |
 | Success | `green-600` | `#16a34a` | Verified, converted, delivered |
 | Warning | `yellow-600` / `amber-*` | | Paused, near-limit banners |
 | Error | `red-500`–`red-600` | | Failed, unsubscribed, delete |

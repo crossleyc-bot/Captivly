@@ -126,7 +126,7 @@ export default async function DealDetailPage({
             <div>
               <span className="text-slate-500">Name</span>
               <p>
-                <Link href={`/leads/${lead.id}`} className="font-medium text-indigo-600 hover:underline">
+                <Link href={`/leads/${lead.id}`} className="font-medium text-blue-600 hover:underline">
                   {lead.first_name ?? "Unknown"} {lead.last_name ?? ""}
                 </Link>
               </p>

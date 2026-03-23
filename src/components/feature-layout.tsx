@@ -34,7 +34,7 @@ export function FeatureLayout({
           </Link>
           <Link
             href="/signup"
-            className="rounded-full bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+            className="rounded-full bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
           >
             Get Started
           </Link>
@@ -43,7 +43,7 @@ export function FeatureLayout({
 
       <main className="flex-1">
         {/* Hero */}
-        <section className="bg-gradient-to-b from-indigo-50 via-white to-white px-6 py-20 text-center">
+        <section className="bg-gradient-to-b from-blue-50 via-white to-white px-6 py-20 text-center">
           <div className="mx-auto max-w-3xl">
             <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
               {title}
@@ -52,7 +52,7 @@ export function FeatureLayout({
             <div className="mt-10 flex justify-center gap-4">
               <Link
                 href="/signup"
-                className="rounded-full bg-indigo-600 px-6 py-3 text-sm font-medium text-white shadow-md shadow-indigo-600/25 hover:bg-indigo-700"
+                className="rounded-full bg-blue-600 px-6 py-3 text-sm font-medium text-white shadow-md shadow-blue-600/25 hover:bg-blue-700"
               >
                 Start Free Trial
               </Link>
@@ -75,7 +75,7 @@ export function FeatureLayout({
             <p className="mt-4 text-slate-600">{ctaDescription}</p>
             <Link
               href="/signup"
-              className="mt-8 inline-block rounded-full bg-indigo-600 px-6 py-3 text-sm font-medium text-white shadow-md shadow-indigo-600/25 hover:bg-indigo-700"
+              className="mt-8 inline-block rounded-full bg-blue-600 px-6 py-3 text-sm font-medium text-white shadow-md shadow-blue-600/25 hover:bg-blue-700"
             >
               {ctaLabel}
             </Link>

@@ -34,14 +34,14 @@ export default function BestTimeToSendPage() {
           </p>
           <div className="mt-12 grid gap-6 sm:grid-cols-3">
             <div className="rounded-lg border p-6 text-center">
-              <div className="text-3xl font-bold text-indigo-600">40%</div>
+              <div className="text-3xl font-bold text-blue-600">40%</div>
               <p className="mt-2 text-sm text-slate-600">
                 higher open rates when messages land during your
                 audience&apos;s peak engagement window
               </p>
             </div>
             <div className="rounded-lg border p-6 text-center">
-              <div className="text-3xl font-bold text-indigo-600">2.1x</div>
+              <div className="text-3xl font-bold text-blue-600">2.1x</div>
               <p className="mt-2 text-sm text-slate-600">
                 more replies when SMS arrives at the right time vs
                 a random send window
@@ -165,7 +165,7 @@ export default function BestTimeToSendPage() {
               },
             ].map((item) => (
               <div key={item.step} className="text-center">
-                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-indigo-100 text-lg font-bold text-indigo-600">
+                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 text-lg font-bold text-blue-600">
                   {item.step}
                 </div>
                 <h3 className="mt-4 text-sm font-semibold text-slate-900">
