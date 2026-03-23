@@ -532,25 +532,25 @@ export default function OnboardingPage() {
             </p>
             <a
               href="/api/meta/auth"
-              className="inline-flex w-full items-center justify-center rounded-md bg-[#1877F2] px-4 py-2 text-sm font-medium text-white hover:bg-[#166FE5]"
+              className="inline-flex w-full items-center justify-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
             >
               Connect with Facebook
             </a>
             <a
               href="/api/google/auth"
-              className="inline-flex w-full items-center justify-center rounded-md bg-[#4285F4] px-4 py-2 text-sm font-medium text-white hover:bg-[#3367D6]"
+              className="inline-flex w-full items-center justify-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
             >
               Connect with Google Ads
             </a>
             <a
               href="/api/tiktok/auth"
-              className="inline-flex w-full items-center justify-center rounded-md bg-[#000000] px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a]"
+              className="inline-flex w-full items-center justify-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
             >
               Connect with TikTok
             </a>
             <a
               href="/api/linkedin/auth"
-              className="inline-flex w-full items-center justify-center rounded-md bg-[#0A66C2] px-4 py-2 text-sm font-medium text-white hover:bg-[#004182]"
+              className="inline-flex w-full items-center justify-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
             >
               Connect with LinkedIn
             </a>

@@ -128,7 +128,7 @@ export default async function SettingsPage() {
             {!business?.meta_ad_account_id && (
               <a
                 href="/api/meta/auth"
-                className="rounded-md bg-[#1877F2] px-3 py-1.5 text-xs font-medium text-white hover:bg-[#166FE5]"
+                className="rounded-md bg-blue-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-blue-700"
               >
                 Connect
               </a>
@@ -146,7 +146,7 @@ export default async function SettingsPage() {
             {!business?.google_customer_id && (
               <a
                 href="/api/google/auth"
-                className="rounded-md bg-[#4285F4] px-3 py-1.5 text-xs font-medium text-white hover:bg-[#3367D6]"
+                className="rounded-md bg-blue-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-blue-700"
               >
                 Connect
               </a>
@@ -164,7 +164,7 @@ export default async function SettingsPage() {
             {!business?.tiktok_advertiser_id && (
               <a
                 href="/api/tiktok/auth"
-                className="rounded-md bg-[#000000] px-3 py-1.5 text-xs font-medium text-white hover:bg-[#1a1a1a]"
+                className="rounded-md bg-blue-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-blue-700"
               >
                 Connect
               </a>
@@ -182,7 +182,7 @@ export default async function SettingsPage() {
             {!business?.linkedin_ad_account_id && (
               <a
                 href="/api/linkedin/auth"
-                className="rounded-md bg-[#0A66C2] px-3 py-1.5 text-xs font-medium text-white hover:bg-[#004182]"
+                className="rounded-md bg-blue-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-blue-700"
               >
                 Connect
               </a>
