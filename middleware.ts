@@ -25,7 +25,7 @@ const WEBHOOK_PATHS = [
   "/api/google/webhook",
 ];
 
-const AUTH_PATHS = ["/login", "/signup"];
+const AUTH_PATHS = ["/login", "/signup", "/reset-password", "/update-password"];
 
 function isWebhookRoute(pathname: string): boolean {
   return WEBHOOK_PATHS.some((p) => pathname.startsWith(p));

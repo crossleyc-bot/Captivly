@@ -15,10 +15,12 @@ export function CreateDealFromLead({
   const [title, setTitle] = useState(`Deal — ${leadName}`);
   const [value, setValue] = useState("");
   const [creating, setCreating] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   async function handleCreate() {
     if (!title.trim()) return;
     setCreating(true);
+    setError(null);
 
     const res = await fetch("/api/deals", {
       method: "POST",
@@ -34,6 +36,8 @@ export function CreateDealFromLead({
       const deal = await res.json();
       router.push(`/deals/${deal.id}`);
     } else {
+      const data = await res.json().catch(() => ({ error: "Failed to create deal" }));
+      setError(data.error ?? "Failed to create deal");
       setCreating(false);
     }
   }
@@ -52,6 +56,9 @@ export function CreateDealFromLead({
 
   return (
     <div className="rounded-lg border p-3 space-y-3">
+      {error && (
+        <div className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-700">{error}</div>
+      )}
       <input
         type="text"
         value={title}

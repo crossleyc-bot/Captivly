@@ -18,15 +18,21 @@ export function DealActions({
   const [addingNote, setAddingNote] = useState(false);
   const [noteText, setNoteText] = useState("");
   const [saving, setSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   async function moveToStage(stageId: string) {
     if (stageId === currentStageId) return;
     setMoving(true);
-    await fetch("/api/deals", {
+    setError(null);
+    const res = await fetch("/api/deals", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id: dealId, stage_id: stageId }),
     });
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({ error: "Failed to move deal" }));
+      setError(data.error ?? "Failed to move deal");
+    }
     setMoving(false);
     router.refresh();
   }
@@ -34,12 +40,20 @@ export function DealActions({
   async function addNote() {
     if (!noteText.trim()) return;
     setSaving(true);
+    setError(null);
 
-    await fetch("/api/deals", {
+    const res = await fetch("/api/deals", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id: dealId, notes: noteText.trim() }),
     });
+
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({ error: "Failed to save notes" }));
+      setError(data.error ?? "Failed to save notes");
+      setSaving(false);
+      return;
+    }
 
     setNoteText("");
     setAddingNote(false);
@@ -49,6 +63,9 @@ export function DealActions({
 
   return (
     <div className="space-y-4">
+      {error && (
+        <div className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-700">{error}</div>
+      )}
       {/* Move stage */}
       <div>
         <h2 className="text-lg font-semibold">Move Stage</h2>

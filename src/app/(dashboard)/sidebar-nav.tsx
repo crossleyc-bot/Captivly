@@ -37,7 +37,7 @@ export function SidebarNav() {
       {/* Mobile header bar */}
       <div className="fixed inset-x-0 top-0 z-40 flex items-center justify-between border-b bg-white px-4 py-3 lg:hidden">
         <Link href="/dashboard" className="flex items-center gap-2 text-lg font-bold">
-          {branding.logo_url ? (
+          {branding.logo_url && branding.logo_url.trim() !== "" ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img src={branding.logo_url} alt="" className="h-6 w-6 rounded object-cover" />
           ) : (
@@ -76,7 +76,7 @@ export function SidebarNav() {
         }`}
       >
         <Link href="/dashboard" className="flex items-center gap-2 text-xl font-bold text-white">
-          {branding.logo_url ? (
+          {branding.logo_url && branding.logo_url.trim() !== "" ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img src={branding.logo_url} alt="" className="h-7 w-7 rounded object-cover" />
           ) : (

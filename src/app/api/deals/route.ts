@@ -143,6 +143,16 @@ export async function PATCH(request: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  const { data: business } = await supabase
+    .from("businesses")
+    .select("id")
+    .eq("user_id", user.id)
+    .single();
+
+  if (!business) {
+    return NextResponse.json({ error: "No business found" }, { status: 404 });
+  }
+
   const body = await request.json();
   const { id, stage_id, title, value_cents, expected_close_date, notes } = body as {
     id: string;
@@ -157,12 +167,17 @@ export async function PATCH(request: NextRequest) {
     return NextResponse.json({ error: "Deal ID is required" }, { status: 400 });
   }
 
-  // Get current deal for activity logging
+  // Get current deal for activity logging, scoped to user's business
   const { data: currentDeal } = await supabase
     .from("deals")
     .select("stage_id, title")
     .eq("id", id)
+    .eq("business_id", business.id)
     .single();
+
+  if (!currentDeal) {
+    return NextResponse.json({ error: "Deal not found" }, { status: 404 });
+  }
 
   const updates: Record<string, unknown> = { updated_at: new Date().toISOString() };
   if (stage_id !== undefined) updates.stage_id = stage_id;
@@ -190,6 +205,7 @@ export async function PATCH(request: NextRequest) {
     .from("deals")
     .update(updates)
     .eq("id", id)
+    .eq("business_id", business.id)
     .select()
     .single();
 
@@ -238,6 +254,16 @@ export async function DELETE(request: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  const { data: business } = await supabase
+    .from("businesses")
+    .select("id")
+    .eq("user_id", user.id)
+    .single();
+
+  if (!business) {
+    return NextResponse.json({ error: "No business found" }, { status: 404 });
+  }
+
   const body = await request.json();
   const { id } = body as { id: string };
 
@@ -245,7 +271,7 @@ export async function DELETE(request: NextRequest) {
     return NextResponse.json({ error: "Deal ID is required" }, { status: 400 });
   }
 
-  const { error } = await supabase.from("deals").delete().eq("id", id);
+  const { error } = await supabase.from("deals").delete().eq("id", id).eq("business_id", business.id);
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });

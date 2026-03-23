@@ -40,29 +40,29 @@ export async function POST(request: NextRequest) {
   const lead = message.lead;
   const step = message.step;
 
-  // If a variant was assigned, use its subject/body instead of the step defaults
-  let effectiveSubject: string | null = step?.subject ?? null;
-  let effectiveBody: string = step?.body ?? "";
-
-  if (message.variant_id) {
-    const { data: variant } = await supabase
-      .from("sequence_step_variants")
-      .select("subject, body")
-      .eq("id", message.variant_id)
-      .single();
-
-    if (variant) {
-      effectiveSubject = variant.subject ?? effectiveSubject;
-      effectiveBody = variant.body;
-    }
-  }
-
   if (!lead || !step) {
     await supabase
       .from("messages_sent")
       .update({ status: "failed" })
       .eq("id", message_id);
     return NextResponse.json({ error: "Missing lead or step data" }, { status: 400 });
+  }
+
+  // If a variant was assigned, use its subject/body instead of the step defaults
+  let effectiveSubject: string | null = step.subject ?? null;
+  let effectiveBody: string = step.body ?? "";
+
+  if (message.variant_id) {
+    const { data: variant } = await supabase
+      .from("sequence_step_variants")
+      .select("subject, body")
+      .eq("id", message.variant_id)
+      .maybeSingle();
+
+    if (variant) {
+      effectiveSubject = variant.subject ?? effectiveSubject;
+      effectiveBody = variant.body ?? effectiveBody;
+    }
   }
 
   // Check usage limits for SMS

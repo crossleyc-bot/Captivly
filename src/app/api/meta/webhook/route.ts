@@ -59,7 +59,11 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Invalid signature" }, { status: 403 });
     }
     // Re-parse the body since we consumed it
-    body = JSON.parse(rawBody) as MetaWebhookBody;
+    try {
+      body = JSON.parse(rawBody) as MetaWebhookBody;
+    } catch {
+      return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
+    }
   } else {
     body = await request.json();
   }
@@ -100,10 +104,14 @@ export async function POST(request: NextRequest) {
         const leadRes = await fetch(
           `${META_API_BASE_URL}/${leadgen_id}?access_token=${business.meta_access_token}`
         );
-        if (!leadRes.ok) continue;
+        if (!leadRes.ok) {
+          console.error(`Meta API error for lead ${leadgen_id}: ${leadRes.status} ${leadRes.statusText}`);
+          continue;
+        }
         leadData = await leadRes.json();
-      } catch {
-        continue; // Skip on network/parse error
+      } catch (err) {
+        console.error(`Failed to fetch lead ${leadgen_id} from Meta:`, err);
+        continue;
       }
 
       // Validate field_data before parsing
@@ -156,21 +164,24 @@ export async function POST(request: NextRequest) {
         }
       }
 
-      // Save lead
+      // Save lead (upsert to handle race conditions with concurrent webhooks)
       const { data: lead } = await supabase
         .from("leads")
-        .insert({
-          business_id: business.id,
-          campaign_id: campaign?.id ?? null,
-          meta_lead_id: leadgen_id,
-          first_name: fieldData.full_name?.split(" ")[0] ?? fieldData.first_name ?? null,
-          last_name: fieldData.full_name?.split(" ").slice(1).join(" ") ?? fieldData.last_name ?? null,
-          email: fieldData.email ?? null,
-          phone: fieldData.phone_number ?? null,
-          custom_answers: fieldData,
-          status: "new",
-          source: "meta",
-        })
+        .upsert(
+          {
+            business_id: business.id,
+            campaign_id: campaign?.id ?? null,
+            meta_lead_id: leadgen_id,
+            first_name: fieldData.full_name?.split(" ")[0] ?? fieldData.first_name ?? null,
+            last_name: fieldData.full_name?.split(" ").slice(1).join(" ") ?? fieldData.last_name ?? null,
+            email: fieldData.email ?? null,
+            phone: fieldData.phone_number ?? null,
+            custom_answers: fieldData,
+            status: "new",
+            source: "meta",
+          },
+          { onConflict: "meta_lead_id", ignoreDuplicates: true }
+        )
         .select()
         .single();
 

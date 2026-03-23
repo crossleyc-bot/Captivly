@@ -150,6 +150,16 @@ export async function PATCH(request: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  const { data: business } = await supabase
+    .from("businesses")
+    .select("id")
+    .eq("user_id", user.id)
+    .single();
+
+  if (!business) {
+    return NextResponse.json({ error: "No business found" }, { status: 404 });
+  }
+
   const body = await request.json();
   const { id, name, trigger_stage_id, action_type, action_config, is_active } = body as {
     id: string;
@@ -165,7 +175,7 @@ export async function PATCH(request: NextRequest) {
   }
 
   const updates: Record<string, unknown> = { updated_at: new Date().toISOString() };
-  if (name !== undefined) updates.name = name.trim();
+  if (name !== undefined && typeof name === "string") updates.name = name.trim();
   if (trigger_stage_id !== undefined) updates.trigger_stage_id = trigger_stage_id;
   if (action_type !== undefined) updates.action_type = action_type;
   if (action_config !== undefined) updates.action_config = action_config;
@@ -175,6 +185,7 @@ export async function PATCH(request: NextRequest) {
     .from("pipeline_automations")
     .update(updates)
     .eq("id", id)
+    .eq("business_id", business.id)
     .select()
     .single();
 
@@ -199,6 +210,16 @@ export async function DELETE(request: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  const { data: business } = await supabase
+    .from("businesses")
+    .select("id")
+    .eq("user_id", user.id)
+    .single();
+
+  if (!business) {
+    return NextResponse.json({ error: "No business found" }, { status: 404 });
+  }
+
   const body = await request.json();
   const { id } = body as { id: string };
 
@@ -206,7 +227,7 @@ export async function DELETE(request: NextRequest) {
     return NextResponse.json({ error: "Automation ID is required" }, { status: 400 });
   }
 
-  const { error } = await supabase.from("pipeline_automations").delete().eq("id", id);
+  const { error } = await supabase.from("pipeline_automations").delete().eq("id", id).eq("business_id", business.id);
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });

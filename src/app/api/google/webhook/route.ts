@@ -128,27 +128,30 @@ export async function POST(request: NextRequest) {
     }
   }
 
-  // Save lead
+  // Save lead (upsert to handle race conditions with concurrent webhooks)
   const { data: lead } = await supabase
     .from("leads")
-    .insert({
-      business_id: business.id,
-      campaign_id: campaign?.id ?? null,
-      google_lead_id,
-      first_name:
-        fieldData.full_name?.split(" ")[0] ??
-        fieldData.first_name ??
-        null,
-      last_name:
-        fieldData.full_name?.split(" ").slice(1).join(" ") ??
-        fieldData.last_name ??
-        null,
-      email: fieldData.email ?? null,
-      phone: fieldData.phone_number ?? fieldData.phone ?? null,
-      custom_answers: fieldData,
-      status: "new",
-      source: "google",
-    })
+    .upsert(
+      {
+        business_id: business.id,
+        campaign_id: campaign?.id ?? null,
+        google_lead_id,
+        first_name:
+          fieldData.full_name?.split(" ")[0] ??
+          fieldData.first_name ??
+          null,
+        last_name:
+          fieldData.full_name?.split(" ").slice(1).join(" ") ??
+          fieldData.last_name ??
+          null,
+        email: fieldData.email ?? null,
+        phone: fieldData.phone_number ?? fieldData.phone ?? null,
+        custom_answers: fieldData,
+        status: "new",
+        source: "google",
+      },
+      { onConflict: "google_lead_id", ignoreDuplicates: true }
+    )
     .select()
     .single();
 
