@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
   }
 
   // Fetch full lead response data from LinkedIn API
-  let fieldData: Record<string, string> = {};
+  const fieldData: Record<string, string> = {};
   try {
     const leadRes = await fetch(
       `${LINKEDIN_API_BASE_URL}/leadGenFormResponses/${encodeURIComponent(leadGenFormResponseUrn)}`,
