@@ -32,7 +32,7 @@ export default async function CampaignsPage() {
         <div>
           <h1 className="text-2xl font-bold">Campaigns</h1>
           <p className="mt-1 text-sm text-slate-500">
-            Manage your Meta Lead Ad campaigns.
+            Manage your lead generation campaigns across all ad platforms.
           </p>
         </div>
         <Link
@@ -59,7 +59,32 @@ export default async function CampaignsPage() {
                   {c.status}
                 </span>
               </div>
-              <div className="mt-2 flex gap-6 text-sm text-slate-500">
+              <div className="mt-2 flex flex-wrap gap-4 text-sm text-slate-500">
+                <span className="inline-flex items-center gap-1">
+                  <span
+                    className="inline-block h-2 w-2 rounded-full"
+                    style={{
+                      backgroundColor: c.meta_campaign_id
+                        ? "#1877F2"
+                        : c.google_campaign_id
+                          ? "#4285F4"
+                          : c.tiktok_campaign_id
+                            ? "#000000"
+                            : c.linkedin_campaign_id
+                              ? "#0A66C2"
+                              : "#94a3b8",
+                    }}
+                  />
+                  {c.meta_campaign_id
+                    ? "Meta"
+                    : c.google_campaign_id
+                      ? "Google"
+                      : c.tiktok_campaign_id
+                        ? "TikTok"
+                        : c.linkedin_campaign_id
+                          ? "LinkedIn"
+                          : "Manual"}
+                </span>
                 <span>{c.leads_count} leads</span>
                 <span>{c.conversions_count} conversions</span>
                 {c.daily_budget_cents && (

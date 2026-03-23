@@ -63,7 +63,35 @@ export default async function CampaignDetailPage({
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-5">
+        <div className="rounded-lg border px-4 py-3">
+          <p className="text-xs font-medium text-slate-500">Platform</p>
+          <p className="mt-1 flex items-center gap-1.5 text-sm font-semibold">
+            <span
+              className="inline-block h-2.5 w-2.5 rounded-full"
+              style={{
+                backgroundColor: campaign.meta_campaign_id
+                  ? "#1877F2"
+                  : campaign.google_campaign_id
+                    ? "#4285F4"
+                    : campaign.tiktok_campaign_id
+                      ? "#000000"
+                      : campaign.linkedin_campaign_id
+                        ? "#0A66C2"
+                        : "#94a3b8",
+              }}
+            />
+            {campaign.meta_campaign_id
+              ? "Meta"
+              : campaign.google_campaign_id
+                ? "Google"
+                : campaign.tiktok_campaign_id
+                  ? "TikTok"
+                  : campaign.linkedin_campaign_id
+                    ? "LinkedIn"
+                    : "Manual"}
+          </p>
+        </div>
         <div className="rounded-lg border px-4 py-3">
           <p className="text-xs font-medium text-slate-500">Leads</p>
           <p className="mt-1 text-2xl font-bold">{campaign.leads_count}</p>

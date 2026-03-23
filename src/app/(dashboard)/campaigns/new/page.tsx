@@ -4,12 +4,24 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
 
+type AdPlatform = "meta" | "google" | "tiktok" | "linkedin";
+
+const PLATFORMS: { id: AdPlatform; label: string; color: string; endpoint: string }[] = [
+  { id: "meta", label: "Meta (Facebook/Instagram)", color: "#1877F2", endpoint: "/api/meta/create-campaign" },
+  { id: "google", label: "Google Ads", color: "#4285F4", endpoint: "/api/google/create-campaign" },
+  { id: "tiktok", label: "TikTok", color: "#000000", endpoint: "/api/tiktok/create-campaign" },
+  { id: "linkedin", label: "LinkedIn", color: "#0A66C2", endpoint: "/api/linkedin/create-campaign" },
+];
+
 export default function NewCampaignPage() {
   const router = useRouter();
+  const [platform, setPlatform] = useState<AdPlatform>("meta");
   const [name, setName] = useState("");
   const [dailyBudget, setDailyBudget] = useState("10.00");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
+  const selectedPlatform = PLATFORMS.find((p) => p.id === platform)!;
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -23,7 +35,7 @@ export default function NewCampaignPage() {
       return;
     }
 
-    const res = await fetch("/api/meta/create-campaign", {
+    const res = await fetch(selectedPlatform.endpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -58,8 +70,7 @@ export default function NewCampaignPage() {
         </Link>
         <h1 className="mt-2 text-2xl font-bold">New Campaign</h1>
         <p className="mt-1 text-sm text-slate-500">
-          Create a new Meta Lead Ad campaign. Your Meta ad account must be
-          connected first.
+          Create a lead generation campaign on your chosen ad platform.
         </p>
       </div>
 
@@ -69,6 +80,36 @@ export default function NewCampaignPage() {
             {error}
           </div>
         )}
+
+        {/* Platform selector */}
+        <div>
+          <label className="block text-sm font-medium text-slate-700">
+            Ad platform
+          </label>
+          <div className="mt-2 grid grid-cols-2 gap-2">
+            {PLATFORMS.map((p) => (
+              <button
+                key={p.id}
+                type="button"
+                onClick={() => setPlatform(p.id)}
+                className={`flex items-center gap-2 rounded-md border px-3 py-2 text-sm font-medium transition-colors ${
+                  platform === p.id
+                    ? "border-slate-900 ring-1 ring-slate-900"
+                    : "border-slate-200 text-slate-600 hover:border-slate-300"
+                }`}
+              >
+                <span
+                  className="inline-block h-3 w-3 rounded-full"
+                  style={{ backgroundColor: p.color }}
+                />
+                {p.label}
+              </button>
+            ))}
+          </div>
+          <p className="mt-1.5 text-xs text-slate-400">
+            Your {selectedPlatform.label} account must be connected first.
+          </p>
+        </div>
 
         <div>
           <label
@@ -118,7 +159,7 @@ export default function NewCampaignPage() {
             disabled={loading || !name.trim()}
             className="rounded-md bg-teal-600 px-6 py-2 text-sm font-medium text-white hover:bg-teal-700 disabled:opacity-50"
           >
-            {loading ? "Creating..." : "Create campaign"}
+            {loading ? "Creating..." : `Create on ${selectedPlatform.label}`}
           </button>
           <Link
             href="/campaigns"
