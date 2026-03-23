@@ -151,7 +151,30 @@ function createMockSupabaseClient() {
         const item = items[0] ?? null;
         return Promise.resolve({ data: item, error: null });
       },
+      maybeSingle: () => {
+        const items = getTableItems(table, filters);
+        const item = items[0] ?? null;
+        return Promise.resolve({ data: item, error: null });
+      },
       insert: (row: Record<string, unknown> | Record<string, unknown>[]) => {
+        const rows = Array.isArray(row) ? row : [row];
+        for (const r of rows) {
+          const id = (r.id as string) ?? `${table}-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;
+          const record = { ...r, id, created_at: new Date().toISOString() };
+          db[table as keyof typeof db]?.set(id, record);
+        }
+        const lastId = Array.from(db[table as keyof typeof db]?.keys() ?? []).pop();
+        return {
+          select: () => ({
+            single: () =>
+              Promise.resolve({
+                data: lastId ? db[table as keyof typeof db]?.get(lastId) : null,
+                error: null,
+              }),
+          }),
+        };
+      },
+      upsert: (row: Record<string, unknown> | Record<string, unknown>[], _opts?: Record<string, unknown>) => {
         const rows = Array.isArray(row) ? row : [row];
         for (const r of rows) {
           const id = (r.id as string) ?? `${table}-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;

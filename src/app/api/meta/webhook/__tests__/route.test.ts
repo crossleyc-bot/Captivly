@@ -130,7 +130,7 @@ describe("POST /api/meta/webhook (lead ingestion)", () => {
         };
       }
       if (table === "leads") {
-        // First call is dedup check, subsequent calls are insert
+        // First call is dedup check, subsequent calls are upsert
         if (!leadsCallCount) {
           leadsCallCount++;
           return {
@@ -140,7 +140,7 @@ describe("POST /api/meta/webhook (lead ingestion)", () => {
           };
         }
         return {
-          insert: vi.fn().mockReturnValue({
+          upsert: vi.fn().mockReturnValue({
             select: vi.fn().mockReturnValue({
               single: vi.fn().mockResolvedValue({
                 data: { id: "lead-1" },

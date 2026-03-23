@@ -143,7 +143,7 @@ describe("POST /api/google/webhook (Google Pub/Sub lead ingestion)", () => {
             }),
           }),
         });
-        return { insert: mockInsert };
+        return { upsert: mockInsert };
       }
       return { select: vi.fn().mockReturnValue({ eq: vi.fn() }) };
     });
@@ -262,7 +262,7 @@ describe("POST /api/google/webhook (Google Pub/Sub lead ingestion)", () => {
     const data = await res.json();
     expect(data.received).toBe(true);
 
-    // Should have inserted the lead
+    // Should have upserted the lead
     expect(mockInsert).toHaveBeenCalledWith(
       expect.objectContaining({
         business_id: "biz-1",
@@ -273,7 +273,8 @@ describe("POST /api/google/webhook (Google Pub/Sub lead ingestion)", () => {
         phone: "+1234567890",
         source: "google",
         status: "new",
-      })
+      }),
+      expect.objectContaining({ onConflict: "google_lead_id", ignoreDuplicates: true })
     );
 
     // Should have called increment_usage rpc
@@ -385,7 +386,8 @@ describe("POST /api/google/webhook (Google Pub/Sub lead ingestion)", () => {
         last_name: "Marie Doe",
         email: "jane@test.com",
         phone: "+9876543210",
-      })
+      }),
+      expect.objectContaining({ onConflict: "google_lead_id", ignoreDuplicates: true })
     );
   });
 });

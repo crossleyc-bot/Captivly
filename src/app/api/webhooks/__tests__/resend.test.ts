@@ -5,6 +5,15 @@ stubTestEnv();
 
 vi.stubEnv("RESEND_WEBHOOK_SECRET", "test-secret");
 
+// Mock Svix — always pass verification in tests
+vi.mock("svix", () => {
+  return {
+    Webhook: class MockWebhook {
+      verify() { return true; }
+    },
+  };
+});
+
 // Mock Supabase
 const mockUpdate = vi.fn().mockReturnValue({ eq: vi.fn().mockReturnValue({ eq: vi.fn().mockResolvedValue({}) }) });
 const mockSingle = vi.fn().mockResolvedValue({ data: null });
@@ -54,11 +63,11 @@ describe("POST /api/webhooks/resend", () => {
     mockUpdate.mockReturnValue({ eq: vi.fn().mockReturnValue({ eq: vi.fn().mockResolvedValue({}) }) });
   });
 
-  it("returns 401 when svix-signature header is missing", async () => {
+  it("returns 401 when svix headers are missing", async () => {
     const res = await POST(createRequest({ type: "email.delivered", data: {} }));
     expect(res.status).toBe(401);
     const data = await res.json();
-    expect(data.error).toBe("Missing signature");
+    expect(data.error).toBe("Missing webhook signature headers");
   });
 
   it("handles email.delivered - updates messages_sent status to delivered", async () => {
@@ -77,7 +86,7 @@ describe("POST /api/webhooks/resend", () => {
       },
     };
 
-    const res = await POST(createRequest(event, { "svix-signature": "valid-sig" }));
+    const res = await POST(createRequest(event, { "svix-id": "msg_test", "svix-timestamp": "1234567890", "svix-signature": "v1,valid-sig" }));
     expect(res.status).toBe(200);
     const data = await res.json();
     expect(data.received).toBe(true);
@@ -106,7 +115,7 @@ describe("POST /api/webhooks/resend", () => {
       },
     };
 
-    const res = await POST(createRequest(event, { "svix-signature": "valid-sig" }));
+    const res = await POST(createRequest(event, { "svix-id": "msg_test", "svix-timestamp": "1234567890", "svix-signature": "v1,valid-sig" }));
     expect(res.status).toBe(200);
     const data = await res.json();
     expect(data.received).toBe(true);
@@ -153,7 +162,7 @@ describe("POST /api/webhooks/resend", () => {
       },
     };
 
-    const res = await POST(createRequest(event, { "svix-signature": "valid-sig" }));
+    const res = await POST(createRequest(event, { "svix-id": "msg_test", "svix-timestamp": "1234567890", "svix-signature": "v1,valid-sig" }));
     expect(res.status).toBe(200);
     const data = await res.json();
     expect(data.received).toBe(true);
@@ -181,7 +190,7 @@ describe("POST /api/webhooks/resend", () => {
       },
     };
 
-    const res = await POST(createRequest(event, { "svix-signature": "valid-sig" }));
+    const res = await POST(createRequest(event, { "svix-id": "msg_test", "svix-timestamp": "1234567890", "svix-signature": "v1,valid-sig" }));
     expect(res.status).toBe(200);
     const data = await res.json();
     expect(data.received).toBe(true);
