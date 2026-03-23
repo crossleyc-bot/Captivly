@@ -1,6 +1,55 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
-import { Logo } from "@/components/logo";
+import { MarketingHeader } from "@/components/marketing-header";
+import { MarketingFooter } from "@/components/marketing-footer";
+
+export const metadata: Metadata = {
+  title: "Captivly.ai — Automated Lead Generation for Local Businesses",
+  description:
+    "Connect your Meta Lead Ads, score leads with AI, and fire personalized email & SMS outreach sequences — all on autopilot. Built for gyms, salons, restaurants, and home service providers.",
+  openGraph: {
+    title: "Captivly.ai — Automated Lead Generation for Local Businesses",
+    description:
+      "Connect your Meta Lead Ads, score leads with AI, and fire personalized email & SMS outreach sequences — all on autopilot.",
+    type: "website",
+    url: "https://captivly.ai",
+    siteName: "Captivly.ai",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Captivly.ai — Automated Lead Generation for Local Businesses",
+    description:
+      "Connect your Meta Lead Ads, score leads with AI, and fire personalized email & SMS outreach sequences — all on autopilot.",
+  },
+};
+
+const faqs = [
+  {
+    q: "Do I need marketing experience?",
+    a: "Not at all. Captivly handles everything — from lead capture to AI-powered follow-up. You set up once during onboarding and the platform runs your outreach automatically.",
+  },
+  {
+    q: "How does the 14-day free trial work?",
+    a: "You get full access to your chosen plan for 14 days. No charge until the trial ends. Cancel anytime during the trial and you won't be billed.",
+  },
+  {
+    q: "Can I cancel anytime?",
+    a: "Yes. There are no contracts or cancellation fees. You can cancel, upgrade, or downgrade your plan at any time from the billing settings.",
+  },
+  {
+    q: "What ad platforms do you support?",
+    a: "Captivly integrates with Meta Lead Ads (Facebook & Instagram) and Google Ads lead forms. Leads flow in automatically via real-time webhooks.",
+  },
+  {
+    q: "How fast are leads contacted?",
+    a: "Within 60 seconds. As soon as a lead submits your ad form, Captivly scores them with AI and fires the first personalized email or SMS automatically.",
+  },
+  {
+    q: "Is my data secure?",
+    a: "Yes. We use Supabase with row-level security so your data is fully isolated. All connections are encrypted, and we never share your lead data with other businesses.",
+  },
+];
 
 export default async function Home() {
   const supabase = await createClient();
@@ -10,47 +59,7 @@ export default async function Home() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <header className="flex items-center justify-between px-6 py-4 border-b">
-        <Link href="/">
-          <Logo size={24} />
-        </Link>
-        <nav className="hidden items-center gap-6 sm:flex">
-          <Link href="#how-it-works" className="text-sm font-medium text-slate-600 hover:text-slate-900">
-            How It Works
-          </Link>
-          <Link href="#features" className="text-sm font-medium text-slate-600 hover:text-slate-900">
-            Features
-          </Link>
-          <Link href="#pricing" className="text-sm font-medium text-slate-600 hover:text-slate-900">
-            Pricing
-          </Link>
-        </nav>
-        <nav className="flex items-center gap-4">
-          {user ? (
-            <Link
-              href="/dashboard"
-              className="rounded-full bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-teal-700"
-            >
-              Dashboard
-            </Link>
-          ) : (
-            <>
-              <Link
-                href="/login"
-                className="text-sm font-medium text-slate-600 hover:text-slate-900"
-              >
-                Log in
-              </Link>
-              <Link
-                href="/signup"
-                className="rounded-full bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-teal-700"
-              >
-                Get Started
-              </Link>
-            </>
-          )}
-        </nav>
-      </header>
+      <MarketingHeader user={user} />
 
       <main className="flex flex-1 flex-col items-center justify-center bg-gradient-to-b from-teal-50 via-white to-white px-6 py-12 text-center">
         <h1 className="max-w-2xl text-5xl font-bold tracking-tight text-slate-900">
@@ -330,6 +339,27 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* FAQ */}
+      <section id="faq" className="border-t bg-white px-6 py-16">
+        <div className="mx-auto max-w-3xl">
+          <h2 className="text-center text-3xl font-bold tracking-tight text-slate-900">
+            Frequently asked questions
+          </h2>
+          <p className="mx-auto mt-4 max-w-xl text-center text-slate-600">
+            Everything you need to know before getting started.
+          </p>
+
+          <dl className="mt-10 space-y-6">
+            {faqs.map((faq) => (
+              <div key={faq.q} className="rounded-lg border border-slate-200 px-5 py-4">
+                <dt className="text-sm font-semibold text-slate-900">{faq.q}</dt>
+                <dd className="mt-2 text-sm leading-relaxed text-slate-600">{faq.a}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
+
       {/* Social Proof */}
       <section className="border-t bg-white px-6 py-16">
         <div className="mx-auto max-w-4xl text-center">
@@ -369,45 +399,7 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t bg-slate-50 px-6 py-12">
-        <div className="mx-auto max-w-5xl">
-          <div className="grid gap-8 sm:grid-cols-4">
-            <div>
-              <Logo size={20} />
-              <p className="mt-3 text-sm text-slate-500">
-                Automated lead generation for local businesses.
-              </p>
-            </div>
-            <div>
-              <h4 className="text-sm font-semibold text-slate-900">Product</h4>
-              <ul className="mt-3 space-y-2">
-                <li><Link href="#features" className="text-sm text-slate-500 hover:text-slate-700">Features</Link></li>
-                <li><Link href="#pricing" className="text-sm text-slate-500 hover:text-slate-700">Pricing</Link></li>
-                <li><Link href="#how-it-works" className="text-sm text-slate-500 hover:text-slate-700">How It Works</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-sm font-semibold text-slate-900">Resources</h4>
-              <ul className="mt-3 space-y-2">
-                <li><Link href="/features/meta-lead-ads" className="text-sm text-slate-500 hover:text-slate-700">Meta Lead Ads</Link></li>
-                <li><Link href="/features/google-ads" className="text-sm text-slate-500 hover:text-slate-700">Google Ads</Link></li>
-                <li><Link href="/features/ai-lead-scoring" className="text-sm text-slate-500 hover:text-slate-700">AI Lead Scoring</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-sm font-semibold text-slate-900">Legal</h4>
-              <ul className="mt-3 space-y-2">
-                <li><Link href="/privacy" className="text-sm text-slate-500 hover:text-slate-700">Privacy Policy</Link></li>
-                <li><Link href="/terms" className="text-sm text-slate-500 hover:text-slate-700">Terms of Service</Link></li>
-              </ul>
-            </div>
-          </div>
-          <div className="mt-10 border-t pt-6 text-center text-sm text-slate-400">
-            &copy; {new Date().getFullYear()} Captivly.ai. All rights reserved.
-          </div>
-        </div>
-      </footer>
+      <MarketingFooter />
     </div>
   );
 }

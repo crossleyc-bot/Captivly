@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Logo } from "@/components/logo";
+import { MarketingHeader } from "@/components/marketing-header";
+import { MarketingFooter } from "@/components/marketing-footer";
 
 export const metadata = {
   title: "Privacy Policy - Captivly",
@@ -8,21 +9,18 @@ export const metadata = {
 export default function PrivacyPolicy() {
   return (
     <div className="min-h-screen bg-white">
-      <header className="flex items-center justify-between border-b px-6 py-4">
-        <Link href="/">
-          <Logo size={24} />
-        </Link>
-        <Link
-          href="/signup"
-          className="rounded-full bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-teal-700"
-        >
-          Get Started
-        </Link>
-      </header>
+      <MarketingHeader showNav={false} />
 
       <main className="mx-auto max-w-3xl px-6 py-16">
         <h1 className="text-3xl font-bold text-slate-900">Privacy Policy</h1>
         <p className="mt-2 text-sm text-slate-500">Last updated: March 23, 2026</p>
+
+        <nav className="mt-4 flex gap-4 text-sm">
+          <span className="font-medium text-slate-900">Privacy Policy</span>
+          <Link href="/terms" className="font-medium text-teal-600 hover:text-teal-700">
+            Terms of Service
+          </Link>
+        </nav>
 
         <div className="mt-10 space-y-8 text-sm leading-relaxed text-slate-600">
           <section>
@@ -136,9 +134,7 @@ export default function PrivacyPolicy() {
         </div>
       </main>
 
-      <footer className="border-t px-6 py-8 text-center text-sm text-slate-400">
-        &copy; {new Date().getFullYear()} Captivly.ai. All rights reserved.
-      </footer>
+      <MarketingFooter />
     </div>
   );
 }
