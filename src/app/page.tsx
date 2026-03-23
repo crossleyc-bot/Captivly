@@ -59,7 +59,7 @@ export default async function Home() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <MarketingHeader user={user} />
+      <MarketingHeader user={user ? { id: user.id } : null} />
 
       <main id="main-content" className="flex flex-1 flex-col items-center justify-center bg-gradient-to-b from-teal-50 via-white to-white px-6 py-16 text-center">
         <div className="rounded-full bg-amber-100 px-4 py-1.5 text-xs font-medium text-amber-700">
