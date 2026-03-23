@@ -341,6 +341,29 @@ export interface ReferralLink {
 
 export type ReferralStatus = "clicked" | "signed_up" | "converted";
 
+export type SupportTicketStatus = "open" | "in_progress" | "resolved" | "closed";
+export type SupportTicketUrgency = "low" | "medium" | "high";
+
+export interface SupportTicket {
+  id: string;
+  user_id: string;
+  business_id: string | null;
+  subject: string;
+  message: string;
+  status: SupportTicketStatus;
+  urgency: SupportTicketUrgency;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface ContactSubmission {
+  id: string;
+  name: string;
+  email: string;
+  message: string;
+  created_at: string;
+}
+
 export interface Referral {
   id: string;
   business_id: string;

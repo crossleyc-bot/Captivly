@@ -193,6 +193,20 @@ export default async function SettingsPage() {
 
       {/* Billing actions */}
       <BillingActions hasBilling={hasBilling} currentPlan={plan} />
+
+      {/* Support */}
+      <section className="space-y-3">
+        <h2 className="text-lg font-semibold">Need Help?</h2>
+        <div className="rounded-lg border px-4 py-3">
+          <p className="text-sm text-slate-600">
+            Having an issue or need assistance?{" "}
+            <a href="/support" className="text-blue-600 hover:text-blue-700 hover:underline">
+              Submit a support ticket
+            </a>{" "}
+            and our team will get back to you.
+          </p>
+        </div>
+      </section>
     </div>
   );
 }

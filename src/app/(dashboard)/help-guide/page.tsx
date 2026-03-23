@@ -211,7 +211,11 @@ export default async function HelpGuidePage() {
 
       <div className="rounded-lg border border-dashed border-slate-300 px-6 py-8 text-center">
         <p className="text-sm text-slate-500">
-          Still have questions? Reach out to our support team at{" "}
+          Still have questions?{" "}
+          <a href="/support" className="text-blue-600 hover:text-blue-700 hover:underline">
+            Submit a support ticket
+          </a>{" "}
+          or email us at{" "}
           <a href="mailto:support@captivly.ai" className="text-blue-600 hover:text-blue-700 hover:underline">
             support@captivly.ai
           </a>

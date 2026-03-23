@@ -57,3 +57,24 @@ export function msgStatusColor(status: string): string {
   };
   return colors[status] ?? "text-slate-500";
 }
+
+/** Badge classes for support ticket statuses. */
+export function ticketStatusBadge(status: string): string {
+  const colors: Record<string, string> = {
+    open: "bg-blue-100 text-blue-700",
+    in_progress: "bg-yellow-100 text-yellow-700",
+    resolved: "bg-green-100 text-green-700",
+    closed: "bg-slate-100 text-slate-600",
+  };
+  return colors[status] ?? "bg-slate-100 text-slate-600";
+}
+
+/** Color class for support ticket urgency. */
+export function ticketUrgencyColor(urgency: string): string {
+  const colors: Record<string, string> = {
+    low: "text-slate-500",
+    medium: "text-yellow-600",
+    high: "text-red-600",
+  };
+  return colors[urgency] ?? "text-slate-500";
+}
