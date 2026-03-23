@@ -1,5 +1,18 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { Logo } from "@/components/logo";
+
+export const metadata: Metadata = {
+  title: "Automated Outreach Sequences",
+  description:
+    "AI writes personalized multi-step email and SMS sequences for every lead. The right message, to the right person, at the right time.",
+  openGraph: {
+    title: "Automated Outreach Sequences - Captivly.ai",
+    description:
+      "AI writes personalized multi-step email and SMS sequences for every lead.",
+    url: "https://captivly.ai/features/automated-outreach",
+  },
+};
 
 export default function AutomatedOutreachPage() {
   return (

@@ -1,5 +1,18 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { Logo } from "@/components/logo";
+
+export const metadata: Metadata = {
+  title: "Lead Assignment Rules",
+  description:
+    "Automatically route leads to the right team member based on campaign, AI score, location, or round-robin.",
+  openGraph: {
+    title: "Lead Assignment Rules - Captivly.ai",
+    description:
+      "Auto-route leads to the right team member by campaign, score, location, or round-robin.",
+    url: "https://captivly.ai/features/lead-assignment",
+  },
+};
 
 export default function LeadAssignmentPage() {
   return (

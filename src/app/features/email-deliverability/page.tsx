@@ -1,5 +1,18 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { Logo } from "@/components/logo";
+
+export const metadata: Metadata = {
+  title: "Email Deliverability Monitoring",
+  description:
+    "Track bounce rates, spam complaints, domain reputation, and inbox placement in real time.",
+  openGraph: {
+    title: "Email Deliverability Monitoring - Captivly.ai",
+    description:
+      "Track bounce rates, spam complaints, and inbox placement in real time.",
+    url: "https://captivly.ai/features/email-deliverability",
+  },
+};
 
 export default function EmailDeliverabilityPage() {
   return (

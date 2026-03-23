@@ -1,5 +1,18 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { Logo } from "@/components/logo";
+
+export const metadata: Metadata = {
+  title: "AI Lead Scoring",
+  description:
+    "Every lead is instantly scored 1-10 by AI based on fit with your ideal customer profile. Focus on the leads most likely to convert.",
+  openGraph: {
+    title: "AI Lead Scoring - Captivly.ai",
+    description:
+      "Every lead is instantly scored 1-10 by AI based on fit with your ideal customer profile.",
+    url: "https://captivly.ai/features/ai-lead-scoring",
+  },
+};
 
 export default function AILeadScoringPage() {
   return (

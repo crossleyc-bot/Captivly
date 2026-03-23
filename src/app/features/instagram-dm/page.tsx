@@ -1,5 +1,18 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { Logo } from "@/components/logo";
+
+export const metadata: Metadata = {
+  title: "Instagram DM Automation",
+  description:
+    "When someone clicks your Instagram ad and sends a DM, Captivly.ai responds instantly with AI-generated replies.",
+  openGraph: {
+    title: "Instagram DM Automation - Captivly.ai",
+    description:
+      "AI responds instantly to Instagram DMs from your ads. Turn every DM into a customer.",
+    url: "https://captivly.ai/features/instagram-dm",
+  },
+};
 
 export default function InstagramDmPage() {
   return (

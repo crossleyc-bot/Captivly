@@ -1,5 +1,18 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { Logo } from "@/components/logo";
+
+export const metadata: Metadata = {
+  title: "Appointment & Booking Integration",
+  description:
+    "Connect Calendly, Acuity, or use our built-in scheduler so leads can book directly from your outreach messages.",
+  openGraph: {
+    title: "Appointment & Booking Integration - Captivly.ai",
+    description:
+      "Let leads book directly from your outreach messages with Calendly, Acuity, or built-in scheduling.",
+    url: "https://captivly.ai/features/booking-integration",
+  },
+};
 
 export default function BookingIntegrationPage() {
   return (

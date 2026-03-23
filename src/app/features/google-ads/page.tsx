@@ -1,5 +1,18 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { Logo } from "@/components/logo";
+
+export const metadata: Metadata = {
+  title: "Google Ads Lead Form Integration",
+  description:
+    "Capture leads from Google Search and YouTube ads with lead form extensions. Leads flow into Captivly.ai in real time.",
+  openGraph: {
+    title: "Google Ads Lead Form Integration - Captivly.ai",
+    description:
+      "Capture leads from Google Search and YouTube ads. Scored, sequenced, and followed up automatically.",
+    url: "https://captivly.ai/features/google-ads",
+  },
+};
 
 export default function GoogleAdsPage() {
   return (

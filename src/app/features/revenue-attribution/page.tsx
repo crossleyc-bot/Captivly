@@ -1,5 +1,18 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { Logo } from "@/components/logo";
+
+export const metadata: Metadata = {
+  title: "Revenue Attribution",
+  description:
+    "Track the actual dollar value from lead to paying customer. Know exactly how much revenue each campaign and sequence generates.",
+  openGraph: {
+    title: "Revenue Attribution - Captivly.ai",
+    description:
+      "Track dollar value from lead to customer across every campaign and sequence.",
+    url: "https://captivly.ai/features/revenue-attribution",
+  },
+};
 
 export default function RevenueAttributionPage() {
   return (

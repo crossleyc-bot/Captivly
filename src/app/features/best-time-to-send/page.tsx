@@ -1,5 +1,18 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { Logo } from "@/components/logo";
+
+export const metadata: Metadata = {
+  title: "Best Time to Send Analysis",
+  description:
+    "AI analyzes your open rates, reply rates, and conversion patterns to find the optimal send time for every audience segment.",
+  openGraph: {
+    title: "Best Time to Send Analysis - Captivly.ai",
+    description:
+      "AI finds the optimal send time for every audience segment based on your data.",
+    url: "https://captivly.ai/features/best-time-to-send",
+  },
+};
 
 export default function BestTimeToSendPage() {
   return (

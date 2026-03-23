@@ -1,5 +1,18 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { Logo } from "@/components/logo";
+
+export const metadata: Metadata = {
+  title: "Meta Lead Ads Integration",
+  description:
+    "Connect your Facebook and Instagram ad accounts in one click. New leads flow into Captivly.ai automatically via real-time webhooks.",
+  openGraph: {
+    title: "Meta Lead Ads Integration - Captivly.ai",
+    description:
+      "Connect your Facebook and Instagram ad accounts in one click. Leads flow in automatically.",
+    url: "https://captivly.ai/features/meta-lead-ads",
+  },
+};
 
 export default function MetaLeadAdsPage() {
   return (

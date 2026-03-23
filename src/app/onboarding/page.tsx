@@ -257,6 +257,7 @@ export default function OnboardingPage() {
               <input
                 id="name"
                 type="text"
+                autoComplete="organization"
                 value={data.name}
                 onChange={(e) => update({ name: e.target.value })}
                 placeholder="e.g. Peak Fitness Gym"
@@ -289,6 +290,7 @@ export default function OnboardingPage() {
                 <input
                   id="city"
                   type="text"
+                  autoComplete="address-level2"
                   value={data.location_city}
                   onChange={(e) => update({ location_city: e.target.value })}
                   className={inputClass}
@@ -301,6 +303,7 @@ export default function OnboardingPage() {
                 <input
                   id="state"
                   type="text"
+                  autoComplete="address-level1"
                   value={data.location_state}
                   onChange={(e) => update({ location_state: e.target.value })}
                   maxLength={2}
@@ -315,6 +318,7 @@ export default function OnboardingPage() {
                 <input
                   id="zip"
                   type="text"
+                  autoComplete="postal-code"
                   value={data.location_zip}
                   onChange={(e) => update({ location_zip: e.target.value })}
                   maxLength={5}

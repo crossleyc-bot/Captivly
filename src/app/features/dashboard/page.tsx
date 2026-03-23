@@ -1,5 +1,18 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { Logo } from "@/components/logo";
+
+export const metadata: Metadata = {
+  title: "Real-Time Dashboard",
+  description:
+    "See every lead, message status, and conversion in one place. Know exactly how your campaigns are performing.",
+  openGraph: {
+    title: "Real-Time Dashboard - Captivly.ai",
+    description:
+      "See every lead, message status, and conversion in one place.",
+    url: "https://captivly.ai/features/dashboard",
+  },
+};
 
 export default function DashboardFeaturePage() {
   return (

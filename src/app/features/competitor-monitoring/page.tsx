@@ -1,5 +1,18 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { Logo } from "@/components/logo";
+
+export const metadata: Metadata = {
+  title: "Competitor Ad Monitoring",
+  description:
+    "See what competing local businesses are running on Meta — their ad creative, copy, offers, and targeting. Updated daily.",
+  openGraph: {
+    title: "Competitor Ad Monitoring - Captivly.ai",
+    description:
+      "See competitor ad creative, copy, offers, and targeting from Meta Ad Library.",
+    url: "https://captivly.ai/features/competitor-monitoring",
+  },
+};
 
 export default function CompetitorMonitoringPage() {
   return (

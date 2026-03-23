@@ -1,5 +1,18 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { Logo } from "@/components/logo";
+
+export const metadata: Metadata = {
+  title: "WhatsApp Outreach",
+  description:
+    "Reach leads on the messaging app they use most. WhatsApp boasts 98% open rates for the highest-engagement lead follow-up.",
+  openGraph: {
+    title: "WhatsApp Outreach - Captivly.ai",
+    description:
+      "Reach leads via WhatsApp with 98% open rates for highest-engagement follow-up.",
+    url: "https://captivly.ai/features/whatsapp-outreach",
+  },
+};
 
 export default function WhatsAppOutreachPage() {
   return (

@@ -1,5 +1,18 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { Logo } from "@/components/logo";
+
+export const metadata: Metadata = {
+  title: "White-Label Ready",
+  description:
+    "On the Pro plan, rebrand Captivly.ai as your own platform. Custom logo, colors, and domain for your clients.",
+  openGraph: {
+    title: "White-Label Ready - Captivly.ai",
+    description:
+      "Rebrand Captivly.ai with your own logo, colors, and domain on the Pro plan.",
+    url: "https://captivly.ai/features/white-label",
+  },
+};
 
 export default function WhiteLabelPage() {
   return (

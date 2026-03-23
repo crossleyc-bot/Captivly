@@ -1,5 +1,18 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { Logo } from "@/components/logo";
+
+export const metadata: Metadata = {
+  title: "TCPA & GDPR Compliance",
+  description:
+    "Opt-in tracking, consent management, and auto-unsubscribe built into every message. Stay compliant without thinking about it.",
+  openGraph: {
+    title: "TCPA & GDPR Compliance - Captivly.ai",
+    description:
+      "Built-in opt-in tracking, consent management, and auto-unsubscribe for every message.",
+    url: "https://captivly.ai/features/compliance",
+  },
+};
 
 export default function CompliancePage() {
   return (

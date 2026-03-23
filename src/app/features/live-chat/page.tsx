@@ -1,5 +1,18 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { Logo } from "@/components/logo";
+
+export const metadata: Metadata = {
+  title: "AI-Powered Live Chat",
+  description:
+    "Capture leads from your website with an AI chat widget that answers questions, qualifies visitors, and collects contact info 24/7.",
+  openGraph: {
+    title: "AI-Powered Live Chat - Captivly.ai",
+    description:
+      "AI chat widget that answers questions, qualifies visitors, and captures leads 24/7.",
+    url: "https://captivly.ai/features/live-chat",
+  },
+};
 
 export default function LiveChatPage() {
   return (

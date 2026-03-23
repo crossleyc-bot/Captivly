@@ -1,5 +1,18 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { Logo } from "@/components/logo";
+
+export const metadata: Metadata = {
+  title: "Lead Source Comparison",
+  description:
+    "Side-by-side performance of Meta vs Google vs organic leads. See which channels deliver the highest-quality leads at the lowest cost.",
+  openGraph: {
+    title: "Lead Source Comparison - Captivly.ai",
+    description:
+      "Compare Meta vs Google vs organic lead performance side by side.",
+    url: "https://captivly.ai/features/lead-source-comparison",
+  },
+};
 
 export default function LeadSourceComparisonPage() {
   return (

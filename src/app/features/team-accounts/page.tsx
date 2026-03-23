@@ -1,5 +1,18 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { Logo } from "@/components/logo";
+
+export const metadata: Metadata = {
+  title: "Team Member Accounts",
+  description:
+    "Let your front desk, sales reps, and managers access leads without sharing the owner login. Role-based access control.",
+  openGraph: {
+    title: "Team Member Accounts - Captivly.ai",
+    description:
+      "Role-based access for front desk, sales reps, and managers.",
+    url: "https://captivly.ai/features/team-accounts",
+  },
+};
 
 export default function TeamAccountsPage() {
   return (

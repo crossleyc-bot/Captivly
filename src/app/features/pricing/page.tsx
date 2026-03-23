@@ -1,5 +1,18 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { Logo } from "@/components/logo";
+
+export const metadata: Metadata = {
+  title: "Pricing",
+  description:
+    "Start small with 100 leads per month, scale to 2,000+. SMS, multiple campaigns, and AI reports unlock as you grow. No long-term contracts.",
+  openGraph: {
+    title: "Pricing - Captivly.ai",
+    description:
+      "Simple pricing from $49/mo. SMS, multiple campaigns, and AI reports unlock as you grow.",
+    url: "https://captivly.ai/features/pricing",
+  },
+};
 
 const plans = [
   {

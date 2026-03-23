@@ -61,7 +61,7 @@ export default async function Home() {
     <div className="flex min-h-screen flex-col">
       <MarketingHeader user={user} />
 
-      <main className="flex flex-1 flex-col items-center justify-center bg-gradient-to-b from-teal-50 via-white to-white px-6 py-12 text-center">
+      <main id="main-content" className="flex flex-1 flex-col items-center justify-center bg-gradient-to-b from-teal-50 via-white to-white px-6 py-12 text-center">
         <h1 className="max-w-2xl text-5xl font-bold tracking-tight text-slate-900">
           Automated lead generation for local businesses
         </h1>

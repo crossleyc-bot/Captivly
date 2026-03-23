@@ -1,5 +1,18 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { Logo } from "@/components/logo";
+
+export const metadata: Metadata = {
+  title: "Lead Re-Engagement Campaigns",
+  description:
+    "Automatically re-target cold leads after 30, 60, or 90 days with a fresh offer. Many just need the right message at the right time.",
+  openGraph: {
+    title: "Lead Re-Engagement Campaigns - Captivly.ai",
+    description:
+      "Automatically re-target cold leads with fresh offers after 30, 60, or 90 days.",
+    url: "https://captivly.ai/features/re-engagement",
+  },
+};
 
 export default function ReEngagementPage() {
   return (

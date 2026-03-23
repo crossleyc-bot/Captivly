@@ -1,5 +1,18 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { Logo } from "@/components/logo";
+
+export const metadata: Metadata = {
+  title: "Two-Way SMS Conversations",
+  description:
+    "When a lead replies to your SMS, see it instantly in your dashboard and respond right there. No switching to your phone.",
+  openGraph: {
+    title: "Two-Way SMS Conversations - Captivly.ai",
+    description:
+      "See and respond to lead SMS replies directly from your dashboard.",
+    url: "https://captivly.ai/features/two-way-sms",
+  },
+};
 
 export default function TwoWaySmsPage() {
   return (

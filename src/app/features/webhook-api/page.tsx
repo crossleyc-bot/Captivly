@@ -1,5 +1,18 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { Logo } from "@/components/logo";
+
+export const metadata: Metadata = {
+  title: "Webhook & API",
+  description:
+    "Push leads to your own CRM, POS, or custom system in real time. REST API and configurable webhooks for power users.",
+  openGraph: {
+    title: "Webhook & API - Captivly.ai",
+    description:
+      "Push leads to your CRM or custom system in real time via REST API and webhooks.",
+    url: "https://captivly.ai/features/webhook-api",
+  },
+};
 
 export default function WebhookApiPage() {
   return (

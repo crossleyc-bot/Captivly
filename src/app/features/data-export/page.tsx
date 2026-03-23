@@ -1,5 +1,18 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { Logo } from "@/components/logo";
+
+export const metadata: Metadata = {
+  title: "Data Export & Portability",
+  description:
+    "Export leads, messages, analytics, and campaign history anytime in CSV or JSON. No lock-in, no export fees.",
+  openGraph: {
+    title: "Data Export & Portability - Captivly.ai",
+    description:
+      "Export your leads, messages, and analytics anytime in CSV or JSON.",
+    url: "https://captivly.ai/features/data-export",
+  },
+};
 
 export default function DataExportPage() {
   return (

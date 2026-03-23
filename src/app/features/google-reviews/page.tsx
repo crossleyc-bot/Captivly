@@ -1,5 +1,18 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { Logo } from "@/components/logo";
+
+export const metadata: Metadata = {
+  title: "Google Reviews Automation",
+  description:
+    "After a lead converts, automatically trigger a review request sequence. Build social proof on Google while the experience is fresh.",
+  openGraph: {
+    title: "Google Reviews Automation - Captivly.ai",
+    description:
+      "Automatically trigger review requests after conversion. Build social proof on Google.",
+    url: "https://captivly.ai/features/google-reviews",
+  },
+};
 
 export default function GoogleReviewsPage() {
   return (
