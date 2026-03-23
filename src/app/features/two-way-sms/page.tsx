@@ -63,7 +63,7 @@ export default function TwoWaySmsPage() {
                   <div
                     className={`max-w-xs rounded-lg px-4 py-2.5 ${
                       msg.from === "you"
-                        ? "bg-teal-600 text-white"
+                        ? "bg-indigo-600 text-white"
                         : "bg-slate-100 text-slate-900"
                     }`}
                   >
@@ -71,7 +71,7 @@ export default function TwoWaySmsPage() {
                     <p
                       className={`mt-1 text-xs ${
                         msg.from === "you"
-                          ? "text-teal-200"
+                          ? "text-indigo-200"
                           : "text-slate-400"
                       }`}
                     >
@@ -85,7 +85,7 @@ export default function TwoWaySmsPage() {
               <div className="flex-1 px-2 text-sm text-slate-400">
                 Type your reply...
               </div>
-              <div className="flex h-8 w-8 items-center justify-center rounded-md bg-teal-600 text-white">
+              <div className="flex h-8 w-8 items-center justify-center rounded-md bg-indigo-600 text-white">
                 <svg
                   className="h-4 w-4"
                   fill="none"
@@ -194,7 +194,7 @@ export default function TwoWaySmsPage() {
                 ))}
               </ul>
             </div>
-            <div className="rounded-lg border border-teal-200 bg-teal-50/50 p-6">
+            <div className="rounded-lg border border-indigo-200 bg-indigo-50/50 p-6">
               <h3 className="text-sm font-semibold text-slate-900">
                 Two-way (Captivly.ai)
               </h3>

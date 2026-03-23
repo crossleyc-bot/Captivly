@@ -44,7 +44,7 @@ export default async function LeadsPage() {
           </p>
           <Link
             href="/campaigns"
-            className="mt-4 inline-block rounded-md bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-teal-700"
+            className="mt-4 inline-block rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
           >
             View campaigns
           </Link>
@@ -71,7 +71,7 @@ export default async function LeadsPage() {
                     <td className="py-2 pr-4">
                       <Link
                         href={`/leads/${lead.id}`}
-                        className="font-medium text-teal-600 hover:underline"
+                        className="font-medium text-indigo-600 hover:underline"
                       >
                         {lead.first_name ?? "Unknown"} {lead.last_name ?? ""}
                       </Link>

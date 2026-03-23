@@ -41,7 +41,7 @@ export default function EmailDeliverabilityPage() {
               </p>
             </div>
             <div className="rounded-lg border p-6 text-center">
-              <div className="text-3xl font-bold text-teal-600">0.1%</div>
+              <div className="text-3xl font-bold text-indigo-600">0.1%</div>
               <p className="mt-2 text-sm text-slate-600">
                 spam complaint rate threshold. Go above this and email
                 providers start throttling or blocking your domain.

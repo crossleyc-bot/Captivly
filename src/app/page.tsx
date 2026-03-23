@@ -57,7 +57,7 @@ const faqs = [
 ];
 
 const CHECK_ICON = (
-  <svg className="mt-0.5 h-4 w-4 shrink-0 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+  <svg className="mt-0.5 h-4 w-4 shrink-0 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
     <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
   </svg>
 );
@@ -73,9 +73,9 @@ export default async function Home() {
       <MarketingHeader user={user ? { id: user.id } : null} />
 
       {/* ───── Hero: Split layout with dashboard mockup ───── */}
-      <main className="relative overflow-hidden bg-gradient-to-br from-teal-50 via-white to-amber-50/30">
+      <main className="relative overflow-hidden bg-gradient-to-br from-indigo-50 via-white to-amber-50/30">
         {/* Decorative blobs */}
-        <div className="pointer-events-none absolute -left-32 -top-32 h-96 w-96 rounded-full bg-teal-100/50 blur-3xl" />
+        <div className="pointer-events-none absolute -left-32 -top-32 h-96 w-96 rounded-full bg-indigo-100/50 blur-3xl" />
         <div className="pointer-events-none absolute -right-32 bottom-0 h-72 w-72 rounded-full bg-amber-100/40 blur-3xl" />
 
         <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-6 py-20 lg:grid-cols-2 lg:py-28">
@@ -86,7 +86,7 @@ export default async function Home() {
             </div>
             <h1 className="mt-6 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
               Stop losing leads.{" "}
-              <span className="text-teal-600">Start closing them.</span>
+              <span className="text-indigo-600">Start closing them.</span>
             </h1>
             <p className="mt-6 max-w-lg text-lg leading-relaxed text-slate-600">
               Captivly connects to your Facebook and Google ads, scores every
@@ -100,7 +100,7 @@ export default async function Home() {
             <div className="mt-8 flex flex-wrap gap-4">
               <Link
                 href="/signup"
-                className="rounded-full bg-teal-600 px-6 py-3 text-sm font-medium text-white shadow-lg shadow-teal-600/25 transition-all hover:bg-teal-700 hover:shadow-xl hover:shadow-teal-600/30"
+                className="rounded-full bg-indigo-600 px-6 py-3 text-sm font-medium text-white shadow-lg shadow-indigo-600/25 transition-all hover:bg-indigo-700 hover:shadow-xl hover:shadow-indigo-600/30"
               >
                 Start Free Trial — No Card Required
               </Link>
@@ -148,7 +148,7 @@ export default async function Home() {
           <div className="mt-14 grid gap-8 sm:grid-cols-3 stagger-children">
             {/* Step 1 */}
             <FadeIn className="relative text-center">
-              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-teal-600 text-lg font-bold text-white shadow-lg shadow-teal-600/25">
+              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-600 text-lg font-bold text-white shadow-lg shadow-indigo-600/25">
                 1
               </div>
               <h3 className="mt-5 font-semibold text-slate-900">Connect Your Ads</h3>
@@ -162,7 +162,7 @@ export default async function Home() {
             {/* Step 2 */}
             <FadeIn className="relative text-center">
               <div className="absolute left-0 top-7 hidden h-px w-[calc(50%-2rem)] bg-gradient-to-r from-slate-200 to-transparent sm:block" />
-              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-teal-600 text-lg font-bold text-white shadow-lg shadow-teal-600/25">
+              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-600 text-lg font-bold text-white shadow-lg shadow-indigo-600/25">
                 2
               </div>
               <h3 className="mt-5 font-semibold text-slate-900">AI Takes Over</h3>
@@ -176,7 +176,7 @@ export default async function Home() {
             {/* Step 3 */}
             <FadeIn className="relative text-center">
               <div className="absolute left-0 top-7 hidden h-px w-[calc(50%-2rem)] bg-gradient-to-r from-slate-200 to-transparent sm:block" />
-              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-teal-600 text-lg font-bold text-white shadow-lg shadow-teal-600/25">
+              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-600 text-lg font-bold text-white shadow-lg shadow-indigo-600/25">
                 3
               </div>
               <h3 className="mt-5 font-semibold text-slate-900">Leads Convert on Autopilot</h3>
@@ -275,9 +275,9 @@ export default async function Home() {
                 <FadeIn key={feature.title}>
                   <Link
                     href={feature.href}
-                    className="block h-full rounded-xl border border-slate-200 bg-white p-5 transition-all hover:border-teal-300 hover:bg-teal-50/50 hover:shadow-md hover:shadow-teal-100/50"
+                    className="block h-full rounded-xl border border-slate-200 bg-white p-5 transition-all hover:border-indigo-300 hover:bg-indigo-50/50 hover:shadow-md hover:shadow-indigo-100/50"
                   >
-                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-teal-50 text-teal-600">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
                       {feature.icon}
                     </div>
                     <h3 className="mt-4 font-semibold text-slate-900">
@@ -293,7 +293,7 @@ export default async function Home() {
             <div className="mt-10 text-center">
               <Link
                 href="/features/pricing"
-                className="text-sm font-medium text-teal-600 hover:text-teal-700"
+                className="text-sm font-medium text-indigo-600 hover:text-indigo-700"
               >
                 See all features &rarr;
               </Link>
@@ -305,11 +305,11 @@ export default async function Home() {
       {/* ───── Social Proof — Animated Counters ───── */}
       <section className="relative overflow-hidden bg-slate-900 px-6 py-20">
         {/* Decorative gradient */}
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-teal-900/20 via-transparent to-amber-900/10" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-indigo-900/20 via-transparent to-amber-900/10" />
 
         <div className="relative mx-auto max-w-4xl text-center">
           <FadeIn>
-            <p className="text-sm font-semibold uppercase tracking-wider text-teal-400">
+            <p className="text-sm font-semibold uppercase tracking-wider text-indigo-400">
               Built for local businesses that run on leads
             </p>
             <p className="mt-4 text-2xl font-bold text-white">
@@ -363,8 +363,8 @@ export default async function Home() {
 
             {/* Growth */}
             <FadeIn>
-              <div className="relative h-full rounded-xl border-2 border-teal-600 bg-white p-6 shadow-lg shadow-teal-100/50">
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-teal-600 px-3 py-0.5 text-xs font-medium text-white">
+              <div className="relative h-full rounded-xl border-2 border-indigo-600 bg-white p-6 shadow-lg shadow-indigo-100/50">
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-indigo-600 px-3 py-0.5 text-xs font-medium text-white">
                   Most Popular
                 </span>
                 <h3 className="text-sm font-semibold text-slate-900">Growth</h3>
@@ -379,7 +379,7 @@ export default async function Home() {
                 </ul>
                 <Link
                   href="/signup"
-                  className="mt-8 block rounded-lg bg-teal-600 px-4 py-2.5 text-center text-sm font-medium text-white transition-colors hover:bg-teal-700"
+                  className="mt-8 block rounded-lg bg-indigo-600 px-4 py-2.5 text-center text-sm font-medium text-white transition-colors hover:bg-indigo-700"
                 >
                   Get Started
                 </Link>
@@ -413,7 +413,7 @@ export default async function Home() {
             All plans include a 14-day free trial.{" "}
             <Link
               href="/features/pricing"
-              className="font-medium text-teal-600 hover:text-teal-700"
+              className="font-medium text-indigo-600 hover:text-indigo-700"
             >
               Compare plans in detail &rarr;
             </Link>
@@ -452,7 +452,7 @@ export default async function Home() {
           <div className="mt-8 space-y-3">
             <Link
               href="/signup"
-              className="inline-block rounded-full bg-teal-600 px-8 py-3.5 text-sm font-medium text-white shadow-lg shadow-teal-600/25 transition-all hover:bg-teal-700 hover:shadow-xl hover:shadow-teal-600/30"
+              className="inline-block rounded-full bg-indigo-600 px-8 py-3.5 text-sm font-medium text-white shadow-lg shadow-indigo-600/25 transition-all hover:bg-indigo-700 hover:shadow-xl hover:shadow-indigo-600/30"
             >
               Start Your Free Trial — No Card Required
             </Link>

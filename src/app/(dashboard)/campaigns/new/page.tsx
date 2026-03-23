@@ -57,7 +57,7 @@ export default function NewCampaignPage() {
   }
 
   const inputClass =
-    "mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 text-sm shadow-sm focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500";
+    "mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 text-sm shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500";
 
   return (
     <div className="max-w-lg space-y-6">
@@ -148,7 +148,7 @@ export default function NewCampaignPage() {
               step="0.01"
               value={dailyBudget}
               onChange={(e) => setDailyBudget(e.target.value)}
-              className="block w-full rounded-md border border-slate-300 py-2 pl-7 pr-3 text-sm shadow-sm focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500"
+              className="block w-full rounded-md border border-slate-300 py-2 pl-7 pr-3 text-sm shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
             />
           </div>
         </div>
@@ -157,7 +157,7 @@ export default function NewCampaignPage() {
           <button
             type="submit"
             disabled={loading || !name.trim()}
-            className="rounded-md bg-teal-600 px-6 py-2 text-sm font-medium text-white hover:bg-teal-700 disabled:opacity-50"
+            className="rounded-md bg-indigo-600 px-6 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
           >
             {loading ? "Creating..." : `Create on ${selectedPlatform.label}`}
           </button>

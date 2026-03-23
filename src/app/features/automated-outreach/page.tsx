@@ -73,7 +73,7 @@ export default function AutomatedOutreachPage() {
                 key={step.step}
                 className="flex items-start gap-4 rounded-lg border p-4"
               >
-                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-teal-100 text-sm font-bold text-teal-600">
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-sm font-bold text-indigo-600">
                   {step.step}
                 </div>
                 <div className="flex-1">

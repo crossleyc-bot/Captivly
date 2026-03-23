@@ -25,7 +25,7 @@ export default function PrivacyPolicy() {
 
         <nav className="mt-4 flex gap-4 text-sm">
           <span className="font-medium text-slate-900">Privacy Policy</span>
-          <Link href="/terms" className="font-medium text-teal-600 hover:text-teal-700">
+          <Link href="/terms" className="font-medium text-indigo-600 hover:text-indigo-700">
             Terms of Service
           </Link>
         </nav>
@@ -114,7 +114,7 @@ export default function PrivacyPolicy() {
               <li>Withdraw consent at any time</li>
             </ul>
             <p className="mt-3">
-              To exercise any of these rights, contact us at <a href="mailto:privacy@captivly.ai" className="font-medium text-teal-600 hover:text-teal-700">privacy@captivly.ai</a>.
+              To exercise any of these rights, contact us at <a href="mailto:privacy@captivly.ai" className="font-medium text-indigo-600 hover:text-indigo-700">privacy@captivly.ai</a>.
             </p>
           </section>
 
@@ -136,7 +136,7 @@ export default function PrivacyPolicy() {
             <h2 className="text-lg font-semibold text-slate-900">10. Contact Us</h2>
             <p className="mt-3">
               If you have questions about this Privacy Policy, contact us at{" "}
-              <a href="mailto:privacy@captivly.ai" className="font-medium text-teal-600 hover:text-teal-700">privacy@captivly.ai</a>.
+              <a href="mailto:privacy@captivly.ai" className="font-medium text-indigo-600 hover:text-indigo-700">privacy@captivly.ai</a>.
             </p>
           </section>
         </div>

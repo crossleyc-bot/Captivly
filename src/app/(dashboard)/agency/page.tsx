@@ -33,7 +33,7 @@ export default async function AgencyPage() {
           </p>
           <Link
             href="/settings"
-            className="mt-3 inline-block rounded-md bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800"
+            className="mt-3 inline-block rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800"
           >
             Upgrade Plan
           </Link>
@@ -142,7 +142,7 @@ export default async function AgencyPage() {
                 <span
                   className={`rounded-full px-2 py-0.5 text-xs font-medium ${
                     member.role === "owner"
-                      ? "bg-teal-600 text-white"
+                      ? "bg-indigo-600 text-white"
                       : member.role === "admin"
                         ? "bg-blue-50 text-blue-700"
                         : "bg-slate-100 text-slate-600"

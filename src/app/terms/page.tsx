@@ -24,7 +24,7 @@ export default function TermsOfService() {
         <p className="mt-2 text-sm text-slate-500">Last updated: March 23, 2026</p>
 
         <nav className="mt-4 flex gap-4 text-sm">
-          <Link href="/privacy" className="font-medium text-teal-600 hover:text-teal-700">
+          <Link href="/privacy" className="font-medium text-indigo-600 hover:text-indigo-700">
             Privacy Policy
           </Link>
           <span className="font-medium text-slate-900">Terms of Service</span>
@@ -149,7 +149,7 @@ export default function TermsOfService() {
             <h2 className="text-lg font-semibold text-slate-900">15. Contact</h2>
             <p className="mt-3">
               For questions about these Terms of Service, contact us at{" "}
-              <a href="mailto:legal@captivly.ai" className="font-medium text-teal-600 hover:text-teal-700">legal@captivly.ai</a>.
+              <a href="mailto:legal@captivly.ai" className="font-medium text-indigo-600 hover:text-indigo-700">legal@captivly.ai</a>.
             </p>
           </section>
         </div>

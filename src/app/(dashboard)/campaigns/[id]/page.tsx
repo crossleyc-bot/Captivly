@@ -178,7 +178,7 @@ export default async function CampaignDetailPage({
                     <td className="py-2 pr-4">
                       <Link
                         href={`/leads/${lead.id}`}
-                        className="font-medium text-teal-600 hover:underline"
+                        className="font-medium text-indigo-600 hover:underline"
                       >
                         {lead.first_name ?? "Unknown"} {lead.last_name ?? ""}
                       </Link>

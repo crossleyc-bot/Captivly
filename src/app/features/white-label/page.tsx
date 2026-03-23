@@ -130,7 +130,7 @@ export default function WhiteLabelPage() {
           </h2>
           <div className="mt-12 grid gap-8 sm:grid-cols-3">
             <div className="text-center">
-              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-teal-100 text-lg font-bold text-teal-600">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-indigo-100 text-lg font-bold text-indigo-600">
                 1
               </div>
               <h3 className="mt-4 text-sm font-semibold text-slate-900">
@@ -142,7 +142,7 @@ export default function WhiteLabelPage() {
               </p>
             </div>
             <div className="text-center">
-              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-teal-100 text-lg font-bold text-teal-600">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-indigo-100 text-lg font-bold text-indigo-600">
                 2
               </div>
               <h3 className="mt-4 text-sm font-semibold text-slate-900">
@@ -154,7 +154,7 @@ export default function WhiteLabelPage() {
               </p>
             </div>
             <div className="text-center">
-              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-teal-100 text-lg font-bold text-teal-600">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-indigo-100 text-lg font-bold text-indigo-600">
                 3
               </div>
               <h3 className="mt-4 text-sm font-semibold text-slate-900">

@@ -41,7 +41,7 @@ export default function InstagramDmPage() {
               </p>
             </div>
             <div className="rounded-lg border p-6 text-center">
-              <div className="text-3xl font-bold text-teal-600">2B+</div>
+              <div className="text-3xl font-bold text-indigo-600">2B+</div>
               <p className="mt-2 text-sm text-slate-600">
                 monthly active Instagram users. Your local customers are
                 already on the platform daily.
@@ -94,7 +94,7 @@ export default function InstagramDmPage() {
               },
             ].map((item) => (
               <div key={item.step} className="text-center">
-                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-teal-100 text-lg font-bold text-teal-600">
+                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-indigo-100 text-lg font-bold text-indigo-600">
                   {item.step}
                 </div>
                 <h3 className="mt-4 text-sm font-semibold text-slate-900">
@@ -122,7 +122,7 @@ export default function InstagramDmPage() {
           <div className="mt-12 space-y-4">
             {/* Lead message */}
             <div className="flex justify-end">
-              <div className="max-w-xs rounded-2xl rounded-br-sm bg-teal-500 px-4 py-2.5 text-sm text-white">
+              <div className="max-w-xs rounded-2xl rounded-br-sm bg-indigo-500 px-4 py-2.5 text-sm text-white">
                 Hey! I saw your ad about a free 7-day trial. Is that still
                 available?
               </div>
@@ -137,7 +137,7 @@ export default function InstagramDmPage() {
             </div>
             {/* Lead */}
             <div className="flex justify-end">
-              <div className="max-w-xs rounded-2xl rounded-br-sm bg-teal-500 px-4 py-2.5 text-sm text-white">
+              <div className="max-w-xs rounded-2xl rounded-br-sm bg-indigo-500 px-4 py-2.5 text-sm text-white">
                 I&apos;m Sarah! What time can I come in?
               </div>
             </div>
@@ -151,7 +151,7 @@ export default function InstagramDmPage() {
             </div>
             {/* Lead */}
             <div className="flex justify-end">
-              <div className="max-w-xs rounded-2xl rounded-br-sm bg-teal-500 px-4 py-2.5 text-sm text-white">
+              <div className="max-w-xs rounded-2xl rounded-br-sm bg-indigo-500 px-4 py-2.5 text-sm text-white">
                 512-555-0123
               </div>
             </div>

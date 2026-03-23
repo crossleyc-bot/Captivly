@@ -230,7 +230,7 @@ export default function OnboardingPage() {
   }
 
   const inputClass =
-    "mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 text-sm shadow-sm focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500";
+    "mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 text-sm shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500";
   const labelClass = "block text-sm font-medium text-slate-700";
 
   async function handleSignOut() {
@@ -265,7 +265,7 @@ export default function OnboardingPage() {
           </div>
           <div className="h-2 w-full rounded-full bg-slate-200">
             <div
-              className="h-2 rounded-full bg-teal-600 transition-all duration-300"
+              className="h-2 rounded-full bg-indigo-600 transition-all duration-300"
               style={{
                 width: `${((step + 1) / STEP_TITLES.length) * 100}%`,
               }}
@@ -277,9 +277,9 @@ export default function OnboardingPage() {
                 <div
                   className={`mx-auto mb-1 flex h-6 w-6 items-center justify-center rounded-full text-xs font-medium ${
                     i < step
-                      ? "bg-teal-600 text-white"
+                      ? "bg-indigo-600 text-white"
                       : i === step
-                        ? "border-2 border-teal-600 text-teal-600"
+                        ? "border-2 border-indigo-600 text-indigo-600"
                         : "border border-slate-300 text-slate-400"
                   }`}
                 >
@@ -290,7 +290,7 @@ export default function OnboardingPage() {
                     i === step
                       ? "font-medium text-slate-900"
                       : i < step
-                        ? "text-teal-600"
+                        ? "text-indigo-600"
                         : "text-slate-400"
                   }`}
                 >
@@ -466,7 +466,7 @@ export default function OnboardingPage() {
                     onClick={() => toggleInterest(interest)}
                     className={`rounded-full border px-3 py-1 text-sm ${
                       data.target_interests.includes(interest)
-                        ? "border-slate-900 bg-teal-600 text-white"
+                        ? "border-slate-900 bg-indigo-600 text-white"
                         : "border-slate-300 text-slate-600 hover:border-slate-400"
                     }`}
                   >
@@ -509,7 +509,7 @@ export default function OnboardingPage() {
                       onClick={() => update({ outreach_tone: tone })}
                       className={`rounded-md border px-4 py-2 text-sm capitalize ${
                         data.outreach_tone === tone
-                          ? "border-slate-900 bg-teal-600 text-white"
+                          ? "border-slate-900 bg-indigo-600 text-white"
                           : "border-slate-300 text-slate-600 hover:border-slate-400"
                       }`}
                     >
@@ -607,7 +607,7 @@ export default function OnboardingPage() {
             type="button"
             onClick={handleNext}
             disabled={!canAdvance() || loading}
-            className="rounded-md bg-teal-600 px-6 py-2 text-sm font-medium text-white hover:bg-teal-700 disabled:opacity-50"
+            className="rounded-md bg-indigo-600 px-6 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
           >
             {loading
               ? "Saving..."

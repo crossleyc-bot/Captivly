@@ -33,21 +33,21 @@ export default function ReEngagementPage() {
           </p>
           <div className="mt-12 grid gap-6 sm:grid-cols-3">
             <div className="rounded-lg border p-6 text-center">
-              <div className="text-3xl font-bold text-teal-600">60%</div>
+              <div className="text-3xl font-bold text-indigo-600">60%</div>
               <p className="mt-2 text-sm text-slate-600">
                 of leads that go cold were simply not ready to buy when they
                 first enquired
               </p>
             </div>
             <div className="rounded-lg border p-6 text-center">
-              <div className="text-3xl font-bold text-teal-600">30–90</div>
+              <div className="text-3xl font-bold text-indigo-600">30–90</div>
               <p className="mt-2 text-sm text-slate-600">
                 days is the typical consideration window for local service
                 purchases
               </p>
             </div>
             <div className="rounded-lg border p-6 text-center">
-              <div className="text-3xl font-bold text-teal-600">5x</div>
+              <div className="text-3xl font-bold text-indigo-600">5x</div>
               <p className="mt-2 text-sm text-slate-600">
                 cheaper to re-engage an existing lead than to acquire a
                 brand-new one
@@ -158,7 +158,7 @@ export default function ReEngagementPage() {
                   className={`flex h-8 shrink-0 items-center justify-center rounded-full px-3 text-xs font-bold ${
                     step.status === "completed"
                       ? "bg-slate-100 text-slate-500"
-                      : "bg-teal-100 text-teal-600"
+                      : "bg-indigo-100 text-indigo-600"
                   }`}
                 >
                   {step.day}

@@ -403,9 +403,9 @@ Apply `requirePlan` for feature access checks and `checkUsageLimit` before every
 **Accent & semantic**
 | Token | Tailwind | Hex | Usage |
 |---|---|---|---|
-| Primary | `teal-600` | `#0d9488` | Buttons, links, active states |
-| Primary hover | `teal-700` | `#0f766e` | Button hover states |
-| Primary light | `teal-50` | `#f0fdfa` | Hero gradients, highlighted cards |
+| Primary | `indigo-600` | `#0d9488` | Buttons, links, active states |
+| Primary hover | `indigo-700` | `#0f766e` | Button hover states |
+| Primary light | `indigo-50` | `#f0fdfa` | Hero gradients, highlighted cards |
 | Highlight | `amber-500` | `#f59e0b` | Badges, upgrade CTAs, accents |
 | Highlight light | `amber-100` | `#fef3c7` | Badge backgrounds, hero pills |
 | Success | `green-600` | `#16a34a` | Verified, converted, delivered |

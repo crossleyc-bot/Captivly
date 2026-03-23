@@ -29,21 +29,21 @@ export default function GoogleReviewsPage() {
           </h2>
           <div className="mt-12 grid gap-6 sm:grid-cols-3">
             <div className="rounded-lg border p-6 text-center">
-              <div className="text-3xl font-bold text-teal-600">93%</div>
+              <div className="text-3xl font-bold text-indigo-600">93%</div>
               <p className="mt-2 text-sm text-slate-600">
                 of consumers read online reviews before choosing a local
                 business
               </p>
             </div>
             <div className="rounded-lg border p-6 text-center">
-              <div className="text-3xl font-bold text-teal-600">4.0+</div>
+              <div className="text-3xl font-bold text-indigo-600">4.0+</div>
               <p className="mt-2 text-sm text-slate-600">
                 star rating is the minimum most consumers consider when
                 choosing a business
               </p>
             </div>
             <div className="rounded-lg border p-6 text-center">
-              <div className="text-3xl font-bold text-teal-600">
+              <div className="text-3xl font-bold text-indigo-600">
                 Top 3
               </div>
               <p className="mt-2 text-sm text-slate-600">
@@ -89,7 +89,7 @@ export default function GoogleReviewsPage() {
               },
             ].map((item) => (
               <div key={item.step} className="text-center">
-                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-teal-100 text-lg font-bold text-teal-600">
+                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-indigo-100 text-lg font-bold text-indigo-600">
                   {item.step}
                 </div>
                 <h3 className="mt-4 text-sm font-semibold text-slate-900">
@@ -132,7 +132,7 @@ export default function GoogleReviewsPage() {
                 review — it helps other locals find us. Just tap below,
                 it takes 30 seconds.
               </p>
-              <p className="mt-2 text-sm font-medium text-teal-600">
+              <p className="mt-2 text-sm font-medium text-indigo-600">
                 [Leave a Review on Google]
               </p>
             </div>
