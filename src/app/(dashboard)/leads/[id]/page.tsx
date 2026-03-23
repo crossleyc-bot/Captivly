@@ -1,8 +1,9 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect, notFound } from "next/navigation";
 import Link from "next/link";
-import { scoreColor, leadStatusBadge, msgStatusColor } from "@/lib/ui-utils";
+import { scoreColor, leadStatusBadge, msgStatusColor, formatCents } from "@/lib/ui-utils";
 import type { LeadEnrichment } from "@/types/database";
+import { CreateDealFromLead } from "./create-deal-from-lead";
 
 export default async function LeadDetailPage({
   params,
@@ -35,13 +36,22 @@ export default async function LeadDetailPage({
 
   if (!lead) notFound();
 
-  // Fetch message timeline
-  const { data: messages } = await supabase
-    .from("messages_sent")
-    .select("*, step:sequence_steps(step_number, channel, subject)")
-    .eq("lead_id", id)
-    .order("created_at", { ascending: true });
+  // Fetch message timeline and deals in parallel
+  const [messagesResult, dealsResult] = await Promise.all([
+    supabase
+      .from("messages_sent")
+      .select("*, step:sequence_steps(step_number, channel, subject)")
+      .eq("lead_id", id)
+      .order("created_at", { ascending: true }),
+    supabase
+      .from("deals")
+      .select("*, stage:pipeline_stages(id, name, color)")
+      .eq("lead_id", id)
+      .order("created_at", { ascending: false }),
+  ]);
 
+  const messages = messagesResult.data;
+  const linkedDeals = dealsResult.data ?? [];
 
   const campaign = lead.campaign as { name: string } | null;
 
@@ -100,6 +110,51 @@ export default async function LeadDetailPage({
             <p className="mt-1 text-slate-700">{lead.ai_score_reason}</p>
           </div>
         )}
+      </div>
+
+      {/* Linked deals */}
+      <div>
+        <div className="flex items-center justify-between">
+          <h2 className="text-lg font-semibold">Deals</h2>
+        </div>
+        {linkedDeals.length > 0 ? (
+          <div className="mt-3 space-y-2">
+            {linkedDeals.map((deal) => {
+              const dealStage = deal.stage as { id: string; name: string; color: string } | null;
+              return (
+                <Link
+                  key={deal.id}
+                  href={`/deals/${deal.id}`}
+                  className="flex items-center justify-between rounded-lg border p-3 hover:border-slate-400"
+                >
+                  <div className="flex items-center gap-2">
+                    {dealStage && (
+                      <span
+                        className="inline-block h-2.5 w-2.5 rounded-full"
+                        style={{ backgroundColor: dealStage.color }}
+                      />
+                    )}
+                    <span className="text-sm font-medium">{deal.title}</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-xs text-slate-500">
+                    {deal.value_cents > 0 && (
+                      <span className="font-semibold text-slate-700">{formatCents(deal.value_cents)}</span>
+                    )}
+                    {dealStage && <span>{dealStage.name}</span>}
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        ) : (
+          <p className="mt-3 text-sm text-slate-400">No deals linked to this lead.</p>
+        )}
+        <div className="mt-3">
+          <CreateDealFromLead
+            leadId={lead.id}
+            leadName={`${lead.first_name ?? "Unknown"} ${lead.last_name ?? ""}`.trim()}
+          />
+        </div>
       </div>
 
       {/* Enrichment data */}

@@ -196,6 +196,43 @@ export interface Conversion {
   converted_at: string;
 }
 
+export type DealActivityType = "stage_change" | "note" | "created" | "closed";
+
+export interface PipelineStage {
+  id: string;
+  business_id: string;
+  name: string;
+  position: number;
+  color: string;
+  is_won: boolean;
+  is_lost: boolean;
+  created_at: string;
+}
+
+export interface Deal {
+  id: string;
+  business_id: string;
+  lead_id: string | null;
+  stage_id: string | null;
+  title: string;
+  value_cents: number;
+  expected_close_date: string | null;
+  notes: string | null;
+  closed_at: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface DealActivity {
+  id: string;
+  deal_id: string;
+  type: DealActivityType;
+  from_stage_id: string | null;
+  to_stage_id: string | null;
+  content: string | null;
+  created_at: string;
+}
+
 export type ChatWidgetPosition = "bottom-right" | "bottom-left";
 
 export interface ChatWidgetConfig {

@@ -1,7 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { scoreColor, leadStatusBadge } from "@/lib/ui-utils";
+import { scoreColor, leadStatusBadge, formatCents } from "@/lib/ui-utils";
 import { PLAN_LIMITS } from "@/lib/constants";
 import type { PlanTier } from "@/types/database";
 
@@ -26,7 +26,7 @@ export default async function DashboardPage() {
   const month = new Date().toISOString().slice(0, 7);
 
   // Fetch stats in parallel
-  const [leadsResult, campaignsResult, conversionsResult, usageResult, recentLeadsResult] =
+  const [leadsResult, campaignsResult, conversionsResult, usageResult, recentLeadsResult, dealsResult, pipelineStagesResult] =
     await Promise.all([
       supabase
         .from("leads")
@@ -53,6 +53,14 @@ export default async function DashboardPage() {
         .eq("business_id", business.id)
         .order("created_at", { ascending: false })
         .limit(10),
+      supabase
+        .from("deals")
+        .select("id, value_cents, stage_id")
+        .eq("business_id", business.id),
+      supabase
+        .from("pipeline_stages")
+        .select("id, is_won, is_lost")
+        .eq("business_id", business.id),
     ]);
 
   const totalLeads = leadsResult.count ?? 0;
@@ -60,6 +68,13 @@ export default async function DashboardPage() {
   const totalConversions = conversionsResult.count ?? 0;
   const usage = usageResult.data;
   const recentLeads = recentLeadsResult.data ?? [];
+  const allDeals = dealsResult.data ?? [];
+  const pipelineStages = pipelineStagesResult.data ?? [];
+
+  const wonStageIds = new Set(pipelineStages.filter((s) => s.is_won).map((s) => s.id));
+  const lostStageIds = new Set(pipelineStages.filter((s) => s.is_lost).map((s) => s.id));
+  const openDeals = allDeals.filter((d) => d.stage_id && !wonStageIds.has(d.stage_id) && !lostStageIds.has(d.stage_id));
+  const pipelineValue = openDeals.reduce((sum, d) => sum + (d.value_cents ?? 0), 0);
 
   const leadsUsed = usage?.leads_count ?? 0;
   const smsUsed = usage?.sms_count ?? 0;
@@ -71,11 +86,11 @@ export default async function DashboardPage() {
   const atSmsLimit = limits.sms_per_month > 0 && smsUsed >= limits.sms_per_month;
 
   const stats = [
-    { label: "Total Leads", value: totalLeads, accent: "bg-teal-500" },
-    { label: "Active Campaigns", value: activeCampaigns, accent: "bg-blue-500" },
-    { label: "Conversions", value: totalConversions, accent: "bg-emerald-500" },
-    { label: "Emails This Month", value: usage?.emails_count ?? 0, accent: "bg-violet-500" },
-    { label: "SMS This Month", value: usage?.sms_count ?? 0, accent: "bg-amber-500" },
+    { label: "Total Leads", value: totalLeads.toLocaleString(), accent: "bg-teal-500" },
+    { label: "Active Campaigns", value: activeCampaigns.toLocaleString(), accent: "bg-blue-500" },
+    { label: "Conversions", value: totalConversions.toLocaleString(), accent: "bg-emerald-500" },
+    { label: "Open Deals", value: openDeals.length.toLocaleString(), accent: "bg-violet-500" },
+    { label: "Pipeline Value", value: formatCents(pipelineValue), accent: "bg-amber-500" },
   ];
 
 
@@ -137,7 +152,7 @@ export default async function DashboardPage() {
           >
             <div className={`-mx-4 -mt-3 mb-3 h-1 ${stat.accent}`} />
             <p className="text-xs font-medium text-slate-500">{stat.label}</p>
-            <p className="mt-1 text-2xl font-bold">{stat.value.toLocaleString()}</p>
+            <p className="mt-1 text-2xl font-bold">{stat.value}</p>
           </div>
         ))}
       </div>

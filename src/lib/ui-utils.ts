@@ -30,6 +30,22 @@ export function campaignStatusBadge(status: string): string {
   return colors[status] ?? "bg-slate-100 text-slate-600";
 }
 
+/** Badge classes for deal activity types. */
+export function dealActivityBadge(type: string): string {
+  const colors: Record<string, string> = {
+    stage_change: "bg-blue-100 text-blue-700",
+    note: "bg-slate-100 text-slate-700",
+    created: "bg-green-100 text-green-700",
+    closed: "bg-emerald-100 text-emerald-700",
+  };
+  return colors[type] ?? "bg-slate-100 text-slate-600";
+}
+
+/** Format cents as dollar string. */
+export function formatCents(cents: number): string {
+  return `$${(cents / 100).toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+}
+
 /** Color class for message delivery statuses. */
 export function msgStatusColor(status: string): string {
   const colors: Record<string, string> = {
