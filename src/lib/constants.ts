@@ -8,6 +8,14 @@ export const GOOGLE_ADS_API_BASE_URL = `https://googleads.googleapis.com/${GOOGL
 export const GOOGLE_OAUTH_BASE_URL = "https://accounts.google.com/o/oauth2/v2/auth";
 export const GOOGLE_TOKEN_URL = "https://oauth2.googleapis.com/token";
 
+export const TIKTOK_API_BASE_URL = "https://business-api.tiktok.com/open_api/v1.3";
+export const TIKTOK_OAUTH_BASE_URL = "https://business-api.tiktok.com/portal/auth";
+export const TIKTOK_TOKEN_URL = "https://business-api.tiktok.com/open_api/v1.3/oauth2/access_token/";
+
+export const LINKEDIN_API_BASE_URL = "https://api.linkedin.com/rest";
+export const LINKEDIN_OAUTH_BASE_URL = "https://www.linkedin.com/oauth/v2/authorization";
+export const LINKEDIN_TOKEN_URL = "https://www.linkedin.com/oauth/v2/accessToken";
+
 export const PLAN_LIMITS: Record<
   PlanTier,
   {

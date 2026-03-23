@@ -37,6 +37,12 @@ export interface Business {
   google_customer_id: string | null;
   google_access_token: string | null;
   google_refresh_token: string | null;
+  tiktok_advertiser_id: string | null;
+  tiktok_access_token: string | null;
+  tiktok_refresh_token: string | null;
+  linkedin_ad_account_id: string | null;
+  linkedin_access_token: string | null;
+  linkedin_refresh_token: string | null;
   agency_id: string | null;
   onboarding_completed: boolean;
   created_at: string;
@@ -52,6 +58,10 @@ export interface Campaign {
   meta_form_id: string | null;
   google_campaign_id: string | null;
   google_form_id: string | null;
+  tiktok_campaign_id: string | null;
+  tiktok_form_id: string | null;
+  linkedin_campaign_id: string | null;
+  linkedin_form_id: string | null;
   status: CampaignStatus;
   daily_budget_cents: number | null;
   total_spend_cents: number;
@@ -67,6 +77,8 @@ export interface Lead {
   campaign_id: string | null;
   meta_lead_id: string | null;
   google_lead_id: string | null;
+  tiktok_lead_id: string | null;
+  linkedin_lead_id: string | null;
   first_name: string | null;
   last_name: string | null;
   email: string | null;

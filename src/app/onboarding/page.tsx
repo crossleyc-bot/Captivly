@@ -542,6 +542,18 @@ export default function OnboardingPage() {
             >
               Connect with Google Ads
             </a>
+            <a
+              href="/api/tiktok/auth"
+              className="inline-flex w-full items-center justify-center rounded-md bg-[#000000] px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a1a]"
+            >
+              Connect with TikTok
+            </a>
+            <a
+              href="/api/linkedin/auth"
+              className="inline-flex w-full items-center justify-center rounded-md bg-[#0A66C2] px-4 py-2 text-sm font-medium text-white hover:bg-[#004182]"
+            >
+              Connect with LinkedIn
+            </a>
             <p className="text-center text-xs text-slate-400">
               You can skip this and connect later from Settings.
             </p>

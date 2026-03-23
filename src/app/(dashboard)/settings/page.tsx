@@ -26,7 +26,7 @@ export default async function SettingsPage() {
   // Fetch business + current month usage
   const { data: business } = await supabase
     .from("businesses")
-    .select("id, meta_ad_account_id, google_customer_id")
+    .select("id, meta_ad_account_id, google_customer_id, tiktok_advertiser_id, linkedin_ad_account_id")
     .eq("user_id", user.id)
     .single();
 
@@ -147,6 +147,42 @@ export default async function SettingsPage() {
               <a
                 href="/api/google/auth"
                 className="rounded-md bg-[#4285F4] px-3 py-1.5 text-xs font-medium text-white hover:bg-[#3367D6]"
+              >
+                Connect
+              </a>
+            )}
+          </div>
+          <div className="flex items-center justify-between rounded-md border px-4 py-3">
+            <div>
+              <p className="text-sm font-medium">TikTok</p>
+              <p className="text-xs text-slate-500">
+                {business?.tiktok_advertiser_id
+                  ? `Connected — Advertiser ${business.tiktok_advertiser_id}`
+                  : "Not connected"}
+              </p>
+            </div>
+            {!business?.tiktok_advertiser_id && (
+              <a
+                href="/api/tiktok/auth"
+                className="rounded-md bg-[#000000] px-3 py-1.5 text-xs font-medium text-white hover:bg-[#1a1a1a]"
+              >
+                Connect
+              </a>
+            )}
+          </div>
+          <div className="flex items-center justify-between rounded-md border px-4 py-3">
+            <div>
+              <p className="text-sm font-medium">LinkedIn</p>
+              <p className="text-xs text-slate-500">
+                {business?.linkedin_ad_account_id
+                  ? `Connected — Account ${business.linkedin_ad_account_id}`
+                  : "Not connected"}
+              </p>
+            </div>
+            {!business?.linkedin_ad_account_id && (
+              <a
+                href="/api/linkedin/auth"
+                className="rounded-md bg-[#0A66C2] px-3 py-1.5 text-xs font-medium text-white hover:bg-[#004182]"
               >
                 Connect
               </a>
