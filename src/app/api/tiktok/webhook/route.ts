@@ -100,27 +100,30 @@ export async function POST(request: NextRequest) {
     }
   }
 
-  // Save lead
+  // Save lead (upsert to handle race conditions with concurrent webhooks)
   const { data: lead } = await supabase
     .from("leads")
-    .insert({
-      business_id: business.id,
-      campaign_id: campaign?.id ?? null,
-      tiktok_lead_id: lead_id,
-      first_name:
-        fieldData.full_name?.split(" ")[0] ??
-        fieldData.first_name ??
-        null,
-      last_name:
-        fieldData.full_name?.split(" ").slice(1).join(" ") ??
-        fieldData.last_name ??
-        null,
-      email: fieldData.email ?? null,
-      phone: fieldData.phone_number ?? fieldData.phone ?? null,
-      custom_answers: fieldData,
-      status: "new",
-      source: "tiktok",
-    })
+    .upsert(
+      {
+        business_id: business.id,
+        campaign_id: campaign?.id ?? null,
+        tiktok_lead_id: lead_id,
+        first_name:
+          fieldData.full_name?.split(" ")[0] ??
+          fieldData.first_name ??
+          null,
+        last_name:
+          fieldData.full_name?.split(" ").slice(1).join(" ") ??
+          fieldData.last_name ??
+          null,
+        email: fieldData.email ?? null,
+        phone: fieldData.phone_number ?? fieldData.phone ?? null,
+        custom_answers: fieldData,
+        status: "new",
+        source: "tiktok",
+      },
+      { onConflict: "tiktok_lead_id", ignoreDuplicates: true }
+    )
     .select()
     .single();
 
@@ -160,8 +163,8 @@ export async function POST(request: NextRequest) {
         lead_id: lead.id,
         referral_code: referralCode,
       }),
-    }).catch(() => {
-      // Referral attribution failure shouldn't block lead ingestion
+    }).catch((err) => {
+      console.error(`Failed to track referral for TikTok lead ${lead.id}:`, err);
     });
   }
 
@@ -173,8 +176,8 @@ export async function POST(request: NextRequest) {
       ...getInternalAuthHeader(),
     },
     body: JSON.stringify({ lead_id: lead.id }),
-  }).catch(() => {
-    // Scoring failure shouldn't block lead ingestion
+  }).catch((err) => {
+    console.error(`Failed to trigger scoring for TikTok lead ${lead.id}:`, err);
   });
 
   return NextResponse.json({ received: true });

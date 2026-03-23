@@ -135,23 +135,26 @@ export async function POST(request: NextRequest) {
     }
   }
 
-  // Save lead
+  // Save lead (upsert to handle race conditions with concurrent webhooks)
   const { data: lead } = await supabase
     .from("leads")
-    .insert({
-      business_id: business.id,
-      campaign_id: campaign?.id ?? null,
-      linkedin_lead_id: responseId,
-      first_name:
-        fieldData.firstname ?? fieldData.first_name ?? null,
-      last_name:
-        fieldData.lastname ?? fieldData.last_name ?? null,
-      email: fieldData.email ?? null,
-      phone: fieldData.phonenumber ?? fieldData.phone ?? null,
-      custom_answers: fieldData,
-      status: "new",
-      source: "linkedin",
-    })
+    .upsert(
+      {
+        business_id: business.id,
+        campaign_id: campaign?.id ?? null,
+        linkedin_lead_id: responseId,
+        first_name:
+          fieldData.firstname ?? fieldData.first_name ?? null,
+        last_name:
+          fieldData.lastname ?? fieldData.last_name ?? null,
+        email: fieldData.email ?? null,
+        phone: fieldData.phonenumber ?? fieldData.phone ?? null,
+        custom_answers: fieldData,
+        status: "new",
+        source: "linkedin",
+      },
+      { onConflict: "linkedin_lead_id", ignoreDuplicates: true }
+    )
     .select()
     .single();
 
@@ -191,8 +194,8 @@ export async function POST(request: NextRequest) {
         lead_id: lead.id,
         referral_code: referralCode,
       }),
-    }).catch(() => {
-      // Referral attribution failure shouldn't block lead ingestion
+    }).catch((err) => {
+      console.error(`Failed to track referral for LinkedIn lead ${lead.id}:`, err);
     });
   }
 
@@ -204,8 +207,8 @@ export async function POST(request: NextRequest) {
       ...getInternalAuthHeader(),
     },
     body: JSON.stringify({ lead_id: lead.id }),
-  }).catch(() => {
-    // Scoring failure shouldn't block lead ingestion
+  }).catch((err) => {
+    console.error(`Failed to trigger scoring for LinkedIn lead ${lead.id}:`, err);
   });
 
   return NextResponse.json({ received: true });

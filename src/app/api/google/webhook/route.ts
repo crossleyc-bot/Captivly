@@ -191,8 +191,8 @@ export async function POST(request: NextRequest) {
         lead_id: lead.id,
         referral_code: referralCode,
       }),
-    }).catch(() => {
-      // Referral attribution failure shouldn't block lead ingestion
+    }).catch((err) => {
+      console.error(`Failed to track referral for Google lead ${lead.id}:`, err);
     });
   }
 
@@ -204,8 +204,8 @@ export async function POST(request: NextRequest) {
       ...getInternalAuthHeader(),
     },
     body: JSON.stringify({ lead_id: lead.id }),
-  }).catch(() => {
-    // Scoring failure shouldn't block lead ingestion
+  }).catch((err) => {
+    console.error(`Failed to trigger scoring for Google lead ${lead.id}:`, err);
   });
 
   return NextResponse.json({ received: true });
