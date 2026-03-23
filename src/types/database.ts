@@ -307,6 +307,25 @@ export interface CustomDomain {
   created_at: string;
 }
 
+export type PipelineAutomationAction = "send_email" | "send_sms" | "update_lead_status" | "create_activity_note";
+
+export interface PipelineAutomation {
+  id: string;
+  business_id: string;
+  name: string;
+  trigger_stage_id: string;
+  action_type: PipelineAutomationAction;
+  action_config: {
+    subject?: string;
+    body?: string;
+    lead_status?: LeadStatus;
+    note?: string;
+  };
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface ReferralLink {
   id: string;
   business_id: string;

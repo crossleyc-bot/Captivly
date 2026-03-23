@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import { formatCents } from "@/lib/ui-utils";
 import { PipelineBoard } from "./pipeline-board";
 
@@ -59,11 +60,19 @@ export default async function PipelinePage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold">Pipeline</h1>
-        <p className="mt-1 text-sm text-slate-500">
-          Track and manage your deals through each stage.
-        </p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold">Pipeline</h1>
+          <p className="mt-1 text-sm text-slate-500">
+            Track and manage your deals through each stage.
+          </p>
+        </div>
+        <Link
+          href="/pipeline/automations"
+          className="rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+        >
+          Automations
+        </Link>
       </div>
 
       {/* Pipeline summary stats */}

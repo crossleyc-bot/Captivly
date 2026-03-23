@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { executePipelineAutomations } from "@/lib/pipeline-automations";
 
 /**
  * GET /api/deals
@@ -213,6 +214,11 @@ export async function PATCH(request: NextRequest) {
       to_stage_id: stage_id,
       content: `Moved to ${newStage?.name ?? "unknown stage"}`,
     });
+
+    // Fire pipeline automations (non-blocking)
+    executePipelineAutomations(supabase, id, stage_id, deal.business_id).catch((err) =>
+      console.error("Pipeline automation error:", err)
+    );
   }
 
   return NextResponse.json(deal);

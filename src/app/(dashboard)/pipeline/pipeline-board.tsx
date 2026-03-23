@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { formatCents, scoreColor } from "@/lib/ui-utils";
@@ -18,34 +18,48 @@ interface DealWithRelations {
 
 export function PipelineBoard({
   stages,
-  deals,
+  deals: initialDeals,
 }: {
   stages: PipelineStage[];
   deals: DealWithRelations[];
 }) {
   const router = useRouter();
+  const [deals, setDeals] = useState(initialDeals);
   const [movingDealId, setMovingDealId] = useState<string | null>(null);
+  const [dragOverStageId, setDragOverStageId] = useState<string | null>(null);
   const [showNewDeal, setShowNewDeal] = useState(false);
   const [newDealTitle, setNewDealTitle] = useState("");
   const [newDealValue, setNewDealValue] = useState("");
   const [newDealStageId, setNewDealStageId] = useState(stages[0]?.id ?? "");
   const [creating, setCreating] = useState(false);
+  const dragDealRef = useRef<string | null>(null);
+  const dragSourceStageRef = useRef<string | null>(null);
 
-  async function moveDeal(dealId: string, stageId: string) {
+  const moveDeal = useCallback(async (dealId: string, stageId: string) => {
+    // Optimistic update
+    setDeals((prev) =>
+      prev.map((d) => (d.id === dealId ? { ...d, stage_id: stageId } : d))
+    );
     setMovingDealId(dealId);
-    await fetch("/api/deals", {
+
+    const res = await fetch("/api/deals", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id: dealId, stage_id: stageId }),
     });
+
     setMovingDealId(null);
-    router.refresh();
-  }
+
+    if (!res.ok) {
+      // Revert on failure
+      router.refresh();
+    }
+  }, [router]);
 
   async function createDeal() {
     if (!newDealTitle.trim()) return;
     setCreating(true);
-    await fetch("/api/deals", {
+    const res = await fetch("/api/deals", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -54,11 +68,69 @@ export function PipelineBoard({
         stage_id: newDealStageId || undefined,
       }),
     });
+    if (res.ok) {
+      const deal = await res.json();
+      setDeals((prev) => [{ ...deal, lead: null }, ...prev]);
+    }
     setNewDealTitle("");
     setNewDealValue("");
     setShowNewDeal(false);
     setCreating(false);
-    router.refresh();
+  }
+
+  // --- Drag and Drop handlers ---
+
+  function handleDragStart(e: React.DragEvent, dealId: string, stageId: string | null) {
+    dragDealRef.current = dealId;
+    dragSourceStageRef.current = stageId;
+    e.dataTransfer.effectAllowed = "move";
+    e.dataTransfer.setData("text/plain", dealId);
+
+    // Make the dragged element semi-transparent after a tick
+    const target = e.currentTarget as HTMLElement;
+    requestAnimationFrame(() => {
+      target.style.opacity = "0.4";
+    });
+  }
+
+  function handleDragEnd(e: React.DragEvent) {
+    const target = e.currentTarget as HTMLElement;
+    target.style.opacity = "1";
+    dragDealRef.current = null;
+    dragSourceStageRef.current = null;
+    setDragOverStageId(null);
+  }
+
+  function handleDragOver(e: React.DragEvent, stageId: string) {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "move";
+    if (dragOverStageId !== stageId) {
+      setDragOverStageId(stageId);
+    }
+  }
+
+  function handleDragLeave(e: React.DragEvent, stageId: string) {
+    // Only clear if we're actually leaving this column (not entering a child)
+    const relatedTarget = e.relatedTarget as HTMLElement | null;
+    const currentTarget = e.currentTarget as HTMLElement;
+    if (!relatedTarget || !currentTarget.contains(relatedTarget)) {
+      if (dragOverStageId === stageId) {
+        setDragOverStageId(null);
+      }
+    }
+  }
+
+  function handleDrop(e: React.DragEvent, stageId: string) {
+    e.preventDefault();
+    setDragOverStageId(null);
+
+    const dealId = dragDealRef.current;
+    if (!dealId) return;
+
+    // Don't do anything if dropped on the same stage
+    if (dragSourceStageRef.current === stageId) return;
+
+    moveDeal(dealId, stageId);
   }
 
   return (
@@ -129,11 +201,19 @@ export function PipelineBoard({
         {stages.map((stage) => {
           const stageDeals = deals.filter((d) => d.stage_id === stage.id);
           const stageValue = stageDeals.reduce((sum, d) => sum + (d.value_cents ?? 0), 0);
+          const isDropTarget = dragOverStageId === stage.id && dragSourceStageRef.current !== stage.id;
 
           return (
             <div
               key={stage.id}
-              className="min-w-[280px] flex-shrink-0 rounded-lg border bg-slate-50"
+              className={`min-w-[280px] flex-shrink-0 rounded-lg border transition-colors duration-150 ${
+                isDropTarget
+                  ? "border-teal-400 bg-teal-50/50 ring-2 ring-teal-200"
+                  : "bg-slate-50"
+              }`}
+              onDragOver={(e) => handleDragOver(e, stage.id)}
+              onDragLeave={(e) => handleDragLeave(e, stage.id)}
+              onDrop={(e) => handleDrop(e, stage.id)}
             >
               {/* Column header */}
               <div className="border-b px-3 py-2">
@@ -155,18 +235,26 @@ export function PipelineBoard({
               </div>
 
               {/* Deal cards */}
-              <div className="space-y-2 p-2">
-                {stageDeals.length === 0 && (
+              <div className="space-y-2 p-2" style={{ minHeight: "80px" }}>
+                {stageDeals.length === 0 && !isDropTarget && (
                   <p className="px-2 py-4 text-center text-xs text-slate-400">
                     No deals
                   </p>
                 )}
+                {isDropTarget && stageDeals.length === 0 && (
+                  <div className="rounded-md border-2 border-dashed border-teal-300 px-2 py-4 text-center text-xs text-teal-500">
+                    Drop here
+                  </div>
+                )}
                 {stageDeals.map((deal) => (
                   <div
                     key={deal.id}
+                    draggable={!stage.is_won && !stage.is_lost}
+                    onDragStart={(e) => handleDragStart(e, deal.id, stage.id)}
+                    onDragEnd={handleDragEnd}
                     className={`rounded-md border bg-white p-3 shadow-sm transition-opacity ${
                       movingDealId === deal.id ? "opacity-50" : ""
-                    }`}
+                    } ${!stage.is_won && !stage.is_lost ? "cursor-grab active:cursor-grabbing" : ""}`}
                   >
                     <Link
                       href={`/deals/${deal.id}`}
@@ -197,7 +285,7 @@ export function PipelineBoard({
                       </p>
                     )}
 
-                    {/* Stage move buttons */}
+                    {/* Quick stage move buttons (kept as fallback alongside drag) */}
                     {!stage.is_won && !stage.is_lost && (
                       <div className="mt-2 flex gap-1">
                         {stages
