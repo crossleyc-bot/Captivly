@@ -14,6 +14,17 @@ export default async function Home() {
         <Link href="/">
           <Logo size={24} />
         </Link>
+        <nav className="hidden items-center gap-6 sm:flex">
+          <Link href="#how-it-works" className="text-sm font-medium text-slate-600 hover:text-slate-900">
+            How It Works
+          </Link>
+          <Link href="#features" className="text-sm font-medium text-slate-600 hover:text-slate-900">
+            Features
+          </Link>
+          <Link href="#pricing" className="text-sm font-medium text-slate-600 hover:text-slate-900">
+            Pricing
+          </Link>
+        </nav>
         <nav className="flex items-center gap-4">
           {user ? (
             <Link
@@ -65,7 +76,7 @@ export default async function Home() {
         </div>
       </main>
 
-      <section className="border-t bg-white px-6 py-16">
+      <section id="how-it-works" className="border-t bg-white px-6 py-16">
         <div className="mx-auto max-w-4xl">
           <h2 className="text-center text-3xl font-bold tracking-tight text-slate-900">
             How It Works
@@ -113,14 +124,6 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="mt-10 text-center">
-            <Link
-              href="/signup"
-              className="rounded-full bg-teal-600 px-6 py-3 text-sm font-medium text-white shadow-md shadow-amber-200 hover:bg-teal-700"
-            >
-              Start Free Trial
-            </Link>
-          </div>
         </div>
       </section>
 
@@ -219,8 +222,191 @@ export default async function Home() {
         </div>
       </section>
 
-      <footer className="border-t px-6 py-8 text-center text-sm text-slate-500">
-        &copy; {new Date().getFullYear()} Captivly.ai. All rights reserved.
+      {/* Pricing Teaser */}
+      <section id="pricing" className="border-t bg-slate-50 px-6 py-16">
+        <div className="mx-auto max-w-4xl text-center">
+          <h2 className="text-3xl font-bold tracking-tight text-slate-900">
+            Simple, transparent pricing
+          </h2>
+          <p className="mx-auto mt-4 max-w-xl text-slate-600">
+            Start small and scale as you grow. No contracts, cancel anytime.
+          </p>
+
+          <div className="mt-10 grid gap-6 sm:grid-cols-3">
+            {/* Starter */}
+            <div className="rounded-lg border border-slate-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-slate-900">Starter</h3>
+              <div className="mt-2">
+                <span className="text-3xl font-bold text-slate-900">$49</span>
+                <span className="text-sm text-slate-500">/mo</span>
+              </div>
+              <ul className="mt-4 space-y-2 text-left text-sm text-slate-600">
+                <li className="flex items-start gap-2">
+                  <svg className="mt-0.5 h-4 w-4 shrink-0 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+                  100 leads/month
+                </li>
+                <li className="flex items-start gap-2">
+                  <svg className="mt-0.5 h-4 w-4 shrink-0 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+                  AI lead scoring
+                </li>
+                <li className="flex items-start gap-2">
+                  <svg className="mt-0.5 h-4 w-4 shrink-0 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+                  3-step email sequences
+                </li>
+              </ul>
+              <Link
+                href="/signup"
+                className="mt-6 block rounded-md border border-slate-300 px-4 py-2 text-center text-sm font-medium text-slate-700 hover:bg-slate-50"
+              >
+                Get Started
+              </Link>
+            </div>
+
+            {/* Growth */}
+            <div className="relative rounded-lg border-2 border-teal-600 bg-white p-6">
+              <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-teal-600 px-3 py-0.5 text-xs font-medium text-white">
+                Most Popular
+              </span>
+              <h3 className="text-sm font-semibold text-slate-900">Growth</h3>
+              <div className="mt-2">
+                <span className="text-3xl font-bold text-slate-900">$99</span>
+                <span className="text-sm text-slate-500">/mo</span>
+              </div>
+              <ul className="mt-4 space-y-2 text-left text-sm text-slate-600">
+                <li className="flex items-start gap-2">
+                  <svg className="mt-0.5 h-4 w-4 shrink-0 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+                  500 leads/month
+                </li>
+                <li className="flex items-start gap-2">
+                  <svg className="mt-0.5 h-4 w-4 shrink-0 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+                  500 SMS/month
+                </li>
+                <li className="flex items-start gap-2">
+                  <svg className="mt-0.5 h-4 w-4 shrink-0 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+                  5 campaigns, 5-step sequences
+                </li>
+              </ul>
+              <Link
+                href="/signup"
+                className="mt-6 block rounded-md bg-teal-600 px-4 py-2 text-center text-sm font-medium text-white hover:bg-teal-700"
+              >
+                Get Started
+              </Link>
+            </div>
+
+            {/* Pro */}
+            <div className="rounded-lg border border-slate-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-slate-900">Pro</h3>
+              <div className="mt-2">
+                <span className="text-3xl font-bold text-slate-900">$199</span>
+                <span className="text-sm text-slate-500">/mo</span>
+              </div>
+              <ul className="mt-4 space-y-2 text-left text-sm text-slate-600">
+                <li className="flex items-start gap-2">
+                  <svg className="mt-0.5 h-4 w-4 shrink-0 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+                  2,000 leads + 2,000 SMS/month
+                </li>
+                <li className="flex items-start gap-2">
+                  <svg className="mt-0.5 h-4 w-4 shrink-0 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+                  Unlimited campaigns
+                </li>
+                <li className="flex items-start gap-2">
+                  <svg className="mt-0.5 h-4 w-4 shrink-0 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+                  White-label + AI reports
+                </li>
+              </ul>
+              <Link
+                href="/signup"
+                className="mt-6 block rounded-md border border-slate-300 px-4 py-2 text-center text-sm font-medium text-slate-700 hover:bg-slate-50"
+              >
+                Get Started
+              </Link>
+            </div>
+          </div>
+
+          <p className="mt-8 text-sm text-slate-500">
+            All plans include a 14-day free trial. <Link href="/features/pricing" className="font-medium text-teal-600 hover:text-teal-700">Compare plans in detail &rarr;</Link>
+          </p>
+        </div>
+      </section>
+
+      {/* Social Proof */}
+      <section className="border-t bg-white px-6 py-16">
+        <div className="mx-auto max-w-4xl text-center">
+          <p className="text-sm font-semibold uppercase tracking-wider text-slate-400">
+            Built for local businesses
+          </p>
+          <p className="mt-4 text-xl font-semibold text-slate-900">
+            Trusted by gyms, salons, restaurants, and home service providers
+          </p>
+          <div className="mt-10 grid grid-cols-2 gap-8 sm:grid-cols-4">
+            <div>
+              <p className="text-3xl font-bold text-teal-600">60s</p>
+              <p className="mt-1 text-sm text-slate-500">Average lead response time</p>
+            </div>
+            <div>
+              <p className="text-3xl font-bold text-teal-600">10x</p>
+              <p className="mt-1 text-sm text-slate-500">Faster than manual follow-up</p>
+            </div>
+            <div>
+              <p className="text-3xl font-bold text-teal-600">98%</p>
+              <p className="mt-1 text-sm text-slate-500">SMS open rate</p>
+            </div>
+            <div>
+              <p className="text-3xl font-bold text-teal-600">24/7</p>
+              <p className="mt-1 text-sm text-slate-500">AI-powered outreach</p>
+            </div>
+          </div>
+
+          <div className="mt-12">
+            <Link
+              href="/signup"
+              className="rounded-full bg-teal-600 px-6 py-3 text-sm font-medium text-white shadow-md shadow-amber-200 hover:bg-teal-700"
+            >
+              Start Your Free Trial
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="border-t bg-slate-50 px-6 py-12">
+        <div className="mx-auto max-w-5xl">
+          <div className="grid gap-8 sm:grid-cols-4">
+            <div>
+              <Logo size={20} />
+              <p className="mt-3 text-sm text-slate-500">
+                Automated lead generation for local businesses.
+              </p>
+            </div>
+            <div>
+              <h4 className="text-sm font-semibold text-slate-900">Product</h4>
+              <ul className="mt-3 space-y-2">
+                <li><Link href="#features" className="text-sm text-slate-500 hover:text-slate-700">Features</Link></li>
+                <li><Link href="#pricing" className="text-sm text-slate-500 hover:text-slate-700">Pricing</Link></li>
+                <li><Link href="#how-it-works" className="text-sm text-slate-500 hover:text-slate-700">How It Works</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-sm font-semibold text-slate-900">Resources</h4>
+              <ul className="mt-3 space-y-2">
+                <li><Link href="/features/meta-lead-ads" className="text-sm text-slate-500 hover:text-slate-700">Meta Lead Ads</Link></li>
+                <li><Link href="/features/google-ads" className="text-sm text-slate-500 hover:text-slate-700">Google Ads</Link></li>
+                <li><Link href="/features/ai-lead-scoring" className="text-sm text-slate-500 hover:text-slate-700">AI Lead Scoring</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-sm font-semibold text-slate-900">Legal</h4>
+              <ul className="mt-3 space-y-2">
+                <li><Link href="/privacy" className="text-sm text-slate-500 hover:text-slate-700">Privacy Policy</Link></li>
+                <li><Link href="/terms" className="text-sm text-slate-500 hover:text-slate-700">Terms of Service</Link></li>
+              </ul>
+            </div>
+          </div>
+          <div className="mt-10 border-t pt-6 text-center text-sm text-slate-400">
+            &copy; {new Date().getFullYear()} Captivly.ai. All rights reserved.
+          </div>
+        </div>
       </footer>
     </div>
   );
