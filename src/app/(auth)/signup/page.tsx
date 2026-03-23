@@ -6,11 +6,41 @@ import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { Logo } from "@/components/logo";
 
+function getPasswordStrength(password: string): {
+  score: 0 | 1 | 2 | 3 | 4;
+  label: string;
+  color: string;
+} {
+  if (!password) return { score: 0, label: "", color: "" };
+  let score = 0;
+  if (password.length >= 6) score++;
+  if (password.length >= 10) score++;
+  if (/[A-Z]/.test(password) && /[a-z]/.test(password)) score++;
+  if (/\d/.test(password) || /[^A-Za-z0-9]/.test(password)) score++;
+  const levels = [
+    { label: "Weak", color: "bg-red-500" },
+    { label: "Weak", color: "bg-red-500" },
+    { label: "Fair", color: "bg-yellow-500" },
+    { label: "Good", color: "bg-teal-500" },
+    { label: "Strong", color: "bg-green-500" },
+  ] as const;
+  return {
+    score: score as 0 | 1 | 2 | 3 | 4,
+    label: levels[score].label,
+    color: levels[score].color,
+  };
+}
+
 export default function SignupPage() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [confirmEmail, setConfirmEmail] = useState<string | null>(null);
+  const [password, setPassword] = useState("");
+  const [resending, setResending] = useState(false);
+  const [resendSuccess, setResendSuccess] = useState(false);
+
+  const strength = getPasswordStrength(password);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -20,13 +50,13 @@ export default function SignupPage() {
     const formData = new FormData(e.currentTarget);
     const fullName = formData.get("name") as string;
     const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
+    const pw = formData.get("password") as string;
 
     const supabase = createClient();
 
     const { data, error: signUpError } = await supabase.auth.signUp({
       email,
-      password,
+      password: pw,
       options: {
         data: { full_name: fullName },
       },
@@ -56,6 +86,23 @@ export default function SignupPage() {
     }
   }
 
+  async function handleResendEmail() {
+    if (!confirmEmail || resending) return;
+    setResending(true);
+    setResendSuccess(false);
+
+    const supabase = createClient();
+    const { error } = await supabase.auth.resend({
+      type: "signup",
+      email: confirmEmail,
+    });
+
+    setResending(false);
+    if (!error) {
+      setResendSuccess(true);
+    }
+  }
+
   if (confirmEmail) {
     return (
       <div className="flex min-h-screen items-center justify-center">
@@ -66,6 +113,21 @@ export default function SignupPage() {
             <span className="font-medium text-slate-900">{confirmEmail}</span>.
             Click the link to activate your account.
           </p>
+          <div className="space-y-3">
+            <button
+              type="button"
+              onClick={handleResendEmail}
+              disabled={resending}
+              className="text-sm font-medium text-teal-600 hover:text-teal-700 disabled:opacity-50"
+            >
+              {resending ? "Sending..." : "Resend confirmation email"}
+            </button>
+            {resendSuccess && (
+              <p className="text-sm text-green-600">
+                Confirmation email resent. Check your inbox.
+              </p>
+            )}
+          </div>
           <p className="text-sm text-slate-500">
             Already confirmed?{" "}
             <Link href="/login" className="font-medium text-teal-600 hover:underline">
@@ -132,8 +194,25 @@ export default function SignupPage() {
               autoComplete="new-password"
               required
               minLength={6}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 text-sm shadow-sm focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500"
             />
+            {password && (
+              <div className="mt-2">
+                <div className="flex gap-1">
+                  {Array.from({ length: 4 }).map((_, i) => (
+                    <div
+                      key={i}
+                      className={`h-1 flex-1 rounded-full ${
+                        i < strength.score ? strength.color : "bg-slate-200"
+                      }`}
+                    />
+                  ))}
+                </div>
+                <p className="mt-1 text-xs text-slate-500">{strength.label}</p>
+              </div>
+            )}
           </div>
           <button
             type="submit"
