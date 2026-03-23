@@ -78,7 +78,36 @@ export default function OnboardingPage() {
   const [loading, setLoading] = useState(false);
 
   function update(fields: Partial<OnboardingData>) {
-    setData((prev) => ({ ...prev, ...fields }));
+    setData((prev) => {
+      const next = { ...prev, ...fields };
+
+      // Clamp age values to valid bounds
+      if (fields.target_age_min !== undefined) {
+        next.target_age_min = Math.max(13, Math.min(99, next.target_age_min));
+      }
+      if (fields.target_age_max !== undefined) {
+        next.target_age_max = Math.max(13, Math.min(99, next.target_age_max));
+      }
+      // Ensure min <= max
+      if (next.target_age_min > next.target_age_max) {
+        if (fields.target_age_min !== undefined) {
+          next.target_age_max = next.target_age_min;
+        } else {
+          next.target_age_min = next.target_age_max;
+        }
+      }
+
+      // Strip non-digit characters from ZIP
+      if (fields.location_zip !== undefined) {
+        next.location_zip = next.location_zip.replace(/\D/g, "").slice(0, 5);
+      }
+
+      return next;
+    });
+  }
+
+  function isValidZip(zip: string): boolean {
+    return zip === "" || /^\d{5}$/.test(zip);
   }
 
   function toggleInterest(interest: string) {
@@ -93,7 +122,11 @@ export default function OnboardingPage() {
   function canAdvance(): boolean {
     switch (step) {
       case 0:
-        return data.name.trim() !== "" && data.type !== "";
+        return (
+          data.name.trim() !== "" &&
+          data.type !== "" &&
+          isValidZip(data.location_zip)
+        );
       case 1:
         return data.target_interests.length > 0;
       case 2:
@@ -220,24 +253,52 @@ export default function OnboardingPage() {
             Sign out
           </button>
         </div>
-        {/* Progress */}
-        <div className="flex gap-2">
-          {STEP_TITLES.map((title, i) => (
-            <div key={title} className="flex-1">
-              <div
-                className={`h-1.5 rounded-full ${
-                  i <= step ? "bg-teal-600" : "bg-slate-200"
-                }`}
-              />
-              <p
-                className={`mt-1 text-xs ${
-                  i === step ? "font-medium text-slate-900" : "text-slate-400"
-                }`}
-              >
-                {title}
-              </p>
-            </div>
-          ))}
+        {/* Progress bar */}
+        <div className="space-y-3">
+          <div className="flex items-center justify-between">
+            <p className="text-sm font-medium text-slate-700">
+              Step {step + 1} of {STEP_TITLES.length}
+            </p>
+            <p className="text-xs text-slate-500">
+              {Math.round(((step + 1) / STEP_TITLES.length) * 100)}% complete
+            </p>
+          </div>
+          <div className="h-2 w-full rounded-full bg-slate-200">
+            <div
+              className="h-2 rounded-full bg-teal-600 transition-all duration-300"
+              style={{
+                width: `${((step + 1) / STEP_TITLES.length) * 100}%`,
+              }}
+            />
+          </div>
+          <div className="flex gap-2">
+            {STEP_TITLES.map((title, i) => (
+              <div key={title} className="flex-1 text-center">
+                <div
+                  className={`mx-auto mb-1 flex h-6 w-6 items-center justify-center rounded-full text-xs font-medium ${
+                    i < step
+                      ? "bg-teal-600 text-white"
+                      : i === step
+                        ? "border-2 border-teal-600 text-teal-600"
+                        : "border border-slate-300 text-slate-400"
+                  }`}
+                >
+                  {i < step ? "\u2713" : i + 1}
+                </div>
+                <p
+                  className={`text-xs ${
+                    i === step
+                      ? "font-medium text-slate-900"
+                      : i < step
+                        ? "text-teal-600"
+                        : "text-slate-400"
+                  }`}
+                >
+                  {title}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
 
         {error && (
@@ -322,8 +383,15 @@ export default function OnboardingPage() {
                   value={data.location_zip}
                   onChange={(e) => update({ location_zip: e.target.value })}
                   maxLength={5}
+                  inputMode="numeric"
+                  pattern="\d*"
                   className={inputClass}
                 />
+                {data.location_zip !== "" && !isValidZip(data.location_zip) && (
+                  <p className="mt-1 text-xs text-red-500">
+                    ZIP must be 5 digits
+                  </p>
+                )}
               </div>
             </div>
           </div>
@@ -367,6 +435,9 @@ export default function OnboardingPage() {
                 />
               </div>
             </div>
+            <p className="text-xs text-slate-500">
+              Ages must be between 13 and 99. Min age cannot exceed max age.
+            </p>
             <div>
               <label htmlFor="radius" className={labelClass}>
                 Target radius (miles)
