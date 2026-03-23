@@ -5,22 +5,22 @@ import { MarketingHeader } from "@/components/marketing-header";
 import { MarketingFooter } from "@/components/marketing-footer";
 
 export const metadata: Metadata = {
-  title: "Captivly.ai — Automated Lead Generation for Local Businesses",
+  title: "Captivly.ai — Stop Losing Leads. Start Closing Them.",
   description:
-    "Connect your Meta Lead Ads, score leads with AI, and fire personalized email & SMS outreach sequences — all on autopilot. Built for gyms, salons, restaurants, and home service providers.",
+    "Captivly connects to your Facebook and Google ads, scores every lead with AI, and follows up automatically with personalized emails and texts — so you never miss another customer. Plans start at $49/mo.",
   openGraph: {
-    title: "Captivly.ai — Automated Lead Generation for Local Businesses",
+    title: "Captivly.ai — Stop Losing Leads. Start Closing Them.",
     description:
-      "Connect your Meta Lead Ads, score leads with AI, and fire personalized email & SMS outreach sequences — all on autopilot.",
+      "Captivly connects to your Facebook and Google ads, scores every lead with AI, and follows up automatically with personalized emails and texts — so you never miss another customer.",
     type: "website",
     url: "https://captivly.ai",
     siteName: "Captivly.ai",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Captivly.ai — Automated Lead Generation for Local Businesses",
+    title: "Captivly.ai — Stop Losing Leads. Start Closing Them.",
     description:
-      "Connect your Meta Lead Ads, score leads with AI, and fire personalized email & SMS outreach sequences — all on autopilot.",
+      "Captivly connects to your Facebook and Google ads, scores every lead with AI, and follows up automatically with personalized emails and texts — so you never miss another customer.",
   },
 };
 
@@ -61,28 +61,38 @@ export default async function Home() {
     <div className="flex min-h-screen flex-col">
       <MarketingHeader user={user} />
 
-      <main id="main-content" className="flex flex-1 flex-col items-center justify-center bg-gradient-to-b from-teal-50 via-white to-white px-6 py-12 text-center">
-        <h1 className="max-w-2xl text-5xl font-bold tracking-tight text-slate-900">
-          Automated lead generation for local businesses
+      <main id="main-content" className="flex flex-1 flex-col items-center justify-center bg-gradient-to-b from-teal-50 via-white to-white px-6 py-16 text-center">
+        <div className="rounded-full bg-amber-100 px-4 py-1.5 text-xs font-medium text-amber-700">
+          No agency fees. No marketing degree required.
+        </div>
+        <h1 className="mt-6 max-w-3xl text-5xl font-bold tracking-tight text-slate-900">
+          Stop losing leads. Start closing them.
         </h1>
-        <p className="mt-6 max-w-lg text-lg text-slate-600">
-          Connect your Meta Lead Ads, score leads with AI, and fire
-          personalized email &amp; SMS outreach — all on autopilot.
+        <p className="mt-6 max-w-2xl text-lg text-slate-600">
+          Captivly connects to your Facebook and Google ads, scores every lead with AI,
+          and follows up automatically with personalized emails and texts — so you never
+          miss another customer.
+        </p>
+        <p className="mt-3 max-w-xl text-sm text-slate-500">
+          Everything GoHighLevel does for $97/mo, plus AI that actually works — starting at $49/mo, without needing an agency to set it up.
         </p>
         <div className="mt-10 flex gap-4">
           <Link
             href="/signup"
             className="rounded-full bg-teal-600 px-6 py-3 text-sm font-medium text-white shadow-md shadow-amber-200 hover:bg-teal-700"
           >
-            Start Free Trial
+            Start Free Trial — No Card Required
           </Link>
           <Link
-            href="#features"
+            href="#how-it-works"
             className="rounded-full border border-slate-300 px-6 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50"
           >
-            Learn More
+            See How It Works
           </Link>
         </div>
+        <p className="mt-4 text-xs text-slate-400">
+          Plans start at $49/mo. 14-day free trial on every plan.
+        </p>
       </main>
 
       <section id="how-it-works" className="border-t bg-white px-6 py-16">
@@ -139,10 +149,10 @@ export default async function Home() {
       <section id="features" className="border-t bg-white px-6 py-12">
         <div className="mx-auto max-w-5xl">
           <h2 className="text-center text-3xl font-bold tracking-tight text-slate-900">
-            Everything you need to convert leads on autopilot
+            Everything you need to close leads on autopilot
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-center text-slate-600">
-            Captivly.ai connects to your ad accounts, scores every lead with AI, and sends personalized outreach automatically.
+            No more spreadsheets. No more forgotten follow-ups. Captivly handles every lead from ad click to conversion.
           </p>
 
           <div className="mt-14">
@@ -364,10 +374,10 @@ export default async function Home() {
       <section className="border-t bg-white px-6 py-16">
         <div className="mx-auto max-w-4xl text-center">
           <p className="text-sm font-semibold uppercase tracking-wider text-slate-400">
-            Built for local businesses
+            Built for local businesses that run on leads
           </p>
           <p className="mt-4 text-xl font-semibold text-slate-900">
-            Trusted by gyms, salons, restaurants, and home service providers
+            Gyms, salons, restaurants, and home service providers choose Captivly
           </p>
           <div className="mt-10 grid grid-cols-2 gap-8 sm:grid-cols-4">
             <div>
@@ -388,13 +398,16 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="mt-12">
+          <div className="mt-12 space-y-3">
             <Link
               href="/signup"
-              className="rounded-full bg-teal-600 px-6 py-3 text-sm font-medium text-white shadow-md shadow-amber-200 hover:bg-teal-700"
+              className="inline-block rounded-full bg-teal-600 px-6 py-3 text-sm font-medium text-white shadow-md shadow-amber-200 hover:bg-teal-700"
             >
-              Start Your Free Trial
+              Start Your Free Trial — No Card Required
             </Link>
+            <p className="text-xs text-slate-400">
+              Set up in under 20 minutes. Cancel anytime.
+            </p>
           </div>
         </div>
       </section>
