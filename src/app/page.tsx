@@ -65,6 +65,65 @@ export default async function Home() {
         </div>
       </main>
 
+      <section className="border-t bg-white px-6 py-16">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="text-center text-3xl font-bold tracking-tight text-slate-900">
+            How It Works
+          </h2>
+          <p className="mx-auto mt-4 max-w-xl text-center text-slate-600">
+            Set up once. Captivly handles the rest — automatically.
+          </p>
+
+          <div className="mt-12 grid gap-8 sm:grid-cols-3">
+            {/* Step 1 */}
+            <div className="relative text-center">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-teal-100 text-lg font-bold text-teal-700">
+                1
+              </div>
+              <h3 className="mt-4 text-sm font-semibold text-slate-900">Connect Your Ads</h3>
+              <p className="mt-2 text-sm text-slate-600">
+                Link your Meta or Google ad account in one click. Leads flow into Captivly in real time.
+              </p>
+              <div className="absolute right-0 top-6 hidden h-px w-[calc(50%-1.5rem)] bg-slate-200 sm:block" />
+            </div>
+
+            {/* Step 2 */}
+            <div className="relative text-center">
+              <div className="absolute left-0 top-6 hidden h-px w-[calc(50%-1.5rem)] bg-slate-200 sm:block" />
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-teal-100 text-lg font-bold text-teal-700">
+                2
+              </div>
+              <h3 className="mt-4 text-sm font-semibold text-slate-900">AI Takes Over</h3>
+              <p className="mt-2 text-sm text-slate-600">
+                Every lead is scored 1-10 by AI and matched to a personalized multi-step outreach sequence.
+              </p>
+              <div className="absolute right-0 top-6 hidden h-px w-[calc(50%-1.5rem)] bg-slate-200 sm:block" />
+            </div>
+
+            {/* Step 3 */}
+            <div className="relative text-center">
+              <div className="absolute left-0 top-6 hidden h-px w-[calc(50%-1.5rem)] bg-slate-200 sm:block" />
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-teal-100 text-lg font-bold text-teal-700">
+                3
+              </div>
+              <h3 className="mt-4 text-sm font-semibold text-slate-900">Leads Convert on Autopilot</h3>
+              <p className="mt-2 text-sm text-slate-600">
+                Personalized emails and texts fire automatically. You focus on running your business.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-10 text-center">
+            <Link
+              href="/signup"
+              className="rounded-full bg-teal-600 px-6 py-3 text-sm font-medium text-white shadow-md shadow-amber-200 hover:bg-teal-700"
+            >
+              Start Free Trial
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <section id="features" className="border-t bg-white px-6 py-12">
         <div className="mx-auto max-w-5xl">
           <h2 className="text-center text-3xl font-bold tracking-tight text-slate-900">
@@ -149,7 +208,7 @@ export default async function Home() {
             </div>
             <div className="mt-8 text-center">
               <Link
-                href="/features/meta-lead-ads"
+                href="/features/pricing"
                 className="text-sm font-medium text-teal-600 hover:text-teal-700"
               >
                 See all features &rarr;
