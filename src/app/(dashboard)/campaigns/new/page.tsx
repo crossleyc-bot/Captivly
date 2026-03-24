@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
+import { fetchWithCsrf } from "@/lib/fetch-with-csrf";
 
 type AdPlatform = "meta" | "google" | "tiktok" | "linkedin";
 
@@ -35,7 +36,7 @@ export default function NewCampaignPage() {
       return;
     }
 
-    const res = await fetch(selectedPlatform.endpoint, {
+    const res = await fetchWithCsrf(selectedPlatform.endpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

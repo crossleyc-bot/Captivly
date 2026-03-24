@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { fetchWithCsrf } from "@/lib/fetch-with-csrf";
 
 export function InviteMember() {
   const router = useRouter();
@@ -19,7 +20,7 @@ export function InviteMember() {
     setSuccess(false);
 
     try {
-      const res = await fetch("/api/agency/members", {
+      const res = await fetchWithCsrf("/api/agency/members", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: email.trim(), role }),

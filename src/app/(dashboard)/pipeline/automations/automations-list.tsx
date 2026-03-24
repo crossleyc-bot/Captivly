@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { fetchWithCsrf } from "@/lib/fetch-with-csrf";
 import type { PipelineStage, PipelineAutomationAction, LeadStatus } from "@/types/database";
 
 interface AutomationWithStage {
@@ -90,7 +91,7 @@ export function AutomationsList({
     }
 
     setSaving(true);
-    const res = await fetch("/api/pipeline-automations", {
+    const res = await fetchWithCsrf("/api/pipeline-automations", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -110,7 +111,7 @@ export function AutomationsList({
 
   async function toggleActive(id: string, currentActive: boolean) {
     setTogglingId(id);
-    const res = await fetch("/api/pipeline-automations", {
+    const res = await fetchWithCsrf("/api/pipeline-automations", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id, is_active: !currentActive }),
@@ -125,7 +126,7 @@ export function AutomationsList({
 
   async function handleDelete(id: string) {
     setDeletingId(id);
-    const res = await fetch("/api/pipeline-automations", {
+    const res = await fetchWithCsrf("/api/pipeline-automations", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id }),

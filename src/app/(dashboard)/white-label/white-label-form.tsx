@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { fetchWithCsrf } from "@/lib/fetch-with-csrf";
 
 interface WhiteLabelFormProps {
   initialConfig: {
@@ -31,7 +32,7 @@ export function WhiteLabelForm({ initialConfig }: WhiteLabelFormProps) {
     setSaved(false);
 
     try {
-      const res = await fetch("/api/white-label", {
+      const res = await fetchWithCsrf("/api/white-label", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

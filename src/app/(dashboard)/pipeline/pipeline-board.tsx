@@ -3,6 +3,7 @@
 import { useState, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { fetchWithCsrf } from "@/lib/fetch-with-csrf";
 import { formatCents, scoreColor } from "@/lib/ui-utils";
 import type { PipelineStage } from "@/types/database";
 
@@ -42,7 +43,7 @@ export function PipelineBoard({
     );
     setMovingDealId(dealId);
 
-    const res = await fetch("/api/deals", {
+    const res = await fetchWithCsrf("/api/deals", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id: dealId, stage_id: stageId }),
@@ -59,7 +60,7 @@ export function PipelineBoard({
   async function createDeal() {
     if (!newDealTitle.trim()) return;
     setCreating(true);
-    const res = await fetch("/api/deals", {
+    const res = await fetchWithCsrf("/api/deals", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

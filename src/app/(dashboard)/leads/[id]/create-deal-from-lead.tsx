@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { fetchWithCsrf } from "@/lib/fetch-with-csrf";
 
 export function CreateDealFromLead({
   leadId,
@@ -22,7 +23,7 @@ export function CreateDealFromLead({
     setCreating(true);
     setError(null);
 
-    const res = await fetch("/api/deals", {
+    const res = await fetchWithCsrf("/api/deals", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

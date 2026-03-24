@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { fetchWithCsrf } from "@/lib/fetch-with-csrf";
 
 export function CreateReferralLink() {
   const [name, setName] = useState("");
@@ -16,7 +17,7 @@ export function CreateReferralLink() {
     setResult(null);
 
     try {
-      const res = await fetch("/api/referrals", {
+      const res = await fetchWithCsrf("/api/referrals", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { updateSession } from "@/lib/supabase/middleware";
 import { rateLimit } from "@/lib/rate-limiter";
+import { setCsrfCookie, validateCsrf } from "@/lib/csrf";
 
 function getClientIp(request: NextRequest): string {
   const forwarded = request.headers.get("x-forwarded-for");
@@ -77,8 +78,27 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  // Update Supabase auth session
-  return updateSession(request);
+  // Validate CSRF token on non-GET/HEAD API requests from the browser
+  // (skip webhooks — they use their own auth, and internal routes use bearer tokens)
+  if (
+    isApiRoute(pathname) &&
+    !isWebhookRoute(pathname) &&
+    request.method !== "GET" &&
+    request.method !== "HEAD"
+  ) {
+    const csrfError = validateCsrf(request);
+    if (csrfError) return csrfError;
+  }
+
+  // Update Supabase auth session and set CSRF cookie on page responses
+  const response = await updateSession(request);
+
+  // Set CSRF cookie on non-API responses so client JS can read it
+  if (!isApiRoute(pathname)) {
+    setCsrfCookie(request, response);
+  }
+
+  return response;
 }
 
 export const config = {

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { fetchWithCsrf } from "@/lib/fetch-with-csrf";
 import type { PlanTier } from "@/types/database";
 
 const PLANS: { tier: PlanTier; name: string; price: string }[] = [
@@ -23,7 +24,7 @@ export function BillingActions({
     setLoading(plan);
     setError(null);
 
-    const res = await fetch("/api/stripe/create-checkout", {
+    const res = await fetchWithCsrf("/api/stripe/create-checkout", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ plan }),
@@ -44,7 +45,7 @@ export function BillingActions({
     setLoading("portal");
     setError(null);
 
-    const res = await fetch("/api/stripe/portal", { method: "POST" });
+    const res = await fetchWithCsrf("/api/stripe/portal", { method: "POST" });
     const data = await res.json();
 
     if (!res.ok) {

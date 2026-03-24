@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { fetchWithCsrf } from "@/lib/fetch-with-csrf";
 
 export function ContactForm() {
   const [name, setName] = useState("");
@@ -16,7 +17,7 @@ export function ContactForm() {
     setError(null);
     setSuccess(false);
 
-    const res = await fetch("/api/contact", {
+    const res = await fetchWithCsrf("/api/contact", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name, email, message }),

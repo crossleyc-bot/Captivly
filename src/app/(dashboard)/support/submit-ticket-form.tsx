@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { fetchWithCsrf } from "@/lib/fetch-with-csrf";
 
 export function SubmitTicketForm() {
   const router = useRouter();
@@ -18,7 +19,7 @@ export function SubmitTicketForm() {
     setError(null);
     setSuccess(false);
 
-    const res = await fetch("/api/support/tickets", {
+    const res = await fetchWithCsrf("/api/support/tickets", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ subject, message, urgency }),

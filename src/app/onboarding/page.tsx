@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { fetchWithCsrf } from "@/lib/fetch-with-csrf";
 import type { OutreachTone, PlanTier } from "@/types/database";
 
 const PLANS: { tier: PlanTier; name: string; price: string; features: string }[] = [
@@ -194,7 +195,7 @@ export default function OnboardingPage() {
     }
 
     // Fire-and-forget: auto-generate a starter campaign + sequence
-    fetch("/api/onboarding/auto-campaign", {
+    fetchWithCsrf("/api/onboarding/auto-campaign", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
     }).catch(() => {
@@ -202,7 +203,7 @@ export default function OnboardingPage() {
     });
 
     // Redirect to Stripe checkout if a paid plan was selected
-    const res = await fetch("/api/stripe/create-checkout", {
+    const res = await fetchWithCsrf("/api/stripe/create-checkout", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ plan: selectedPlan }),

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { fetchWithCsrf } from "@/lib/fetch-with-csrf";
 import type { PipelineStage } from "@/types/database";
 
 export function DealActions({
@@ -24,7 +25,7 @@ export function DealActions({
     if (stageId === currentStageId) return;
     setMoving(true);
     setError(null);
-    const res = await fetch("/api/deals", {
+    const res = await fetchWithCsrf("/api/deals", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id: dealId, stage_id: stageId }),
@@ -42,7 +43,7 @@ export function DealActions({
     setSaving(true);
     setError(null);
 
-    const res = await fetch("/api/deals", {
+    const res = await fetchWithCsrf("/api/deals", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id: dealId, notes: noteText.trim() }),

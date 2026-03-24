@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { fetchWithCsrf } from "@/lib/fetch-with-csrf";
 import type { CustomDomain } from "@/types/database";
 
 export function CustomDomainSection({
@@ -24,7 +25,7 @@ export function CustomDomainSection({
     setMessage(null);
 
     try {
-      const res = await fetch("/api/custom-domain", {
+      const res = await fetchWithCsrf("/api/custom-domain", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ domain }),
@@ -50,7 +51,7 @@ export function CustomDomainSection({
     setMessage(null);
 
     try {
-      const res = await fetch("/api/custom-domain/verify", { method: "POST" });
+      const res = await fetchWithCsrf("/api/custom-domain/verify", { method: "POST" });
       const data = await res.json();
 
       if (data.verified) {
@@ -68,7 +69,7 @@ export function CustomDomainSection({
 
   async function handleRemove() {
     try {
-      await fetch("/api/custom-domain", { method: "DELETE" });
+      await fetchWithCsrf("/api/custom-domain", { method: "DELETE" });
       setDomain("");
       setMessage("Domain removed.");
       router.refresh();

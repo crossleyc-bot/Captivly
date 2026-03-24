@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { fetchWithCsrf } from "@/lib/fetch-with-csrf";
 
 export function CreateAgency() {
   const router = useRouter();
@@ -16,7 +17,7 @@ export function CreateAgency() {
     setError(null);
 
     try {
-      const res = await fetch("/api/agency", {
+      const res = await fetchWithCsrf("/api/agency", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name: name.trim() }),
