@@ -30,7 +30,7 @@ export async function GET(request: NextRequest) {
 
   let query = supabase
     .from("deals")
-    .select("*, lead:leads(id, first_name, last_name, email, ai_score), stage:pipeline_stages(id, name, color, is_won, is_lost)")
+    .select("id, stage_id, title, value_cents, expected_close_date, created_at, business_id, lead:leads(id, first_name, last_name, email, ai_score), stage:pipeline_stages(id, name, color, is_won, is_lost)")
     .eq("business_id", business.id)
     .order("created_at", { ascending: false });
 

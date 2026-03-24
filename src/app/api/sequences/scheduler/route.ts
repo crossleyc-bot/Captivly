@@ -162,9 +162,16 @@ export async function POST(request: NextRequest) {
       )
     );
 
-    for (const result of results) {
+    for (let j = 0; j < results.length; j++) {
+      const result = results[j];
+      const msgId = batch[j].id;
+
       if (result.status === "fulfilled" && result.value.ok) {
         sent++;
+      } else if (result.status === "rejected") {
+        console.error(`Scheduler: message ${msgId} send failed (rejected):`, result.reason);
+      } else if (result.status === "fulfilled" && !result.value.ok) {
+        console.error(`Scheduler: message ${msgId} send failed (HTTP ${result.value.status})`);
       }
     }
   }
