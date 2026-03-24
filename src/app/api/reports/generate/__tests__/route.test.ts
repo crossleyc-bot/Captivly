@@ -140,8 +140,8 @@ describe("POST /api/reports/generate", () => {
               gte: vi.fn().mockReturnValue({
                 lt: vi.fn().mockResolvedValue({
                   data: [
-                    { ai_score: 8, status: "converted", created_at: "2026-02-15" },
-                    { ai_score: 6, status: "replied", created_at: "2026-02-10" },
+                    { id: "lead-1", ai_score: 8, status: "converted", created_at: "2026-02-15" },
+                    { id: "lead-2", ai_score: 6, status: "replied", created_at: "2026-02-10" },
                   ],
                 }),
               }),
@@ -163,7 +163,7 @@ describe("POST /api/reports/generate", () => {
       if (table === "messages_sent") {
         return {
           select: vi.fn().mockReturnValue({
-            eq: vi.fn().mockReturnValue({
+            in: vi.fn().mockReturnValue({
               gte: vi.fn().mockReturnValue({
                 lt: vi.fn().mockResolvedValue({
                   data: [

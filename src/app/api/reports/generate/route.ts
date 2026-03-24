@@ -63,48 +63,46 @@ export async function POST(request: NextRequest) {
 
     if (existing) continue;
 
-    // Gather metrics for the month
-    const [usageResult, leadsResult, conversionsResult, messagesResult] =
-      await Promise.all([
-        supabase
-          .from("usage_tracking")
-          .select("leads_count, sms_count, emails_count")
-          .eq("business_id", business.id)
-          .eq("month", month)
-          .single(),
-        supabase
-          .from("leads")
-          .select("ai_score, status, created_at")
-          .eq("business_id", business.id)
-          .gte("created_at", `${month}-01`)
-          .lt(
-            "created_at",
-            `${now.toISOString().slice(0, 7)}-01`
-          ),
-        supabase
-          .from("conversions")
-          .select("id", { count: "exact", head: true })
-          .eq("business_id", business.id)
-          .gte("converted_at", `${month}-01`)
-          .lt(
-            "converted_at",
-            `${now.toISOString().slice(0, 7)}-01`
-          ),
-        supabase
-          .from("messages_sent")
-          .select("status, channel")
-          .eq("lead_id", business.id)
-          .gte("created_at", `${month}-01`)
-          .lt(
-            "created_at",
-            `${now.toISOString().slice(0, 7)}-01`
-          ),
-      ]);
+    // Gather metrics for the month — fetch leads first, then messages by lead IDs
+    const nextMonth = `${now.toISOString().slice(0, 7)}-01`;
+
+    const [usageResult, leadsResult, conversionsResult] = await Promise.all([
+      supabase
+        .from("usage_tracking")
+        .select("leads_count, sms_count, emails_count")
+        .eq("business_id", business.id)
+        .eq("month", month)
+        .single(),
+      supabase
+        .from("leads")
+        .select("id, ai_score, status, created_at")
+        .eq("business_id", business.id)
+        .gte("created_at", `${month}-01`)
+        .lt("created_at", nextMonth),
+      supabase
+        .from("conversions")
+        .select("id", { count: "exact", head: true })
+        .eq("business_id", business.id)
+        .gte("converted_at", `${month}-01`)
+        .lt("converted_at", nextMonth),
+    ]);
 
     const usage = usageResult.data;
     const leads = leadsResult.data ?? [];
     const totalConversions = conversionsResult.count ?? 0;
-    const messages = messagesResult.data ?? [];
+
+    // Fetch messages for this business's leads in the reporting period
+    const leadIds = leads.map((l) => l.id);
+    let messages: { status: string; channel: string }[] = [];
+    if (leadIds.length > 0) {
+      const { data: msgData } = await supabase
+        .from("messages_sent")
+        .select("status, channel")
+        .in("lead_id", leadIds)
+        .gte("created_at", `${month}-01`)
+        .lt("created_at", nextMonth);
+      messages = msgData ?? [];
+    }
 
     const scoredLeads = leads.filter((l) => l.ai_score !== null);
     const avgScore =
@@ -160,12 +158,18 @@ Write a 3-paragraph report card with:
 2. top_insight: The most interesting or actionable finding from the data
 3. recommendation: One specific thing they should do next month to improve results`;
 
-    const response = await client.messages.create({
-      model: AI_MODEL,
-      max_tokens: 512,
-      messages: [{ role: "user", content: userPrompt }],
-      system: systemPrompt,
-    });
+    let response;
+    try {
+      response = await client.messages.create({
+        model: AI_MODEL,
+        max_tokens: 512,
+        messages: [{ role: "user", content: userPrompt }],
+        system: systemPrompt,
+      });
+    } catch (err) {
+      console.error(`Report generation Claude API error for ${business.name}:`, err);
+      continue;
+    }
 
     const text = response.content
       .filter(
@@ -202,11 +206,12 @@ Write a 3-paragraph report card with:
       year: "numeric",
     });
 
-    await resend.emails.send({
-      from: `Captivly.ai <noreply@${process.env.NEXT_PUBLIC_APP_URL?.replace("https://", "").replace("http://", "") ?? "captivly.ai"}>`,
-      to: proUser.email,
-      subject: `Your ${monthLabel} Report Card — ${business.name}`,
-      text: `Hi ${proUser.full_name ?? "there"},
+    try {
+      await resend.emails.send({
+        from: `Captivly.ai <noreply@${process.env.NEXT_PUBLIC_APP_URL?.replace("https://", "").replace("http://", "") ?? "captivly.ai"}>`,
+        to: proUser.email,
+        subject: `Your ${monthLabel} Report Card — ${business.name}`,
+        text: `Hi ${proUser.full_name ?? "there"},
 
 Here's your monthly report card for ${business.name} (${monthLabel}).
 
@@ -230,7 +235,10 @@ View the full report in your dashboard:
 ${process.env.NEXT_PUBLIC_APP_URL}/reports
 
 — The Captivly.ai Team`,
-    });
+      });
+    } catch (err) {
+      console.error(`Failed to email report card to ${proUser.email}:`, err);
+    }
 
     generated++;
   }

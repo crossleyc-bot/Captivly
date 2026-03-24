@@ -118,19 +118,28 @@ Your role:
   ];
 
   const client = getAnthropicClient();
-  const response = await client.messages.create({
-    model: AI_MODEL,
-    max_tokens: 256,
-    messages: claudeMessages,
-    system: systemPrompt,
-  });
+  let assistantText: string;
+  try {
+    const response = await client.messages.create({
+      model: AI_MODEL,
+      max_tokens: 256,
+      messages: claudeMessages,
+      system: systemPrompt,
+    });
 
-  const assistantText = response.content
-    .filter(
-      (block): block is Anthropic.TextBlock => block.type === "text"
-    )
-    .map((block) => block.text)
-    .join("");
+    assistantText = response.content
+      .filter(
+        (block): block is Anthropic.TextBlock => block.type === "text"
+      )
+      .map((block) => block.text)
+      .join("");
+  } catch (err) {
+    console.error("Chat widget Claude API error:", err);
+    return NextResponse.json(
+      { error: "Failed to generate response. Please try again." },
+      { status: 500 }
+    );
+  }
 
   const now = new Date().toISOString();
   const newMessages: ChatMessage[] = [
