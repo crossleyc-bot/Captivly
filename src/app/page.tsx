@@ -9,6 +9,8 @@ import { LogoTicker } from "@/components/ui/logo-ticker";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
 import { FadeIn } from "@/components/ui/fade-in";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Captivly.ai — Stop Losing Leads. Start Closing Them.",
   description:
