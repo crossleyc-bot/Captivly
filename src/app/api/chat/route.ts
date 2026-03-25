@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getAnthropicClient, AI_MODEL } from "@/lib/anthropic";
 import { getServiceClient } from "@/lib/supabase/service";
+import { badRequest, notFound, forbidden, internalError } from "@/lib/error-handler";
 import type Anthropic from "@anthropic-ai/sdk";
 import type { ChatMessage } from "@/types/database";
 
@@ -25,17 +26,11 @@ export async function POST(request: NextRequest) {
   const { business_id, message, visitor_name, visitor_email } = body;
 
   if (!business_id || !message) {
-    return NextResponse.json(
-      { error: "business_id and message are required" },
-      { status: 400 }
-    );
+    return badRequest("business_id and message are required");
   }
 
   if (message.length > MAX_MESSAGE_LENGTH) {
-    return NextResponse.json(
-      { error: `Message too long (max ${MAX_MESSAGE_LENGTH} characters)` },
-      { status: 400 }
-    );
+    return badRequest(`Message too long (max ${MAX_MESSAGE_LENGTH} characters)`);
   }
 
   const supabase = getServiceClient();
@@ -48,7 +43,7 @@ export async function POST(request: NextRequest) {
     .single();
 
   if (!business) {
-    return NextResponse.json({ error: "Business not found" }, { status: 404 });
+    return notFound("Business not found");
   }
 
   const { data: user } = await supabase
@@ -58,7 +53,7 @@ export async function POST(request: NextRequest) {
     .single();
 
   if (!user || user.plan_tier !== "pro" || user.subscription_status !== "active") {
-    return NextResponse.json({ error: "Widget not available" }, { status: 403 });
+    return forbidden("Widget not available");
   }
 
   const { data: widgetConfig } = await supabase
@@ -68,7 +63,7 @@ export async function POST(request: NextRequest) {
     .single();
 
   if (!widgetConfig?.is_enabled) {
-    return NextResponse.json({ error: "Widget not enabled" }, { status: 403 });
+    return forbidden("Widget not enabled");
   }
 
   // Load or create conversation
@@ -135,10 +130,7 @@ Your role:
       .join("");
   } catch (err) {
     console.error("Chat widget Claude API error:", err);
-    return NextResponse.json(
-      { error: "Failed to generate response. Please try again." },
-      { status: 500 }
-    );
+    return internalError("Failed to generate response. Please try again.");
   }
 
   const now = new Date().toISOString();

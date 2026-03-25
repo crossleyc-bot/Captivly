@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { GOOGLE_TOKEN_URL, GOOGLE_ADS_API_BASE_URL } from "@/lib/constants";
+import { encryptToken } from "@/lib/token-encryption";
 
 function redirectWithCleanup(url: string): NextResponse {
   const response = NextResponse.redirect(url);
@@ -80,8 +81,8 @@ export async function GET(request: NextRequest) {
   await supabase
     .from("businesses")
     .update({
-      google_access_token: accessToken,
-      google_refresh_token: refreshToken,
+      google_access_token: encryptToken(accessToken),
+      google_refresh_token: refreshToken ? encryptToken(refreshToken) : null,
       google_customer_id: firstCustomerId,
     })
     .eq("user_id", user.id);

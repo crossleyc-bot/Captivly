@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { requirePlan } from "@/lib/feature-gate";
 import type { PlanTier } from "@/types/database";
+import { unauthorized, forbidden, notFound, internalError } from "@/lib/error-handler";
 
 /**
  * GET /api/white-label — get white-label config for current business
@@ -15,7 +16,7 @@ export async function GET() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return unauthorized();
   }
 
   const { data: dbUser } = await supabase
@@ -25,10 +26,7 @@ export async function GET() {
     .single();
 
   if (!requirePlan((dbUser?.plan_tier ?? "starter") as PlanTier, "pro")) {
-    return NextResponse.json(
-      { error: "White-labeling requires the Pro plan" },
-      { status: 403 }
-    );
+    return forbidden("White-labeling requires the Pro plan");
   }
 
   const { data: business } = await supabase
@@ -38,7 +36,7 @@ export async function GET() {
     .single();
 
   if (!business) {
-    return NextResponse.json({ error: "No business found" }, { status: 404 });
+    return notFound("No business found");
   }
 
   const { data: config } = await supabase
@@ -57,7 +55,7 @@ export async function PUT(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return unauthorized();
   }
 
   const { data: dbUser } = await supabase
@@ -67,10 +65,7 @@ export async function PUT(request: NextRequest) {
     .single();
 
   if (!requirePlan((dbUser?.plan_tier ?? "starter") as PlanTier, "pro")) {
-    return NextResponse.json(
-      { error: "White-labeling requires the Pro plan" },
-      { status: 403 }
-    );
+    return forbidden("White-labeling requires the Pro plan");
   }
 
   const { data: business } = await supabase
@@ -80,7 +75,7 @@ export async function PUT(request: NextRequest) {
     .single();
 
   if (!business) {
-    return NextResponse.json({ error: "No business found" }, { status: 404 });
+    return notFound("No business found");
   }
 
   const body = (await request.json()) as {
@@ -130,7 +125,7 @@ export async function PUT(request: NextRequest) {
     .single();
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return internalError(error.message);
   }
 
   return NextResponse.json({ config });

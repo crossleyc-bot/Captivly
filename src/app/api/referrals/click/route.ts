@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServiceClient } from "@/lib/supabase/service";
+import { badRequest, notFound } from "@/lib/error-handler";
 
 /**
  * POST /api/referrals/click — record a referral link click.
@@ -10,7 +11,7 @@ export async function POST(request: NextRequest) {
   const { code } = (await request.json()) as { code?: string };
 
   if (!code) {
-    return NextResponse.json({ error: "code required" }, { status: 400 });
+    return badRequest("code required");
   }
 
   const supabase = getServiceClient();
@@ -23,7 +24,7 @@ export async function POST(request: NextRequest) {
     .single();
 
   if (!link || !link.is_active) {
-    return NextResponse.json({ error: "Invalid referral code" }, { status: 404 });
+    return notFound("Invalid referral code");
   }
 
   // Increment click count

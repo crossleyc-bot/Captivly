@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServiceClient } from "@/lib/supabase/service";
 import { validateInternalAuth } from "@/lib/internal-auth";
+import { badRequest, notFound } from "@/lib/error-handler";
 
 /**
  * POST /api/referrals/track — attribute a lead to a referral link.
@@ -16,10 +17,7 @@ export async function POST(request: NextRequest) {
   };
 
   if (!lead_id || !referral_code) {
-    return NextResponse.json(
-      { error: "lead_id and referral_code required" },
-      { status: 400 }
-    );
+    return badRequest("lead_id and referral_code required");
   }
 
   const supabase = getServiceClient();
@@ -32,7 +30,7 @@ export async function POST(request: NextRequest) {
     .single();
 
   if (!link || !link.is_active) {
-    return NextResponse.json({ error: "Invalid referral code" }, { status: 404 });
+    return notFound("Invalid referral code");
   }
 
   // Update the lead with the referral link

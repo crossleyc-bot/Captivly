@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { validateApiKey } from "@/lib/api-key-auth";
 import { getServiceClient } from "@/lib/supabase/service";
+import { notFound, internalError } from "@/lib/error-handler";
 
 /**
  * Zapier polling trigger: returns recent conversions.
@@ -22,7 +23,7 @@ export async function GET(request: NextRequest) {
     .single();
 
   if (!business) {
-    return NextResponse.json({ error: "No business found" }, { status: 404 });
+    return notFound("No business found");
   }
 
   const params = request.nextUrl.searchParams;
@@ -43,7 +44,7 @@ export async function GET(request: NextRequest) {
   const { data: conversions, error } = await query;
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return internalError(error.message);
   }
 
   return NextResponse.json(conversions ?? []);

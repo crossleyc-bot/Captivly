@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { unauthorized, forbidden, notFound, badRequest, internalError } from "@/lib/error-handler";
 
 /**
  * GET /api/agency/clients — list businesses managed by this agency
@@ -13,13 +14,13 @@ export async function GET() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return unauthorized();
   }
 
   // Get agency (as owner or member)
   const agencyId = await getAgencyId(supabase, user.id);
   if (!agencyId) {
-    return NextResponse.json({ error: "No agency found" }, { status: 404 });
+    return notFound("No agency found");
   }
 
   const { data: clients } = await supabase
@@ -38,7 +39,7 @@ export async function POST(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return unauthorized();
   }
 
   // Only agency owner/admin can add clients
@@ -63,13 +64,13 @@ export async function POST(request: NextRequest) {
   }
 
   if (!agencyId) {
-    return NextResponse.json({ error: "Not authorized" }, { status: 403 });
+    return forbidden("Not authorized");
   }
 
   const { business_id } = (await request.json()) as { business_id: string };
 
   if (!business_id) {
-    return NextResponse.json({ error: "business_id required" }, { status: 400 });
+    return badRequest("business_id required");
   }
 
   // Verify the business belongs to the requesting user or one of their agency members
@@ -80,7 +81,7 @@ export async function POST(request: NextRequest) {
     .single();
 
   if (!business) {
-    return NextResponse.json({ error: "Business not found" }, { status: 404 });
+    return notFound("Business not found");
   }
 
   // Only the business owner themselves or a business whose owner is an agency member
@@ -93,10 +94,7 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (!memberCheck) {
-      return NextResponse.json(
-        { error: "Business owner must be a member of the agency" },
-        { status: 403 }
-      );
+      return forbidden("Business owner must be a member of the agency");
     }
   }
 
@@ -106,7 +104,7 @@ export async function POST(request: NextRequest) {
     .eq("id", business_id);
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return internalError(error.message);
   }
 
   return NextResponse.json({ added: true });
@@ -119,7 +117,7 @@ export async function DELETE(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return unauthorized();
   }
 
   // Only agency owner/admin can remove clients
@@ -143,13 +141,13 @@ export async function DELETE(request: NextRequest) {
   }
 
   if (!agencyId) {
-    return NextResponse.json({ error: "Not authorized" }, { status: 403 });
+    return forbidden("Not authorized");
   }
 
   const { business_id } = (await request.json()) as { business_id: string };
 
   if (!business_id) {
-    return NextResponse.json({ error: "business_id required" }, { status: 400 });
+    return badRequest("business_id required");
   }
 
   const { error } = await supabase
@@ -159,7 +157,7 @@ export async function DELETE(request: NextRequest) {
     .eq("agency_id", agencyId);
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return internalError(error.message);
   }
 
   return NextResponse.json({ removed: true });

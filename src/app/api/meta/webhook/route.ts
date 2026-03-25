@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createHmac, timingSafeEqual } from "crypto";
 import { getServiceClient } from "@/lib/supabase/service";
-import { getInternalAuthHeader } from "@/lib/internal-auth";
-import { PLAN_LIMITS, META_API_BASE_URL } from "@/lib/constants";
-import type { PlanTier } from "@/types/database";
+import { META_API_BASE_URL } from "@/lib/constants";
+import { decryptToken } from "@/lib/token-encryption";
+import { processInboundLead } from "@/lib/process-inbound-lead";
+import { saveToDeadLetter } from "@/lib/webhook-dead-letter";
 
 // Webhook verification
 export async function GET(request: NextRequest) {
@@ -48,7 +49,17 @@ export async function POST(request: NextRequest) {
   let body: MetaWebhookBody;
   const signature = request.headers.get("x-hub-signature-256");
   const appSecret = process.env.META_APP_SECRET;
-  if (appSecret && signature) {
+  // In production, always require signature verification
+  if (!appSecret && process.env.NODE_ENV === "production") {
+    console.error("META_APP_SECRET is not configured in production");
+    return NextResponse.json({ error: "Server misconfigured" }, { status: 500 });
+  }
+
+  if (appSecret) {
+    if (!signature) {
+      return NextResponse.json({ error: "Missing signature" }, { status: 403 });
+    }
+
     const rawBody = await request.text();
     const expectedSig = "sha256=" + createHmac("sha256", appSecret).update(rawBody).digest("hex");
 
@@ -65,6 +76,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
     }
   } else {
+    // Development only: allow unsigned requests
     body = await request.json();
   }
 
@@ -90,19 +102,13 @@ export async function POST(request: NextRequest) {
 
       if (!business?.meta_access_token) continue;
 
-      // Deduplicate: skip if lead already exists
-      const { count: existingCount } = await supabase
-        .from("leads")
-        .select("id", { count: "exact", head: true })
-        .eq("meta_lead_id", leadgen_id);
-
-      if ((existingCount ?? 0) > 0) continue;
+      const accessToken = decryptToken(business.meta_access_token);
 
       // Fetch full lead data from Meta
       let leadData: Record<string, unknown>;
       try {
         const leadRes = await fetch(
-          `${META_API_BASE_URL}/${leadgen_id}?access_token=${business.meta_access_token}`
+          `${META_API_BASE_URL}/${leadgen_id}?access_token=${accessToken}`
         );
         if (!leadRes.ok) {
           console.error(`Meta API error for lead ${leadgen_id}: ${leadRes.status} ${leadRes.statusText}`);
@@ -134,107 +140,24 @@ export async function POST(request: NextRequest) {
         .eq("meta_form_id", form_id)
         .single();
 
-      // Check lead usage limit
-      const month = new Date().toISOString().slice(0, 7);
-      const { data: user } = await supabase
-        .from("businesses")
-        .select("user_id")
-        .eq("id", business.id)
-        .single();
-
-      if (user) {
-        const { data: dbUser } = await supabase
-          .from("users")
-          .select("plan_tier")
-          .eq("id", user.user_id)
-          .single();
-
-        const plan = (dbUser?.plan_tier ?? "starter") as PlanTier;
-
-        const { data: usage } = await supabase
-          .from("usage_tracking")
-          .select("leads_count")
-          .eq("business_id", business.id)
-          .eq("month", month)
-          .single();
-
-        if ((usage?.leads_count ?? 0) >= PLAN_LIMITS[plan].leads_per_month) {
-          // Over limit — skip this lead
-          continue;
-        }
-      }
-
-      // Save lead (upsert to handle race conditions with concurrent webhooks)
-      const { data: lead } = await supabase
-        .from("leads")
-        .upsert(
-          {
-            business_id: business.id,
-            campaign_id: campaign?.id ?? null,
-            meta_lead_id: leadgen_id,
-            first_name: fieldData.full_name?.split(" ")[0] ?? fieldData.first_name ?? null,
-            last_name: fieldData.full_name?.split(" ").slice(1).join(" ") ?? fieldData.last_name ?? null,
-            email: fieldData.email ?? null,
-            phone: fieldData.phone_number ?? null,
-            custom_answers: fieldData,
-            status: "new",
-            source: "meta",
-          },
-          { onConflict: "meta_lead_id", ignoreDuplicates: true }
-        )
-        .select()
-        .single();
-
-      if (!lead) continue;
-
-      // Increment usage
-      await supabase.rpc("increment_usage", {
-        p_business_id: business.id,
-        p_month: month,
-        p_field: "leads_count",
+      // Use shared lead processing (dedup, limit check, upsert, scoring, referral)
+      const result = await processInboundLead({
+        source: "meta",
+        businessId: business.id,
+        campaignId: campaign?.id ?? null,
+        platformLeadId: leadgen_id,
+        platformLeadIdColumn: "meta_lead_id",
+        fieldData,
+        rawPayload: { leadgen_id, page_id, form_id },
       });
 
-      // Update campaign leads count
-      if (campaign?.id) {
-        await supabase.rpc("increment_campaign_leads", {
-          p_campaign_id: campaign.id,
+      if (!result.saved && result.skipReason === "insert_failed") {
+        await saveToDeadLetter({
+          source: "meta",
+          payload: { leadgen_id, page_id, form_id, fieldData },
+          error_message: "Lead insert failed",
         });
       }
-
-      // Check for referral code in custom answers
-      const referralCode =
-        fieldData.referral_code ??
-        fieldData.ref ??
-        fieldData.referred_by ??
-        null;
-
-      if (referralCode && typeof referralCode === "string") {
-        fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/referrals/track`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            ...getInternalAuthHeader(),
-          },
-          body: JSON.stringify({
-            lead_id: lead.id,
-            referral_code: referralCode,
-          }),
-        }).catch((err) => {
-          console.error(`Failed to track referral for Meta lead ${lead.id}:`, err);
-        });
-      }
-
-      // Fire-and-forget: trigger AI lead scoring without blocking webhook response
-      fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/leads/score`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          ...getInternalAuthHeader(),
-        },
-        body: JSON.stringify({ lead_id: lead.id }),
-      }).catch((err) => {
-        console.error(`Failed to trigger scoring for Meta lead ${lead.id}:`, err);
-      });
     }
   }
 

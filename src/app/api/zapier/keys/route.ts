@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { getServiceClient } from "@/lib/supabase/service";
 import { generateApiKey } from "@/lib/api-key-auth";
+import { unauthorized, badRequest, internalError } from "@/lib/error-handler";
 
 /** List the current user's API keys (prefix only, not the full key). */
 export async function GET() {
@@ -11,7 +12,7 @@ export async function GET() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return unauthorized();
   }
 
   const { data: keys } = await supabase
@@ -31,7 +32,7 @@ export async function POST(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return unauthorized();
   }
 
   const body = await request.json();
@@ -48,7 +49,7 @@ export async function POST(request: NextRequest) {
   });
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return internalError(error.message);
   }
 
   // Return the full key — this is the only time it's visible
@@ -63,13 +64,13 @@ export async function DELETE(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return unauthorized();
   }
 
   const { id } = await request.json();
 
   if (!id) {
-    return NextResponse.json({ error: "id required" }, { status: 400 });
+    return badRequest("id required");
   }
 
   await supabase

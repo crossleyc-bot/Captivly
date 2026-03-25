@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { LINKEDIN_TOKEN_URL, LINKEDIN_API_BASE_URL } from "@/lib/constants";
+import { encryptToken } from "@/lib/token-encryption";
 
 function redirectWithCleanup(url: string): NextResponse {
   const response = NextResponse.redirect(url);
@@ -83,8 +84,8 @@ export async function GET(request: NextRequest) {
   await supabase
     .from("businesses")
     .update({
-      linkedin_access_token: accessToken,
-      linkedin_refresh_token: refreshToken,
+      linkedin_access_token: encryptToken(accessToken),
+      linkedin_refresh_token: refreshToken ? encryptToken(refreshToken) : null,
       linkedin_ad_account_id: adAccountId,
     })
     .eq("user_id", user.id);

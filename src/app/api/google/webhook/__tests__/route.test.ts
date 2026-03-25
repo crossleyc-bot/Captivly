@@ -234,6 +234,17 @@ describe("POST /api/google/webhook (Google Pub/Sub lead ingestion)", () => {
           }),
         };
       }
+      if (table === "campaigns") {
+        return {
+          select: vi.fn().mockReturnValue({
+            eq: vi.fn().mockReturnValue({
+              eq: vi.fn().mockReturnValue({
+                single: vi.fn().mockResolvedValue({ data: { id: "camp-1" } }),
+              }),
+            }),
+          }),
+        };
+      }
       if (table === "leads") {
         return {
           select: vi.fn().mockReturnValue({

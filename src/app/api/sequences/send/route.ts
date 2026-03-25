@@ -4,6 +4,7 @@ import { getTwilioClient, TWILIO_FROM } from "@/lib/twilio";
 import { validateInternalAuth } from "@/lib/internal-auth";
 import { getServiceClient } from "@/lib/supabase/service";
 import { PLAN_LIMITS } from "@/lib/constants";
+import { badRequest, notFound, forbidden, internalError } from "@/lib/error-handler";
 import type { PlanTier } from "@/types/database";
 
 interface SendRequest {
@@ -17,7 +18,7 @@ export async function POST(request: NextRequest) {
   const { message_id } = (await request.json()) as SendRequest;
 
   if (!message_id) {
-    return NextResponse.json({ error: "message_id required" }, { status: 400 });
+    return badRequest("message_id required");
   }
 
   const supabase = getServiceClient();
@@ -30,11 +31,11 @@ export async function POST(request: NextRequest) {
     .single();
 
   if (!message) {
-    return NextResponse.json({ error: "Message not found" }, { status: 404 });
+    return notFound("Message not found");
   }
 
   if (message.status !== "queued") {
-    return NextResponse.json({ error: "Message already processed" }, { status: 400 });
+    return badRequest("Message already processed");
   }
 
   const lead = message.lead;
@@ -45,7 +46,7 @@ export async function POST(request: NextRequest) {
       .from("messages_sent")
       .update({ status: "failed" })
       .eq("id", message_id);
-    return NextResponse.json({ error: "Missing lead or step data" }, { status: 400 });
+    return badRequest("Missing lead or step data");
   }
 
   // If a variant was assigned, use its subject/body instead of the step defaults
@@ -96,10 +97,7 @@ export async function POST(request: NextRequest) {
           .from("messages_sent")
           .update({ status: "failed" })
           .eq("id", message_id);
-        return NextResponse.json(
-          { error: "SMS limit reached for this billing period" },
-          { status: 403 }
-        );
+        return forbidden("SMS limit reached for this billing period");
       }
     }
   }
@@ -154,10 +152,7 @@ export async function POST(request: NextRequest) {
         .from("messages_sent")
         .update({ status: "failed" })
         .eq("id", message_id);
-      return NextResponse.json(
-        { error: `No ${step.channel === "email" ? "email" : "phone"} for this lead` },
-        { status: 400 }
-      );
+      return badRequest(`No ${step.channel === "email" ? "email" : "phone"} for this lead`);
     }
 
     // Mark as sent
@@ -194,6 +189,6 @@ export async function POST(request: NextRequest) {
       .update({ status: "failed" })
       .eq("id", message_id);
 
-    return NextResponse.json({ error: errorMessage }, { status: 500 });
+    return internalError(errorMessage);
   }
 }

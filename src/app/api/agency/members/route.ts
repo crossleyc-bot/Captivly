@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { unauthorized, forbidden, notFound, badRequest, internalError } from "@/lib/error-handler";
 
 /**
  * GET /api/agency/members — list agency members
@@ -14,7 +15,7 @@ export async function GET() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return unauthorized();
   }
 
   // Check if user owns an agency
@@ -38,7 +39,7 @@ export async function GET() {
   }
 
   if (!agencyId) {
-    return NextResponse.json({ error: "No agency found" }, { status: 404 });
+    return notFound("No agency found");
   }
 
   const { data: members } = await supabase
@@ -57,7 +58,7 @@ export async function POST(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return unauthorized();
   }
 
   const { data: agency } = await supabase
@@ -67,7 +68,7 @@ export async function POST(request: NextRequest) {
     .single();
 
   if (!agency) {
-    return NextResponse.json({ error: "No agency found" }, { status: 404 });
+    return notFound("No agency found");
   }
 
   const { email, role } = (await request.json()) as {
@@ -76,7 +77,7 @@ export async function POST(request: NextRequest) {
   };
 
   if (!email?.trim()) {
-    return NextResponse.json({ error: "Email is required" }, { status: 400 });
+    return badRequest("Email is required");
   }
 
   // Find the user by email
@@ -87,10 +88,7 @@ export async function POST(request: NextRequest) {
     .single();
 
   if (!targetUser) {
-    return NextResponse.json(
-      { error: "No user found with that email. They must sign up first." },
-      { status: 404 }
-    );
+    return notFound("No user found with that email. They must sign up first.");
   }
 
   const memberRole = role === "admin" ? "admin" : "member";
@@ -108,7 +106,7 @@ export async function POST(request: NextRequest) {
         { status: 409 }
       );
     }
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return internalError(error.message);
   }
 
   return NextResponse.json({ added: true });
@@ -121,7 +119,7 @@ export async function DELETE(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return unauthorized();
   }
 
   // Check if user is owner or admin
@@ -147,7 +145,7 @@ export async function DELETE(request: NextRequest) {
   }
 
   if (!agencyId) {
-    return NextResponse.json({ error: "Not authorized" }, { status: 403 });
+    return forbidden("Not authorized");
   }
 
   const { member_id } = (await request.json()) as { member_id: string };
@@ -160,22 +158,16 @@ export async function DELETE(request: NextRequest) {
     .single();
 
   if (!member) {
-    return NextResponse.json({ error: "Member not found" }, { status: 404 });
+    return notFound("Member not found");
   }
 
   if (member.role === "owner") {
-    return NextResponse.json(
-      { error: "Cannot remove the agency owner" },
-      { status: 400 }
-    );
+    return badRequest("Cannot remove the agency owner");
   }
 
   // Admins can only remove regular members, not other admins
   if (callerRole === "admin" && member.role === "admin") {
-    return NextResponse.json(
-      { error: "Admins cannot remove other admins" },
-      { status: 403 }
-    );
+    return forbidden("Admins cannot remove other admins");
   }
 
   await supabase

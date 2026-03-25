@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { TIKTOK_TOKEN_URL } from "@/lib/constants";
+import { encryptToken } from "@/lib/token-encryption";
 
 function redirectWithCleanup(url: string): NextResponse {
   const response = NextResponse.redirect(url);
@@ -69,8 +70,8 @@ export async function GET(request: NextRequest) {
   await supabase
     .from("businesses")
     .update({
-      tiktok_access_token: accessToken,
-      tiktok_refresh_token: refreshToken,
+      tiktok_access_token: encryptToken(accessToken),
+      tiktok_refresh_token: refreshToken ? encryptToken(refreshToken) : null,
       tiktok_advertiser_id: firstAdvertiserId,
     })
     .eq("user_id", user.id);

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { unauthorized, badRequest, internalError } from "@/lib/error-handler";
 
 export async function GET() {
   const supabase = await createClient();
@@ -8,7 +9,7 @@ export async function GET() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return unauthorized();
   }
 
   const { data: tickets, error } = await supabase
@@ -18,7 +19,7 @@ export async function GET() {
     .order("created_at", { ascending: false });
 
   if (error) {
-    return NextResponse.json({ error: "Failed to fetch tickets" }, { status: 500 });
+    return internalError("Failed to fetch tickets");
   }
 
   return NextResponse.json(tickets);
@@ -31,7 +32,7 @@ export async function POST(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return unauthorized();
   }
 
   const body = await request.json();
@@ -42,11 +43,11 @@ export async function POST(request: NextRequest) {
   };
 
   if (!subject || typeof subject !== "string" || subject.trim().length === 0 || subject.length > 200) {
-    return NextResponse.json({ error: "Subject is required (max 200 characters)" }, { status: 400 });
+    return badRequest("Subject is required (max 200 characters)");
   }
 
   if (!message || typeof message !== "string" || message.trim().length === 0 || message.length > 5000) {
-    return NextResponse.json({ error: "Message is required (max 5000 characters)" }, { status: 400 });
+    return badRequest("Message is required (max 5000 characters)");
   }
 
   const validUrgencies = ["low", "medium", "high"];
@@ -73,7 +74,7 @@ export async function POST(request: NextRequest) {
     .single();
 
   if (error) {
-    return NextResponse.json({ error: "Failed to create ticket" }, { status: 500 });
+    return internalError("Failed to create ticket");
   }
 
   return NextResponse.json(ticket, { status: 201 });

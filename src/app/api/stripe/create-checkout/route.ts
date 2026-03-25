@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getStripe, STRIPE_PRICES } from "@/lib/stripe";
 import { createClient } from "@/lib/supabase/server";
+import { unauthorized, badRequest } from "@/lib/error-handler";
 import type { PlanTier } from "@/types/database";
 
 export async function POST(request: NextRequest) {
@@ -10,13 +11,13 @@ export async function POST(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return unauthorized();
   }
 
   const { plan } = (await request.json()) as { plan: PlanTier };
 
   if (!plan || !STRIPE_PRICES[plan]) {
-    return NextResponse.json({ error: "Invalid plan" }, { status: 400 });
+    return badRequest("Invalid plan");
   }
 
   // Get or create Stripe customer

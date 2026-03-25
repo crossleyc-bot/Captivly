@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { unauthorized, notFound, badRequest, internalError } from "@/lib/error-handler";
 
 /**
  * GET /api/pipeline-stages
@@ -12,7 +13,7 @@ export async function GET() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return unauthorized();
   }
 
   const { data: business } = await supabase
@@ -22,7 +23,7 @@ export async function GET() {
     .single();
 
   if (!business) {
-    return NextResponse.json({ error: "No business found" }, { status: 404 });
+    return notFound("No business found");
   }
 
   // Check if stages exist; if not, create defaults
@@ -61,7 +62,7 @@ export async function POST(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return unauthorized();
   }
 
   const { data: business } = await supabase
@@ -71,7 +72,7 @@ export async function POST(request: NextRequest) {
     .single();
 
   if (!business) {
-    return NextResponse.json({ error: "No business found" }, { status: 404 });
+    return notFound("No business found");
   }
 
   const body = await request.json();
@@ -83,7 +84,7 @@ export async function POST(request: NextRequest) {
   };
 
   if (!name?.trim()) {
-    return NextResponse.json({ error: "Name is required" }, { status: 400 });
+    return badRequest("Name is required");
   }
 
   // Get max position
@@ -111,7 +112,7 @@ export async function POST(request: NextRequest) {
     .single();
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return internalError(error.message);
   }
 
   return NextResponse.json(stage);
@@ -128,14 +129,14 @@ export async function PATCH(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return unauthorized();
   }
 
   const body = await request.json();
   const { stages } = body as { stages: Array<{ id: string; position: number }> };
 
   if (!stages?.length) {
-    return NextResponse.json({ error: "Stages array required" }, { status: 400 });
+    return badRequest("Stages array required");
   }
 
   for (const stage of stages) {

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { randomBytes } from "crypto";
+import { unauthorized, notFound, internalError } from "@/lib/error-handler";
 
 /**
  * GET /api/referrals — list referral links for the current business
@@ -14,7 +15,7 @@ export async function GET() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return unauthorized();
   }
 
   const { data: business } = await supabase
@@ -24,7 +25,7 @@ export async function GET() {
     .single();
 
   if (!business) {
-    return NextResponse.json({ error: "No business found" }, { status: 404 });
+    return notFound("No business found");
   }
 
   const { data: links } = await supabase
@@ -43,7 +44,7 @@ export async function POST(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return unauthorized();
   }
 
   const { data: business } = await supabase
@@ -53,7 +54,7 @@ export async function POST(request: NextRequest) {
     .single();
 
   if (!business) {
-    return NextResponse.json({ error: "No business found" }, { status: 404 });
+    return notFound("No business found");
   }
 
   const body = (await request.json()) as {
@@ -78,7 +79,7 @@ export async function POST(request: NextRequest) {
     .single();
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return internalError(error.message);
   }
 
   return NextResponse.json({ link });

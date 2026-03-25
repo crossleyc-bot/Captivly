@@ -3,6 +3,7 @@ import { getAnthropicClient, AI_MODEL } from "@/lib/anthropic";
 import { validateInternalAuth } from "@/lib/internal-auth";
 import { getServiceClient } from "@/lib/supabase/service";
 import { enrichLead, formatEnrichmentForScoring } from "@/lib/lead-enrichment";
+import { badRequest, notFound, internalError } from "@/lib/error-handler";
 import type Anthropic from "@anthropic-ai/sdk";
 
 interface ScoreResponse {
@@ -17,7 +18,7 @@ export async function POST(request: NextRequest) {
   const { lead_id } = (await request.json()) as { lead_id: string };
 
   if (!lead_id) {
-    return NextResponse.json({ error: "lead_id required" }, { status: 400 });
+    return badRequest("lead_id required");
   }
 
   const supabase = getServiceClient();
@@ -30,7 +31,7 @@ export async function POST(request: NextRequest) {
     .single();
 
   if (!lead) {
-    return NextResponse.json({ error: "Lead not found" }, { status: 404 });
+    return notFound("Lead not found");
   }
 
   // Fetch business profile
@@ -41,7 +42,7 @@ export async function POST(request: NextRequest) {
     .single();
 
   if (!business) {
-    return NextResponse.json({ error: "Business not found" }, { status: 404 });
+    return notFound("Business not found");
   }
 
   // Enrich lead with derived data
@@ -121,7 +122,7 @@ ${enrichmentText}`;
     if (match) {
       scoreData = JSON.parse(match[0]);
     } else {
-      return NextResponse.json({ error: "Failed to parse AI response" }, { status: 500 });
+      return internalError("Failed to parse AI response");
     }
   }
 

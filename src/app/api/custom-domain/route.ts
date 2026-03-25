@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { requirePlan } from "@/lib/feature-gate";
 import { randomBytes } from "crypto";
 import type { PlanTier } from "@/types/database";
+import { unauthorized, forbidden, notFound, badRequest, internalError } from "@/lib/error-handler";
 
 /**
  * GET /api/custom-domain — get custom domain config
@@ -17,7 +18,7 @@ export async function GET() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return unauthorized();
   }
 
   const { data: business } = await supabase
@@ -27,7 +28,7 @@ export async function GET() {
     .single();
 
   if (!business) {
-    return NextResponse.json({ error: "No business found" }, { status: 404 });
+    return notFound("No business found");
   }
 
   const { data: domain } = await supabase
@@ -46,7 +47,7 @@ export async function POST(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return unauthorized();
   }
 
   const { data: dbUser } = await supabase
@@ -56,10 +57,7 @@ export async function POST(request: NextRequest) {
     .single();
 
   if (!requirePlan((dbUser?.plan_tier ?? "starter") as PlanTier, "pro")) {
-    return NextResponse.json(
-      { error: "Custom domains require the Pro plan" },
-      { status: 403 }
-    );
+    return forbidden("Custom domains require the Pro plan");
   }
 
   const { data: business } = await supabase
@@ -69,13 +67,13 @@ export async function POST(request: NextRequest) {
     .single();
 
   if (!business) {
-    return NextResponse.json({ error: "No business found" }, { status: 404 });
+    return notFound("No business found");
   }
 
   const { domain } = (await request.json()) as { domain: string };
 
   if (!domain?.trim()) {
-    return NextResponse.json({ error: "Domain is required" }, { status: 400 });
+    return badRequest("Domain is required");
   }
 
   // Basic domain validation
@@ -83,7 +81,7 @@ export async function POST(request: NextRequest) {
   const domainRegex = /^[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)+$/;
 
   if (!domainRegex.test(cleanDomain)) {
-    return NextResponse.json({ error: "Invalid domain format" }, { status: 400 });
+    return badRequest("Invalid domain format");
   }
 
   // Generate verification token
@@ -112,7 +110,7 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+      return internalError(error.message);
     }
 
     return NextResponse.json({ domain: updated });
@@ -135,7 +133,7 @@ export async function POST(request: NextRequest) {
         { status: 409 }
       );
     }
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return internalError(error.message);
   }
 
   return NextResponse.json({ domain: created });
@@ -148,7 +146,7 @@ export async function DELETE() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return unauthorized();
   }
 
   const { data: dbUser } = await supabase
@@ -158,10 +156,7 @@ export async function DELETE() {
     .single();
 
   if (!requirePlan((dbUser?.plan_tier ?? "starter") as PlanTier, "pro")) {
-    return NextResponse.json(
-      { error: "Custom domains require the Pro plan" },
-      { status: 403 }
-    );
+    return forbidden("Custom domains require the Pro plan");
   }
 
   const { data: business } = await supabase
@@ -171,7 +166,7 @@ export async function DELETE() {
     .single();
 
   if (!business) {
-    return NextResponse.json({ error: "No business found" }, { status: 404 });
+    return notFound("No business found");
   }
 
   await supabase

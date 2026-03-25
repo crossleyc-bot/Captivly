@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { resolve } from "dns/promises";
 import { requirePlan } from "@/lib/feature-gate";
 import type { PlanTier } from "@/types/database";
+import { unauthorized, forbidden, notFound } from "@/lib/error-handler";
 
 /**
  * POST /api/custom-domain/verify — verify domain ownership via DNS TXT record
@@ -14,7 +15,7 @@ export async function POST() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return unauthorized();
   }
 
   const { data: dbUser } = await supabase
@@ -24,10 +25,7 @@ export async function POST() {
     .single();
 
   if (!requirePlan((dbUser?.plan_tier ?? "starter") as PlanTier, "pro")) {
-    return NextResponse.json(
-      { error: "Custom domains require the Pro plan" },
-      { status: 403 }
-    );
+    return forbidden("Custom domains require the Pro plan");
   }
 
   const { data: business } = await supabase
@@ -37,7 +35,7 @@ export async function POST() {
     .single();
 
   if (!business) {
-    return NextResponse.json({ error: "No business found" }, { status: 404 });
+    return notFound("No business found");
   }
 
   const { data: domainRecord } = await supabase
@@ -47,7 +45,7 @@ export async function POST() {
     .single();
 
   if (!domainRecord) {
-    return NextResponse.json({ error: "No domain configured" }, { status: 404 });
+    return notFound("No domain configured");
   }
 
   if (domainRecord.verified) {

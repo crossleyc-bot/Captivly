@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getStripe } from "@/lib/stripe";
 import { createClient } from "@/lib/supabase/server";
+import { unauthorized, badRequest } from "@/lib/error-handler";
 
 export async function POST() {
   const supabase = await createClient();
@@ -9,7 +10,7 @@ export async function POST() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return unauthorized();
   }
 
   const { data: dbUser } = await supabase
@@ -19,10 +20,7 @@ export async function POST() {
     .single();
 
   if (!dbUser?.stripe_customer_id) {
-    return NextResponse.json(
-      { error: "No billing account found. Please subscribe to a plan first." },
-      { status: 400 }
-    );
+    return badRequest("No billing account found. Please subscribe to a plan first.");
   }
 
   const session = await getStripe().billingPortal.sessions.create({

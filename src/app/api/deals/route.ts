@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { executePipelineAutomations } from "@/lib/pipeline-automations";
+import { unauthorized, notFound, badRequest, internalError } from "@/lib/error-handler";
 
 /**
  * GET /api/deals
@@ -13,7 +14,7 @@ export async function GET(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return unauthorized();
   }
 
   const { data: business } = await supabase
@@ -23,7 +24,7 @@ export async function GET(request: NextRequest) {
     .single();
 
   if (!business) {
-    return NextResponse.json({ error: "No business found" }, { status: 404 });
+    return notFound("No business found");
   }
 
   const stageId = request.nextUrl.searchParams.get("stage_id");
@@ -41,7 +42,7 @@ export async function GET(request: NextRequest) {
   const { data: deals, error } = await query;
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return internalError(error.message);
   }
 
   return NextResponse.json(deals ?? []);
@@ -58,7 +59,7 @@ export async function POST(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return unauthorized();
   }
 
   const { data: business } = await supabase
@@ -68,7 +69,7 @@ export async function POST(request: NextRequest) {
     .single();
 
   if (!business) {
-    return NextResponse.json({ error: "No business found" }, { status: 404 });
+    return notFound("No business found");
   }
 
   const body = await request.json();
@@ -82,7 +83,7 @@ export async function POST(request: NextRequest) {
   };
 
   if (!title?.trim()) {
-    return NextResponse.json({ error: "Title is required" }, { status: 400 });
+    return badRequest("Title is required");
   }
 
   // If no stage provided, use the first stage
@@ -114,7 +115,7 @@ export async function POST(request: NextRequest) {
     .single();
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return internalError(error.message);
   }
 
   // Log creation activity
@@ -140,7 +141,7 @@ export async function PATCH(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return unauthorized();
   }
 
   const { data: business } = await supabase
@@ -150,7 +151,7 @@ export async function PATCH(request: NextRequest) {
     .single();
 
   if (!business) {
-    return NextResponse.json({ error: "No business found" }, { status: 404 });
+    return notFound("No business found");
   }
 
   const body = await request.json();
@@ -164,7 +165,7 @@ export async function PATCH(request: NextRequest) {
   };
 
   if (!id) {
-    return NextResponse.json({ error: "Deal ID is required" }, { status: 400 });
+    return badRequest("Deal ID is required");
   }
 
   // Get current deal for activity logging, scoped to user's business
@@ -176,7 +177,7 @@ export async function PATCH(request: NextRequest) {
     .single();
 
   if (!currentDeal) {
-    return NextResponse.json({ error: "Deal not found" }, { status: 404 });
+    return notFound("Deal not found");
   }
 
   const updates: Record<string, unknown> = { updated_at: new Date().toISOString() };
@@ -210,7 +211,7 @@ export async function PATCH(request: NextRequest) {
     .single();
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return internalError(error.message);
   }
 
   // Log stage change activity
@@ -251,7 +252,7 @@ export async function DELETE(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return unauthorized();
   }
 
   const { data: business } = await supabase
@@ -261,20 +262,20 @@ export async function DELETE(request: NextRequest) {
     .single();
 
   if (!business) {
-    return NextResponse.json({ error: "No business found" }, { status: 404 });
+    return notFound("No business found");
   }
 
   const body = await request.json();
   const { id } = body as { id: string };
 
   if (!id) {
-    return NextResponse.json({ error: "Deal ID is required" }, { status: 400 });
+    return badRequest("Deal ID is required");
   }
 
   const { error } = await supabase.from("deals").delete().eq("id", id).eq("business_id", business.id);
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return internalError(error.message);
   }
 
   return NextResponse.json({ success: true });

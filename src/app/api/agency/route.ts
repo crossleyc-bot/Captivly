@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { requirePlan } from "@/lib/feature-gate";
+import { unauthorized, forbidden, badRequest, internalError } from "@/lib/error-handler";
 import type { PlanTier } from "@/types/database";
 
 /**
@@ -15,7 +16,7 @@ export async function GET() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return unauthorized();
   }
 
   // Check if user owns an agency
@@ -50,7 +51,7 @@ export async function POST(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return unauthorized();
   }
 
   const { data: dbUser } = await supabase
@@ -60,10 +61,7 @@ export async function POST(request: NextRequest) {
     .single();
 
   if (!requirePlan((dbUser?.plan_tier ?? "starter") as PlanTier, "pro")) {
-    return NextResponse.json(
-      { error: "Agency mode requires the Pro plan" },
-      { status: 403 }
-    );
+    return forbidden("Agency mode requires the Pro plan");
   }
 
   // Check if user already has an agency
@@ -83,7 +81,7 @@ export async function POST(request: NextRequest) {
   const { name } = (await request.json()) as { name: string };
 
   if (!name?.trim()) {
-    return NextResponse.json({ error: "Agency name is required" }, { status: 400 });
+    return badRequest("Agency name is required");
   }
 
   const { data: agency, error } = await supabase
@@ -96,7 +94,7 @@ export async function POST(request: NextRequest) {
     .single();
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return internalError(error.message);
   }
 
   // Add owner as a member too
@@ -109,10 +107,7 @@ export async function POST(request: NextRequest) {
   if (memberError) {
     // Roll back agency creation to avoid orphaned state
     await supabase.from("agencies").delete().eq("id", agency.id);
-    return NextResponse.json(
-      { error: "Failed to initialize agency membership" },
-      { status: 500 }
-    );
+    return internalError("Failed to initialize agency membership");
   }
 
   return NextResponse.json({ agency });

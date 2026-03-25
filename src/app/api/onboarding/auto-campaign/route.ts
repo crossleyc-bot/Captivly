@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { getInternalAuthHeader } from "@/lib/internal-auth";
+import { unauthorized, notFound, internalError } from "@/lib/error-handler";
 
 /**
  * POST /api/onboarding/auto-campaign
@@ -16,7 +17,7 @@ export async function POST() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return unauthorized();
   }
 
   const { data: business } = await supabase
@@ -26,7 +27,7 @@ export async function POST() {
     .single();
 
   if (!business) {
-    return NextResponse.json({ error: "No business found" }, { status: 404 });
+    return notFound("No business found");
   }
 
   // Check if a campaign already exists (avoid duplicates on retry)
@@ -53,10 +54,7 @@ export async function POST() {
     .single();
 
   if (campaignError || !campaign) {
-    return NextResponse.json(
-      { error: campaignError?.message ?? "Failed to create campaign" },
-      { status: 500 }
-    );
+    return internalError(campaignError?.message ?? "Failed to create campaign");
   }
 
   // Trigger AI sequence generation for this campaign

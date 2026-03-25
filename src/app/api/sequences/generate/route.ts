@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { getAnthropicClient, AI_MODEL } from "@/lib/anthropic";
 import { PLAN_LIMITS } from "@/lib/constants";
+import { unauthorized, badRequest, notFound, internalError } from "@/lib/error-handler";
 import type { PlanTier, MessageChannel } from "@/types/database";
 import type Anthropic from "@anthropic-ai/sdk";
 
@@ -20,13 +21,13 @@ export async function POST(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return unauthorized();
   }
 
   const { campaign_id } = (await request.json()) as { campaign_id: string };
 
   if (!campaign_id) {
-    return NextResponse.json({ error: "campaign_id required" }, { status: 400 });
+    return badRequest("campaign_id required");
   }
 
   const { data: dbUser } = await supabase
@@ -47,7 +48,7 @@ export async function POST(request: NextRequest) {
     .single();
 
   if (!business) {
-    return NextResponse.json({ error: "No business found" }, { status: 404 });
+    return notFound("No business found");
   }
 
   const { data: campaign } = await supabase
@@ -58,7 +59,7 @@ export async function POST(request: NextRequest) {
     .single();
 
   if (!campaign) {
-    return NextResponse.json({ error: "Campaign not found" }, { status: 404 });
+    return notFound("Campaign not found");
   }
 
   const client = getAnthropicClient();
@@ -102,7 +103,7 @@ Generate the sequence now.`;
     if (match) {
       steps = JSON.parse(match[0]);
     } else {
-      return NextResponse.json({ error: "Failed to parse AI response" }, { status: 500 });
+      return internalError("Failed to parse AI response");
     }
   }
 
@@ -125,7 +126,7 @@ Generate the sequence now.`;
     .single();
 
   if (seqError || !sequence) {
-    return NextResponse.json({ error: seqError?.message ?? "Failed to create sequence" }, { status: 500 });
+    return internalError(seqError?.message ?? "Failed to create sequence");
   }
 
   // Insert sequence steps
@@ -141,7 +142,7 @@ Generate the sequence now.`;
   );
 
   if (stepsError) {
-    return NextResponse.json({ error: stepsError.message }, { status: 500 });
+    return internalError(stepsError.message);
   }
 
   return NextResponse.json({ sequence_id: sequence.id, steps });

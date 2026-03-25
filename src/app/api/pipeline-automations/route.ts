@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { unauthorized, notFound, badRequest, internalError } from "@/lib/error-handler";
 import type { PipelineAutomationAction } from "@/types/database";
 
 /**
@@ -13,7 +14,7 @@ export async function GET() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return unauthorized();
   }
 
   const { data: business } = await supabase
@@ -23,7 +24,7 @@ export async function GET() {
     .single();
 
   if (!business) {
-    return NextResponse.json({ error: "No business found" }, { status: 404 });
+    return notFound("No business found");
   }
 
   const { data: automations, error } = await supabase
@@ -33,7 +34,7 @@ export async function GET() {
     .order("created_at", { ascending: false });
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return internalError(error.message);
   }
 
   return NextResponse.json(automations ?? []);
@@ -57,7 +58,7 @@ export async function POST(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return unauthorized();
   }
 
   const { data: business } = await supabase
@@ -67,7 +68,7 @@ export async function POST(request: NextRequest) {
     .single();
 
   if (!business) {
-    return NextResponse.json({ error: "No business found" }, { status: 404 });
+    return notFound("No business found");
   }
 
   const body = await request.json();
@@ -79,29 +80,29 @@ export async function POST(request: NextRequest) {
   };
 
   if (!name?.trim() || name.length > 100) {
-    return NextResponse.json({ error: "Name is required (max 100 chars)" }, { status: 400 });
+    return badRequest("Name is required (max 100 chars)");
   }
   if (!trigger_stage_id) {
-    return NextResponse.json({ error: "Trigger stage is required" }, { status: 400 });
+    return badRequest("Trigger stage is required");
   }
   if (!VALID_ACTIONS.includes(action_type)) {
-    return NextResponse.json({ error: "Invalid action type" }, { status: 400 });
+    return badRequest("Invalid action type");
   }
 
   // Validate action_config based on action type
   if (action_type === "send_email") {
     if (!action_config.subject || !action_config.body) {
-      return NextResponse.json({ error: "Email subject and body are required" }, { status: 400 });
+      return badRequest("Email subject and body are required");
     }
   }
   if (action_type === "send_sms" && !action_config.body) {
-    return NextResponse.json({ error: "SMS body is required" }, { status: 400 });
+    return badRequest("SMS body is required");
   }
   if (action_type === "update_lead_status" && !action_config.lead_status) {
-    return NextResponse.json({ error: "Lead status is required" }, { status: 400 });
+    return badRequest("Lead status is required");
   }
   if (action_type === "create_activity_note" && !action_config.note) {
-    return NextResponse.json({ error: "Note content is required" }, { status: 400 });
+    return badRequest("Note content is required");
   }
 
   // Verify stage belongs to this business
@@ -113,7 +114,7 @@ export async function POST(request: NextRequest) {
     .single();
 
   if (!stage) {
-    return NextResponse.json({ error: "Stage not found" }, { status: 404 });
+    return notFound("Stage not found");
   }
 
   const { data: automation, error } = await supabase
@@ -130,7 +131,7 @@ export async function POST(request: NextRequest) {
     .single();
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return internalError(error.message);
   }
 
   return NextResponse.json(automation);
@@ -147,7 +148,7 @@ export async function PATCH(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return unauthorized();
   }
 
   const { data: business } = await supabase
@@ -157,7 +158,7 @@ export async function PATCH(request: NextRequest) {
     .single();
 
   if (!business) {
-    return NextResponse.json({ error: "No business found" }, { status: 404 });
+    return notFound("No business found");
   }
 
   const body = await request.json();
@@ -171,7 +172,7 @@ export async function PATCH(request: NextRequest) {
   };
 
   if (!id) {
-    return NextResponse.json({ error: "Automation ID is required" }, { status: 400 });
+    return badRequest("Automation ID is required");
   }
 
   const updates: Record<string, unknown> = { updated_at: new Date().toISOString() };
@@ -190,7 +191,7 @@ export async function PATCH(request: NextRequest) {
     .single();
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return internalError(error.message);
   }
 
   return NextResponse.json(automation);
@@ -207,7 +208,7 @@ export async function DELETE(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return unauthorized();
   }
 
   const { data: business } = await supabase
@@ -217,20 +218,20 @@ export async function DELETE(request: NextRequest) {
     .single();
 
   if (!business) {
-    return NextResponse.json({ error: "No business found" }, { status: 404 });
+    return notFound("No business found");
   }
 
   const body = await request.json();
   const { id } = body as { id: string };
 
   if (!id) {
-    return NextResponse.json({ error: "Automation ID is required" }, { status: 400 });
+    return badRequest("Automation ID is required");
   }
 
   const { error } = await supabase.from("pipeline_automations").delete().eq("id", id).eq("business_id", business.id);
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return internalError(error.message);
   }
 
   return NextResponse.json({ success: true });

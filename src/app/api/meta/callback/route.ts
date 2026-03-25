@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { META_API_BASE_URL } from "@/lib/constants";
+import { encryptToken } from "@/lib/token-encryption";
 
 export async function GET(request: NextRequest) {
   const code = request.nextUrl.searchParams.get("code");
@@ -121,7 +122,7 @@ export async function GET(request: NextRequest) {
   await supabase
     .from("businesses")
     .update({
-      meta_access_token: accessToken,
+      meta_access_token: encryptToken(accessToken),
       meta_ad_account_id: adAccount?.account_id ?? null,
       meta_page_id: page?.id ?? null,
     })
