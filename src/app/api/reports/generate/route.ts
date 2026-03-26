@@ -3,6 +3,7 @@ import { getAnthropicClient, AI_MODEL } from "@/lib/anthropic";
 import { validateInternalAuth } from "@/lib/internal-auth";
 import { getServiceClient } from "@/lib/supabase/service";
 import { getResendClient } from "@/lib/resend";
+import { reportCardEmail } from "@/lib/email-templates";
 import type Anthropic from "@anthropic-ai/sdk";
 
 interface ReportResponse {
@@ -211,30 +212,23 @@ Write a 3-paragraph report card with:
         from: `Captivly.ai <noreply@${process.env.NEXT_PUBLIC_APP_URL?.replace("https://", "").replace("http://", "") ?? "captivly.ai"}>`,
         to: proUser.email,
         subject: `Your ${monthLabel} Report Card — ${business.name}`,
-        text: `Hi ${proUser.full_name ?? "there"},
-
-Here's your monthly report card for ${business.name} (${monthLabel}).
-
-SUMMARY
-${report.summary}
-
-TOP INSIGHT
-${report.top_insight}
-
-RECOMMENDATION
-${report.recommendation}
-
-KEY NUMBERS
-• Total leads: ${metrics.total_leads}
-• Average AI score: ${metrics.avg_ai_score}
-• Conversions: ${metrics.total_conversions} (${metrics.conversion_rate})
-• Emails sent: ${metrics.emails_sent}
-• SMS sent: ${metrics.sms_sent}
-
-View the full report in your dashboard:
-${process.env.NEXT_PUBLIC_APP_URL}/reports
-
-— The Captivly.ai Team`,
+        html: reportCardEmail({
+          businessName: business.name,
+          ownerName: proUser.full_name ?? "there",
+          month: monthLabel,
+          summary: report.summary,
+          topInsight: report.top_insight,
+          recommendation: report.recommendation,
+          metrics: {
+            totalLeads: metrics.total_leads,
+            avgScore: metrics.avg_ai_score,
+            conversions: metrics.total_conversions,
+            conversionRate: metrics.conversion_rate,
+            emailsSent: metrics.emails_sent,
+            smsSent: metrics.sms_sent,
+          },
+          dashboardUrl: `${process.env.NEXT_PUBLIC_APP_URL}/reports`,
+        }),
       });
     } catch (err) {
       console.error(`Failed to email report card to ${proUser.email}:`, err);

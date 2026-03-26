@@ -5,6 +5,7 @@ import { validateInternalAuth } from "@/lib/internal-auth";
 import { getServiceClient } from "@/lib/supabase/service";
 import { PLAN_LIMITS } from "@/lib/constants";
 import { badRequest, notFound, forbidden, internalError } from "@/lib/error-handler";
+import { sequenceEmail } from "@/lib/email-templates";
 import type { PlanTier } from "@/types/database";
 
 interface SendRequest {
@@ -66,15 +67,16 @@ export async function POST(request: NextRequest) {
     }
   }
 
+  // Fetch business for branding (email) and usage checks (SMS)
+  const { data: business } = await supabase
+    .from("businesses")
+    .select("id, name, user_id")
+    .eq("id", lead.business_id)
+    .single();
+
   // Check usage limits for SMS
   if (step.channel === "sms") {
     const month = new Date().toISOString().slice(0, 7);
-
-    const { data: business } = await supabase
-      .from("businesses")
-      .select("id, user_id")
-      .eq("id", lead.business_id)
-      .single();
 
     if (business) {
       const { data: dbUser } = await supabase
@@ -111,7 +113,12 @@ export async function POST(request: NextRequest) {
         from: `Captivly.ai <noreply@${process.env.NEXT_PUBLIC_APP_URL?.replace("https://", "").replace("http://", "") ?? "captivly.ai"}>`,
         to: lead.email,
         subject: effectiveSubject ?? "You have a new message",
-        text: effectiveBody,
+        html: sequenceEmail({
+          businessName: business?.name ?? "Your Business",
+          subject: effectiveSubject ?? "You have a new message",
+          body: effectiveBody,
+          leadFirstName: lead.first_name ?? undefined,
+        }),
       });
 
       if (result.error) {

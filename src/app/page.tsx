@@ -304,6 +304,137 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* ───── Testimonials ───── */}
+      <section className="bg-blue-50 px-6 py-20">
+        <div className="mx-auto max-w-5xl">
+          <FadeIn className="text-center">
+            <h2 className="text-3xl font-bold tracking-tight text-slate-900">
+              Loved by local business owners
+            </h2>
+            <p className="mx-auto mt-4 max-w-xl text-slate-600">
+              See how Captivly is helping real businesses convert more leads on autopilot.
+            </p>
+          </FadeIn>
+
+          <div className="mt-14 grid gap-6 sm:grid-cols-3 stagger-children">
+            {[
+              {
+                quote:
+                  "We went from losing 80% of our leads to converting 3x more in the first month. Captivly basically runs our follow-up on autopilot.",
+                name: "Sarah Chen",
+                role: "Owner, FitZone Gym",
+                metric: "3x more conversions",
+              },
+              {
+                quote:
+                  "I used to spend hours every week chasing leads manually. Now I just check the dashboard each morning and Captivly handles the rest.",
+                name: "Marcus Johnson",
+                role: "Owner, Fresh Cuts Barbershop",
+                metric: "12 hrs/week saved",
+              },
+              {
+                quote:
+                  "The AI scoring is a game-changer. We know exactly which leads to prioritize, and the automated sequences close deals while we sleep.",
+                name: "Lisa Patel",
+                role: "Manager, HomeShield Plumbing",
+                metric: "47% reply rate",
+              },
+            ].map((t) => (
+              <FadeIn key={t.name}>
+                <div className="flex h-full flex-col rounded-xl border border-slate-200 bg-white p-6">
+                  <p className="flex-1 text-sm italic leading-relaxed text-slate-600">
+                    &ldquo;{t.quote}&rdquo;
+                  </p>
+                  <div className="mt-5 flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-semibold text-slate-900">{t.name}</p>
+                      <p className="text-xs text-slate-500">{t.role}</p>
+                    </div>
+                    <span className="rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-700">
+                      {t.metric}
+                    </span>
+                  </div>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ───── Before vs After ───── */}
+      <section className="bg-white px-6 py-20">
+        <div className="mx-auto max-w-4xl">
+          <FadeIn className="text-center">
+            <h2 className="text-3xl font-bold tracking-tight text-slate-900">
+              The difference is night and day
+            </h2>
+            <p className="mx-auto mt-4 max-w-xl text-slate-600">
+              Stop doing lead follow-up the hard way. Let AI handle it.
+            </p>
+          </FadeIn>
+
+          <div className="mt-14 grid gap-6 sm:grid-cols-2">
+            <FadeIn>
+              <div className="rounded-xl border border-red-200 bg-red-50 p-6">
+                <h3 className="text-lg font-semibold text-red-700">Without Captivly</h3>
+                <ul className="mt-5 space-y-3">
+                  {[
+                    "Leads go cold in hours",
+                    "Manual spreadsheet follow-up",
+                    "Generic one-size-fits-all messages",
+                    "No idea which leads are hot",
+                    "Missed follow-ups every day",
+                  ].map((item) => (
+                    <li key={item} className="flex items-start gap-2 text-sm text-red-700">
+                      <svg
+                        className="mt-0.5 h-4 w-4 shrink-0"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                        aria-hidden="true"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                      </svg>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </FadeIn>
+
+            <FadeIn>
+              <div className="rounded-xl border border-green-200 bg-green-50 p-6">
+                <h3 className="text-lg font-semibold text-green-700">With Captivly</h3>
+                <ul className="mt-5 space-y-3">
+                  {[
+                    "First contact in under 60 seconds",
+                    "Automated multi-step sequences",
+                    "AI-personalized emails and texts",
+                    "Every lead scored 1-10 instantly",
+                    "Zero leads fall through the cracks",
+                  ].map((item) => (
+                    <li key={item} className="flex items-start gap-2 text-sm text-green-700">
+                      <svg
+                        className="mt-0.5 h-4 w-4 shrink-0"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                        aria-hidden="true"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                      </svg>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </FadeIn>
+          </div>
+        </div>
+      </section>
+
       {/* ───── Social Proof — Animated Counters ───── */}
       <section className="relative overflow-hidden bg-slate-900 px-6 py-20">
         {/* Decorative gradient */}
