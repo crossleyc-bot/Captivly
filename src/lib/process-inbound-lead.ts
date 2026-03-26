@@ -133,6 +133,7 @@ export async function processInboundLead(data: InboundLeadData): Promise<Process
         source,
         payload: data.rawPayload,
         error_message: "Lead upsert returned no data",
+        business_id: businessId,
       });
     }
     return { saved: false, skipReason: "insert_failed" };

@@ -8,6 +8,7 @@ interface DeadLetterEntry {
   payload: Record<string, unknown>;
   error_message: string;
   retry_count?: number;
+  business_id?: string;
 }
 
 /**
@@ -24,6 +25,7 @@ export async function saveToDeadLetter(entry: DeadLetterEntry): Promise<void> {
     error_message: entry.error_message,
     retry_count: entry.retry_count ?? 0,
     status: "pending",
+    business_id: entry.business_id ?? null,
     created_at: new Date().toISOString(),
   });
 

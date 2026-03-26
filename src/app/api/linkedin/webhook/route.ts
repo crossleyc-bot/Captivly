@@ -98,6 +98,7 @@ export async function POST(request: NextRequest) {
       source: "linkedin",
       payload: body as unknown as Record<string, unknown>,
       error_message: "Lead insert failed",
+      business_id: business.id,
     });
   }
 

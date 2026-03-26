@@ -95,6 +95,7 @@ export async function POST(request: NextRequest) {
       source: "google",
       payload: leadPayload as unknown as Record<string, unknown>,
       error_message: "Lead insert failed",
+      business_id: business.id,
     });
   }
 

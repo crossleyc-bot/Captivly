@@ -156,6 +156,7 @@ export async function POST(request: NextRequest) {
           source: "meta",
           payload: { leadgen_id, page_id, form_id, fieldData },
           error_message: "Lead insert failed",
+          business_id: business.id,
         });
       }
     }
