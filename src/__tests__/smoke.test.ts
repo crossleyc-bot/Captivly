@@ -618,7 +618,7 @@ describe("Smoke Tests: Full Lead Lifecycle", () => {
         expect.objectContaining({
           to: "sarah@example.com",
           subject: "Welcome!",
-          text: "Hi Sarah!",
+          html: expect.stringContaining("Hi Sarah!"),
         })
       );
     });

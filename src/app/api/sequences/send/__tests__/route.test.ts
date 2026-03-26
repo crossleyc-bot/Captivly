@@ -166,7 +166,7 @@ describe("POST /api/sequences/send", () => {
       expect.objectContaining({
         to: "john@example.com",
         subject: "Welcome!",
-        text: "Hello John",
+        html: expect.stringContaining("Hello John"),
       })
     );
   });
