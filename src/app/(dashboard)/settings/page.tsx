@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { PLAN_LIMITS } from "@/lib/constants";
+import { requirePlan } from "@/lib/feature-gate";
 import type { PlanTier } from "@/types/database";
 import { BillingActions } from "./billing-actions";
 
@@ -38,6 +39,16 @@ export default async function SettingsPage() {
         .select("leads_count, sms_count, emails_count")
         .eq("business_id", business.id)
         .eq("month", month)
+        .single()
+    : { data: null };
+
+  // Fetch custom domain status for Pro users
+  const isPro = requirePlan(plan, "pro");
+  const { data: customDomain } = business && isPro
+    ? await supabase
+        .from("custom_domains")
+        .select("domain, verified, ssl_provisioned")
+        .eq("business_id", business.id)
         .single()
     : { data: null };
 
@@ -190,6 +201,45 @@ export default async function SettingsPage() {
             )}
           </div>
         </div>
+      </section>
+
+      {/* Branding */}
+      <section className="space-y-3">
+        <h2 className="text-lg font-semibold">Branding</h2>
+        <Link
+          href="/settings/domains"
+          className="flex items-center justify-between rounded-md border px-4 py-3 hover:bg-slate-50"
+        >
+          <div>
+            <p className="text-sm font-medium">Custom Domain</p>
+            <p className="text-xs text-slate-500">
+              {customDomain?.domain ? (
+                <>
+                  {customDomain.domain}
+                  {" — "}
+                  <span
+                    className={
+                      customDomain.verified && customDomain.ssl_provisioned
+                        ? "text-green-600"
+                        : "text-yellow-600"
+                    }
+                  >
+                    {customDomain.verified && customDomain.ssl_provisioned
+                      ? "Active"
+                      : customDomain.verified
+                        ? "SSL pending"
+                        : "Verification pending"}
+                  </span>
+                </>
+              ) : isPro ? (
+                "Not configured — set up your custom domain"
+              ) : (
+                "Pro plan required"
+              )}
+            </p>
+          </div>
+          <span className="text-slate-400">&rarr;</span>
+        </Link>
       </section>
 
       {/* Webhook Logs */}

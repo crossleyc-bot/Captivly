@@ -74,6 +74,10 @@ const AREA_CODE_STATE: Record<string, string> = {
   "972": "TX", "973": "NJ", "979": "TX", "980": "NC", "984": "NC",
 };
 
+// ---------------------------------------------------------------------------
+// Heuristic helpers (unchanged)
+// ---------------------------------------------------------------------------
+
 function classifyEmailDomain(email: string): {
   domain: string;
   type: LeadEnrichment["email_type"];
@@ -158,14 +162,252 @@ function detectEngagementSignals(lead: {
   return signals;
 }
 
+// ---------------------------------------------------------------------------
+// Third-party enrichment provider types
+// ---------------------------------------------------------------------------
+
+interface EnrichmentProviderResult {
+  source: "clearbit" | "apollo";
+  company_name: string | null;
+  company_domain: string | null;
+  company_size: string | null;
+  job_title: string | null;
+  industry: string | null;
+  linkedin_url: string | null;
+  annual_revenue: string | null;
+  social_profiles: Record<string, string>;
+  geo_city: string | null;
+  geo_state: string | null;
+  geo_zip: string | null;
+}
+
+interface EnrichmentProvider {
+  name: "clearbit" | "apollo";
+  enrich(params: {
+    email: string;
+    first_name: string | null;
+    last_name: string | null;
+  }): Promise<EnrichmentProviderResult | null>;
+}
+
+// ---------------------------------------------------------------------------
+// Clearbit enrichment provider
+// ---------------------------------------------------------------------------
+
+function formatClearbitRevenue(
+  raised: number | null | undefined,
+  range: { min: number | null; max: number | null } | null | undefined
+): string | null {
+  const min = range?.min ?? raised;
+  if (min == null) return null;
+  if (min < 1_000_000) return "$0-1M";
+  if (min < 10_000_000) return "$1-10M";
+  if (min < 50_000_000) return "$10-50M";
+  if (min < 100_000_000) return "$50-100M";
+  if (min < 500_000_000) return "$100-500M";
+  return "$500M+";
+}
+
+function formatClearbitEmployeeRange(
+  range: { min: number | null; max: number | null } | null | undefined,
+  count: number | null | undefined
+): string | null {
+  if (range?.min != null && range?.max != null) {
+    return `${range.min}-${range.max}`;
+  }
+  if (count != null) {
+    if (count <= 10) return "1-10";
+    if (count <= 50) return "11-50";
+    if (count <= 200) return "51-200";
+    if (count <= 500) return "201-500";
+    if (count <= 1000) return "501-1000";
+    return "1000+";
+  }
+  return null;
+}
+
+export const ClearbitEnrichmentProvider: EnrichmentProvider = {
+  name: "clearbit",
+
+  async enrich({ email }): Promise<EnrichmentProviderResult | null> {
+    const apiKey = process.env.CLEARBIT_API_KEY;
+    if (!apiKey) return null;
+
+    const url = `https://person.clearbit.com/v2/people/find?email=${encodeURIComponent(email)}`;
+
+    let response: Response;
+    try {
+      response = await fetch(url, {
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+        },
+      });
+    } catch {
+      // Network error — return null to fall back to heuristic
+      return null;
+    }
+
+    // 404 = person not found, 429 = rate limited — both are non-fatal
+    if (response.status === 404 || response.status === 429) {
+      return null;
+    }
+
+    if (!response.ok) {
+      return null;
+    }
+
+    let data: Record<string, unknown>;
+    try {
+      data = (await response.json()) as Record<string, unknown>;
+    } catch {
+      return null;
+    }
+
+    const person = data as Record<string, unknown>;
+    const company = (person.company ?? {}) as Record<string, unknown>;
+    const geo = (person.geo ?? {}) as Record<string, unknown>;
+    const employment = (person.employment ?? {}) as Record<string, unknown>;
+
+    const socialProfiles: Record<string, string> = {};
+    const linkedin = (person.linkedin as Record<string, unknown>)?.handle as string | undefined;
+    const twitter = (person.twitter as Record<string, unknown>)?.handle as string | undefined;
+    if (linkedin) socialProfiles.linkedin = `https://linkedin.com/in/${linkedin}`;
+    if (twitter) socialProfiles.twitter = `https://twitter.com/${twitter}`;
+
+    const linkedinUrl = linkedin
+      ? `https://linkedin.com/in/${linkedin}`
+      : (person.linkedinUrl as string | null) ?? null;
+
+    return {
+      source: "clearbit",
+      company_name: (company.name as string | null) ?? null,
+      company_domain: (company.domain as string | null) ?? null,
+      company_size: formatClearbitEmployeeRange(
+        company.employeesRange as { min: number | null; max: number | null } | undefined,
+        company.employees as number | undefined
+      ),
+      job_title: (employment.title as string | null) ?? null,
+      industry: (company.industry as string | null) ?? (company.sector as string | null) ?? null,
+      linkedin_url: linkedinUrl,
+      annual_revenue: formatClearbitRevenue(
+        company.raised as number | undefined,
+        company.revenueRange as { min: number | null; max: number | null } | undefined
+      ),
+      social_profiles: socialProfiles,
+      geo_city: (geo.city as string | null) ?? null,
+      geo_state: (geo.state as string | null) ?? null,
+      geo_zip: (geo.postalCode as string | null) ?? null,
+    };
+  },
+};
+
+// ---------------------------------------------------------------------------
+// Apollo enrichment provider
+// ---------------------------------------------------------------------------
+
+export const ApolloEnrichmentProvider: EnrichmentProvider = {
+  name: "apollo",
+
+  async enrich({ email, first_name, last_name }): Promise<EnrichmentProviderResult | null> {
+    const apiKey = process.env.APOLLO_API_KEY;
+    if (!apiKey) return null;
+
+    let response: Response;
+    try {
+      response = await fetch("https://api.apollo.io/api/v1/people/match", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Api-Key": apiKey,
+        },
+        body: JSON.stringify({
+          email,
+          first_name: first_name ?? undefined,
+          last_name: last_name ?? undefined,
+        }),
+      });
+    } catch {
+      return null;
+    }
+
+    if (!response.ok) {
+      return null;
+    }
+
+    let data: Record<string, unknown>;
+    try {
+      data = (await response.json()) as Record<string, unknown>;
+    } catch {
+      return null;
+    }
+
+    const person = (data.person ?? data) as Record<string, unknown>;
+    const org = (person.organization ?? {}) as Record<string, unknown>;
+
+    const socialProfiles: Record<string, string> = {};
+    if (person.linkedin_url) socialProfiles.linkedin = person.linkedin_url as string;
+    if (person.twitter_url) socialProfiles.twitter = person.twitter_url as string;
+
+    function formatApolloEmployeeRange(count: unknown): string | null {
+      if (typeof count !== "number" && typeof count !== "string") return null;
+      const n = Number(count);
+      if (isNaN(n)) return null;
+      if (n <= 10) return "1-10";
+      if (n <= 50) return "11-50";
+      if (n <= 200) return "51-200";
+      if (n <= 500) return "201-500";
+      if (n <= 1000) return "501-1000";
+      return "1000+";
+    }
+
+    function formatApolloRevenue(revenue: unknown): string | null {
+      if (typeof revenue !== "number" && typeof revenue !== "string") return null;
+      const n = Number(revenue);
+      if (isNaN(n)) return null;
+      if (n < 1_000_000) return "$0-1M";
+      if (n < 10_000_000) return "$1-10M";
+      if (n < 50_000_000) return "$10-50M";
+      if (n < 100_000_000) return "$50-100M";
+      if (n < 500_000_000) return "$100-500M";
+      return "$500M+";
+    }
+
+    return {
+      source: "apollo",
+      company_name: (org.name as string | null) ?? null,
+      company_domain: (org.primary_domain as string | null) ?? (org.website_url as string | null) ?? null,
+      company_size: (org.employee_count_range as string | null) ?? formatApolloEmployeeRange(org.estimated_num_employees),
+      job_title: (person.title as string | null) ?? null,
+      industry: (org.industry as string | null) ?? null,
+      linkedin_url: (person.linkedin_url as string | null) ?? null,
+      annual_revenue: (org.annual_revenue_printed as string | null) ?? formatApolloRevenue(org.annual_revenue),
+      social_profiles: socialProfiles,
+      geo_city: (person.city as string | null) ?? null,
+      geo_state: (person.state as string | null) ?? null,
+      geo_zip: null, // Apollo does not typically return zip
+    };
+  },
+};
+
+// ---------------------------------------------------------------------------
+// Provider selection
+// ---------------------------------------------------------------------------
+
 /**
- * Enrich a lead with derived data from their contact info.
- *
- * This uses heuristic/local analysis only. For production, integrate
- * with paid enrichment APIs (Clearbit, Apollo, ZoomInfo) for richer
- * data like job title, company size, social profiles, etc.
+ * Returns the best available enrichment provider based on configured API keys.
+ * Priority: Clearbit > Apollo > null (heuristic-only).
  */
-export function enrichLead(
+export function getEnrichmentProvider(): EnrichmentProvider | null {
+  if (process.env.CLEARBIT_API_KEY) return ClearbitEnrichmentProvider;
+  if (process.env.APOLLO_API_KEY) return ApolloEnrichmentProvider;
+  return null;
+}
+
+// ---------------------------------------------------------------------------
+// Heuristic enrichment (original logic, preserved intact)
+// ---------------------------------------------------------------------------
+
+function heuristicEnrich(
   lead: {
     first_name: string | null;
     last_name: string | null;
@@ -200,12 +442,103 @@ export function enrichLead(
     email_domain: emailInfo.domain,
     email_type: emailInfo.type,
     phone_type: phoneInfo.type,
-    geo_city: null, // Would come from a geo API
+    geo_city: null,
     geo_state: phoneInfo.state,
-    geo_zip: null, // Would come from a geo API
+    geo_zip: null,
     distance_miles: distance,
     name_confidence: nameConfidence,
     engagement_signals: signals,
+    enrichment_source: "heuristic",
+    company_name: null,
+    company_domain: null,
+    company_size: null,
+    job_title: null,
+    industry: null,
+    linkedin_url: null,
+    annual_revenue: null,
+    social_profiles: {},
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Main enrichment function
+// ---------------------------------------------------------------------------
+
+/**
+ * Enrich a lead with derived data from their contact info and, when available,
+ * third-party enrichment APIs (Clearbit, Apollo). Falls back to heuristic-only
+ * enrichment when no API key is configured or the API call fails.
+ */
+export async function enrichLead(
+  lead: {
+    first_name: string | null;
+    last_name: string | null;
+    email: string | null;
+    phone: string | null;
+    custom_answers: Record<string, unknown> | null;
+    source: string;
+  },
+  business: {
+    location_city: string | null;
+    location_state: string | null;
+  }
+): Promise<LeadEnrichment> {
+  // Always compute heuristic data — this provides email_type, phone_type,
+  // engagement_signals, name_confidence, etc.
+  const heuristic = heuristicEnrich(lead, business);
+
+  // Try third-party enrichment if an email is available
+  const provider = getEnrichmentProvider();
+  if (!provider || !lead.email) {
+    return heuristic;
+  }
+
+  let apiResult: EnrichmentProviderResult | null = null;
+  try {
+    apiResult = await provider.enrich({
+      email: lead.email,
+      first_name: lead.first_name,
+      last_name: lead.last_name,
+    });
+  } catch {
+    // API failure — fall back to heuristic silently
+    return heuristic;
+  }
+
+  if (!apiResult) {
+    return heuristic;
+  }
+
+  // Merge: API data takes precedence for location and company fields,
+  // heuristics still provide email_type, phone_type, engagement_signals, etc.
+  return {
+    // Heuristic-owned fields
+    email_domain: heuristic.email_domain,
+    email_type: heuristic.email_type,
+    phone_type: heuristic.phone_type,
+    name_confidence: heuristic.name_confidence,
+    engagement_signals: heuristic.engagement_signals,
+
+    // Location: API takes precedence, fall back to heuristic
+    geo_city: apiResult.geo_city ?? heuristic.geo_city,
+    geo_state: apiResult.geo_state ?? heuristic.geo_state,
+    geo_zip: apiResult.geo_zip ?? heuristic.geo_zip,
+
+    // Distance: re-calculate if API gave us a state
+    distance_miles: apiResult.geo_state
+      ? estimateDistance(apiResult.geo_state, business.location_city, business.location_state)
+      : heuristic.distance_miles,
+
+    // API-provided fields
+    enrichment_source: apiResult.source,
+    company_name: apiResult.company_name,
+    company_domain: apiResult.company_domain,
+    company_size: apiResult.company_size,
+    job_title: apiResult.job_title,
+    industry: apiResult.industry,
+    linkedin_url: apiResult.linkedin_url,
+    annual_revenue: apiResult.annual_revenue,
+    social_profiles: apiResult.social_profiles,
   };
 }
 
@@ -217,6 +550,8 @@ export function formatEnrichmentForScoring(
 ): string {
   const lines: string[] = [];
 
+  lines.push(`Enrichment source: ${enrichment.enrichment_source}`);
+
   if (enrichment.email_type !== "unknown") {
     lines.push(`Email type: ${enrichment.email_type} (${enrichment.email_domain ?? "unknown domain"})`);
   }
@@ -225,8 +560,11 @@ export function formatEnrichmentForScoring(
     lines.push(`Phone type: ${enrichment.phone_type}`);
   }
 
-  if (enrichment.geo_state) {
-    lines.push(`Estimated location: ${enrichment.geo_state}`);
+  if (enrichment.geo_city || enrichment.geo_state) {
+    const locationParts: string[] = [];
+    if (enrichment.geo_city) locationParts.push(enrichment.geo_city);
+    if (enrichment.geo_state) locationParts.push(enrichment.geo_state);
+    lines.push(`Estimated location: ${locationParts.join(", ")}`);
   }
 
   if (enrichment.distance_miles !== null) {
@@ -241,6 +579,32 @@ export function formatEnrichmentForScoring(
     lines.push(
       `Engagement signals: ${enrichment.engagement_signals.join(", ")}`
     );
+  }
+
+  // Third-party enrichment fields
+  if (enrichment.company_name) {
+    lines.push(`Company: ${enrichment.company_name}`);
+  }
+  if (enrichment.company_size) {
+    lines.push(`Company size: ${enrichment.company_size} employees`);
+  }
+  if (enrichment.industry) {
+    lines.push(`Industry: ${enrichment.industry}`);
+  }
+  if (enrichment.job_title) {
+    lines.push(`Job title: ${enrichment.job_title}`);
+  }
+  if (enrichment.annual_revenue) {
+    lines.push(`Annual revenue: ${enrichment.annual_revenue}`);
+  }
+  if (enrichment.linkedin_url) {
+    lines.push(`LinkedIn: ${enrichment.linkedin_url}`);
+  }
+  if (Object.keys(enrichment.social_profiles).length > 0) {
+    const profiles = Object.entries(enrichment.social_profiles)
+      .map(([platform, url]) => `${platform}: ${url}`)
+      .join(", ");
+    lines.push(`Social profiles: ${profiles}`);
   }
 
   return lines.join("\n");

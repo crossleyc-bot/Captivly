@@ -91,7 +91,7 @@ export function CreateReferralLink() {
         <div className="mt-3 rounded-md bg-green-50 p-3">
           <p className="text-sm font-medium text-green-800">Link created!</p>
           <p className="mt-1 text-sm font-mono text-green-700 break-all">
-            {appUrl}?ref={result.code}
+            {appUrl}/refer/{result.code}
           </p>
         </div>
       )}

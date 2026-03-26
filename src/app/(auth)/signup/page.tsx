@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { Logo } from "@/components/logo";
@@ -33,6 +33,8 @@ function getPasswordStrength(password: string): {
 
 export default function SignupPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const referralCode = searchParams.get("ref");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [confirmEmail, setConfirmEmail] = useState<string | null>(null);
@@ -75,6 +77,16 @@ export default function SignupPage() {
     }
 
     // The public.users row is created automatically by a database trigger
+
+    // Attribute referral if a ref code is present
+    if (referralCode) {
+      fetch("/api/referrals/attribute", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ referral_code: referralCode }),
+      }).catch(() => {});
+    }
+
     if (data.session) {
       // Email confirmation disabled — user is fully authenticated
       router.push("/onboarding");
@@ -151,6 +163,11 @@ export default function SignupPage() {
             Get started with automated lead generation.
           </p>
         </div>
+        {referralCode && (
+          <div className="rounded-md bg-blue-50 px-3 py-2 text-center text-sm text-blue-700">
+            You were referred! Your referral will be tracked automatically.
+          </div>
+        )}
         <form onSubmit={handleSubmit} className="space-y-4">
           {error && (
             <div className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-700">

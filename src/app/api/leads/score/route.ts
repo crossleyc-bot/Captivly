@@ -3,6 +3,7 @@ import { getAnthropicClient, AI_MODEL } from "@/lib/anthropic";
 import { validateInternalAuth } from "@/lib/internal-auth";
 import { getServiceClient } from "@/lib/supabase/service";
 import { enrichLead, formatEnrichmentForScoring } from "@/lib/lead-enrichment";
+import type { LeadEnrichment } from "@/types/database";
 import { badRequest, notFound, internalError } from "@/lib/error-handler";
 import type Anthropic from "@anthropic-ai/sdk";
 
@@ -45,21 +46,26 @@ export async function POST(request: NextRequest) {
     return notFound("Business not found");
   }
 
-  // Enrich lead with derived data
-  const enrichment = enrichLead(
-    {
-      first_name: lead.first_name,
-      last_name: lead.last_name,
-      email: lead.email,
-      phone: lead.phone,
-      custom_answers: lead.custom_answers,
-      source: lead.source,
-    },
-    {
-      location_city: business.location_city,
-      location_state: business.location_state,
-    }
-  );
+  // Enrich lead with derived data (may call third-party APIs)
+  let enrichment: LeadEnrichment;
+  try {
+    enrichment = await enrichLead(
+      {
+        first_name: lead.first_name,
+        last_name: lead.last_name,
+        email: lead.email,
+        phone: lead.phone,
+        custom_answers: lead.custom_answers,
+        source: lead.source,
+      },
+      {
+        location_city: business.location_city,
+        location_state: business.location_state,
+      }
+    );
+  } catch {
+    return internalError("Lead enrichment failed");
+  }
 
   // Save enrichment data
   await supabase
@@ -80,7 +86,9 @@ Consider these factors in order of importance:
 2. Contact quality (email type, phone type, name confidence)
 3. Engagement signals (form completeness, custom answers)
 4. Demographic fit with target audience
-5. Red flags (disposable email, missing contact info)
+5. Company information when available (company name, size, industry, revenue) — larger or relevant-industry companies may indicate higher purchasing power for B2C services
+6. Professional profile when available (job title, LinkedIn presence) — indicates a real, reachable person with verifiable identity
+7. Red flags (disposable email, missing contact info)
 
 Return ONLY valid JSON: { "score": number, "reason": string }`;
 

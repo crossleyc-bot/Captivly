@@ -104,6 +104,15 @@ export interface LeadEnrichment {
   distance_miles: number | null;
   name_confidence: "high" | "medium" | "low";
   engagement_signals: string[];
+  enrichment_source: "clearbit" | "apollo" | "heuristic";
+  company_name: string | null;
+  company_domain: string | null;
+  company_size: string | null;
+  job_title: string | null;
+  industry: string | null;
+  linkedin_url: string | null;
+  annual_revenue: string | null;
+  social_profiles: Record<string, string>;
 }
 
 export interface Sequence {
