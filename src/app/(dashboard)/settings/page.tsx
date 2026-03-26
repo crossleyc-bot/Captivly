@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import { PLAN_LIMITS } from "@/lib/constants";
 import type { PlanTier } from "@/types/database";
 import { BillingActions } from "./billing-actions";
@@ -189,6 +190,23 @@ export default async function SettingsPage() {
             )}
           </div>
         </div>
+      </section>
+
+      {/* Webhook Logs */}
+      <section className="space-y-3">
+        <h2 className="text-lg font-semibold">Developer</h2>
+        <Link
+          href="/settings/webhooks"
+          className="flex items-center justify-between rounded-md border px-4 py-3 hover:bg-slate-50"
+        >
+          <div>
+            <p className="text-sm font-medium">Webhook Logs</p>
+            <p className="text-xs text-slate-500">
+              View and retry failed webhook deliveries
+            </p>
+          </div>
+          <span className="text-slate-400">&rarr;</span>
+        </Link>
       </section>
 
       {/* Billing actions */}
