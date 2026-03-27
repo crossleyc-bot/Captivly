@@ -1,0 +1,10 @@
+node_modules
+.next
+.git
+*.md
+e2e
+src/**/__tests__
+src/**/*.test.ts
+.env*
+!.env.local.example
+supabase
