@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import * as Sentry from "@sentry/nextjs";
 import { logger } from "@/lib/logger";
 
 interface ApiErrorBody {
@@ -55,6 +56,10 @@ export function handleApiError(
   logger.error(`API error in ${context}`, {
     error: error instanceof Error ? error.message : String(error),
     stack: error instanceof Error ? error.stack : undefined,
+  });
+
+  Sentry.captureException(error, {
+    extra: { context },
   });
 
   return internalError();

@@ -1,3 +1,5 @@
+import * as Sentry from "@sentry/nextjs";
+
 type LogLevel = "debug" | "info" | "warn" | "error";
 
 interface LogEntry {
@@ -52,6 +54,21 @@ function log(
   };
 
   const output = isProduction() ? JSON.stringify(entry) : formatDev(entry);
+
+  // Report errors and warnings to Sentry in production
+  if (isProduction()) {
+    if (level === "error") {
+      const errorObj = meta?.error instanceof Error ? meta.error : new Error(message);
+      Sentry.captureException(errorObj, {
+        extra: meta,
+      });
+    } else if (level === "warn") {
+      Sentry.captureMessage(message, {
+        level: "warning",
+        extra: meta,
+      });
+    }
+  }
 
   switch (level) {
     case "error":
