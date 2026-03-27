@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import { SubmitTicketForm } from "./submit-ticket-form";
 import { ticketStatusBadge, ticketUrgencyColor } from "@/lib/ui-utils";
 import type { SupportTicket } from "@/types/database";
@@ -41,7 +42,7 @@ export default async function SupportPage() {
         ) : (
           <div className="space-y-3">
             {typedTickets.map((ticket) => (
-              <div key={ticket.id} className="rounded-lg border px-4 py-3">
+              <Link key={ticket.id} href={`/support/${ticket.id}`} className="block rounded-lg border px-4 py-3 transition-colors hover:border-slate-400 hover:bg-slate-50">
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0 flex-1">
                     <p className="text-sm font-medium text-slate-900">{ticket.subject}</p>
@@ -67,7 +68,7 @@ export default async function SupportPage() {
                     minute: "2-digit",
                   })}
                 </p>
-              </div>
+              </Link>
             ))}
           </div>
         )}
