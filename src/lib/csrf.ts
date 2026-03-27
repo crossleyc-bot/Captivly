@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
-import { randomBytes } from "crypto";
 
 const CSRF_COOKIE = "csrf_token";
 const CSRF_HEADER = "x-csrf-token";
 
-/** Generate a random CSRF token. */
+/** Generate a random CSRF token using the Web Crypto API (Edge-compatible). */
 export function generateCsrfToken(): string {
-  return randomBytes(32).toString("hex");
+  const bytes = new Uint8Array(32);
+  crypto.getRandomValues(bytes);
+  return Array.from(bytes, (b) => b.toString(16).padStart(2, "0")).join("");
 }
 
 /**
