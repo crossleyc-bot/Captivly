@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getStripe } from "@/lib/stripe";
 import type Stripe from "stripe";
 import { getServiceClient } from "@/lib/supabase/service";
+import { logger } from "@/lib/logger";
 
 function planFromPriceId(priceId: string): string {
   const prices: Record<string, string> = {
@@ -10,6 +11,33 @@ function planFromPriceId(priceId: string): string {
     [process.env.STRIPE_PRICE_PRO!]: "pro",
   };
   return prices[priceId] ?? "starter";
+}
+
+async function deactivateProFeatures(
+  serviceClient: ReturnType<typeof getServiceClient>,
+  userId: string
+): Promise<void> {
+  const { data: business } = await serviceClient
+    .from("businesses")
+    .select("id")
+    .eq("user_id", userId)
+    .single();
+
+  if (!business) return;
+
+  await serviceClient
+    .from("white_label_config")
+    .update({
+      hide_captivly_branding: false,
+      custom_domain: null,
+      custom_domain_verified: false,
+    })
+    .eq("business_id", business.id);
+
+  await serviceClient
+    .from("custom_domains")
+    .update({ verified: false, ssl_provisioned: false })
+    .eq("business_id", business.id);
 }
 
 export async function POST(request: NextRequest) {
@@ -32,6 +60,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
   }
 
+  const serviceClient = getServiceClient();
+
   switch (event.type) {
     case "checkout.session.completed": {
       const session = event.data.object as Stripe.Checkout.Session;
@@ -48,15 +78,28 @@ export async function POST(request: NextRequest) {
       if (userId) {
         const priceId = subscription.items.data[0]?.price.id;
         const plan = planFromPriceId(priceId);
+        const customerId =
+          (typeof subscription.customer === "string"
+            ? subscription.customer
+            : subscription.customer?.id) ??
+          (session.customer as string | null);
 
-        await getServiceClient()
+        const { error } = await serviceClient
           .from("users")
           .update({
+            stripe_customer_id: customerId ?? undefined,
             stripe_subscription_id: subscription.id,
             plan_tier: plan,
             subscription_status: "active",
           })
           .eq("id", userId);
+
+        if (error) {
+          logger.error("Stripe webhook: failed to update user on checkout", {
+            userId,
+            error: error.message,
+          });
+        }
       }
       break;
     }
@@ -78,7 +121,6 @@ export async function POST(request: NextRequest) {
       };
 
       // Check if downgrading from Pro — deactivate Phase 4 features
-      const serviceClient = getServiceClient();
       const { data: currentUser } = await serviceClient
         .from("users")
         .select("plan_tier")
@@ -88,7 +130,7 @@ export async function POST(request: NextRequest) {
       const wasOnPro = currentUser?.plan_tier === "pro";
       const isNowPro = plan === "pro";
 
-      await serviceClient
+      const { error } = await serviceClient
         .from("users")
         .update({
           plan_tier: plan,
@@ -96,31 +138,15 @@ export async function POST(request: NextRequest) {
         })
         .eq("id", userId);
 
-      // If downgrading from Pro, deactivate white-label and custom domains
+      if (error) {
+        logger.error("Stripe webhook: failed to update user on subscription change", {
+          userId,
+          error: error.message,
+        });
+      }
+
       if (wasOnPro && !isNowPro) {
-        const { data: business } = await serviceClient
-          .from("businesses")
-          .select("id")
-          .eq("user_id", userId)
-          .single();
-
-        if (business) {
-          // Reset white-label branding to defaults
-          await serviceClient
-            .from("white_label_config")
-            .update({
-              hide_captivly_branding: false,
-              custom_domain: null,
-              custom_domain_verified: false,
-            })
-            .eq("business_id", business.id);
-
-          // Unverify custom domains (keep records for re-upgrade)
-          await serviceClient
-            .from("custom_domains")
-            .update({ verified: false, ssl_provisioned: false })
-            .eq("business_id", business.id);
-        }
+        await deactivateProFeatures(serviceClient, userId);
       }
       break;
     }
@@ -130,8 +156,6 @@ export async function POST(request: NextRequest) {
       const userId = subscription.metadata.supabase_user_id;
       if (!userId) break;
 
-      const serviceClient = getServiceClient();
-
       // Check if was on Pro before cancellation
       const { data: cancelledUser } = await serviceClient
         .from("users")
@@ -139,7 +163,7 @@ export async function POST(request: NextRequest) {
         .eq("id", userId)
         .single();
 
-      await serviceClient
+      const { error } = await serviceClient
         .from("users")
         .update({
           plan_tier: "starter",
@@ -148,29 +172,15 @@ export async function POST(request: NextRequest) {
         })
         .eq("id", userId);
 
-      // Deactivate Phase 4 features if was on Pro
+      if (error) {
+        logger.error("Stripe webhook: failed to update user on subscription delete", {
+          userId,
+          error: error.message,
+        });
+      }
+
       if (cancelledUser?.plan_tier === "pro") {
-        const { data: business } = await serviceClient
-          .from("businesses")
-          .select("id")
-          .eq("user_id", userId)
-          .single();
-
-        if (business) {
-          await serviceClient
-            .from("white_label_config")
-            .update({
-              hide_captivly_branding: false,
-              custom_domain: null,
-              custom_domain_verified: false,
-            })
-            .eq("business_id", business.id);
-
-          await serviceClient
-            .from("custom_domains")
-            .update({ verified: false, ssl_provisioned: false })
-            .eq("business_id", business.id);
-        }
+        await deactivateProFeatures(serviceClient, userId);
       }
       break;
     }
@@ -179,16 +189,40 @@ export async function POST(request: NextRequest) {
       const invoice = event.data.object as Stripe.Invoice;
       const customerId = invoice.customer as string;
 
-      const { data: dbUser } = await getServiceClient()
+      const { data: dbUser } = await serviceClient
         .from("users")
         .select("id")
         .eq("stripe_customer_id", customerId)
         .single();
 
       if (dbUser) {
-        await getServiceClient()
+        await serviceClient
           .from("users")
           .update({ subscription_status: "past_due" })
+          .eq("id", dbUser.id);
+      } else {
+        logger.error("Stripe webhook: no user found for failed invoice", {
+          customerId,
+        });
+      }
+      break;
+    }
+
+    case "invoice.payment_succeeded": {
+      const invoice = event.data.object as Stripe.Invoice;
+      const customerId = invoice.customer as string;
+
+      // Only restore status if the user is currently past_due
+      const { data: dbUser } = await serviceClient
+        .from("users")
+        .select("id, subscription_status")
+        .eq("stripe_customer_id", customerId)
+        .single();
+
+      if (dbUser?.subscription_status === "past_due") {
+        await serviceClient
+          .from("users")
+          .update({ subscription_status: "active" })
           .eq("id", dbUser.id);
       }
       break;
