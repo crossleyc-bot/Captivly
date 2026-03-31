@@ -47,7 +47,8 @@ export async function POST(request: NextRequest) {
   }
 
   // Enrich lead with derived data (may call third-party APIs)
-  let enrichment: LeadEnrichment;
+  // Enrichment failure should not block scoring — score with whatever data we have
+  let enrichment: LeadEnrichment | null = null;
   try {
     enrichment = await enrichLead(
       {
@@ -63,21 +64,23 @@ export async function POST(request: NextRequest) {
         location_state: business.location_state,
       }
     );
-  } catch {
-    return internalError("Lead enrichment failed");
+  } catch (err) {
+    console.warn("Lead enrichment failed, scoring without enrichment data:", err instanceof Error ? err.message : err);
   }
 
-  // Save enrichment data
-  await supabase
-    .from("leads")
-    .update({
-      enrichment_data: enrichment,
-      enriched_at: new Date().toISOString(),
-    })
-    .eq("id", lead_id);
+  // Save enrichment data if available
+  if (enrichment) {
+    await supabase
+      .from("leads")
+      .update({
+        enrichment_data: enrichment,
+        enriched_at: new Date().toISOString(),
+      })
+      .eq("id", lead_id);
+  }
 
   const client = getAnthropicClient();
-  const enrichmentText = formatEnrichmentForScoring(enrichment);
+  const enrichmentText = enrichment ? formatEnrichmentForScoring(enrichment) : "No enrichment data available";
 
   const systemPrompt = `You are a lead quality analyst for a local business. Given a lead's info, enrichment data, and the business's target profile, score this lead from 1 to 10 (10 = perfect match, 1 = poor match).
 

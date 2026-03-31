@@ -89,7 +89,7 @@ export default async function ChatWidgetPage() {
           accent_color: config.accent_color,
           position: config.position,
         }}
-        embedCode={`<script src="${appUrl}/widget-loader.js" data-business-id="${business.id}"></script>`}
+        embedCode={`<script src="${appUrl}/widget-loader.js" data-business-id="${business.id}" data-position="${config.position ?? "bottom-right"}" data-color="${config.accent_color ?? "#18181b"}"></script>`}
       />
     </div>
   );

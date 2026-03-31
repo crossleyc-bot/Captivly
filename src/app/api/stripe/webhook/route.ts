@@ -75,7 +75,16 @@ export async function POST(request: NextRequest) {
         subscription.metadata?.supabase_user_id ??
         session.metadata?.supabase_user_id;
 
-      if (userId) {
+      if (!userId) {
+        logger.error("Stripe webhook: checkout.session.completed missing supabase_user_id in metadata", {
+          sessionId: session.id,
+          subscriptionId: subscription.id,
+          customerId: session.customer,
+        });
+        break;
+      }
+
+      {
         const priceId = subscription.items.data[0]?.price.id;
         const plan = planFromPriceId(priceId);
         const customerId =
@@ -118,6 +127,9 @@ export async function POST(request: NextRequest) {
         canceled: "canceled",
         unpaid: "past_due",
         trialing: "active",
+        incomplete: "inactive",
+        incomplete_expired: "canceled",
+        paused: "inactive",
       };
 
       // Check if downgrading from Pro — deactivate Phase 4 features
@@ -130,11 +142,20 @@ export async function POST(request: NextRequest) {
       const wasOnPro = currentUser?.plan_tier === "pro";
       const isNowPro = plan === "pro";
 
+      const mappedStatus = statusMap[subscription.status];
+      if (!mappedStatus) {
+        logger.warn("Stripe webhook: unmapped subscription status", {
+          userId,
+          stripeStatus: subscription.status,
+          defaultingTo: "inactive",
+        });
+      }
+
       const { error } = await serviceClient
         .from("users")
         .update({
           plan_tier: plan,
-          subscription_status: statusMap[subscription.status] ?? "inactive",
+          subscription_status: mappedStatus ?? "inactive",
         })
         .eq("id", userId);
 

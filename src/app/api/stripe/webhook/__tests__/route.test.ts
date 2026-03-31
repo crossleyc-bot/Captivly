@@ -329,13 +329,32 @@ describe("POST /api/stripe/webhook", () => {
       expect(user?.subscription_status).toBe("active");
     });
 
-    it("maps unknown Stripe status to inactive", async () => {
+    it("maps incomplete_expired Stripe status to canceled", async () => {
       mockConstructEvent.mockReturnValue({
         type: "customer.subscription.updated",
         data: {
           object: {
             metadata: { supabase_user_id: "user-1" },
             status: "incomplete_expired",
+            items: { data: [{ price: { id: "price_growth" } }] },
+          },
+        },
+      });
+
+      const res = await POST(createRequest("{}", "valid_sig"));
+      expect(res.status).toBe(200);
+
+      const user = db.users.get("user-1");
+      expect(user?.subscription_status).toBe("canceled");
+    });
+
+    it("maps truly unknown Stripe status to inactive", async () => {
+      mockConstructEvent.mockReturnValue({
+        type: "customer.subscription.updated",
+        data: {
+          object: {
+            metadata: { supabase_user_id: "user-1" },
+            status: "some_future_status",
             items: { data: [{ price: { id: "price_growth" } }] },
           },
         },

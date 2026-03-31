@@ -12,6 +12,7 @@
 
   var businessId = script.getAttribute("data-business-id");
   var position = script.getAttribute("data-position") || "bottom-right";
+  var color = script.getAttribute("data-color") || "#18181b";
   var baseUrl = script.src.replace("/widget-loader.js", "");
 
   if (!businessId) {
@@ -28,7 +29,7 @@
   btn.style.cssText =
     "position:fixed;bottom:20px;" +
     (position === "bottom-left" ? "left:20px;" : "right:20px;") +
-    "z-index:99999;width:56px;height:56px;border-radius:50%;border:none;background:#18181b;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.15);transition:transform .2s;";
+    "z-index:99999;width:56px;height:56px;border-radius:50%;border:none;background:" + color + ";color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.15);transition:transform .2s;";
 
   btn.addEventListener("mouseenter", function () {
     btn.style.transform = "scale(1.1)";

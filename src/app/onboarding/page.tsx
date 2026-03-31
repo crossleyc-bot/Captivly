@@ -194,13 +194,19 @@ export default function OnboardingPage() {
       return;
     }
 
-    // Fire-and-forget: auto-generate a starter campaign + sequence
-    fetchWithCsrf("/api/onboarding/auto-campaign", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-    }).catch(() => {
-      // Auto-generation failure shouldn't block onboarding
-    });
+    // Auto-generate a starter campaign + sequence
+    try {
+      const campaignRes = await fetchWithCsrf("/api/onboarding/auto-campaign", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+      if (!campaignRes.ok) {
+        console.warn("Auto-campaign generation failed, user can create manually");
+      }
+    } catch {
+      // Non-blocking: user can create campaigns manually from dashboard
+      console.warn("Auto-campaign generation failed, user can create manually");
+    }
 
     // Redirect to Stripe checkout if a paid plan was selected
     const res = await fetchWithCsrf("/api/stripe/create-checkout", {

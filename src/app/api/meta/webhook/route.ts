@@ -49,13 +49,16 @@ export async function POST(request: NextRequest) {
   let body: MetaWebhookBody;
   const signature = request.headers.get("x-hub-signature-256");
   const appSecret = process.env.META_APP_SECRET;
-  // In production, always require signature verification
-  if (!appSecret && process.env.NODE_ENV === "production") {
-    console.error("META_APP_SECRET is not configured in production");
-    return NextResponse.json({ error: "Server misconfigured" }, { status: 500 });
-  }
-
-  if (appSecret) {
+  // Always require META_APP_SECRET in production
+  if (!appSecret) {
+    if (process.env.NODE_ENV === "production") {
+      console.error("META_APP_SECRET is not configured in production");
+      return NextResponse.json({ error: "Server misconfigured" }, { status: 500 });
+    }
+    // Development only: allow unsigned requests
+    console.warn("META_APP_SECRET not set — accepting unsigned webhook (dev only)");
+    body = await request.json();
+  } else {
     if (!signature) {
       return NextResponse.json({ error: "Missing signature" }, { status: 403 });
     }
@@ -75,9 +78,6 @@ export async function POST(request: NextRequest) {
     } catch {
       return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
     }
-  } else {
-    // Development only: allow unsigned requests
-    body = await request.json();
   }
 
   // Must respond 200 quickly to Meta

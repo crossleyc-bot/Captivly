@@ -462,7 +462,7 @@ describe("E2E: Stripe Subscription Lifecycle", () => {
         { stripeStatus: "canceled", expected: "canceled" },
         { stripeStatus: "unpaid", expected: "past_due" },
         { stripeStatus: "trialing", expected: "active" },
-        { stripeStatus: "incomplete_expired", expected: "inactive" },
+        { stripeStatus: "incomplete_expired", expected: "canceled" },
       ];
 
       for (const { stripeStatus, expected } of statusTests) {

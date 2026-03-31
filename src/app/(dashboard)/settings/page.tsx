@@ -32,19 +32,19 @@ export default async function SettingsPage() {
     .eq("user_id", user.id)
     .single();
 
+  if (!business) redirect("/onboarding");
+
   const month = new Date().toISOString().slice(0, 7);
-  const { data: usage } = business
-    ? await supabase
-        .from("usage_tracking")
-        .select("leads_count, sms_count, emails_count")
-        .eq("business_id", business.id)
-        .eq("month", month)
-        .single()
-    : { data: null };
+  const { data: usage } = await supabase
+    .from("usage_tracking")
+    .select("leads_count, sms_count, emails_count")
+    .eq("business_id", business.id)
+    .eq("month", month)
+    .single();
 
   // Fetch custom domain status for Pro users
   const isPro = requirePlan(plan, "pro");
-  const { data: customDomain } = business && isPro
+  const { data: customDomain } = isPro
     ? await supabase
         .from("custom_domains")
         .select("domain, verified, ssl_provisioned")
